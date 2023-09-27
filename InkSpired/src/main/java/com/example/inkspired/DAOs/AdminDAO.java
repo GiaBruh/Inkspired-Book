@@ -1,4 +1,5 @@
 package com.example.inkspired.DAOs;
 
-public class AccountDAO {
+public class AdminDAO {
+
 }
