@@ -4,20 +4,22 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class User implements Serializable {
-    private int id;
+    private int user_id;
     private String email_address;
     private String username;
     private String password;
     private String full_name;
+    private String gender;
     private Date birthday;
     private String phone_number;
+    private String user_image;
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return user_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getEmail_address() {
@@ -68,16 +70,34 @@ public class User implements Serializable {
         this.phone_number = phone_number;
     }
 
+    public String getUser_image() {
+        return user_image;
+    }
+
+    public void setUser_image(String user_image) {
+        this.user_image = user_image;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "user_id=" + user_id +
                 ", email_address='" + email_address + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", full_name='" + full_name + '\'' +
+                ", gender='" + gender + '\'' +
                 ", birthday=" + birthday +
                 ", phone_number='" + phone_number + '\'' +
+                ", user_image='" + user_image + '\'' +
                 '}';
     }
 }

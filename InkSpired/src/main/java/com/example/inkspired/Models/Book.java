@@ -6,6 +6,7 @@ import java.sql.Date;
 public class Book implements Serializable {
     private int book_id;
     private String title;
+    private String book_image;
     private Date publication_date;
     private int quantity;
     private int price;
@@ -77,6 +78,14 @@ public class Book implements Serializable {
         this.is_available = is_available;
     }
 
+    public String getBook_image() {
+        return book_image;
+    }
+
+    public void setBook_image(String book_image) {
+        this.book_image = book_image;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -88,6 +97,7 @@ public class Book implements Serializable {
                 ", author_id=" + author_id +
                 ", publisher_id=" + publisher_id +
                 ", is_available=" + is_available +
+                ", book_image='" + book_image + '\'' +
                 '}';
     }
 }

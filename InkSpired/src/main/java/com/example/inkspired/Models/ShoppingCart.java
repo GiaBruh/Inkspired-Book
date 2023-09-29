@@ -3,17 +3,17 @@ package com.example.inkspired.Models;
 import java.io.Serializable;
 
 public class ShoppingCart implements Serializable {
-    private int shopping_card_id;
+    private int shopping_cart_id;
     private int user_id;
     private int book_id;
     private int quantity;
 
     public int getShopping_card_id() {
-        return shopping_card_id;
+        return shopping_cart_id;
     }
 
-    public void setShopping_card_id(int shopping_card_id) {
-        this.shopping_card_id = shopping_card_id;
+    public void setShopping_card_id(int shopping_cart_id) {
+        this.shopping_cart_id = shopping_cart_id;
     }
 
     public int getUser_id() {
@@ -43,7 +43,7 @@ public class ShoppingCart implements Serializable {
     @Override
     public String toString() {
         return "ShoppingCart{" +
-                "shopping_card_id=" + shopping_card_id +
+                "shopping_card_id=" + shopping_cart_id +
                 ", user_id=" + user_id +
                 ", book_id=" + book_id +
                 ", quantity=" + quantity +

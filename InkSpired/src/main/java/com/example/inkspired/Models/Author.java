@@ -2,10 +2,10 @@ package com.example.inkspired.Models;
 
 import java.io.Serializable;
 
-public class Admin implements Serializable {
+public class Author implements Serializable {
     private int author_id;
     private String author_fullname;
-    private String description;
+    private String author_description;
     private String author_image;
 
     public int getAuthor_id() {
@@ -24,12 +24,12 @@ public class Admin implements Serializable {
         this.author_fullname = author_fullname;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAuthorDescription() {
+        return author_description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAuthorDescription(String author_description) {
+        this.author_description = author_description;
     }
 
     public String getImage() {
@@ -42,10 +42,10 @@ public class Admin implements Serializable {
 
     @Override
     public String toString() {
-        return "Admin{" +
+        return "Author{" +
                 "author_id=" + author_id +
                 ", author_fullname='" + author_fullname + '\'' +
-                ", description='" + description + '\'' +
+                ", author_description='" + author_description + '\'' +
                 ", image='" + author_image + '\'' +
                 '}';
     }
