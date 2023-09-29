@@ -6,7 +6,7 @@ public class Admin implements Serializable {
     private int author_id;
     private String author_fullname;
     private String description;
-    private String image;
+    private String author_image;
 
     public int getAuthor_id() {
         return author_id;
@@ -33,11 +33,11 @@ public class Admin implements Serializable {
     }
 
     public String getImage() {
-        return image;
+        return author_image;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImage(String author_image) {
+        this.author_image = author_image;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Admin implements Serializable {
                 "author_id=" + author_id +
                 ", author_fullname='" + author_fullname + '\'' +
                 ", description='" + description + '\'' +
-                ", image='" + image + '\'' +
+                ", image='" + author_image + '\'' +
                 '}';
     }
 }
