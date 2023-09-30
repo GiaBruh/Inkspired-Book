@@ -9,7 +9,7 @@ public class Book implements Serializable {
     private String book_image;
     private Date publication_date;
     private int quantity;
-    private int price;
+    private long price;
     private int author_id;
     private int publisher_id;
     private boolean is_available;
@@ -46,11 +46,11 @@ public class Book implements Serializable {
         this.quantity = quantity;
     }
 
-    public int getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 

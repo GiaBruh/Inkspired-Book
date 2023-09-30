@@ -24,19 +24,19 @@ public class Author implements Serializable {
         this.author_fullname = author_fullname;
     }
 
-    public String getAuthorDescription() {
+    public String getAuthor_description() {
         return author_description;
     }
 
-    public void setAuthorDescription(String author_description) {
+    public void setAuthor_description(String author_description) {
         this.author_description = author_description;
     }
 
-    public String getImage() {
+    public String getAuthor_image() {
         return author_image;
     }
 
-    public void setImage(String author_image) {
+    public void setAuthor_image(String author_image) {
         this.author_image = author_image;
     }
 
@@ -46,7 +46,7 @@ public class Author implements Serializable {
                 "author_id=" + author_id +
                 ", author_fullname='" + author_fullname + '\'' +
                 ", author_description='" + author_description + '\'' +
-                ", image='" + author_image + '\'' +
+                ", author_image='" + author_image + '\'' +
                 '}';
     }
 }
