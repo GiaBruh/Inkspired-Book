@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS public.address
     street_name character varying(100) NOT NULL,
     district character varying(50) NOT NULL,
     city character varying(50) NOT NULL,
-    postal_code integer NOT NULL,
+    postal_code character varying(50) NOT NULL,
     PRIMARY KEY (address_id)
 );
 
