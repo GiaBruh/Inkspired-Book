@@ -13,6 +13,7 @@ public class User implements Serializable {
     private Date birthday;
     private String phone_number;
     private String user_image;
+    private boolean user_status;
 
     public int getUserId() {
         return user_id;
@@ -84,6 +85,14 @@ public class User implements Serializable {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public boolean isUser_status() {
+        return user_status;
+    }
+
+    public void setUser_status(boolean user_status) {
+        this.user_status = user_status;
     }
 
     @Override

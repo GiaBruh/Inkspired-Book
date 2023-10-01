@@ -5,23 +5,22 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class PostgresqlConnection {
-    public static Connection getConn() throws ClassNotFoundException {
+    public static Connection getConn()  {
         Connection conn = null;
-
         try {
             // Connect method #2
             // Replace #database# with your database name
             // Replace #username# with your actual postgresql username
             // Replace #password# with your actual postgresql password
-            String dbURL = "jdbc:postgresql://localhost:5432/#database#";
-            String user = "#username#";
-            String pass = "#password#";
+            String dbURL = "jdbc:postgresql://localhost:5432/InkSpired";
+            String user = "giabuu";
+            String pass = "11122003";
             Class.forName("org.postgresql.Driver"); // do not remove this line
             conn = DriverManager.getConnection(dbURL, user, pass);
             if (conn != null) {
                 System.out.println("Connected to database");
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
 //            } finally {
 //                try {
