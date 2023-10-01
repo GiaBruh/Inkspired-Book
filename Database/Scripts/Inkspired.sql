@@ -15,16 +15,18 @@ CREATE TABLE IF NOT EXISTS public."user"
     birthday date NOT NULL,
     phone_number character varying(15) NOT NULL,
     user_image character varying(250),
+    user_status boolean NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS public.address
 (
     address_id integer NOT NULL,
-    street_number character varying(50) NOT NULL,
     street_name character varying(100) NOT NULL,
+    ward character varying(50) NOT NULL,
     district character varying(50) NOT NULL,
     city character varying(50) NOT NULL,
+    province character varying(50) NOT NULL,
     postal_code character varying(50) NOT NULL,
     PRIMARY KEY (address_id)
 );
@@ -39,8 +41,7 @@ CREATE TABLE IF NOT EXISTS public.user_address
 CREATE TABLE IF NOT EXISTS public.user_role
 (
     user_id integer NOT NULL,
-    role_id integer NOT NULL,
-    is_admin boolean NOT NULL
+    role_id integer NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public.role
@@ -362,3 +363,6 @@ ALTER TABLE IF EXISTS public.category_book
     ;
 
 END;
+
+-- DROP SCHEMA public CASCADE;
+-- CREATE SCHEMA public;
