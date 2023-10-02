@@ -46,6 +46,21 @@ public class UserDAO implements DAO<User> {
 
     @Override
     public Optional<User> get(int id) {
+        String query = "SELECT * FROM public.user where id = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setEmail_address(rs.getString("email_address"));
+                return Optional.of(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return Optional.empty();
     }
 
@@ -61,6 +76,24 @@ public class UserDAO implements DAO<User> {
 
     @Override
     public void delete(User user) {
-
+        String query = "DELETE FROM public.user WHERE id = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, user.getUserId());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public boolean delete(int id) {
+        String query = "DELETE FROM public.user WHERE id = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            return ps.executeUpdate() == 1;
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
