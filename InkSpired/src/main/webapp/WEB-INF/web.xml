@@ -15,6 +15,31 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>com.example.inkspired.Controllers.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminController</servlet-name>
+        <servlet-class>com.example.inkspired.Controllers.AdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserController</servlet-name>
+        <servlet-class>com.example.inkspired.Controllers.UserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>com.example.inkspired.Controllers.RegisterController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookController</servlet-name>
+        <servlet-class>com.example.inkspired.Controllers.BookController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShoppingCartController</servlet-name>
+        <servlet-class>com.example.inkspired.Controllers.ShoppingCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderController</servlet-name>
+        <servlet-class>com.example.inkspired.Controllers.OrderController</servlet-class>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/</url-pattern>
@@ -26,6 +51,30 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminController</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/user</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterController</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookController</servlet-name>
+        <url-pattern>/book</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShoppingCartController</servlet-name>
+        <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderController</servlet-name>
+        <url-pattern>/order</url-pattern>
     </servlet-mapping>
     
     <welcome-file-list>

@@ -7,8 +7,8 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "LoginController", value = "/login")
-public class LoginController extends HttpServlet {
+@WebServlet(name = "RegisterController", value = "/register")
+public class RegisterController extends HttpServlet {
 
 
     /**
