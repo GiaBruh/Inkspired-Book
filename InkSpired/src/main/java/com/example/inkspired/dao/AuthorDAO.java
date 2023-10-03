@@ -1,8 +1,7 @@
-package com.example.inkspired.DAOs;
+package com.example.inkspired.dao;
 
-import com.example.inkspired.Models.Author;
+import com.example.inkspired.model.Author;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 

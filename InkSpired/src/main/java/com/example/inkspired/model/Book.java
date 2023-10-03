@@ -1,4 +1,4 @@
-package com.example.inkspired.Models;
+package com.example.inkspired.model;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -10,7 +10,7 @@ public class Book implements Serializable {
     private Date publication_date;
     private int quantity;
     private long price;
-    private int author_id;
+    private String book_description;
     private int publisher_id;
     private boolean is_available;
 
@@ -54,12 +54,12 @@ public class Book implements Serializable {
         this.price = price;
     }
 
-    public int getAuthor_id() {
-        return author_id;
+    public String getBook_description() {
+        return book_description;
     }
 
-    public void setAuthor_id(int author_id) {
-        this.author_id = author_id;
+    public void setBook_description(String book_description) {
+        this.book_description = book_description;
     }
 
     public int getPublisher_id() {
@@ -94,8 +94,8 @@ public class Book implements Serializable {
                 ", publication_date=" + publication_date +
                 ", quantity=" + quantity +
                 ", price=" + price +
-                ", author_id=" + author_id +
                 ", publisher_id=" + publisher_id +
+                ", author_id=" + book_description +
                 ", is_available=" + is_available +
                 ", book_image='" + book_image + '\'' +
                 '}';

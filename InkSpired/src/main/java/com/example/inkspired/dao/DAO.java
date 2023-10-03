@@ -1,4 +1,4 @@
-package com.example.inkspired.DAOs;
+package com.example.inkspired.dao;
 
 import java.util.List;
 import java.util.Optional;
