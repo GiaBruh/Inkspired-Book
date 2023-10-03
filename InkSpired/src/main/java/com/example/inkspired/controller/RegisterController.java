@@ -1,4 +1,4 @@
-package com.example.inkspired.Controllers;
+package com.example.inkspired.controller;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -7,8 +7,8 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "LogoutController", value = "/logout")
-public class LogoutController extends HttpServlet {
+@WebServlet(name = "RegisterController", value = "/register")
+public class RegisterController extends HttpServlet {
 
 
     /**

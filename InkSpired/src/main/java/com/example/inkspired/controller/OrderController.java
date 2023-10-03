@@ -1,4 +1,4 @@
-package com.example.inkspired.Controllers;
+package com.example.inkspired.controller;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -7,8 +7,8 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "LoginController", value = "/login")
-public class LoginController extends HttpServlet {
+@WebServlet(name = "OrderController", value = "/order")
+public class OrderController extends HttpServlet {
 
 
     /**
@@ -37,9 +37,7 @@ public class LoginController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        processRequest(request, response);
-        System.out.println("Login");
-        request.getRequestDispatcher("/product.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
