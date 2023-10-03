@@ -5,39 +5,39 @@
          version="5.0">
     <servlet>
         <servlet-name>HomeController</servlet-name>
-        <servlet-class>com.example.inkspired.Controllers.HomeController</servlet-class>
+        <servlet-class>com.example.inkspired.controller.HomeController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginController</servlet-name>
-        <servlet-class>com.example.inkspired.Controllers.LoginController</servlet-class>
+        <servlet-class>com.example.inkspired.controller.LoginController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutController</servlet-name>
-        <servlet-class>com.example.inkspired.Controllers.LogoutController</servlet-class>
+        <servlet-class>com.example.inkspired.controller.LogoutController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminController</servlet-name>
-        <servlet-class>com.example.inkspired.Controllers.AdminController</servlet-class>
+        <servlet-class>com.example.inkspired.controller.AdminController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserController</servlet-name>
-        <servlet-class>com.example.inkspired.Controllers.UserController</servlet-class>
+        <servlet-class>com.example.inkspired.controller.UserController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegisterController</servlet-name>
-        <servlet-class>com.example.inkspired.Controllers.RegisterController</servlet-class>
+        <servlet-class>com.example.inkspired.controller.RegisterController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>BookController</servlet-name>
-        <servlet-class>com.example.inkspired.Controllers.BookController</servlet-class>
+        <servlet-class>com.example.inkspired.controller.BookController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ShoppingCartController</servlet-name>
-        <servlet-class>com.example.inkspired.Controllers.ShoppingCartController</servlet-class>
+        <servlet-class>com.example.inkspired.controller.ShoppingCartController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>OrderController</servlet-name>
-        <servlet-class>com.example.inkspired.Controllers.OrderController</servlet-class>
+        <servlet-class>com.example.inkspired.controller.OrderController</servlet-class>
     </servlet>
     
     <servlet-mapping>

@@ -1,4 +1,4 @@
-package com.example.inkspired.Controllers;
+package com.example.inkspired.controller;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -7,8 +7,8 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "OrderController", value = "/order")
-public class OrderController extends HttpServlet {
+@WebServlet(name = "ShoppingCartController", value = "/cart")
+public class ShoppingCartController extends HttpServlet {
 
 
     /**

@@ -1,4 +1,4 @@
-package com.example.inkspired.Controllers;
+package com.example.inkspired.controller;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
