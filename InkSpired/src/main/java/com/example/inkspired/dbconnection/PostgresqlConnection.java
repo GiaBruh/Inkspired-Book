@@ -1,8 +1,7 @@
-package com.example.inkspired.DBConnection;
+package com.example.inkspired.dbconnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class PostgresqlConnection {
     public static Connection getConn()  {

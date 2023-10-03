@@ -1,7 +1,7 @@
-package com.example.inkspired.DAOs;
+package com.example.inkspired.dao;
 
-import com.example.inkspired.DBConnection.PostgresqlConnection;
-import com.example.inkspired.Models.User;
+import com.example.inkspired.dbconnection.PostgresqlConnection;
+import com.example.inkspired.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -71,7 +71,7 @@ public class UserDAO implements DAO<User> {
 
     @Override
     public void update(User user) {
-
+        String query = "UPDATE public.user set id = ? ";
     }
 
     @Override

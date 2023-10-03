@@ -1,4 +1,4 @@
-package com.example.inkspired.Models;
+package com.example.inkspired.model;
 
 import java.io.Serializable;
 

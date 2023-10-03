@@ -1,6 +1,6 @@
-package com.example.inkspired.DAOs;
+package com.example.inkspired.dao;
 
-import com.example.inkspired.Models.ShoppingCart;
+import com.example.inkspired.model.ShoppingCart;
 
 import java.util.List;
 import java.util.Optional;

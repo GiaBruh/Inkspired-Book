@@ -1,7 +1,7 @@
-package com.example.inkspired.DAOs;
+package com.example.inkspired.dao;
 
 
-import com.example.inkspired.Models.Order;
+import com.example.inkspired.model.Order;
 
 import java.util.List;
 import java.util.Optional;
