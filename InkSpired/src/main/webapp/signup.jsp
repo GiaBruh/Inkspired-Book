@@ -33,17 +33,10 @@
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
                 class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-            <form class="d-flex pe-lg-3">
-                <button class="btn btn-outline-dark" type="submit">
-                    <i class="bi-cart-fill me-1"></i>
-                    Cart
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                </button>
-            </form>
             <form class="d-flex">
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-person-fill"></i>
-                    Login
+                    Sign in
                 </button>
             </form>
         </div>
@@ -123,6 +116,7 @@
                                     <input class="btn btn-outline-dark btn-lg" type="submit" value="Submit" />
                                 </div>
 
+                                </div>
                         </form>
                     </div>
                 </div>
