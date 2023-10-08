@@ -10,10 +10,19 @@ public class User implements Serializable {
     private String password;
     private String full_name;
     private String gender;
-    private Date birthday;
+    private Date birthdate;
     private String phone_number;
     private String user_image;
     private boolean user_status;
+
+    public User() {
+
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public int getUserId() {
         return user_id;
@@ -55,12 +64,12 @@ public class User implements Serializable {
         this.full_name = full_name;
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public Date getBirthdate() {
+        return birthdate;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
     }
 
     public String getPhone_number() {
@@ -104,7 +113,7 @@ public class User implements Serializable {
                 ", password='" + password + '\'' +
                 ", full_name='" + full_name + '\'' +
                 ", gender='" + gender + '\'' +
-                ", birthday=" + birthday +
+                ", birthday=" + birthdate +
                 ", phone_number='" + phone_number + '\'' +
                 ", user_image='" + user_image + '\'' +
                 '}';
