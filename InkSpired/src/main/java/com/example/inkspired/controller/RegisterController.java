@@ -10,6 +10,8 @@ import java.io.PrintWriter;
 @WebServlet(name = "RegisterController", value = "/register")
 public class RegisterController extends HttpServlet {
 
+    private static final String HOMEPAGE = "/";
+    private static final String REGISTER = "/register";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -24,6 +26,7 @@ public class RegisterController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            out.println("You forgot to comment this method boi!");
         }
     }
 
@@ -37,7 +40,12 @@ public class RegisterController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+        String path = request.getRequestURI();
+
+        if (path.endsWith(REGISTER)) {
+            request.getRequestDispatcher("/register.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -50,6 +58,9 @@ public class RegisterController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+        if (request.getParameter("btnRegister") != null && request.getParameter("btnRegister").equals("Register")) {
+            response.sendRedirect(getServletContext().getContextPath() + REGISTER);
+        }
     }
 }

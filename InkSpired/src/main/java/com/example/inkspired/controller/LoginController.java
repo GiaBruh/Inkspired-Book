@@ -13,8 +13,9 @@ import java.util.logging.Logger;
 
 @WebServlet(name = "LoginController", value = "/login")
 public class LoginController extends HttpServlet {
-    private static final String HOMEPAGE = "/index.jsp";
-    private static final String LOGIN = "/login.jsp";
+
+    private static final String HOMEPAGE = "/";
+    private static final String LOGIN = "/login";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,7 +45,11 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // processRequest(request, response);
+        String path = request.getRequestURI();
+
+        if (path.endsWith(LOGIN)) {
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -59,6 +64,10 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // processRequest(request, response);
+        if (request.getParameter("btnLogin") != null && request.getParameter("btnLogin").equals("Login")) {
+            response.sendRedirect(getServletContext().getContextPath() + LOGIN);
+        }
+
         if (request.getParameter("btnSubmit") != null && request.getParameter("btnSubmit").equals("Submit")) {
             String username = request.getParameter("userName");
             String password = request.getParameter("password");
