@@ -4,6 +4,7 @@
     <head>
         <title>Homepage</title>
         <link rel="stylesheet" href="css/dropdown.css">
+        <link rel="stylesheet" href="css/background.css">
     </head>
     <%@include file="interface.jsp" %>
     <body>
@@ -55,7 +56,7 @@
                             Account
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="item-dropdown" href="#">User Information</a></li>
+                            <li><a class="item-dropdown" href="account.jsp">User Information</a></li>
                             <li><a class="item-dropdown" href="#">Order History</a></li>
                             <li><a class="item-dropdown" href="#">Review History</a></li>
                             <li><div class="dropdown-divider"></div></li>
@@ -75,7 +76,7 @@
             </div>
         </header>
         <!-- Section-->
-        <section class="py-5">
+        <section class="py-5 gradient-custom">
             <div class="container px-4 px-lg-5 mt-5">
                 <div
                         class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"

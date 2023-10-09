@@ -4,6 +4,7 @@
 <head>
     <title>Author</title>
     <link rel="stylesheet" href="css/dropdown.css">
+    <link rel="stylesheet" href="css/background.css">
 </head>
 <%@include file="interface.jsp" %>
 <body>
@@ -58,7 +59,7 @@
     </div>
 </header>
 <!-- Product section-->
-<section class="py-5">
+<section class="py-5 gradient-custom">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/125x150/dee2e6/DoDucDat.png&text=DoDucDat" alt="..." /></div>
