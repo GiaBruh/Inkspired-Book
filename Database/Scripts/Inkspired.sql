@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS public.admin
     username      character varying(100) NOT NULL,
     password      character varying(100) NOT NULL,
     email_address character varying(100) NOT NULL,
+    phone_number character varying(15) NOT NULL,
     full_name     character varying(100) NOT NULL
 );
 
