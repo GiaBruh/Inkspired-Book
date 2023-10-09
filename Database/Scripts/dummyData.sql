@@ -3,11 +3,17 @@ INSERT INTO public.address (address_id, street_name, ward, district, city, provi
 VALUES (1, 'AnyStreet', 'AnyWard', 'AnyDistrict', 'AnyCity', 'AnyProvince', 'XXXXXX');
 
 
-
 -- Users
-INSERT INTO public."user" ( id, email_address, username, password, full_name, gender, birthdate, phone_number, user_image
-                          , address_id, user_status)
-VALUES (1, 'nta@gmail.com', 'nta', '202cb962ac59075b964b07152d234b70', 'Nguyen Thi A', 'female', '1991-02-02', 0912345678, '/', 1, true);
+INSERT INTO public."user" ( id, username, password, email_address, full_name, gender, birthdate, phone_number
+                          , address_id, user_image
+                          , user_status)
+VALUES (1, 'nta', '202cb962ac59075b964b07152d234b70', 'nta@gmail.com', 'Nguyen Thi A', 'female', '1991-02-02',
+        0912345678, 1, '/', true);
+
+-- Admin
+INSERT INTO public."admin" (username, password, email_address, full_name)
+VALUES ('admin', '202cb962ac59075b964b07152d234b70', 'nva@gmail.com', 'Nguyen van A');
+
 
 
 -- -- Temporary unused dummy data
@@ -52,15 +58,15 @@ INSERT INTO public.publisher(publisher_id, publisher_name)
 VALUES (1, 'Unknown');
 
 -- Authors
-INSERT INTO public.author (author_id, author_fullname, author_image, author_description)
-VALUES (1, 'Douglas Adams', '/', 'Hitchhiker''s Guide');
+INSERT INTO public.author (author_id, author_fullname, author_description, author_image)
+VALUES (1, 'Douglas Adams', 'Hitchhiker''s Guide', '/');
 
 -- Books
-INSERT INTO public.book (book_id, title, book_image, publication_date, quantity, price, publisher_id,
-                         book_description, is_available)
-VALUES (1, 'The Hitchhiker''s Guide to the Galaxy', '/', '1979-10-12', 10, 10000, 1, '/', TRUE),
-       (2, 'The Restaurant at the End of the Universe', '/', '1980-10-02', 5, 20000, 1, '/', TRUE),
-       (3, 'Life, the Universe and Everything', '/', '1982-10-14', 3, 30000, 1, '/', TRUE);
+INSERT INTO public.book (book_id, title, publication_date, quantity, price, publisher_id,
+                         book_description, book_image, is_available)
+VALUES (1, 'The Hitchhiker''s Guide to the Galaxy', '1979-10-12', 10, 10000, 1, '/', '/', TRUE),
+       (2, 'The Restaurant at the End of the Universe', '1980-10-02', 5, 20000, 1, '/', '/', TRUE),
+       (3, 'Life, the Universe and Everything', '1982-10-14', 3, 30000, 1, '/', '/', TRUE);
 
 
 
