@@ -93,11 +93,11 @@
                                 <div class="text-center">
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">
-                                        Fancy Product
+                                        Do Duc Dat
                                         <br/>
                                     </h5>
                                     <!-- Product price-->
-                                    $40.00 - $80.00
+                                    $69.00 - $420.00
                                 </div>
                             </div>
                             <!-- Product actions-->
