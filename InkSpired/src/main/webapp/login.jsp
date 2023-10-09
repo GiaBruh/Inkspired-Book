@@ -108,7 +108,15 @@
                                                 >
                                             </div>
                                         </div>
-                                        <div class="mt-4 pt-2">
+                                        <div class="col-md-6 mb-8">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="rememberMe">
+                                                <label class="form-check-label" for="rememberMe">
+                                                    Remember me
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4">
                                             <input
                                                     class="btn btn-outline-dark btn-lg"
                                                     type="submit"
