@@ -14,6 +14,10 @@ public class Book implements Serializable {
     private int publisher_id;
     private boolean is_available;
 
+    public Book() {
+
+    }
+
     public int getBook_id() {
         return book_id;
     }

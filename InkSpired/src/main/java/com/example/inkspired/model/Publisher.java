@@ -6,6 +6,10 @@ public class Publisher implements Serializable {
     private int publisher_id;
     private String publisher_name;
 
+    public Publisher() {
+
+    }
+
     public int getPublisher_id() {
         return publisher_id;
     }

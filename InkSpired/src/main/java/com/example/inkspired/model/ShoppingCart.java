@@ -8,6 +8,9 @@ public class ShoppingCart implements Serializable {
     private int book_id;
     private int quantity;
 
+    public ShoppingCart() {
+    }
+
     public int getShopping_card_id() {
         return shopping_cart_id;
     }

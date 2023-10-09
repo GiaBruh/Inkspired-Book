@@ -13,6 +13,10 @@ public class Order implements Serializable {
     private long order_total;
     private int order_status;
 
+    public Order() {
+
+    }
+
     public int getOrder_id() {
         return order_id;
     }

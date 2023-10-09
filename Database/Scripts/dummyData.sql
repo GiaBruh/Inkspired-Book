@@ -1,27 +1,14 @@
--- Users
-INSERT INTO public."user" (id, email_address, username, password, full_name, gender, birthday, phone_number, user_image,
-                           user_status)
-VALUES (1, 'admin@gmail.com', 'admin', '123', 'admin', 'male', '1990-01-01', 0965432101, '/', true),
-       (2, 'nta@gmail.com', 'nta', '123', 'Nguyen Thi A', 'female', '1991-02-02', 0912345678, '/', true);
-
 -- Addresses
 INSERT INTO public.address (address_id, street_name, ward, district, city, province, postal_code)
 VALUES (1, 'AnyStreet', 'AnyWard', 'AnyDistrict', 'AnyCity', 'AnyProvince', 'XXXXXX');
 
--- User Addresses
-INSERT INTO public.user_address (user_id, address_id, is_default)
-VALUES (1, 1, TRUE),
-       (2, 1, FALSE);
 
--- Roles
-INSERT INTO public.role (role_id, type)
-VALUES (1, 'admin'),
-       (2, 'customer');
 
--- User Roles
-INSERT INTO public.user_role (user_id, role_id)
-VALUES (1, 1),
-       (2, 2);
+-- Users
+INSERT INTO public."user" ( id, email_address, username, password, full_name, gender, birthdate, phone_number, user_image
+                          , address_id, user_status)
+VALUES (1, 'nta@gmail.com', 'nta', '202cb962ac59075b964b07152d234b70', 'Nguyen Thi A', 'female', '1991-02-02', 0912345678, '/', 1, true);
+
 
 -- -- Temporary unused dummy data
 -- Payment Types
@@ -60,18 +47,20 @@ VALUES (1, 1),
 --        (2, 2, 1),
 --        (3, 3, 2);
 
+-- Publishers
+INSERT INTO public.publisher(publisher_id, publisher_name)
+VALUES (1, 'Unknown');
+
 -- Authors
 INSERT INTO public.author (author_id, author_fullname, author_image, author_description)
 VALUES (1, 'Douglas Adams', '/', 'Hitchhiker''s Guide');
 
 -- Books
-INSERT INTO public.book (book_id, title, book_image, publication_date, quantity, price, author_id, publisher_id,
+INSERT INTO public.book (book_id, title, book_image, publication_date, quantity, price, publisher_id,
                          book_description, is_available)
-VALUES (1, 'The Hitchhiker''s Guide to the Galaxy', '/', '1979-10-12', 10, 10000, 1, 1, '/', TRUE),
-       (2, 'The Restaurant at the End of the Universe', '/', '1980-10-02', 5, 20000, 1, 1, '/', TRUE),
-       (3, 'Life, the Universe and Everything', '/', '1982-10-14', 3, 30000, 1, 1, '/', TRUE);
+VALUES (1, 'The Hitchhiker''s Guide to the Galaxy', '/', '1979-10-12', 10, 10000, 1, '/', TRUE),
+       (2, 'The Restaurant at the End of the Universe', '/', '1980-10-02', 5, 20000, 1, '/', TRUE),
+       (3, 'Life, the Universe and Everything', '/', '1982-10-14', 3, 30000, 1, '/', TRUE);
 
--- Publishers
-INSERT INTO public.publisher(publisher_id, publisher_name)
-VALUES (1, 'Unknown')
+
 

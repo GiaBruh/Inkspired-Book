@@ -11,6 +11,9 @@ public class Review implements Serializable {
     private int rating;
     private String comment;
 
+    public Review() {
+
+    }
     public int getReview_id() {
         return review_id;
     }

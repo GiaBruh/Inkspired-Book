@@ -3,7 +3,6 @@ package com.example.inkspired.model;
 import java.io.Serializable;
 
 public class Address implements Serializable {
-
     private int address_id;
     private String street_name;
     private String ward;
@@ -11,6 +10,10 @@ public class Address implements Serializable {
     private String city;
     private String province;
     private String postal_code;
+
+    public Address() {
+
+    }
 
     public int getAddress_id() {
         return address_id;

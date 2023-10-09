@@ -4,7 +4,6 @@
 -- DROP SCHEMA public CASCADE;
 -- CREATE SCHEMA public;
 
-
 CREATE TABLE IF NOT EXISTS public."user"
 (
     id integer NOT NULL,
@@ -13,11 +12,11 @@ CREATE TABLE IF NOT EXISTS public."user"
     password character varying(100) NOT NULL,
     full_name character varying(100) NOT NULL,
     gender character varying(10) NOT NULL,
-    birthday date NOT NULL,
+    birthdate date NOT NULL,
     phone_number character varying(15) NOT NULL,
     user_image character varying(250),
 	address_id integer NOT NULL,
-    status boolean NOT NULL DEFAULT true,
+    user_status boolean NOT NULL DEFAULT true,
     PRIMARY KEY (id)
 );
 
@@ -63,9 +62,7 @@ CREATE TABLE IF NOT EXISTS public."order"
     order_id integer NOT NULL,
     user_id integer NOT NULL,
     order_date date NOT NULL,
-
     shipping_address_id integer NOT NULL,
-
     order_total bigint NOT NULL,
     order_status integer NOT NULL,
     PRIMARY KEY (order_id)
@@ -107,7 +104,6 @@ CREATE TABLE IF NOT EXISTS public.book
     publication_date date NOT NULL,
     quantity integer NOT NULL,
     price bigint NOT NULL,
-
     publisher_id integer NOT NULL,
     book_description text,
     is_available boolean NOT NULL,

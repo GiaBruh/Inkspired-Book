@@ -8,6 +8,10 @@ public class Author implements Serializable {
     private String author_description;
     private String author_image;
 
+    public Author() {
+
+    }
+
     public int getAuthor_id() {
         return author_id;
     }

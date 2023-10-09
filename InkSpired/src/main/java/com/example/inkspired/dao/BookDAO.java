@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BookDAO implements DAO<Book> {
     private Connection conn = null;
@@ -39,7 +41,7 @@ public class BookDAO implements DAO<Book> {
                 result.add(book);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return result;
     }
@@ -65,27 +67,47 @@ public class BookDAO implements DAO<Book> {
                 return Optional.of(book);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return Optional.empty();
     }
 
     @Override
-    public void add(Book t) {
-
+    public void add(Book book) {
+        String query = "INSERT INTO public.book VALUES (?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, book.getTitle());
+            ps.setString(2, book.getBook_image());
+            ps.setDate(3, book.getPublication_date());
+            ps.setInt(4, book.getQuantity());
+            ps.setLong(5, book.getPrice());
+            ps.setString(6, book.getBook_description());
+            ps.setInt(7, book.getPublisher_id());
+            ps.setBoolean(8, book.isIs_available());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     @Override
-    public void update(Book t) {
-
+    public void update(Book book) {
+        String query = "UPDATE public.book SET title = ?, book_image = ?, publication_date = ?, quantity = ?, price = ?, book_description = ?, publisher_id = ?, is_available = ?";
+        try {
+        PreparedStatement ps = conn.prepareStatement(query);
+//            ps.setString();
+        } catch (Exception e) {
+                  Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     @Override
-    public void delete(Book t) {
+    public void delete(Book book) {
+
     }
 
     public static void main(String[] args) {
-        BookDAO dao = new BookDAO();
-        System.out.println(dao.get(1));
+
     }
 }

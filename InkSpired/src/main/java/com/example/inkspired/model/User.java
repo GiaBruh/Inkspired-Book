@@ -16,7 +16,6 @@ public class User implements Serializable {
     private boolean user_status;
 
     public User() {
-
     }
 
     public User(String username, String password) {
