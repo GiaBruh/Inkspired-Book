@@ -1,26 +1,26 @@
 -- Address
 INSERT INTO public.address (address_id, street_name, ward, district, city, province, postal_code)
-VALUES (1, 'Dinh Tien Hoang', 'Vinh Thanh Van', 'NaN', 'Rach Gia', 'Kien Giang', '920000'),
-       (2, 'Nguyen Van Cu', 'An Khanh', 'NaN', 'Can Tho', 'NaN', '270000'),
-       (3, 'Ngo Gia Tu', '5', 'NaN', 'Ca Mau', 'Ca Mau', '970000'),
-       (4, 'Lo Vong Cung', 'An Khanh', 'Phong Dien', 'Can Tho', 'NaN', '270000');
+VALUES (1, 'Đinh Tiên Hoàng', 'Vĩnh Thanh Vân', 'NaN', 'Rạch Giá', 'Kiên Giang', '920000'),
+       (2, 'Nguyễn Văn Cừ', 'An Khánh', 'NaN', 'Cần Thơ', 'NaN', '270000'),
+       (3, 'Ngô Gia Tự', '5', 'NaN', 'Cà Mau', 'Cà Mau', '970000'),
+       (4, 'Lộ Vòng Cung', 'An Khánh', 'Phong Điền', 'Cần Thơ', 'NaN', '270000');
 
 -- Users
 INSERT INTO public."user" ( id, username, password, email_address, full_name, gender, birthdate, phone_number
                           , address_id, user_image
                           , user_status)
-VALUES (1, 'nta', '202cb962ac59075b964b07152d234b70', 'nta@gmail.com', 'Nguyen Thi A', 'female', '1991-02-02',
+VALUES (1, 'nta', '202cb962ac59075b964b07152d234b70', 'nta@gmail.com', 'Nguyễn Thị A', 'female', '1991-02-02',
         0912345678, 1, '/', true), -- 202cb962ac59075b964b07152d234b70 = 123
-       (2, 'Hoai_N_V', 'caf1a3dfb505ffed0d024130f58c5cfa', 'nvh@gmail.com', 'Nguyen Van Hoai', 'male', '1998-10-19',
+       (2, 'Hoai_N_V', 'caf1a3dfb505ffed0d024130f58c5cfa', 'nvh@gmail.com', 'Nguyễn Văn Hoài', 'male', '1998-10-19',
         0841298550, 2, '/', true), -- caf1a3dfb505ffed0d024130f58c5cfa = 321
-       (3, 'dio', 'ed20a959d410ccd843d9e1dfcee04228', 'kratos@gmail.com', 'Huynh Dai Tinh', 'male', '1991-03-01',
+       (3, 'dio', 'ed20a959d410ccd843d9e1dfcee04228', 'kratos@gmail.com', 'Huỳnh Đại Tính', 'male', '1991-03-01',
         0830987675, 2, '/', true), -- ed20a959d410ccd843d9e1dfcee04228 = a12
-       (4, 'Dai_Gia_Ngheo', '1406f37190e825427440bc020919218a', 'javan@gmail.com', 'Do Dai Hoc', 'female', '2005-12-04',
+       (4, 'Dai_Gia_Ngheo', '1406f37190e825427440bc020919218a', 'javan@gmail.com', 'Đỗ Đại Học', 'female', '2005-12-04',
         0830987675, 3, '/', true);
 -- 1406f37190e825427440bc020919218a = gogo
 -- Admin
-INSERT INTO public."admin" (username, password, email_address, phone_number, full_name)
-VALUES ('admin', '0192023a7bbd73250516f069df18b500', 'admin@gmail.com', '0452347564', 'Nguyen van A');
+INSERT INTO public."admin" (username, password, email_address, full_name)
+VALUES ('admin', '0192023a7bbd73250516f069df18b500', 'admin@gmail.com', 'Nguyễn Văn Admin');
 -- 0192023a7bbd73250516f069df18b500 = admin123
 
 -- -- Temporary unused dummy data
