@@ -4,7 +4,6 @@
 <head>
     <title>Homepage</title>
     <link rel="stylesheet" href="css/dropdown.css">
-    <link rel="stylesheet" href="css/background.css">
 </head>
 <%@include file="interface.jsp" %>
 <body>
@@ -59,14 +58,14 @@
     </div>
 </header>
 <!-- Product section-->
-<section class="py-5 gradient-custom">
+<section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
             <div class="col-md-6">
                 <h1 class="display-5 fw-bolder">How to stay thick like me.</h1>
                 <h3>Author:
-                <a href="author.jsp" class="fw-bold text-decoration-none">Do Duc Dat</a>
+                    <a href="author.jsp" class="fw-bold text-decoration-none">Do Duc Dat</a>
                 </h3>
                 <div class="fs-5 mb-5">
                     <span class="text-decoration-line-through">$420.00</span>

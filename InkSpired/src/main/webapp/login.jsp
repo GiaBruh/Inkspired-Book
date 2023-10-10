@@ -3,6 +3,7 @@
 <html>
     <head>
         <title>Sign in</title>
+        <link rel="stylesheet" href="css/button.css">
     </head>
     <style>
         .gradient-custom {
@@ -108,7 +109,14 @@
                                                 >
                                             </div>
                                         </div>
-                                        <div class="mt-4 pt-2">
+                                        <div class="col-md-6 mb-8">
+                                                <input type="checkbox" class="btn-check" id="rememberMe" autocomplete="off">
+                                                <label class="btn btn-outline-dark btn-circle me-1" for="rememberMe"></label>
+                                                <label class="form-check-label fw-bolder" for="rememberMe">
+                                                    Remember me
+                                                </label>
+                                        </div>
+                                        <div class="mt-4">
                                             <input
                                                     class="btn btn-outline-dark btn-lg"
                                                     type="submit"

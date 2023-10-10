@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Homepage</title>
+    <title>Author</title>
     <link rel="stylesheet" href="css/dropdown.css">
     <link rel="stylesheet" href="css/background.css">
 </head>
@@ -62,30 +62,11 @@
 <section class="py-5 gradient-custom">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/125x150/dee2e6/DoDucDat.png&text=DoDucDat" alt="..." /></div>
             <div class="col-md-6">
-                <h1 class="display-5 fw-bolder">How to stay thick like me.</h1>
-                <h3>Author:
-                <a href="author.jsp" class="fw-bold text-decoration-none">Do Duc Dat</a>
-                </h3>
-                <div class="fs-5 mb-5">
-                    <span class="text-decoration-line-through">$420.00</span>
-                    <span>$69.00</span>
-                </div>
+                <h1 class="display-5 fw-bolder">Do Duc Dat</h1>
+                <h3>29/4/2003 - Present</h3>
                 <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
-                <div class="d-flex">
-                    <label for="inputQuantity"></label><input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width:6rem" />
-                    <form>
-                        <div class="form-group">
-                            <label for="formControlRange">Slider for fun</label>
-                            <input type="range" class="form-control-range" id="formControlRange">
-                        </div>
-                    </form>
-                    <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                        <i class="bi-cart-fill me-1"></i>
-                        Add to cart
-                    </button>
-                </div>
             </div>
         </div>
     </div>
@@ -93,7 +74,7 @@
 <!-- Related items section-->
 <section class="py-5 bg-light">
     <div class="container px-4 px-lg-5 mt-5">
-        <h2 class="fw-bolder mb-4">Related products</h2>
+        <h2 class="fw-bolder mb-4">Do Duc Dat's books</h2>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <div class="col mb-5">
                 <div class="card h-100">

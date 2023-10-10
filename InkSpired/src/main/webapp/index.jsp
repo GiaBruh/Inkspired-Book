@@ -3,6 +3,8 @@
 <html>
     <head>
         <title>Homepage</title>
+        <link rel="stylesheet" href="css/dropdown.css">
+        <link rel="stylesheet" href="css/background.css">
     </head>
     <%@include file="interface.jsp" %>
     <body>
@@ -43,6 +45,24 @@
                             Login
                         </button>
                     </form>
+                    <div class="dropdown">
+                        <button
+                                class="btn btn-outline-dark dropdown-toggle"
+                                type="button"
+                                id="dropdownMenuButton"
+                                data-mdb-toggle="dropdown"
+                                aria-expanded="false"
+                        >
+                            Account
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="item-dropdown" href="account.jsp">User Information</a></li>
+                            <li><a class="item-dropdown" href="#">Order History</a></li>
+                            <li><a class="item-dropdown" href="#">Review History</a></li>
+                            <li><div class="dropdown-divider"></div></li>
+                            <li><a class="item-dropdown" href="#">Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -56,7 +76,7 @@
             </div>
         </header>
         <!-- Section-->
-        <section class="py-5">
+        <section class="py-5 gradient-custom">
             <div class="container px-4 px-lg-5 mt-5">
                 <div
                         class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
@@ -74,24 +94,18 @@
                                 <div class="text-center">
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">
-                                        Fancy Product
+                                        Do Duc Dat
                                         <br/>
-                                        <a
-                                                class="fw-bolder text-decoration-none"
-                                                href="product.jsp"
-                                        >
-                                            The only one clickable
-                                        </a>
                                     </h5>
                                     <!-- Product price-->
-                                    $40.00 - $80.00
+                                    $69.00 - $420.00
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
-                                    <a class="btn btn-outline-dark mt-auto" href="#"
-                                    >View options</a
+                                    <a class="btn btn-outline-dark mt-auto" href="product.jsp"
+                                    >Click here</a
                                     >
                                 </div>
                             </div>
@@ -138,7 +152,7 @@
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <a class="btn btn-outline-dark mt-auto" href="#"
-                                    >Add to cart</a
+                                    >View book information</a
                                     >
                                 </div>
                             </div>
@@ -175,7 +189,7 @@
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <a class="btn btn-outline-dark mt-auto" href="#"
-                                    >Add to cart</a
+                                    >View book information</a
                                     >
                                 </div>
                             </div>
@@ -212,7 +226,7 @@
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <a class="btn btn-outline-dark mt-auto" href="#"
-                                    >Add to cart</a
+                                    >View book information</a
                                     >
                                 </div>
                             </div>
@@ -249,7 +263,7 @@
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <a class="btn btn-outline-dark mt-auto" href="#"
-                                    >Add to cart</a
+                                    >View book information</a
                                     >
                                 </div>
                             </div>
@@ -276,7 +290,7 @@
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <a class="btn btn-outline-dark mt-auto" href="#"
-                                    >View options</a
+                                    >View book information</a
                                     >
                                 </div>
                             </div>
@@ -323,7 +337,7 @@
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <a class="btn btn-outline-dark mt-auto" href="#"
-                                    >Add to cart</a
+                                    >View book information</a
                                     >
                                 </div>
                             </div>
@@ -360,7 +374,7 @@
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <a class="btn btn-outline-dark mt-auto" href="#"
-                                    >Add to cart</a
+                                    >View book information</a
                                     >
                                 </div>
                             </div>

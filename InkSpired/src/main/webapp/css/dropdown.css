@@ -1,0 +1,37 @@
+.dropdown:hover>.dropdown-menu {
+    display: block;
+}
+.dropdown>.dropdown-toggle:active {
+    pointer-events: none;
+}
+/* Stole from Bootstrap.css */
+.item-dropdown {
+    display: block;
+    width: 100%;
+    padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);
+    clear: both;
+    font-weight: 400;
+    color: var(--bs-dropdown-link-color);
+    text-align: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+}
+.item-dropdown:hover, .item-dropdown:focus {
+    color: #fff;
+    background-color: #212529;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+.item-dropdown.active, .item-dropdown:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #212529;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+.item-dropdown.disabled, .item-dropdown:disabled {
+    color: var(--bs-dropdown-link-disabled-color);
+    pointer-events: none;
+    background-color: transparent;
+}
