@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,30 +23,48 @@
                     <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                 </button>
             </form>
-            <form class="d-flex">
-                <button class="btn btn-outline-dark" type="submit">
-                    <i class="bi-person-fill"></i>
-                    Login
-                </button>
-            </form>
-            <div class="dropdown">
-                <button
-                        class="btn btn-outline-dark dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton"
-                        data-mdb-toggle="dropdown"
-                        aria-expanded="false"
-                >
-                    Account
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="item-dropdown" href="#">User Information</a></li>
-                    <li><a class="item-dropdown" href="#">Order History</a></li>
-                    <li><a class="item-dropdown" href="#">Review History</a></li>
-                    <li><div class="dropdown-divider"></div></li>
-                    <li><a class="item-dropdown" href="#">Logout</a></li>
-                </ul>
-            </div>
+
+            <!-- Change from login button to account dropdown when user login successfully -->
+            <c:choose>
+
+                <c:when test="${sessionScope.userCookie == null}">
+                    <form class="d-flex" method="POST"
+                          action="<%= request.getServletContext().getContextPath()%>/login">
+                        <button
+                                class="btn btn-outline-dark"
+                                type="submit"
+                                name="btnLogin"
+                                value="Login"
+                        >
+                            <i class="bi-person-fill"></i>
+                            Login
+                        </button>
+                    </form>
+                </c:when>
+
+                <c:otherwise>
+                    <div class="dropdown">
+                        <button
+                                class="btn btn-outline-dark dropdown-toggle"
+                                type="button"
+                                id="dropdownMenuButton"
+                                data-mdb-toggle="dropdown"
+                                aria-expanded="false"
+                        >
+                            Account
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="item-dropdown" href="account.jsp">User Information</a></li>
+                            <li><a class="item-dropdown" href="#">Order History</a></li>
+                            <li><a class="item-dropdown" href="#">Review History</a></li>
+                            <li><div class="dropdown-divider"></div></li>
+                            <li><a class="item-dropdown" href="<%= request.getServletContext().getContextPath()%>/logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </c:otherwise>
+
+            </c:choose>
+
         </div>
     </div>
 </nav>
