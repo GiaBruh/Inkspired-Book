@@ -5,9 +5,9 @@ import java.sql.Date;
 
 public class User implements Serializable {
     private int user_id;
-    private String email_address;
     private String username;
     private String password;
+    private String email_address;
     private String full_name;
     private String gender;
     private Date birthdate;
@@ -21,6 +21,17 @@ public class User implements Serializable {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public User(String username, String password, String email_address, String full_name, String gender, Date birthdate,
+            String phone_number) {
+        this.username = username;
+        this.password = password;
+        this.email_address = email_address;
+        this.full_name = full_name;
+        this.gender = gender;
+        this.birthdate = birthdate;
+        this.phone_number = phone_number;
     }
 
     public int getUserId() {

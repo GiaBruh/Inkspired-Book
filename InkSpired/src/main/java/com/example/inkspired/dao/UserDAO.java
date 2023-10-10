@@ -5,10 +5,7 @@ import com.example.inkspired.model.User;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -50,6 +47,24 @@ public class UserDAO implements DAO<User> {
         return rs.next();
     }
 
+    public boolean register(User u) {
+        String query = "INSERT INTO public.user VALUES (?,?,?,?,?,?,?)";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, u.getUsername());
+            ps.setString(2, md5Hash(u.getPassword()));
+            ps.setString(3, u.getEmail_address());
+            ps.setString(4, u.getFull_name());
+            ps.setString(5, u.getGender());
+            ps.setDate(6, u.getBirthdate());
+            ps.setString(7, u.getPhone_number());
+            return ps.executeUpdate() == 1;
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return false;
+    }
+
     // public User login(String username, String password) throws SQLException {
     // String query = "SELECT * FROM public.user WHERE username = ? and password =
     // ?";
@@ -82,9 +97,8 @@ public class UserDAO implements DAO<User> {
             while (rs.next()) {
                 User user = new User();
                 user.setUserId(rs.getInt("id"));
-                user.setEmail_address(rs.getString("email_address"));
                 user.setUsername(rs.getString("username"));
-                user.setPassword(rs.getString("password"));
+                user.setEmail_address(rs.getString("email_address"));
                 user.setFull_name(rs.getString("full_name"));
                 user.setGender(rs.getString("gender"));
                 user.setBirthdate(rs.getDate("birthdate"));
@@ -131,16 +145,16 @@ public class UserDAO implements DAO<User> {
 
     @Override
     public void update(User user) {
-        String query = "UPDATE public.user SET email_address = ? , username = ? , full_name = ? , gender = ? , birthdate = ? , phone_number = ? , user_image = ?";
+        String query = "UPDATE public.user SET username = ? , full_name = ? , gender = ? , birthdate = ? , phone_number = ? , user_image = ? WHERE id = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, user.getEmail_address());
-            ps.setString(2, user.getUsername());
-            ps.setString(3, user.getFull_name());
-            ps.setString(4, user.getGender());
-            ps.setDate(5, user.getBirthdate());
-            ps.setString(6, user.getPhone_number());
-            ps.setString(7, user.getUser_image());
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getFull_name());
+            ps.setString(3, user.getGender());
+            ps.setDate(4, user.getBirthdate());
+            ps.setString(5, user.getPhone_number());
+            ps.setString(6, user.getUser_image());
+            ps.setInt(7, user.getUserId());
             ps.executeUpdate();
         } catch (Exception e) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -171,12 +185,31 @@ public class UserDAO implements DAO<User> {
         return false;
     }
 
+//    public boolean update(int id) {
+//       String query =  "UPDATE public.user SET username = ? , full_name = ? , gender = ? , birthdate = ? , phone_number = ? , user_image = ? WHERE id = ?";
+//       try {
+//           PreparedStatement ps = conn.prepareStatement(query);
+//           ps.setString(1, user.getUsername());
+//           ps.setString(2, user.getFull_name());
+//           ps.setString(3, user.getGender());
+//           ps.setDate(4, user.getBirthdate());
+//           ps.setString(5, user.getPhone_number());
+//           ps.setString(6, user.getUser_image());
+//           ps.setInt(7, user.getUserId());
+//           return ps.executeUpdate() == 1;
+//       } catch (Exception e) {
+//
+//           Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+//       }
+//       return false;
+//    }
+
     private String md5Hash(String password) {
         return DigestUtils.md5Hex(password).toLowerCase();
     }
 
-    public static void main(String[] args) throws SQLException {
-         UserDAO dao = new UserDAO();
-        System.out.println(dao.md5Hash("123"));
+    public static void main(String[] args) {
+        UserDAO dao = new UserDAO();
+        System.out.println(dao.delete(4));
     }
 }

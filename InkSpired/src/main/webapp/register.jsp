@@ -72,7 +72,7 @@
                                                 <div class="form-outline datepicker w-100">
                                                     <input type="text" class="form-control form-control-lg"
                                                            id="birthdayDate"/>
-                                                    <label for="birthdayDate" class="form-label">Birthday</label>
+                                                    <label for="birthdayDate" class="form-label">Birthdate</label>
                                                 </div>
 
                                             </div>

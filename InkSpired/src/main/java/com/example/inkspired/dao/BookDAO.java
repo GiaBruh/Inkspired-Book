@@ -31,12 +31,12 @@ public class BookDAO implements DAO<Book> {
                 Book book = new Book();
                 book.setBook_id(rs.getInt("book_id"));
                 book.setTitle(rs.getString("title"));
-                book.setBook_image(rs.getString("book_image"));
                 book.setPublication_date(rs.getDate("publication_date"));
                 book.setQuantity(rs.getInt("quantity"));
                 book.setPrice(rs.getInt("price"));
-                book.setBook_description(rs.getString("book_description"));
                 book.setPublisher_id(rs.getInt("publisher_id"));
+                book.setBook_description(rs.getString("book_description"));
+                book.setBook_image(rs.getString("book_image"));
                 book.setIs_available(rs.getBoolean("is_available"));
                 result.add(book);
             }
@@ -57,12 +57,12 @@ public class BookDAO implements DAO<Book> {
                 Book book = new Book();
                 book.setBook_id(rs.getInt("book_id"));
                 book.setTitle(rs.getString("title"));
-                book.setBook_image(rs.getString("book_image"));
                 book.setPublication_date(rs.getDate("publication_date"));
                 book.setQuantity(rs.getInt("quantity"));
                 book.setPrice(rs.getInt("price"));
-                book.setBook_description(rs.getString("book_description"));
                 book.setPublisher_id(rs.getInt("publisher_id"));
+                book.setBook_description(rs.getString("book_description"));
+                book.setBook_image(rs.getString("book_image"));
                 book.setIs_available(rs.getBoolean("is_available"));
                 return Optional.of(book);
             }
@@ -78,13 +78,13 @@ public class BookDAO implements DAO<Book> {
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, book.getTitle());
-            ps.setString(2, book.getBook_image());
-            ps.setDate(3, book.getPublication_date());
-            ps.setInt(4, book.getQuantity());
-            ps.setLong(5, book.getPrice());
+            ps.setDate(2, book.getPublication_date());
+            ps.setInt(3, book.getQuantity());
+            ps.setLong(4, book.getPrice());
+            ps.setInt(5, book.getPublisher_id());
             ps.setString(6, book.getBook_description());
-            ps.setInt(7, book.getPublisher_id());
-            ps.setBoolean(8, book.isIs_available());
+            ps.setString(7, book.getBook_image());
+            ps.setBoolean(8, book.isAvailable());
             ps.executeUpdate();
         } catch (Exception e) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -93,21 +93,36 @@ public class BookDAO implements DAO<Book> {
 
     @Override
     public void update(Book book) {
-        String query = "UPDATE public.book SET title = ?, book_image = ?, publication_date = ?, quantity = ?, price = ?, book_description = ?, publisher_id = ?, is_available = ?";
+        String query = "UPDATE public.book SET title = ?, publication_date = ? , quantity = ? , price = ?, publisher_id = ?,book_description = ?, book_image = ?, is_available = ? WHERE book_id = ?";
         try {
-        PreparedStatement ps = conn.prepareStatement(query);
-//            ps.setString();
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, book.getTitle());
+            ps.setDate(2, book.getPublication_date());
+            ps.setInt(3, book.getQuantity());
+            ps.setLong(4, book.getPrice());
+            ps.setInt(5, book.getPublisher_id());
+            ps.setString(6, book.getBook_description());
+            ps.setString(7, book.getBook_image());
+            ps.setBoolean(8, book.isAvailable());
+            ps.setInt(9, book.getBook_id());
+            ps.executeUpdate();
         } catch (Exception e) {
-                  Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
     @Override
     public void delete(Book book) {
-
+        String query = "DELETE FROM public.book WHERE book_id = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, book.getBook_id());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     public static void main(String[] args) {
-
     }
 }

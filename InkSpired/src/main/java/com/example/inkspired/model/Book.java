@@ -74,7 +74,7 @@ public class Book implements Serializable {
         this.publisher_id = publisher_id;
     }
 
-    public boolean isIs_available() {
+    public boolean isAvailable() {
         return is_available;
     }
 
