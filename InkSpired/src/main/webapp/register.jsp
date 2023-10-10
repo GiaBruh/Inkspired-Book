@@ -61,6 +61,24 @@
                                         <div class="col-md-12 mb-4">
 
                                             <div class="form-outline">
+                                                <input type="text" id="username" class="form-control form-control-lg"
+                                                       name="username"/>
+                                                <label class="form-label" for="username">User Name</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 mb-4">
+
+                                            <div class="form-outline">
+                                                <input type="password" id="password"
+                                                       class="form-control form-control-lg"
+                                                       name="password"/>
+                                                <label class="form-label" for="password">Password</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-4">
+
+                                            <div class="form-outline">
                                                 <input type="text" id="fullName" class="form-control form-control-lg"/>
                                                 <label class="form-label" for="fullName">Full Name</label>
                                             </div>
