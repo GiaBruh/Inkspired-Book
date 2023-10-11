@@ -74,24 +74,24 @@ VALUES (1, 'Douglas Adams',
         'Douglas Noël Adams (11 March 1952 – 11 May 2001) was an English author, humorist, and screenwriter, ' ||
         'best known for The Hitchhiker''s Guide to the Galaxy. Originally a 1978 BBC radio comedy, ' ||
         'The Hitchhiker''s Guide to the Galaxy developed into a "trilogy" of five books that sold more than 15 million copies in his lifetime.',
-        '/'),
+        './uploadphotos/authorphotos/Douglas_adams_portrait_cropped.jpg'),
        (2, 'Nguyễn Nhật Ánh',
         'Nguyễn Nhật Ánh (born May 7, 1955) is a Vietnamese author who writes for teenagers and adults. ' ||
         'He also works as a teacher, poet and correspondent. His works include approximately 30 novels, ' ||
         '4 essays, 2 series and some collections of poems. He is regarded as one of Vietnam''s most successful writers. ' ||
         'His best-known series, Kinh Vạn Hoa (Kaleidoscope), which contains 54 volumes, has been made into 3 drama series of the same name.',
-        '/'),
+        './uploadphotos/authorphotos/tacgia-NNA.jpg'),
        (3, 'Nam Cao',
         'Trần Hữu Tri (1915—1951), commonly known by his pseudonym Nam Cao, was a Vietnamese short story writer and novelist. ' ||
         'His works generally received high acclaim from critics for their thoughtful description and veracious reflection of the society in the 1945 era. ',
-        '/'),
+        './uploadphotos/authorphotos/Nha-van-Nam-Cao.p'),
        (4, 'Tô Hoài',
         'Tô Hoài (Birth name: Nguyễn Sen; September 27, 1920 – July 6, 2014)[1] was a Vietnamese writer, playwright, screenwriter, journalist and correspondent. ' ||
         'The pen name Tô Hoài is derived from the names of Tô Lịch River and Hoài Đức district, which are landmarks of his hometown. ' ||
         'Among his works are the best - seller books Dế mèn phiêu lưu ký (Diary of a cricket) (1941), Truyện Tây Bắc (Stories of North West region) (1958), ' ||
         'Quê nhà (Home town) (1970), Ba người khác (Three Others) (1991). Some of his works have been translated into foreign languages. ' ||
         'He won the Ho Chi Minh Prize for Literature in 1996.',
-        '/');
+        './uploadphotos/authorphotos/TH.jpg');
 
 -- Book
 INSERT INTO public.book (book_id, title, publication_date, quantity, price, publisher_id,
@@ -100,42 +100,42 @@ VALUES (1, 'The Hitchhiker''s Guide to the Galaxy', '1979-10-12', 10, 10000, 1,
         'The Hitchhiker''s Guide to the Galaxy is the first book in the Hitchhiker''s Guide to the Galaxy comedy science fiction "trilogy of five books" by Douglas Adams, ' ||
         'with a sixth book written by Eoin Colfer. The novel is an adaptation of the first four parts of Adams''s radio series of the same name, ' ||
         'centering on the adventures of the only man to survive the destruction of Earth.',
-        '/', TRUE),
+        './uploadphotos/bookphotos/TheHitchhikersGuideToTheGalaxy.jpg', TRUE),
        (2, 'The Restaurant at the End of the Universe', '1980-10-02', 5, 20000, 1,
         'The Restaurant at the End of the Universe is the second book in the Hitchhiker''s Guide to the Galaxy comedy science fiction "trilogy" by Douglas Adams, and is a sequel. ' ||
         'It was originally published by Pan Books as a paperback in 1980. The book was inspired by the song "Grand Hotel" by British rock band Procol Harum.' ||
         ' The book title refers to Milliways, the Restaurant at the End of the Universe, one of the settings of the book. ' ||
         'Elements of it are adapted from the radio series, primarily the Secondary Phase, although Milliways itself, ' ||
         'Arthur and Ford''s final fate come from Fits the Fifth and Sixth of the Primary Phase.',
-        '/', TRUE),
+        './uploadphotos/bookphotos/RestaurantAtTheEndOfTheUniverse.jpg', TRUE),
        (3, 'Life, the Universe and Everything', '1982-10-14', 3, 30000, 1,
         'Life, the Universe and Everything (1982, ISBN 0-345-39182-9) is the third book in the six-volume Hitchhiker''s Guide to the Galaxy science fiction "trilogy of five books" ' ||
         'by British writer Douglas Adams. The title refers to the Answer to Life, the Universe, and Everything.',
-        '/', TRUE),
+        './uploadphotos/bookphotos/Life,_The_Universe_and_Everything_cover.jpg', TRUE),
        (4, 'Mùa Hè Không Tên', '2023-09-22', 10, 109000, 2,
         'Mùa Hè Không Tên is the latest long story by writer Nguyen Nhat Anh, with childhood stories filled with countless mischief, thrilling moments and countless memories. ' ||
         'Then, as the innocent days of friendship gradually passed, the children in each simple family grew up witnessing the touching moments of a close love story, ' ||
         'the longing for peaceful happiness, and the confusion of each step. When we grow up, love comes with many obstacles.',
-        '/', TRUE),
+        './uploadphotos/bookphotos/mua-he-khong-ten.jpg', TRUE),
        (5, 'Những Người Hàng Xóm', '2022-12-01', 10, 78000, 2,
         'The story follows the story of a guy who just got married, is getting ready to go to work, and is interested in writing. ' ||
         'He loves his wife in his own way, praises and worships his lover in his own way, but looks at life the way his neighbors live. ' ||
         'Living in the love of your wife is full of fragrance and sweetness. Witness the policeman''s love for his medical girlfriend; ' ||
         'The second love of a kind woman and a sign language announcer. ' ||
         'And contemplate the passionate love every day of the old painter who misses his beautiful wife - his model, his muse.',
-        '/', TRUE),
+        './uploadphotos/bookphotos/NhungNguoiHangXom.jpg', TRUE),
        (6, 'Những Cánh Hoa Tàn', '2023-06-01', 10, 32100, 3,
         'NaN',
-        '/', TRUE),
+        './uploadphotos/bookphotos/NhungCanhHoaTan.jpg', TRUE),
        (7, 'Sống Mòn', '2022-03-01', 10, 81100, 3,
         'Although the manuscript Sống Mòn was completed by writer Nam Cao before the Revolution, ' ||
         'it was not until after peace was restored in the North that the novel first appeared to readers.',
-        '/', TRUE),
+        './uploadphotos/bookphotos/SongMon.jpg', TRUE),
        (8, 'Dế Mèn Phiêu Lưu Ký', '2019-01-01', 5, 50000, 5,
         'For more than half a century since it was first introduced to readers in 1941, "Dế Mèn Phiêu Lưu Ký" has been one of writer Tô Hoài''s most beloved works.
 The work has been reprinted many times and translated into more than 20 languages around the world and is always welcomed by generations of young readers.
 The work has been published in many different forms.',
-        '/', TRUE);
+        './uploadphotos/bookphotos/de-men-phieu-luu-ky.jpg', TRUE);
 
 -- Author_book
 INSERT INTO public.author_book (author_id, book_id)
