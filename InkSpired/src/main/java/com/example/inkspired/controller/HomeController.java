@@ -37,7 +37,20 @@ public class HomeController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        processRequest(request, response);
+
+        // Check if user cookie is enabled
+        Cookie[] cookies = request.getCookies();
+        try {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("userWithAccount")) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("userCookie", cookie);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("No");
+        }
+
         request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
