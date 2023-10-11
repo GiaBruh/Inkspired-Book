@@ -29,7 +29,7 @@
                     <form class="d-flex pe-lg-3">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
-                            Cart
+                            <a href="cart.jsp" class="text-decoration-none">Cart</a>
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
                     </form>
@@ -352,6 +352,8 @@
                 </div>
             </div>
         </section>
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-light back-to-top"><i class="fa fa-angle-double-up"></i></a>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container">
