@@ -4,6 +4,7 @@
 <head>
     <title>Homepage</title>
     <link rel="stylesheet" href="css/dropdown.css">
+    <link rel="stylesheet" href="css/background.css">
 </head>
 <%@include file="interface.jsp" %>
 <body>
@@ -41,7 +42,9 @@
                     <li><a class="item-dropdown" href="#">User Information</a></li>
                     <li><a class="item-dropdown" href="#">Order History</a></li>
                     <li><a class="item-dropdown" href="#">Review History</a></li>
-                    <li><div class="dropdown-divider"></div></li>
+                    <li>
+                        <div class="dropdown-divider"></div>
+                    </li>
                     <li><a class="item-dropdown" href="#">Logout</a></li>
                 </ul>
             </div>
@@ -52,152 +55,118 @@
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Something</h1>
-            <p class="lead fw-normal text-white-50 mb-0">Something something</p>
+            <h1 class="display-4 fw-bolder">Account page</h1>
         </div>
     </div>
 </header>
 <!-- Product section-->
-<section class="py-5">
+<section class="py-5 gradient-custom">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
-            <div class="col-md-6">
-                <h1 class="display-5 fw-bolder">How to stay thick like me.</h1>
-                <h3>Author:
-                    <a href="author.jsp" class="fw-bold text-decoration-none">Do Duc Dat</a>
-                </h3>
-                <div class="fs-5 mb-5">
-                    <span class="text-decoration-line-through">$420.00</span>
-                    <span>$69.00</span>
-                </div>
-                <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
-                <div class="d-flex">
-                    <label for="inputQuantity"></label><input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width:6rem" />
-                    <form>
-                        <div class="form-group">
-                            <label for="formControlRange">Slider for fun</label>
-                            <input type="range" class="form-control-range" id="formControlRange">
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="username-input" class="d-flex justify-content-center align-items-center mb-4">
+                            <label for="username" class="me-3">Username:</label>
+                            <input
+                                    type="text"
+                                    id="username"
+                                    class="form-control"
+                                    name="username"
+                                    disabled
+                            />
                         </div>
-                    </form>
-                    <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                        <i class="bi-cart-fill me-1"></i>
-                        Add to cart
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Related items section-->
-<section class="py-5 bg-light">
-    <div class="container px-4 px-lg-5 mt-5">
-        <h2 class="fw-bolder mb-4">Related products</h2>
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">Fancy Product</h5>
-                            <!-- Product price-->
-                            $40.00 - $80.00
+                        <div id="fullname-input" class="d-flex justify-content-center align-items-center mb-4">
+                            <label for="fullname" class="me-3">Full Name:</label>
+                            <input
+                                    type="text"
+                                    id="fullname"
+                                    class="form-control"
+                                    name="fullname"
+                                    disabled
+                            />
                         </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Sale badge-->
-                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                    <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">Special Item</h5>
-                            <!-- Product reviews-->
-                            <div class="d-flex justify-content-center small text-warning mb-2">
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
+                        <div class="col-md-6 d-flex mb-4" id="gender-input">
+
+                            <h6 class="pe-5">Gender: </h6>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio"
+                                       name="inlineRadioOptions" id="femaleGender"
+                                       value="option1"
+                                       disabled/>
+                                <label class="form-check-label" for="femaleGender">Female</label>
                             </div>
-                            <!-- Product price-->
-                            <span class="text-muted text-decoration-line-through">$20.00</span>
-                            $18.00
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Sale badge-->
-                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                    <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">Sale Item</h5>
-                            <!-- Product price-->
-                            <span class="text-muted text-decoration-line-through">$50.00</span>
-                            $25.00
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">Popular Item</h5>
-                            <!-- Product reviews-->
-                            <div class="d-flex justify-content-center small text-warning mb-2">
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio"
+                                       name="inlineRadioOptions" id="maleGender"
+                                       value="option2"
+                                       disabled/>
+                                <label class="form-check-label" for="maleGender">Male</label>
                             </div>
-                            <!-- Product price-->
-                            $40.00
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio"
+                                       name="inlineRadioOptions" id="otherGender"
+                                       value="option3"
+                                       disabled/>
+                                <label class="form-check-label" for="otherGender">Other</label>
+                            </div>
+
+                        </div>
+                        <div id="email-input" class="d-flex justify-content-center align-items-center mb-4">
+                            <label for="email" class="me-3">Email:</label>
+                            <input
+                                    type="text"
+                                    id="email"
+                                    class="form-control"
+                                    name="email"
+                                    disabled
+                            />
+                        </div>
+                        <div id="phone-input" class="d-flex justify-content-center align-items-center mb-4">
+                            <label for="phone" class="me-3">Phone Number:</label>
+                            <input
+                                    type="text"
+                                    id="phone"
+                                    class="form-control"
+                                    name="phone"
+                                    disabled
+                            />
+                        </div>
+                        <div class="d-flex">
+                            <div class="mt-4 me-3 pt-2">
+                                <input class="btn btn-outline-dark btn-lg" type="submit" value="Submit"/>
+                            </div>
+                            <div class="mt-4 pt-2">
+                                <button class="btn btn-outline-dark btn-lg" onclick="toggleEditing()">Edit</button>
+                            </div>
                         </div>
                     </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img class="card-img-top" src="https://dummyimage.com/50x50/dee2e6/DoDucDat.png&text=DoDucDat" alt="Card image cap">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Dụng lượng file tối đa 1 MB
+                                Định dạng:.JPEG, .PNG</label>
+                            <input class="form-control" type="file" id="formFile">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </section>
 <!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright INKSPIRED BOOKS 2023, always reserved.</p></div>
+<footer class="py-5 bg-dark" id="footer">
+    <div class="container"><p class="m-0 text-center text-white">Copyright INKSPIRED BOOKS 2023, always reserved.</p>
+    </div>
 </footer>
+<script src="js/edit.js"></script>
 </body>
 </html>

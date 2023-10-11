@@ -117,6 +117,11 @@
                                                     Remember me
                                                 </label>
                                         </div>
+                                        <div class="col-md-6 mb-8 align-content-end">
+                                            <label class="form-check-label fw-bolder">
+                                                Forgot password?
+                                            </label>
+                                        </div>
                                         <div class="mt-4">
                                             <input
                                                     class="btn btn-outline-dark btn-lg"
