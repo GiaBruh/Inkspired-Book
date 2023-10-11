@@ -69,7 +69,7 @@ public class LoginController extends HttpServlet {
         }
 
         if (request.getParameter("btnSubmit") != null && request.getParameter("btnSubmit").equals("Submit")) {
-            String username = request.getParameter("userName");
+            String username = request.getParameter("username");
             String password = request.getParameter("password");
             User user = new User(username, password);
             UserDAO dao = new UserDAO();
@@ -77,7 +77,12 @@ public class LoginController extends HttpServlet {
                 boolean isLogin = dao.login(user);
                 if (isLogin) {
                     Cookie cookie = new Cookie("userWithAccount", username);
-                    cookie.setMaxAge(3 * 24 * 60 * 60);
+
+                    // Remember me function
+                    if (request.getParameter("remembermecheckbox") != null && request.getParameter("remembermecheckbox").equals("on")) {
+                        cookie.setMaxAge(3 * 24 * 60 * 60);
+                    }
+
                     HttpSession session = request.getSession();
                     session.setAttribute("userCookie", cookie);
                     response.addCookie(cookie);

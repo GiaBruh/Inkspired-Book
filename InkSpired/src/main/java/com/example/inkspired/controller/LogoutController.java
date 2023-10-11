@@ -37,7 +37,14 @@ public class LogoutController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+
+        Cookie logoutCookie = (Cookie)session.getAttribute("userCookie");
+        logoutCookie.setMaxAge(0);
+        response.addCookie(logoutCookie);
+
+        session.setAttribute("userCookie", null);
+        response.sendRedirect(getServletContext().getContextPath() + "/");
     }
 
     /**

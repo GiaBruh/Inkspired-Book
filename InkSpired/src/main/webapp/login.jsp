@@ -88,7 +88,7 @@
                                                         type="text"
                                                         id="userName"
                                                         class="form-control form-control-lg"
-                                                        name="userName"
+                                                        name="username"
                                                 />
                                                 <label class="form-label" for="userName"
                                                 >User Name</label
@@ -110,7 +110,8 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-8">
-                                                <input type="checkbox" class="btn-check" id="rememberMe" autocomplete="off">
+                                                <input type="checkbox" class="btn-check" id="rememberMe" autocomplete="off"
+                                                    name="remembermecheckbox">
                                                 <label class="btn btn-outline-dark btn-circle me-1" for="rememberMe"></label>
                                                 <label class="form-check-label fw-bolder" for="rememberMe">
                                                     Remember me
