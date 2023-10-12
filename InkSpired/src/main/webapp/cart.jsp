@@ -224,7 +224,11 @@
                                 <h5 class="font-weight-bold">Total</h5>
                                 <h5 class="font-weight-bold">$160</h5>
                             </div>
-                            <button class="btn btn-block btn-outline-dark my-3 py-3">Proceed To Checkout</button>
+                            <button class="btn btn-block btn-outline-dark my-3 py-3">
+                                <a href="checkout.jsp" class="text-decoration-none">
+                                    Proceed To Checkout
+                                </a>
+                            </button>
                         </div>
                     </div>
                 </form>

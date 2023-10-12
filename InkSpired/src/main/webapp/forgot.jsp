@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sign in</title>
+    <title>Forgot password</title>
     <link rel="stylesheet" href="css/button.css">
 </head>
 <style>
@@ -54,14 +54,13 @@
                 id="navbarSupportedContent"
         >
             <form class="d-flex" method="POST"
-                  action="<%= request.getServletContext().getContextPath()%>/register">
-                <button class="btn btn-outline-dark"
-                        type="submit"
-                        name="btnRegister"
-                        value="Register"
+                  action="<%= request.getServletContext().getContextPath()%>/login">
+                <button class="btn btn-outline-dark" type="submit"
+                        name="btnLogin"
+                        value="Login"
                 >
                     <i class="bi-person-fill"></i>
-                    Register
+                    Login
                 </button>
             </form>
         </div>
@@ -76,7 +75,8 @@
                         style="border-radius: 15px"
                 >
                     <div class="card-body p-4 p-md-5">
-                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Login</h3>
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Forgot password?</h3>
+                        <p class="mb-4 pb-2 pb-md-0 mb-md-5">Please enter your email</p>
                         <form
                                 method="POST"
                                 action="<%= request.getServletContext().getContextPath()%>/login"
@@ -84,52 +84,9 @@
                             <div class="row">
                                 <div class="col-md-12 mb-4">
                                     <div class="form-outline">
-                                        <input
-                                                type="text"
-                                                id="userName"
-                                                class="form-control form-control-lg"
-                                                name="username"
-                                        />
-                                        <label class="form-label" for="userName"
-                                        >User Name</label
-                                        >
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 mb-4">
-                                    <div class="form-outline">
-                                        <input
-                                                type="password"
-                                                id="password"
-                                                class="form-control form-control-lg"
-                                                name="password"
-                                        />
-                                        <label class="form-label" for="password"
-                                        >Password</label
-                                        >
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-8">
-                                        <div class="form-check-inline">
-                                            <input type="checkbox" class="btn-check" id="rememberMe" autocomplete="off"
-                                                   name="remembermecheckbox">
-                                            <label class="btn btn-outline-dark btn-circle me-1"
-                                                   for="rememberMe"></label>
-                                            <label class="form-check-label fw-bolder" for="rememberMe">
-                                                Remember me
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-8">
-                                        <div class="d-flex justify-content-end">
-                                            <label class="form-check-label fw-bolder">
-                                                <button class="btn btn-light">
-                                                    <a class="text-decoration-none text-dark" href="forgot.jsp">Forgot
-                                                        password?</a>
-                                                </button>
-                                            </label>
-                                        </div>
+                                        <input type="email" id="emailAddress"
+                                               class="form-control form-control-lg"/>
+                                        <label class="form-label" for="emailAddress">Email</label>
                                     </div>
                                 </div>
                                 <div class="mt-4">
@@ -137,7 +94,7 @@
                                             class="btn btn-outline-dark btn-lg"
                                             type="submit"
                                             name="btnSubmit"
-                                            value="Submit"
+                                            value="Send email"
                                     />
                                 </div>
                             </div>
