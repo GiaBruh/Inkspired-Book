@@ -6,7 +6,7 @@
 
 CREATE TABLE IF NOT EXISTS public."user"
 (
-    id            integer                NOT NULL,
+    id            serial                 NOT NULL,
     email_address character varying(100) NOT NULL,
     username      character varying(100) NOT NULL,
     password      character varying(100) NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS public.admin
 
 CREATE TABLE IF NOT EXISTS public.address
 (
-    address_id  integer                NOT NULL,
+    address_id  serial                 NOT NULL,
     street_name character varying(100) NOT NULL,
     ward        character varying(50)  NOT NULL,
     district    character varying(50)  NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS public.address
 
 CREATE TABLE IF NOT EXISTS public.review
 (
-    review_id       integer NOT NULL,
+    review_id       serial  NOT NULL,
     review_date     date    NOT NULL,
     user_id         integer NOT NULL,
     ordered_book_id integer NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS public.review
 
 CREATE TABLE IF NOT EXISTS public."order"
 (
-    order_id            integer NOT NULL,
+    order_id            serial  NOT NULL,
     user_id             integer NOT NULL,
     order_date          date    NOT NULL,
     shipping_address_id integer NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS public."order"
 
 CREATE TABLE IF NOT EXISTS public.order_status
 (
-    order_status_id integer               NOT NULL,
+    order_status_id serial                NOT NULL,
     status          character varying(20) NOT NULL,
     PRIMARY KEY (order_status_id)
 );
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS public.order_status
 
 CREATE TABLE IF NOT EXISTS public.order_detail
 (
-    order_detail_id integer NOT NULL,
+    order_detail_id serial  NOT NULL,
     book_id         integer NOT NULL,
     order_id        integer NOT NULL,
     quantity        integer NOT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS public.order_detail
 
 CREATE TABLE IF NOT EXISTS public.shopping_cart
 (
-    shopping_cart_id integer NOT NULL,
+    shopping_cart_id serial  NOT NULL,
     user_id          integer NOT NULL,
     book_id          integer NOT NULL,
     quantity         integer NOT NULL,
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS public.shopping_cart
 
 CREATE TABLE IF NOT EXISTS public.book
 (
-    book_id          integer                NOT NULL,
+    book_id          serial                 NOT NULL,
     title            character varying(100) NOT NULL,
     publication_date date                   NOT NULL,
     quantity         integer                NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS public.book
 
 CREATE TABLE IF NOT EXISTS public.author
 (
-    author_id          integer                NOT NULL,
+    author_id          serial                 NOT NULL,
     author_fullname    character varying(100) NOT NULL,
     author_description text,
     author_image       character varying(250),
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS public.author_book
 
 CREATE TABLE IF NOT EXISTS public.category
 (
-    category_id   integer               NOT NULL,
+    category_id   serial                NOT NULL,
     category_name character varying(50) NOT NULL,
     PRIMARY KEY (category_id)
 );
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS public.category_book
 
 CREATE TABLE IF NOT EXISTS public.publisher
 (
-    publisher_id   integer                NOT NULL,
+    publisher_id   serial                 NOT NULL,
     publisher_name character varying(100) NOT NULL,
     PRIMARY KEY (publisher_id)
 );
