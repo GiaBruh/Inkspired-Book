@@ -11,6 +11,9 @@ INSERT INTO public."user" ( username, password, email_address, full_name, gender
                           , user_status)
 VALUES ('nta', '202cb962ac59075b964b07152d234b70', 'nta@gmail.com', 'Nguyễn Thị A', 'female', '1991-02-02',
         0912345678, 1, '/', true), -- 202cb962ac59075b964b07152d234b70 = 123
+        -- Add a test user for forgot password
+        ('IuseArch', 'a1f26721ed609e446e95f43a51951b49', 'dthai1345@gmail.com', 'Người Dùng Arch', 'male', '2003-11-10',
+        0346281383, 2, '/', true), -- a1f26721ed609e446e95f43a51951b49 = btw
        ('Hoai_N_V', 'caf1a3dfb505ffed0d024130f58c5cfa', 'nvh@gmail.com', 'Nguyễn Văn Hoài', 'male', '1998-10-19',
         0841298550, 2, '/', true), -- caf1a3dfb505ffed0d024130f58c5cfa = 321
        ('dio', 'ed20a959d410ccd843d9e1dfcee04228', 'kratos@gmail.com', 'Huỳnh Đại Tính', 'male', '1991-03-01',
