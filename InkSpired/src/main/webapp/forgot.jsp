@@ -4,6 +4,7 @@
 <head>
     <title>Forgot password</title>
     <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/toogle-password.css">
 </head>
 <style>
     .gradient-custom {
@@ -72,29 +73,45 @@
             <div class="col-12 col-lg-9 col-xl-7">
                 <div
                         class="card shadow-2-strong card-registration"
-                        style="border-radius: 15px"
+                        style=""
                 >
                     <div class="card-body p-4 p-md-5">
-                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Forgot password?</h3>
-                        <p class="mb-4 pb-2 pb-md-0 mb-md-5">Please enter your email</p>
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Reset password</h3>
                         <form
                                 method="POST"
-                                action="<%= request.getServletContext().getContextPath()%>/login"
+<%--                                action="<%= request.getServletContext().getContextPath()%>/login"--%>
                         >
                             <div class="row">
                                 <div class="col-md-12 mb-4">
                                     <div class="form-outline">
-                                        <input type="email" id="emailAddress"
-                                               class="form-control form-control-lg"/>
-                                        <label class="form-label" for="emailAddress">Email</label>
+                                        <div class="input-group-lg">
+                                            <input type="password" id="newPassword"
+                                                   placeholder="New password goes here"
+                                                   class="form-control form-control-lg"
+                                                   required
+                                                   oninput="validatePasswords()"/>
+                                        </div>
                                     </div>
+                                    <div id="newPasswordMismatch" class="text-danger" style="display: none;">Passwords do not match.</div>
+                                </div>
+                                <div class="col-md-12 mb-4 mt-4">
+                                    <div class="form-outline">
+                                        <div class="input-group-lg">
+                                            <input type="password" id="newPasswordRepeat"
+                                                   placeholder="Repeat new password"
+                                                   class="form-control form-control-lg"
+                                                   required
+                                                   oninput="validatePasswords()"/>
+                                        </div>
+                                    </div>
+                                    <div id="newPasswordRepeatMismatch" class="text-danger" style="display: none;">Passwords do not match.</div>
                                 </div>
                                 <div class="mt-4">
                                     <input
                                             class="btn btn-outline-dark btn-lg"
                                             type="submit"
                                             name="btnSubmit"
-                                            value="Send email"
+                                            value="Reset password"
                                     />
                                 </div>
                             </div>
@@ -114,5 +131,7 @@
         </p>
     </div>
 </footer>
+<script src="js/password-validate.js"></script>
+<script src="js/password-toggle.js" async></script>
 </body>
 </html>
