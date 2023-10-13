@@ -91,7 +91,7 @@
                             </li>
                         </ul>
                     </div>
-                    <input type="text" class="form-control border-black" placeholder="Search for products">
+                    <input type="text" id="searchBar" class="form-control border-black" placeholder="Search for products">
                     <div class="input-group-append">
                         <button class="btn btn-dark btn-small">
                             <i class="fa fa-search"></i>
