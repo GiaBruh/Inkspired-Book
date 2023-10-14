@@ -128,6 +128,17 @@
                                                     Forgot password?
                                                 </button>
                                             </label>
+<%--                                            <form class="d-flex" method="POST"--%>
+<%--                                                  action="<%= request.getServletContext().getContextPath()%>/forgot">--%>
+<%--                                                <button class="btn btn-outline-dark"--%>
+<%--                                                        type="submit"--%>
+<%--                                                        name="btnForgot"--%>
+<%--                                                        value="Forgot"--%>
+<%--                                                        data-bs-toggle="modal" data-bs-target="#emailVerification"--%>
+<%--                                                >--%>
+<%--                                                    Forgot password?--%>
+<%--                                                </button>--%>
+<%--                                            </form>--%>
                                         </div>
                                     </div>
                                 </div>
@@ -153,7 +164,7 @@
         <div class="modal-content">
             <div class="modal-header gradient-custom">
                 <h5 class="modal-title" id="exampleModalLabel">
-                    <a href="forgot.jsp">
+                    <a href="reset.jsp">
                         Forgot password?
                     </a>
                 </h5>
@@ -177,7 +188,7 @@
                             </div>
                         </div>
                         <div class="mt-3">
-                            <input type="text" id="verificationCode" class="form-control form-control-lg" placeholder="Verification code goes here!" required />
+                            <input type="text" id="verificationCode" class="form-control form-control-lg" placeholder="Verification code goes here!" required style="display: none"/>
                             <div class="invalid-feedback">
                                 Wrong verification code, please enter it again.
                             </div>
@@ -190,7 +201,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-outline-dark">Send verification code</button>
+                <button type="button" class="btn btn-outline-dark" onclick="sendVerificationCode()">Send verification code</button>
                 <button type="button" class="btn btn-outline-dark">Resend verification code</button>
                 <button type="button" class="btn btn-outline-dark">Verify code</button>
                 <button type="button" class="btn btn-outline-dark">Reset password</button>
@@ -208,4 +219,5 @@
     </div>
 </footer>
 </body>
+<script src="js/password-forgot.js"></script>
 </html>
