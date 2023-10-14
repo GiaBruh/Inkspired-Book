@@ -22,7 +22,7 @@ public class ForgotController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String verificationCode = String.valueOf(generateVerificationCode());
-        String email = "dthai1345@gmail.com";
+        String email = "hngiabao11122003v3@gmail.com";
 
         sendVerificationCodeEmail(email, verificationCode);
 
@@ -38,17 +38,19 @@ public class ForgotController extends HttpServlet {
 
     private void sendVerificationCodeEmail(String recipientEmail, String verificationCode) {
         String host = "smtp.gmail.com";
-        String username = "svnfrs123@gmail.com";
-        String password = "nonutnovember";
+        String username = "InkSpiredBooks911@gmail.com";
+        String password = "tcbc msne mbwj yyma";
 
         Properties props = new Properties();
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", "465");
-        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
-        props.put("mail.smtp.socketFactory.fallback", "false");
+        props.put("mail.smtp.ssl.trust", host);
+//        props.put("mail.smtp.socketFactory.port", "25");
+        props.put("mail.smtp.port", "587");
+//        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+//        props.put("mail.smtp.socketFactory.fallback", "false");
 
         Session session = Session.getInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
