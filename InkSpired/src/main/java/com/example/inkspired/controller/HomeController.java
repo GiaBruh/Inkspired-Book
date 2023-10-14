@@ -1,15 +1,17 @@
 package com.example.inkspired.controller;
 
+import com.example.inkspired.dao.BookDAO;
+import com.example.inkspired.model.Book;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @WebServlet(name = "HomeController", value = "/")
 public class HomeController extends HttpServlet {
-
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -50,6 +52,11 @@ public class HomeController extends HttpServlet {
         } catch (Exception e) {
             System.out.println("No");
         }
+
+        // List Books Available
+        BookDAO bDao = new BookDAO();
+        List<Book> books = bDao.getAll();
+        request.setAttribute("BOOKLIST", books);
 
         request.getRequestDispatcher("/index.jsp").forward(request, response);
     }

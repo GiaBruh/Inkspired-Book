@@ -58,7 +58,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
-        <url-pattern>/user</url-pattern>
+        <url-pattern>/user/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
@@ -66,15 +66,15 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BookController</servlet-name>
-        <url-pattern>/book</url-pattern>
+        <url-pattern>/book/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ShoppingCartController</servlet-name>
-        <url-pattern>/cart</url-pattern>
+        <url-pattern>/cart/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>OrderController</servlet-name>
-        <url-pattern>/order</url-pattern>
+        <url-pattern>/order/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
