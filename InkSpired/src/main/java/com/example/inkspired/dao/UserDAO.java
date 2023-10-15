@@ -48,7 +48,7 @@ public class UserDAO implements DAO<User> {
     }
 
     public boolean register(User u) {
-        String query = "INSERT INTO public.user VALUES (?,?,?,?,?,?,?)";
+        String query = "INSERT INTO public.user VALUES (?,?,?,?,?,?,?,?,?,?)";
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, u.getUsername());
