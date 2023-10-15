@@ -206,7 +206,7 @@
                         <h1 class="display-5 fw-bolder">${sessionScope.BOOKINFO.get().getTitle()}</h1>
                         <h3>
                             Author:
-                            <a href="author.jsp" class="fw-bold text-decoration-none"
+                            <a href="<%= request.getServletContext().getContextPath()%>/author?authorid=" class="fw-bold text-decoration-none"
                             >Do Duc Dat</a
                             >
                         </h3>
