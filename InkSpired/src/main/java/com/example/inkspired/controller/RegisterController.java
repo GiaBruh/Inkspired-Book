@@ -1,17 +1,22 @@
 package com.example.inkspired.controller;
 
+import com.example.inkspired.dao.UserDAO;
+import com.example.inkspired.model.User;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.util.Optional;
 
 @WebServlet(name = "RegisterController", value = "/register")
 public class RegisterController extends HttpServlet {
 
     private static final String HOMEPAGE = "/";
     private static final String REGISTER = "/register";
+    private static final String LOGIN = "/login";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -61,6 +66,27 @@ public class RegisterController extends HttpServlet {
 //        processRequest(request, response);
         if (request.getParameter("btnRegister") != null && request.getParameter("btnRegister").equals("Register")) {
             response.sendRedirect(getServletContext().getContextPath() + REGISTER);
+        }
+
+        if (request.getParameter("btnsubmit") != null && request.getParameter("btnsubmit").equals("Submit")) {
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            String fullname = request.getParameter("fullname");
+            Date birthdate = Date.valueOf(request.getParameter("birthdate"));
+            String gender = request.getParameter("genders");
+            String email = request.getParameter("email");
+            String phone = request.getParameter("phone");
+
+            User user = new User(username, password, email, fullname, gender, birthdate, phone, 1, "/", true);
+            UserDAO uDao = new UserDAO();
+
+            Optional<User> name = uDao.get(6);
+            System.out.println(name.get().getFull_name());
+            if (uDao.register(user)) {
+                response.sendRedirect(getServletContext().getContextPath() + LOGIN);
+            } else {
+                response.sendRedirect(getServletContext().getContextPath() + REGISTER);
+            }
         }
     }
 }

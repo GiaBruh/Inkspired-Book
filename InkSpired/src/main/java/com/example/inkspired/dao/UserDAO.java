@@ -48,16 +48,20 @@ public class UserDAO implements DAO<User> {
     }
 
     public boolean register(User u) {
-        String query = "INSERT INTO public.user VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO public.user (email_address, username, password, full_name, gender, birthdate, phone_number, address_id, user_image, user_status)" +
+                "VALUES (?,?,?,?,?,?,?,?,?,?)";
         try {
             ps = conn.prepareStatement(query);
-            ps.setString(1, u.getUsername());
-            ps.setString(2, md5Hash(u.getPassword()));
-            ps.setString(3, u.getEmail_address());
+            ps.setString(1, u.getEmail_address());
+            ps.setString(2, u.getUsername());
+            ps.setString(3, md5Hash(u.getPassword()));
             ps.setString(4, u.getFull_name());
             ps.setString(5, u.getGender());
             ps.setDate(6, u.getBirthdate());
             ps.setString(7, u.getPhone_number());
+            ps.setInt(8, u.getAddress_id());
+            ps.setString(9, u.getUser_image());
+            ps.setBoolean(10, u.isUser_status());
             return ps.executeUpdate() == 1;
         } catch (Exception e) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
