@@ -20,15 +20,15 @@ import java.util.logging.Logger;
 @WebServlet(name = "ForgotController", value = "/forgot")
 public class ForgotController extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String verificationCode = String.valueOf(generateVerificationCode());
-        String email = "hngiabao11122003v3@gmail.com";
+        String email = request.getParameter("email");
 
         sendVerificationCodeEmail(email, verificationCode);
 
         // Send the verification code as the response
-        resp.setContentType("text/plain");
-        resp.getWriter().write("Verification code sent to your email: " + email);
+        response.setContentType("text/plain");
+        response.getWriter().write("Verification code sent to your email: " + email);
     }
 
     private int generateVerificationCode() {

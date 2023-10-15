@@ -109,7 +109,7 @@
                                         >
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row d-flex justify-content-between">
                                     <div class="col-md-6 mb-8">
                                         <div class="form-check-inline">
                                             <input type="checkbox" class="btn-check" id="rememberMe" autocomplete="off"
@@ -201,10 +201,12 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-outline-dark" onclick="sendVerificationCode()">Send verification code</button>
-                <button type="button" class="btn btn-outline-dark">Resend verification code</button>
-                <button type="button" class="btn btn-outline-dark">Verify code</button>
-                <button type="button" class="btn btn-outline-dark">Reset password</button>
+                <button type="button" id="sendVerificationCode" class="btn btn-outline-dark" onclick="sendVerificationCode()">Send verification code</button>
+                <div class="btn-group" style="display: none" id="buttonGroup">
+                    <button type="button" id="resendVerificationCode" class="btn btn-outline-dark" onclick="resendVerificationCode()" style="display: none">Resend code</button>
+                    <button type="button" id="verifyVerificationCode" class="btn btn-outline-dark" style="display: none">Verify code</button>
+                </div>
+                <button type="button" class="btn btn-outline-dark" style="display: none">Reset password</button>
             </div>
         </div>
 
