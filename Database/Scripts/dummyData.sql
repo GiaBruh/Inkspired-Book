@@ -18,6 +18,13 @@ VALUES ('nta', '202cb962ac59075b964b07152d234b70', 'nta@gmail.com', 'Nguyễn Th
        ('Dai_Gia_Ngheo', '1406f37190e825427440bc020919218a', 'javan@gmail.com', 'Đỗ Đại Học', 'female', '2005-12-04',
         0830987675, '/', true);
 -- 1406f37190e825427440bc020919218a = gogo
+
+-- Shopping_cart
+INSERT INTO public.shopping_cart (quantity)
+VALUES (0),
+       (0),
+       (0),
+       (0);
 -- Admin
 INSERT INTO public."admin" (username, password, email_address, full_name)
 VALUES ('admin', '0192023a7bbd73250516f069df18b500', 'admin@gmail.com', 'Nguyễn Văn Admin');
@@ -168,6 +175,14 @@ VALUES (3, 1),
        (9, 8),
        (12, 8);
 
+-- Order_status
+INSERT INTO public.order_status
+VALUES (0, 'Pending'),
+       (1, 'Confirmed'),
+       (2, 'Packaging'),
+       (3, 'Delivering'),
+       (4, 'Delivered'),
+       (5, 'Cancelled');
 
 -- -- Temporary unused dummy data
 -- Payment Types
