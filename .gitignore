@@ -33,10 +33,11 @@ build/
 
 ### VS Code ###
 .vscode/
+web.xml
+pom.xml
 
 ### Mac OS ###
 .DS_Store
 
 ## InkSpired ##
 /web.xml
-/pom.xml
