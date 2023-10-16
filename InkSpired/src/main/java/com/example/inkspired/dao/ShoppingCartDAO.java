@@ -98,4 +98,17 @@ public class ShoppingCartDAO implements DAO<ShoppingCart> {
         }
     }
 
+    /**
+     * Create new shopping cart when new account is registered
+     */
+    public void cartRegister() {
+        String query = "INSERT INTO public.shopping_cart (quantity) VALUES (0)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+            Logger.getLogger(ShoppingCartDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
 }

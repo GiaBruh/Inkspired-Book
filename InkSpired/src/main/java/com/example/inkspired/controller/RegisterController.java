@@ -1,17 +1,24 @@
 package com.example.inkspired.controller;
 
+import com.example.inkspired.dao.ShoppingCartDAO;
+import com.example.inkspired.dao.UserDAO;
+import com.example.inkspired.model.ShoppingCart;
+import com.example.inkspired.model.User;
+import com.oracle.wls.shaded.org.apache.regexp.RE;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 
 @WebServlet(name = "RegisterController", value = "/register")
 public class RegisterController extends HttpServlet {
 
     private static final String HOMEPAGE = "/";
     private static final String REGISTER = "/register";
+    private static final String LOGIN = "/login";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -61,6 +68,30 @@ public class RegisterController extends HttpServlet {
 //        processRequest(request, response);
         if (request.getParameter("btnRegister") != null && request.getParameter("btnRegister").equals("Register")) {
             response.sendRedirect(getServletContext().getContextPath() + REGISTER);
+        }
+
+        if (request.getParameter("btnsubmit") != null && request.getParameter("btnsubmit").equals("Submit")) {
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            String fullname = request.getParameter("fullname");
+            Date birthdate = Date.valueOf(request.getParameter("birthdate"));
+            String gender = request.getParameter("genders");
+            String email = request.getParameter("email");
+            String phone = request.getParameter("phone");
+
+            User user = new User(username, password, email, fullname, gender, birthdate, phone, "./", true);
+            ShoppingCart cart = new ShoppingCart();
+
+            UserDAO uDao = new UserDAO();
+            ShoppingCartDAO scDao = new ShoppingCartDAO();
+
+            if (uDao.register(user)) {
+                scDao.cartRegister();
+
+                response.sendRedirect(getServletContext().getContextPath() + LOGIN);
+            } else {
+                response.sendRedirect(getServletContext().getContextPath() + REGISTER);
+            }
         }
     }
 }
