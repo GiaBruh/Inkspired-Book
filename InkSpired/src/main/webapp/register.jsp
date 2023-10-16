@@ -55,7 +55,7 @@
                         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                             <div class="card-body p-4 p-md-5">
                                 <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-                                <form method="POST" action="<%= request.getServletContext().getContextPath()%>/register">
+                                <form>
 
                                     <div class="row">
                                         <div class="col-md-12 mb-4">
@@ -79,9 +79,7 @@
                                         <div class="col-md-12 mb-4">
 
                                             <div class="form-outline">
-                                                <input type="text" id="fullName" class="form-control form-control-lg"
-                                                    name="fullname"
-                                                />
+                                                <input type="text" id="fullName" class="form-control form-control-lg"/>
                                                 <label class="form-label" for="fullName">Full Name</label>
                                             </div>
                                         </div>
@@ -90,10 +88,8 @@
                                             <div class="col-md-6 mb-4 d-flex align-items-center">
 
                                                 <div class="form-outline datepicker w-100">
-                                                    <input type="date" class="form-control form-control-lg"
-                                                           id="birthdayDate"
-                                                        name="birthdate"
-                                                    />
+                                                    <input type="text" class="form-control form-control-lg"
+                                                           id="birthdayDate"/>
                                                     <label for="birthdayDate" class="form-label">Birthdate</label>
                                                 </div>
 
@@ -104,22 +100,22 @@
 
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio"
-                                                           name="genders" id="femaleGender"
-                                                           value="female" checked/>
+                                                           name="inlineRadioOptions" id="femaleGender"
+                                                           value="option1" checked/>
                                                     <label class="form-check-label" for="femaleGender">Female</label>
                                                 </div>
 
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio"
-                                                           name="genders" id="maleGender"
-                                                           value="male"/>
+                                                           name="inlineRadioOptions" id="maleGender"
+                                                           value="option2"/>
                                                     <label class="form-check-label" for="maleGender">Male</label>
                                                 </div>
 
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio"
-                                                           name="genders" id="otherGender"
-                                                           value="other"/>
+                                                           name="inlineRadioOptions" id="otherGender"
+                                                           value="option3"/>
                                                     <label class="form-check-label" for="otherGender">Other</label>
                                                 </div>
 
@@ -131,9 +127,7 @@
 
                                                 <div class="form-outline">
                                                     <input type="email" id="emailAddress"
-                                                           class="form-control form-control-lg"
-                                                           name="email"
-                                                    />
+                                                           class="form-control form-control-lg"/>
                                                     <label class="form-label" for="emailAddress">Email</label>
                                                 </div>
 
@@ -142,18 +136,14 @@
 
                                                 <div class="form-outline">
                                                     <input type="tel" id="phoneNumber"
-                                                           class="form-control form-control-lg"
-                                                            name="phone"
-                                                    />
+                                                           class="form-control form-control-lg"/>
                                                     <label class="form-label" for="phoneNumber">Phone Number</label>
                                                 </div>
 
                                             </div>
                                         </div>
                                         <div class="mt-4 pt-2">
-                                            <input class="btn btn-outline-dark btn-lg" type="submit"
-                                                   name="btnsubmit"
-                                                   value="Submit"/>
+                                            <input class="btn btn-outline-dark btn-lg" type="submit" value="Submit"/>
                                         </div>
 
                                     </div>

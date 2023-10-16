@@ -12,7 +12,7 @@ public class User implements Serializable {
     private String gender;
     private Date birthdate;
     private String phone_number;
-    private int address_id; //Should be not null in the database
+    private String address_id; //Should be not null in the database
     private String user_image;
     private boolean user_status;
 
@@ -35,20 +35,7 @@ public class User implements Serializable {
         this.phone_number = phone_number;
     }
 
-    /**
-     * This constructor helps with developing Register feature
-     * @param username
-     * @param password
-     * @param email_address
-     * @param full_name
-     * @param gender
-     * @param birthdate
-     * @param phone_number
-     * @param address_id
-     * @param user_image
-     * @param user_status
-     */
-    public User(String username, String password, String email_address, String full_name, String gender, Date birthdate, String phone_number, int address_id, String user_image, boolean user_status) {
+    public User(int user_id, String username, String password, String email_address, String full_name, String gender, Date birthdate, String phone_number, String address_id, String user_image, boolean user_status) {
         this.user_id = user_id;
         this.username = username;
         this.password = password;
@@ -118,11 +105,11 @@ public class User implements Serializable {
         this.phone_number = phone_number;
     }
 
-    public int getAddress_id() {
+    public String getAddress_id() {
         return address_id;
     }
 
-    public void setAddress_id(int address_id) {
+    public void setAddress_id(String address_id) {
         this.address_id = address_id;
     }
 
