@@ -43,6 +43,24 @@ function resendVerificationCode() {
     sendVerificationCode();
 }
 
+//verify the verification code
+function verifyVerificationCode() {
+    const verificationCode = document.getElementById("verificationCode").value;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/InkSpired/forgot?code=" + encodeURIComponent(verificationCode), true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                // Handle the response from the controller (if needed)
+                console.log("Verify starts", xhr.responseText);
+            } else {
+                console.error("Error verifying verification code");
+            }
+        }
+    };
+    xhr.send();
+}
+
 function disableResendButton(timeout) {
     // Disable the resend button for the specified timeout duration
     const resendButton = document.getElementById("resendVerificationCode");

@@ -23,12 +23,31 @@ public class ForgotController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String verificationCode = String.valueOf(generateVerificationCode());
         String email = request.getParameter("email");
+        // Store the verification code in the session
+        HttpSession session = request.getSession();
+        session.setAttribute("verificationCode", verificationCode);
+
 
         sendVerificationCodeEmail(email, verificationCode);
 
         // Send the verification code as the response
         response.setContentType("text/plain");
         response.getWriter().write("Verification code sent to your email: " + email);
+    }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String code = request.getParameter("code");
+        HttpSession session = request.getSession();
+        String storedVerificationCode = (String) session.getAttribute("verificationCode");
+
+        if (String.valueOf(code).equals(storedVerificationCode)) {
+            response.getWriter().write("Correct verification code.");
+            // Remove the stored verification code from the session
+            session.removeAttribute("verificationCode");
+//            response.sendRedirect("reset-password.jsp");
+        } else {
+            response.getWriter().write("Incorrect verification code.");
+        }
     }
 
     private int generateVerificationCode() {
@@ -72,6 +91,8 @@ public class ForgotController extends HttpServlet {
             System.err.println("Error sending verification code email: " + e.getMessage());
         }
     }
+
+
 }
 
 
