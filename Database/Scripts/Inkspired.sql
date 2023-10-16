@@ -6,17 +6,16 @@
 
 CREATE TABLE IF NOT EXISTS public."user"
 (
-    id            serial                 NOT NULL,
-    email_address character varying(100) NOT NULL,
-    username      character varying(100) NOT NULL,
-    password      character varying(100) NOT NULL,
-    full_name     character varying(100) NOT NULL,
-    gender        character varying(10)  NOT NULL,
+    id            serial                        NOT NULL,
+    email_address character varying(100) UNIQUE NOT NULL,
+    username      character varying(100) UNIQUE NOT NULL,
+    password      character varying(100)        NOT NULL,
+    full_name     character varying(100)        NOT NULL,
+    gender        character varying(10)         NOT NULL,
     birthdate     date,
-    phone_number  character varying(15)  NOT NULL,
-    address_id    integer                NOT NULL,
+    phone_number  character varying(15)         NOT NULL,
     user_image    character varying(250),
-    user_status   boolean                NOT NULL DEFAULT true,
+    user_status   boolean                       NOT NULL DEFAULT true,
     PRIMARY KEY (id)
 );
 
@@ -29,17 +28,17 @@ CREATE TABLE IF NOT EXISTS public.admin
     full_name     character varying(100) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS public.address
-(
-    address_id  serial                 NOT NULL,
-    street_name character varying(100) NOT NULL,
-    ward        character varying(50)  NOT NULL,
-    district    character varying(50)  NOT NULL,
-    city        character varying(50)  NOT NULL,
-    province    character varying(50)  NOT NULL,
-    postal_code character varying(50)  NOT NULL,
-    PRIMARY KEY (address_id)
-);
+-- CREATE TABLE IF NOT EXISTS public.address
+-- (
+--     address_id  serial                 NOT NULL,
+--     street_name character varying(100) NOT NULL,
+--     ward        character varying(50)  NOT NULL,
+--     district    character varying(50)  NOT NULL,
+--     city        character varying(50)  NOT NULL,
+--     province    character varying(50)  NOT NULL,
+--     postal_code character varying(50)  NOT NULL,
+--     PRIMARY KEY (address_id)
+-- );
 
 CREATE TABLE IF NOT EXISTS public.review
 (
@@ -56,12 +55,12 @@ CREATE TABLE IF NOT EXISTS public.review
 
 CREATE TABLE IF NOT EXISTS public."order"
 (
-    order_id            serial  NOT NULL,
-    user_id             integer NOT NULL,
-    order_date          date    NOT NULL,
-    shipping_address_id integer NOT NULL,
-    order_total         bigint  NOT NULL,
-    order_status        integer NOT NULL,
+    order_id         serial  NOT NULL,
+    user_id          integer NOT NULL,
+    order_date       date    NOT NULL,
+    delivery_address text    NOT NULL,
+    order_total      bigint  NOT NULL,
+    order_status     integer NOT NULL,
     PRIMARY KEY (order_id)
 );
 
@@ -87,7 +86,6 @@ CREATE TABLE IF NOT EXISTS public.order_detail
 CREATE TABLE IF NOT EXISTS public.shopping_cart
 (
     shopping_cart_id serial  NOT NULL,
-    user_id          integer NOT NULL,
     book_id          integer NOT NULL,
     quantity         integer NOT NULL,
     PRIMARY KEY (shopping_cart_id)
@@ -109,10 +107,11 @@ CREATE TABLE IF NOT EXISTS public.book
 
 CREATE TABLE IF NOT EXISTS public.author
 (
-    author_id          serial                 NOT NULL,
-    author_fullname    character varying(100) NOT NULL,
+    author_id          serial                        NOT NULL,
+    author_fullname    character varying(100) UNIQUE NOT NULL,
     author_description text,
     author_image       character varying(250),
+    author_status      boolean                       NOT NULL DEFAULT true,
     PRIMARY KEY (author_id)
 );
 
@@ -124,8 +123,8 @@ CREATE TABLE IF NOT EXISTS public.author_book
 
 CREATE TABLE IF NOT EXISTS public.category
 (
-    category_id   serial                NOT NULL,
-    category_name character varying(50) NOT NULL,
+    category_id   serial                       NOT NULL,
+    category_name character varying(50) UNIQUE NOT NULL,
     PRIMARY KEY (category_id)
 );
 
@@ -137,19 +136,17 @@ CREATE TABLE IF NOT EXISTS public.category_book
 
 CREATE TABLE IF NOT EXISTS public.publisher
 (
-    publisher_id   serial                 NOT NULL,
-    publisher_name character varying(100) NOT NULL,
+    publisher_id   serial                        NOT NULL,
+    publisher_name character varying(100) UNIQUE NOT NULL,
     PRIMARY KEY (publisher_id)
 );
 
--- THE END OF CREATE TABLE
-
-ALTER TABLE IF EXISTS public.user
-    ADD CONSTRAINT address_id FOREIGN KEY (address_id)
-        REFERENCES public."address" (address_id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-;
+-- ALTER TABLE IF EXISTS public.user
+--     ADD CONSTRAINT address_id FOREIGN KEY (address)
+--         REFERENCES public."user" (address) MATCH SIMPLE
+--         ON UPDATE CASCADE
+--         ON DELETE CASCADE
+-- ;
 
 
 ALTER TABLE IF EXISTS public.review
@@ -175,12 +172,12 @@ ALTER TABLE IF EXISTS public."order"
 ;
 
 
-ALTER TABLE IF EXISTS public."order"
-    ADD CONSTRAINT shipping_address_id FOREIGN KEY (shipping_address_id)
-        REFERENCES public.address (address_id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-;
+-- ALTER TABLE IF EXISTS public."order"
+--     ADD CONSTRAINT shipping_address_id FOREIGN KEY (shipping_address_id)
+--         REFERENCES public."user" (address) MATCH SIMPLE
+--         ON UPDATE CASCADE
+--         ON DELETE CASCADE
+-- ;
 
 
 ALTER TABLE IF EXISTS public."order"
@@ -207,12 +204,12 @@ ALTER TABLE IF EXISTS public.order_detail
 ;
 
 
-ALTER TABLE IF EXISTS public.shopping_cart
-    ADD CONSTRAINT user_id FOREIGN KEY (user_id)
-        REFERENCES public."user" (id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-;
+-- ALTER TABLE IF EXISTS public.shopping_cart
+--     ADD CONSTRAINT user_id FOREIGN KEY (user_id)
+--         REFERENCES public."user" (id) MATCH SIMPLE
+--         ON UPDATE CASCADE
+--         ON DELETE CASCADE
+-- ;
 
 
 ALTER TABLE IF EXISTS public.shopping_cart

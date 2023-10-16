@@ -1,64 +1,27 @@
--- Address
-INSERT INTO public.address (street_name, ward, district, city, province, postal_code)
-VALUES ('Đinh Tiên Hoàng', 'Vĩnh Thanh Vân', 'NaN', 'Rạch Giá', 'Kiên Giang', '920000'),
-       ('Nguyễn Văn Cừ', 'An Khánh', 'NaN', 'Cần Thơ', 'NaN', '270000'),
-       ('Ngô Gia Tự', '5', 'NaN', 'Cà Mau', 'Cà Mau', '970000'),
-       ('Lộ Vòng Cung', 'An Khánh', 'Phong Điền', 'Cần Thơ', 'NaN', '270000');
+-- -- Address
+-- INSERT INTO public.address (street_name, ward, district, city, province, postal_code)
+-- VALUES ('Đinh Tiên Hoàng', 'Vĩnh Thanh Vân', 'NaN', 'Rạch Giá', 'Kiên Giang', '920000'),
+--        ('Nguyễn Văn Cừ', 'An Khánh', 'NaN', 'Cần Thơ', 'NaN', '270000'),
+--        ('Ngô Gia Tự', '5', 'NaN', 'Cà Mau', 'Cà Mau', '970000'),
+--        ('Lộ Vòng Cung', 'An Khánh', 'Phong Điền', 'Cần Thơ', 'NaN', '270000');
 
 -- Users
 INSERT INTO public."user" ( username, password, email_address, full_name, gender, birthdate, phone_number
-                          , address_id, user_image
+                          , user_image
                           , user_status)
 VALUES ('nta', '202cb962ac59075b964b07152d234b70', 'nta@gmail.com', 'Nguyễn Thị A', 'female', '1991-02-02',
-        0912345678, 1, '/', true), -- 202cb962ac59075b964b07152d234b70 = 123
+        0912345678, '/', true), -- 202cb962ac59075b964b07152d234b70 = 123
        ('Hoai_N_V', 'caf1a3dfb505ffed0d024130f58c5cfa', 'nvh@gmail.com', 'Nguyễn Văn Hoài', 'male', '1998-10-19',
-        0841298550, 2, '/', true), -- caf1a3dfb505ffed0d024130f58c5cfa = 321
+        0841298550, '/', true), -- caf1a3dfb505ffed0d024130f58c5cfa = 321
        ('dio', 'ed20a959d410ccd843d9e1dfcee04228', 'kratos@gmail.com', 'Huỳnh Đại Tính', 'male', '1991-03-01',
-        0830987675, 2, '/', true), -- ed20a959d410ccd843d9e1dfcee04228 = a12
+        0830987675, '/', true), -- ed20a959d410ccd843d9e1dfcee04228 = a12
        ('Dai_Gia_Ngheo', '1406f37190e825427440bc020919218a', 'javan@gmail.com', 'Đỗ Đại Học', 'female', '2005-12-04',
-        0830987675, 3, '/', true);
+        0830987675, '/', true);
 -- 1406f37190e825427440bc020919218a = gogo
 -- Admin
 INSERT INTO public."admin" (username, password, email_address, full_name)
 VALUES ('admin', '0192023a7bbd73250516f069df18b500', 'admin@gmail.com', 'Nguyễn Văn Admin');
 -- 0192023a7bbd73250516f069df18b500 = admin123
-
--- -- Temporary unused dummy data
--- Payment Types
--- INSERT INTO public.payment_type (payment_type_id, type)
--- VALUES (1, 'credit_card'),
---        (2, 'debit_card'),
---        (3, 'paypal');
---
--- -- Payment Methods
--- INSERT INTO public.payment_method (payment_method_id, user_id, payment_type_id, provider, card_number, expiry_date,
---                                    card_owner)
--- VALUES (1, 1, 1, 'Visa', 1234567890123456, '2023-12-31', '/'),
---        (2, 2, 2, 'MasterCard', 9876543210987654, '2024-01-31', '/');
-
--- Shipping Methods
--- INSERT INTO public.shipping_method (shipping_method_id, name, price)
--- VALUES (1, 'Standard Shipping', 5000),
---        (2, 'Expedited Shipping', 10000);
-
--- Order Statuses
--- INSERT INTO public.order_status (order_status_id, status)
--- VALUES (1, 'Pending'),
---        (2, 'Processing'),
---        (3, 'Shipped'),
---        (4, 'Delivered');
-
--- Orders
--- INSERT INTO public."order" (order_id, user_id, order_date, payment_method_id, shipping_address_id, shipping_method,
---                             order_total, order_status)
--- VALUES (1, 2, '2023-09-27', 1, 1, 1, 10000, 1),
---        (2, 2, '2023-09-28', 2, 1, 2, 20000, 1);
-
--- Order Details
--- INSERT INTO public.order_detail (order_detail_id, book_id, order_id)
--- VALUES (1, 1, 1),
---        (2, 2, 1),
---        (3, 3, 2);
 
 -- Publisher
 INSERT INTO public.publisher(publisher_name)
@@ -204,3 +167,41 @@ VALUES (3, 1),
        (33, 7),
        (9, 8),
        (12, 8);
+
+
+-- -- Temporary unused dummy data
+-- Payment Types
+-- INSERT INTO public.payment_type (payment_type_id, type)
+-- VALUES (1, 'credit_card'),
+--        (2, 'debit_card'),
+--        (3, 'paypal');
+--
+-- -- Payment Methods
+-- INSERT INTO public.payment_method (payment_method_id, user_id, payment_type_id, provider, card_number, expiry_date,
+--                                    card_owner)
+-- VALUES (1, 1, 1, 'Visa', 1234567890123456, '2023-12-31', '/'),
+--        (2, 2, 2, 'MasterCard', 9876543210987654, '2024-01-31', '/');
+
+-- Shipping Methods
+-- INSERT INTO public.shipping_method (shipping_method_id, name, price)
+-- VALUES (1, 'Standard Shipping', 5000),
+--        (2, 'Expedited Shipping', 10000);
+
+-- Order Statuses
+-- INSERT INTO public.order_status (order_status_id, status)
+-- VALUES (1, 'Pending'),
+--        (2, 'Processing'),
+--        (3, 'Shipped'),
+--        (4, 'Delivered');
+
+-- Orders
+-- INSERT INTO public."order" (order_id, user_id, order_date, payment_method_id, shipping_address_id, shipping_method,
+--                             order_total, order_status)
+-- VALUES (1, 2, '2023-09-27', 1, 1, 1, 10000, 1),
+--        (2, 2, '2023-09-28', 2, 1, 2, 20000, 1);
+
+-- Order Details
+-- INSERT INTO public.order_detail (order_detail_id, book_id, order_id)
+-- VALUES (1, 1, 1),
+--        (2, 2, 1),
+--        (3, 3, 2);
