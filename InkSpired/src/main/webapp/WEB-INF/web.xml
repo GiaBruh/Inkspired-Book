@@ -39,6 +39,10 @@
         <servlet-name>OrderController</servlet-name>
         <servlet-class>com.example.inkspired.controller.OrderController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AuthorController</servlet-name>
+        <servlet-class>com.example.inkspired.controller.AuthorController</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
@@ -75,6 +79,10 @@
     <servlet-mapping>
         <servlet-name>OrderController</servlet-name>
         <url-pattern>/order/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthorController</servlet-name>
+        <url-pattern>/author/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>default</servlet-name>

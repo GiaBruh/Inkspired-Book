@@ -11,7 +11,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="index.jsp">Inkspired Books</a>
+                <a class="navbar-brand" href="<%= request.getServletContext().getContextPath()%>/">Inkspired Books</a>
                 <div class="col-lg-6 col-6 offset-md-1 text-left">
                     <form action="">
                         <div class="input-group">
@@ -39,7 +39,8 @@
                                                                 sit</a>
                                                             <a href="" class="list-group-item list-group-item-action">Amet
                                                                 consectetur</a>
-                                                            <a href="" class="list-group-item list-group-item-action">Cras justo
+                                                            <a href="" class="list-group-item list-group-item-action">Cras
+                                                                justo
                                                                 odio</a>
                                                             <a href="" class="list-group-item list-group-item-action">Adipisicing
                                                                 elit</a>
@@ -51,7 +52,8 @@
                                                                 voluptas</a>
                                                             <a href="" class="list-group-item list-group-item-action">Perspiciatis
                                                                 quo</a>
-                                                            <a href="" class="list-group-item list-group-item-action">Cras justo
+                                                            <a href="" class="list-group-item list-group-item-action">Cras
+                                                                justo
                                                                 odio</a>
                                                             <a href="" class="list-group-item list-group-item-action">Laudantium
                                                                 maiores</a>
@@ -63,7 +65,8 @@
                                                         <div class="list-group list-group-flush">
                                                             <a href="" class="list-group-item list-group-item-action">Iste
                                                                 quaerato</a>
-                                                            <a href="" class="list-group-item list-group-item-action">Cras justo
+                                                            <a href="" class="list-group-item list-group-item-action">Cras
+                                                                justo
                                                                 odio</a>
                                                             <a href="" class="list-group-item list-group-item-action">Est
                                                                 iure</a>
@@ -74,7 +77,8 @@
                                                     </div>
                                                     <div class="col-md-6 col-lg-3">
                                                         <div class="list-group list-group-flush">
-                                                            <a href="" class="list-group-item list-group-item-action">Cras justo
+                                                            <a href="" class="list-group-item list-group-item-action">Cras
+                                                                justo
                                                                 odio</a>
                                                             <a href="" class="list-group-item list-group-item-action">Saepe</a>
                                                             <a href="" class="list-group-item list-group-item-action">Vel
@@ -118,7 +122,7 @@
                     <form class="d-flex pe-lg-3">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
-                            Cart
+                            <a href="<%= request.getServletContext().getContextPath()%>/cart?cartid=">Cart</a>
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
                     </form>
@@ -194,47 +198,35 @@
                     <div class="col-md-6">
                         <img
                                 class="card-img-top mb-5 mb-md-0"
-                                src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg"
-                                alt="..."
+                                src="${sessionScope.BOOKINFO.get().getBook_image()}"
+                                alt="${sessionScope.BOOKINFO.get().getTitle()}"
                         />
                     </div>
                     <div class="col-md-6">
-                        <h1 class="display-5 fw-bolder">How to stay thick like me.</h1>
+                        <h1 class="display-5 fw-bolder">${sessionScope.BOOKINFO.get().getTitle()}</h1>
                         <h3>
                             Author:
-                            <a href="author.jsp" class="fw-bold text-decoration-none"
+                            <a href="<%= request.getServletContext().getContextPath()%>/author?authorid=" class="fw-bold text-decoration-none"
                             >Do Duc Dat</a
                             >
                         </h3>
                         <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through">$420.00</span>
-                            <span>$69.00</span>
+                            <%--                            <span class="text-decoration-line-through">$420.00</span>--%>
+                            <span>${sessionScope.BOOKINFO.get().getPrice()}&#x20AB</span>
                         </div>
                         <p class="lead">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Praesentium at dolorem quidem modi. Nam sequi consequatur
-                            obcaecati excepturi alias magni, accusamus eius blanditiis
-                            delectus ipsam minima ea iste laborum vero?
+                            ${sessionScope.BOOKINFO.get().getBook_description()}
                         </p>
                         <div class="d-flex">
-                            <label for="inputQuantity"></label
-                            ><input
-                                class="form-control text-center me-3"
-                                id="inputQuantity"
-                                type="number"
-                                value="1"
-                                style="max-width: 6rem"
-                        />
-                            <form>
-                                <div class="form-group">
-                                    <label for="formControlRange">Slider for fun</label>
-                                    <input
-                                            type="range"
-                                            class="form-control-range"
-                                            id="formControlRange"
-                                    />
-                                </div>
-                            </form>
+                            <label for="inputQuantity"></label>
+                            <input
+                                    class="form-control text-center me-3"
+                                    id="inputQuantity"
+                                    type="number"
+                                    value="1"
+                                    style="max-width: 6rem"
+                            />
+
                             <button class="btn btn-outline-dark flex-shrink-0" type="button">
                                 <i class="bi-cart-fill me-1"></i>
                                 Add to cart

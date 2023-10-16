@@ -11,7 +11,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="index.jsp">Inkspired Books</a>
+        <a class="navbar-brand" href="<%= request.getServletContext().getContextPath()%>/">Inkspired Books</a>
         <div class="col-lg-6 col-6 offset-md-1 text-left">
             <form action="">
                 <div class="input-group">
@@ -107,7 +107,7 @@
             <form class="d-flex pe-lg-3">
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
-                    Cart
+                    <a href="<%= request.getServletContext().getContextPath()%>/cart?cartid=">Cart</a>
                     <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                 </button>
             </form>

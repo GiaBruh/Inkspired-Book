@@ -1,11 +1,14 @@
 package com.example.inkspired.controller;
 
+import com.example.inkspired.dao.BookDAO;
+import com.example.inkspired.model.Book;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Optional;
 
 @WebServlet(name = "BookController", value = "/book")
 public class BookController extends HttpServlet {
@@ -37,7 +40,18 @@ public class BookController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        String path = request.getRequestURI();
+
+        int bookid = Integer.parseInt(request.getParameter("bookid"));
+        BookDAO bDao = new BookDAO();
+        Optional<Book> book = bDao.get(bookid);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("BOOKINFO", book);
+
+        if (path.startsWith("/InkSpired/book")) {
+            request.getRequestDispatcher("/book.jsp").forward(request, response);
+        }
     }
 
     /**
