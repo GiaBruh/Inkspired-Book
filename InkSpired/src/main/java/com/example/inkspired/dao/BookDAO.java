@@ -14,10 +14,13 @@ import java.util.logging.Logger;
 
 public class BookDAO implements DAO<Book> {
     private Connection conn = null;
+    private PreparedStatement ps = null;
+    private ResultSet rs = null;
 
     public BookDAO() {
         conn = PostgresqlConnection.getConn();
     }
+
 
     @Override
     public List<Book> getAll() {
@@ -25,8 +28,8 @@ public class BookDAO implements DAO<Book> {
         String query = "SELECT * FROM book";
 
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Book book = new Book();
                 book.setBook_id(rs.getInt("book_id"));
@@ -50,9 +53,9 @@ public class BookDAO implements DAO<Book> {
     public Optional<Book> get(int id) {
         String query = "SELECT * FROM book where book_id = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query);
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
                 Book book = new Book();
                 book.setBook_id(rs.getInt("book_id"));
@@ -76,7 +79,7 @@ public class BookDAO implements DAO<Book> {
     public void add(Book book) {
         String query = "INSERT INTO public.book VALUES (?,?,?,?,?,?,?,?)";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query);
             ps.setString(1, book.getTitle());
             ps.setDate(2, book.getPublication_date());
             ps.setInt(3, book.getQuantity());
@@ -95,7 +98,7 @@ public class BookDAO implements DAO<Book> {
     public void update(Book book) {
         String query = "UPDATE public.book SET title = ?, publication_date = ? , quantity = ? , price = ?, publisher_id = ?,book_description = ?, book_image = ?, is_available = ? WHERE book_id = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query);
             ps.setString(1, book.getTitle());
             ps.setDate(2, book.getPublication_date());
             ps.setInt(3, book.getQuantity());
@@ -115,7 +118,7 @@ public class BookDAO implements DAO<Book> {
     public void delete(Book book) {
         String query = "DELETE FROM public.book WHERE book_id = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query);
             ps.setInt(1, book.getBook_id());
             ps.executeUpdate();
         } catch (Exception e) {

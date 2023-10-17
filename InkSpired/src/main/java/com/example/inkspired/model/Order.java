@@ -7,9 +7,7 @@ public class Order implements Serializable {
     private int order_id;
     private int user_id;
     private Date order_date;
-    private int payment_method_id;
-    private int shipping_address_id;
-    private int shipping_method;
+    private int delivery_address;
     private long order_total;
     private int order_status;
 
@@ -41,29 +39,15 @@ public class Order implements Serializable {
         this.order_date = order_date;
     }
 
-    public int getPayment_method_id() {
-        return payment_method_id;
+
+    public int getDelivery_address() {
+        return delivery_address;
     }
 
-    public void setPayment_method_id(int payment_method_id) {
-        this.payment_method_id = payment_method_id;
+    public void setDelivery_address(int delivery_address) {
+        this.delivery_address = delivery_address;
     }
 
-    public int getShipping_address_id() {
-        return shipping_address_id;
-    }
-
-    public void setShipping_address_id(int shipping_address_id) {
-        this.shipping_address_id = shipping_address_id;
-    }
-
-    public int getShipping_method() {
-        return shipping_method;
-    }
-
-    public void setShipping_method(int shipping_method) {
-        this.shipping_method = shipping_method;
-    }
 
     public long getOrder_total() {
         return order_total;
@@ -87,9 +71,7 @@ public class Order implements Serializable {
                 "order_id=" + order_id +
                 ", user_id=" + user_id +
                 ", order_date=" + order_date +
-                ", payment_method_id=" + payment_method_id +
-                ", shipping_address_id=" + shipping_address_id +
-                ", shipping_method=" + shipping_method +
+                ", shipping_address_id=" + delivery_address +
                 ", order_total=" + order_total +
                 ", order_status=" + order_status +
                 '}';

@@ -39,6 +39,10 @@
         <servlet-name>OrderController</servlet-name>
         <servlet-class>com.example.inkspired.controller.OrderController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AuthorController</servlet-name>
+        <servlet-class>com.example.inkspired.controller.AuthorController</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
@@ -58,7 +62,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
-        <url-pattern>/user</url-pattern>
+        <url-pattern>/user/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
@@ -66,15 +70,19 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BookController</servlet-name>
-        <url-pattern>/book</url-pattern>
+        <url-pattern>/book/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ShoppingCartController</servlet-name>
-        <url-pattern>/cart</url-pattern>
+        <url-pattern>/cart/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>OrderController</servlet-name>
-        <url-pattern>/order</url-pattern>
+        <url-pattern>/order/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthorController</servlet-name>
+        <url-pattern>/author/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
@@ -95,11 +103,11 @@
     <welcome-file-list>
         <welcome-file>/</welcome-file>
     </welcome-file-list>
-    <servlet>
-        <servlet-name>default</servlet-name>
-        <servlet-class>
-            org.apache.catalina.servlets.DefaultServlet
-        </servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
+<!--    <servlet>-->
+<!--        <servlet-name>default</servlet-name>-->
+<!--        <servlet-class>-->
+<!--            org.apache.catalina.servlets.DefaultServlet-->
+<!--        </servlet-class>-->
+<!--        <load-on-startup>1</load-on-startup>-->
+<!--    </servlet>-->
 </web-app>

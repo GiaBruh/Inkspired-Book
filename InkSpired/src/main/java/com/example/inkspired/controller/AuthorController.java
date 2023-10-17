@@ -7,8 +7,8 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "ShoppingCartController", value = "/cart")
-public class ShoppingCartController extends HttpServlet {
+@WebServlet(name = "AuthorController", value = "/author")
+public class AuthorController extends HttpServlet {
 
 
     /**
@@ -37,7 +37,7 @@ public class ShoppingCartController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/cart.jsp").forward(request, response);
+        request.getRequestDispatcher("/author.jsp").forward(request, response);
     }
 
     /**
