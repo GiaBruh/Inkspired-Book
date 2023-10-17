@@ -104,155 +104,41 @@
                                     <th>Products</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
-                                    <th>Total</th>
                                     <th>Remove</th>
                                 </tr>
                             </thead>
                             <tbody class="align-middle">
-                                <tr>
-                                    <td class="align-middle"><img src="" alt="" style="width: 50px;"> Do Duc Dat</td>
-                                    <td class="align-middle">$150</td>
-                                    <td class="align-middle">
-                                        <div class="input-group quantity mx-auto" style="width: 100px;">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-dark btn-minus">
-                                                    <i class="fa fa-minus"></i>
-                                                </button>
+
+                                <c:forEach var="book" items="${sessionScope.CARTINFO}">
+                                    <tr>
+                                        <td class="align-left">
+                                            <img src="${book.getBook_image()}" alt="${book.getTitle()}"
+                                                 style="width: 150px;">
+                                            <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}">${book.getTitle()}</a>
+                                        </td>
+                                        <td class="align-middle">${book.getPrice()}&#x20AB</td>
+                                        <td class="align-middle">
+                                            <div class="input-group quantity mx-auto" style="width: 100px;">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-sm btn-dark btn-minus">
+                                                        <i class="fa fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                                <input type="text"
+                                                       class="form-control form-control-sm bg-white text-center"
+                                                       value="1">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-sm btn-dark btn-plus">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <input type="text" class="form-control form-control-sm bg-white text-center"
-                                                   value="1">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-dark btn-plus">
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">$150</td>
-                                    <td class="align-middle">
-                                        <button class="btn btn-sm btn-dark"><i class="fa fa-times"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-middle"><img src="" alt="" style="width: 50px;"> Do Duc Dat</td>
-                                    <td class="align-middle">$150</td>
-                                    <td class="align-middle">
-                                        <div class="input-group quantity mx-auto" style="width: 100px;">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-dark btn-minus">
-                                                    <i class="fa fa-minus"></i>
-                                                </button>
-                                            </div>
-                                            <input type="text" class="form-control form-control-sm bg-white text-center"
-                                                   value="1">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-dark btn-plus">
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">$150</td>
-                                    <td class="align-middle">
-                                        <button class="btn btn-sm btn-dark"><i class="fa fa-times"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-middle"><img src="" alt="" style="width: 50px;"> Do Duc Dat</td>
-                                    <td class="align-middle">$150</td>
-                                    <td class="align-middle">
-                                        <div class="input-group quantity mx-auto" style="width: 100px;">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-dark btn-minus">
-                                                    <i class="fa fa-minus"></i>
-                                                </button>
-                                            </div>
-                                            <input type="text" class="form-control form-control-sm bg-white text-center"
-                                                   value="1">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-dark btn-plus">
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">$150</td>
-                                    <td class="align-middle">
-                                        <button class="btn btn-sm btn-dark"><i class="fa fa-times"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-middle"><img src="" alt="" style="width: 50px;"> Do Duc Dat</td>
-                                    <td class="align-middle">$150</td>
-                                    <td class="align-middle">
-                                        <div class="input-group quantity mx-auto" style="width: 100px;">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-dark btn-minus">
-                                                    <i class="fa fa-minus"></i>
-                                                </button>
-                                            </div>
-                                            <input type="text" class="form-control form-control-sm bg-white text-center"
-                                                   value="1">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-dark btn-plus">
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">$150</td>
-                                    <td class="align-middle">
-                                        <button class="btn btn-sm btn-dark"><i class="fa fa-times"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-middle"><img src="" alt="" style="width: 50px;"> Do Duc Dat</td>
-                                    <td class="align-middle">$150</td>
-                                    <td class="align-middle">
-                                        <div class="input-group quantity mx-auto" style="width: 100px;">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-dark btn-minus">
-                                                    <i class="fa fa-minus"></i>
-                                                </button>
-                                            </div>
-                                            <input type="text" class="form-control form-control-sm bg-white text-center"
-                                                   value="1">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-dark btn-plus">
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">$150</td>
-                                    <td class="align-middle">
-                                        <button class="btn btn-sm btn-dark"><i class="fa fa-times"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-middle"><img src="" alt="" style="width: 50px;"> Do Duc Dat</td>
-                                    <td class="align-middle">$150</td>
-                                    <td class="align-middle">
-                                        <div class="input-group quantity mx-auto" style="width: 100px;">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-dark btn-minus">
-                                                    <i class="fa fa-minus"></i>
-                                                </button>
-                                            </div>
-                                            <input type="text" class="form-control form-control-sm bg-white text-center"
-                                                   value="1">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-dark btn-plus">
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">$150</td>
-                                    <td class="align-middle">
-                                        <button class="btn btn-sm btn-dark"><i class="fa fa-times"></i></button>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td class="align-middle">
+                                            <button class="btn btn-sm btn-dark"><i class="fa fa-times"></i></button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
 
                             </tbody>
                         </table>

@@ -2,6 +2,7 @@ package com.example.inkspired.dao;
 
 import com.example.inkspired.dbconnection.PostgresqlConnection;
 import com.example.inkspired.model.Author;
+import com.example.inkspired.model.Book;
 import com.example.inkspired.model.ShoppingCart;
 
 import java.sql.Connection;
@@ -110,5 +111,30 @@ public class ShoppingCartDAO implements DAO<ShoppingCart> {
         } catch (Exception e) {
             Logger.getLogger(ShoppingCartDAO.class.getName()).log(Level.SEVERE, null, e);
         }
+    }
+
+    public List<Book> getBookFromCartId(int cartid) {
+        ArrayList<Book> result = new ArrayList<>();
+        String query = "SELECT b.book_id, b.book_image, b.title, b.price FROM public.shopping_cart\n" +
+                "JOIN public.cart_book cb on shopping_cart.shopping_cart_id = cb.shopping_cart_id\n" +
+                "JOIN public.book b on b.book_id = cb.book_id\n" +
+                "WHERE cb.shopping_cart_id = ? and b.is_available = true";
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, cartid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Book book = new Book();
+                book.setBook_id(rs.getInt("book_id"));
+                book.setTitle(rs.getString("title"));
+                book.setPrice(rs.getInt("price"));
+                book.setBook_image(rs.getString("book_image"));
+                result.add(book);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return result;
     }
 }

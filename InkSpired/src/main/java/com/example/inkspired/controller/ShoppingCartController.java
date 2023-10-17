@@ -1,15 +1,22 @@
 package com.example.inkspired.controller;
 
+import com.example.inkspired.dao.BookDAO;
+import com.example.inkspired.dao.ShoppingCartDAO;
+import com.example.inkspired.model.Book;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @WebServlet(name = "ShoppingCartController", value = "/cart")
 public class ShoppingCartController extends HttpServlet {
 
+    private static final String HOME = "/";
+    private static final String CART = "/cart";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,7 +44,19 @@ public class ShoppingCartController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/cart.jsp").forward(request, response);
+        String path = request.getRequestURI();
+
+        int cartid = Integer.parseInt(request.getParameter("cartid"));
+
+        ShoppingCartDAO scDao = new ShoppingCartDAO();
+        List<Book> books = scDao.getBookFromCartId(cartid);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("CARTINFO", books);
+
+        if (path.startsWith("/InkSpired/cart")) {
+            request.getRequestDispatcher("/cart.jsp").forward(request, response);
+        }
     }
 
     /**
