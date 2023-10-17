@@ -34,6 +34,18 @@ public class User implements Serializable {
         this.phone_number = phone_number;
     }
 
+    public User(String username, String password, String email_address, String full_name, String gender, Date birthdate, String phone_number, String user_image, boolean user_status) {
+        this.username = username;
+        this.password = password;
+        this.email_address = email_address;
+        this.full_name = full_name;
+        this.gender = gender;
+        this.birthdate = birthdate;
+        this.phone_number = phone_number;
+        this.user_image = user_image;
+        this.user_status = user_status;
+    }
+
     public int getUserId() {
         return user_id;
     }

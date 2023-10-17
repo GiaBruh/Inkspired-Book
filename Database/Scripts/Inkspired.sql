@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS public.order_detail
 CREATE TABLE IF NOT EXISTS public.shopping_cart
 (
     shopping_cart_id serial  NOT NULL,
-    book_id          integer NOT NULL,
+    book_id          integer,
     quantity         integer NOT NULL,
     PRIMARY KEY (shopping_cart_id)
 );

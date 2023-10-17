@@ -9,27 +9,34 @@
 INSERT INTO public."user" ( username, password, email_address, full_name, gender, birthdate, phone_number
                           , user_image
                           , user_status)
-VALUES ('nta', '202cb962ac59075b964b07152d234b70', 'nta@gmail.com', 'Nguyễn Thị A', 'female', '1991-02-02',
+VALUES ('nta', '202cb962ac59075b964b07152d234b70', 'nta@gmail.com', 'Nguyen Thi A', 'female', '1991-02-02',
         0912345678, '/', true), -- 202cb962ac59075b964b07152d234b70 = 123
-       ('Hoai_N_V', 'caf1a3dfb505ffed0d024130f58c5cfa', 'nvh@gmail.com', 'Nguyễn Văn Hoài', 'male', '1998-10-19',
+       ('Hoai_N_V', 'caf1a3dfb505ffed0d024130f58c5cfa', 'nvh@gmail.com', 'Nguyen Van Hoai', 'male', '1998-10-19',
         0841298550, '/', true), -- caf1a3dfb505ffed0d024130f58c5cfa = 321
-       ('dio', 'ed20a959d410ccd843d9e1dfcee04228', 'kratos@gmail.com', 'Huỳnh Đại Tính', 'male', '1991-03-01',
+       ('dio', 'ed20a959d410ccd843d9e1dfcee04228', 'kratos@gmail.com', 'Huynh Dai Tinh', 'male', '1991-03-01',
         0830987675, '/', true), -- ed20a959d410ccd843d9e1dfcee04228 = a12
-       ('Dai_Gia_Ngheo', '1406f37190e825427440bc020919218a', 'javan@gmail.com', 'Đỗ Đại Học', 'female', '2005-12-04',
+       ('Dai_Gia_Ngheo', '1406f37190e825427440bc020919218a', 'javan@gmail.com', 'Do Dai Hoc', 'female', '2005-12-04',
         0830987675, '/', true);
 -- 1406f37190e825427440bc020919218a = gogo
+
+-- Shopping_cart
+INSERT INTO public.shopping_cart (quantity)
+VALUES (0),
+       (0),
+       (0),
+       (0);
 -- Admin
 INSERT INTO public."admin" (username, password, email_address, full_name)
-VALUES ('admin', '0192023a7bbd73250516f069df18b500', 'admin@gmail.com', 'Nguyễn Văn Admin');
+VALUES ('admin', '0192023a7bbd73250516f069df18b500', 'admin@gmail.com', 'Nguyen Van Admin');
 -- 0192023a7bbd73250516f069df18b500 = admin123
 
 -- Publisher
 INSERT INTO public.publisher(publisher_name)
 VALUES ('Pan Books'),
-       ('Trẻ'),
-       ('Văn Học'),
-       ('Hội Nhà Văn'),
-       ('Kim Đồng');
+       ('Tre'),
+       ('Van Hoc'),
+       ('Hoi Nha Van'),
+       ('Kim Dong');
 
 -- Author
 INSERT INTO public.author (author_fullname, author_description, author_image)
@@ -38,21 +45,21 @@ VALUES ('Douglas Adams',
         'best known for The Hitchhiker''s Guide to the Galaxy. Originally a 1978 BBC radio comedy, ' ||
         'The Hitchhiker''s Guide to the Galaxy developed into a "trilogy" of five books that sold more than 15 million copies in his lifetime.',
         './uploadphotos/authorphotos/Douglas_adams_portrait_cropped.jpg'),
-       ('Nguyễn Nhật Ánh',
-        'Nguyễn Nhật Ánh (born May 7, 1955) is a Vietnamese author who writes for teenagers and adults. ' ||
+       ('Nguyen Nhat Anh',
+        'Nguyen Nhat Anh (born May 7, 1955) is a Vietnamese author who writes for teenagers and adults. ' ||
         'He also works as a teacher, poet and correspondent. His works include approximately 30 novels, ' ||
         '4 essays, 2 series and some collections of poems. He is regarded as one of Vietnam''s most successful writers. ' ||
-        'His best-known series, Kinh Vạn Hoa (Kaleidoscope), which contains 54 volumes, has been made into 3 drama series of the same name.',
+        'His best-known series, Kinh Van Hoa (Kaleidoscope), which contains 54 volumes, has been made into 3 drama series of the same name.',
         './uploadphotos/authorphotos/tacgia-NNA.jpg'),
        ('Nam Cao',
-        'Trần Hữu Tri (1915—1951), commonly known by his pseudonym Nam Cao, was a Vietnamese short story writer and novelist. ' ||
+        'Tran Huu Tri (1915—1951), commonly known by his pseudonym Nam Cao, was a Vietnamese short story writer and novelist. ' ||
         'His works generally received high acclaim from critics for their thoughtful description and veracious reflection of the society in the 1945 era. ',
         './uploadphotos/authorphotos/Nha-van-Nam-Cao.p'),
-       ('Tô Hoài',
-        'Tô Hoài (Birth name: Nguyễn Sen; September 27, 1920 – July 6, 2014)[1] was a Vietnamese writer, playwright, screenwriter, journalist and correspondent. ' ||
-        'The pen name Tô Hoài is derived from the names of Tô Lịch River and Hoài Đức district, which are landmarks of his hometown. ' ||
-        'Among his works are the best - seller books Dế mèn phiêu lưu ký (Diary of a cricket) (1941), Truyện Tây Bắc (Stories of North West region) (1958), ' ||
-        'Quê nhà (Home town) (1970), Ba người khác (Three Others) (1991). Some of his works have been translated into foreign languages. ' ||
+       ('To Hoai',
+        'To Hoai (Birth name: Nguyen Sen; September 27, 1920 – July 6, 2014)[1] was a Vietnamese writer, playwright, screenwriter, journalist and correspondent. ' ||
+        'The pen name To Hoai is derived from the names of To Lich River and Hoai Duc district, which are landmarks of his hometown. ' ||
+        'Among his works are the best - seller books De Men Phieu luu Ky (Diary of a cricket) (1941), Truyen Tay Bac (Stories of North West region) (1958), ' ||
+        'Que nha (Home town) (1970), Ba nguoi khac (Three Others) (1991). Some of his works have been translated into foreign languages. ' ||
         'He won the Ho Chi Minh Prize for Literature in 1996.',
         './uploadphotos/authorphotos/TH.jpg');
 
@@ -75,27 +82,27 @@ VALUES ('The Hitchhiker''s Guide to the Galaxy', '1979-10-12', 10, 10000, 1,
         'Life, the Universe and Everything (1982, ISBN 0-345-39182-9) is the third book in the six-volume Hitchhiker''s Guide to the Galaxy science fiction "trilogy of five books" ' ||
         'by British writer Douglas Adams. The title refers to the Answer to Life, the Universe, and Everything.',
         './uploadphotos/bookphotos/Life,_The_Universe_and_Everything_cover.jpg', TRUE),
-       ('Mùa Hè Không Tên', '2023-09-22', 10, 109000, 2,
-        'Mùa Hè Không Tên is the latest long story by writer Nguyen Nhat Anh, with childhood stories filled with countless mischief, thrilling moments and countless memories. ' ||
+       ('Mua He Khong Ten', '2023-09-22', 10, 109000, 2,
+        'Mua He Khong Ten is the latest long story by writer Nguyen Nhat Anh, with childhood stories filled with countless mischief, thrilling moments and countless memories. ' ||
         'Then, as the innocent days of friendship gradually passed, the children in each simple family grew up witnessing the touching moments of a close love story, ' ||
         'the longing for peaceful happiness, and the confusion of each step. When we grow up, love comes with many obstacles.',
         './uploadphotos/bookphotos/mua-he-khong-ten.jpg', TRUE),
-       ('Những Người Hàng Xóm', '2022-12-01', 10, 78000, 2,
+       ('Nhung Nguoi Hang Xom', '2022-12-01', 10, 78000, 2,
         'The story follows the story of a guy who just got married, is getting ready to go to work, and is interested in writing. ' ||
         'He loves his wife in his own way, praises and worships his lover in his own way, but looks at life the way his neighbors live. ' ||
         'Living in the love of your wife is full of fragrance and sweetness. Witness the policeman''s love for his medical girlfriend; ' ||
         'The second love of a kind woman and a sign language announcer. ' ||
         'And contemplate the passionate love every day of the old painter who misses his beautiful wife - his model, his muse.',
         './uploadphotos/bookphotos/NhungNguoiHangXom.jpg', TRUE),
-       ('Những Cánh Hoa Tàn', '2023-06-01', 10, 32100, 3,
+       ('Nhung Canh Hoa Tan', '2023-06-01', 10, 32100, 3,
         'NaN',
         './uploadphotos/bookphotos/NhungCanhHoaTan.jpg', TRUE),
-       ('Sống Mòn', '2022-03-01', 10, 81100, 3,
-        'Although the manuscript Sống Mòn was completed by writer Nam Cao before the Revolution, ' ||
+       ('Song Mon', '2022-03-01', 10, 81100, 3,
+        'Although the manuscript Song Mon was completed by writer Nam Cao before the Revolution, ' ||
         'it was not until after peace was restored in the North that the novel first appeared to readers.',
         './uploadphotos/bookphotos/SongMon.jpg', TRUE),
-       ('Dế Mèn Phiêu Lưu Ký', '2019-01-01', 5, 50000, 5,
-        'For more than half a century since it was first introduced to readers in 1941, "Dế Mèn Phiêu Lưu Ký" has been one of writer Tô Hoài''s most beloved works.
+       ('De Men Phieu Luu Ky', '2019-01-01', 5, 50000, 5,
+        'For more than half a century since it was first introduced to readers in 1941, "De Men Phieu Luu Ky" has been one of writer To Hoai''s most beloved works.
 The work has been reprinted many times and translated into more than 20 languages around the world and is always welcomed by generations of young readers.
 The work has been published in many different forms.',
         './uploadphotos/bookphotos/de-men-phieu-luu-ky.jpg', TRUE);
@@ -168,6 +175,14 @@ VALUES (3, 1),
        (9, 8),
        (12, 8);
 
+-- Order_status
+INSERT INTO public.order_status
+VALUES (0, 'Pending'),
+       (1, 'Confirmed'),
+       (2, 'Packaging'),
+       (3, 'Delivering'),
+       (4, 'Delivered'),
+       (5, 'Cancelled');
 
 -- -- Temporary unused dummy data
 -- Payment Types

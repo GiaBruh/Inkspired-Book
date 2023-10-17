@@ -48,7 +48,8 @@ public class UserDAO implements DAO<User> {
     }
 
     public boolean register(User u) {
-        String query = "INSERT INTO public.user VALUES (?,?,?,?,?,?,?)";
+        String query = "INSERT INTO public.user (username, password, email_address, full_name, gender, birthdate, phone_number, user_image, user_status)" +
+                "VALUES (?,?,?,?,?,?,?,?,?)";
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, u.getUsername());
@@ -58,6 +59,8 @@ public class UserDAO implements DAO<User> {
             ps.setString(5, u.getGender());
             ps.setDate(6, u.getBirthdate());
             ps.setString(7, u.getPhone_number());
+            ps.setString(8, u.getUser_image());
+            ps.setBoolean(9, u.isUser_status());
             return ps.executeUpdate() == 1;
         } catch (Exception e) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
