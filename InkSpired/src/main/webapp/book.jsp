@@ -229,10 +229,29 @@
                                     style="max-width: 6rem"
                             />
 
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                                <i class="bi-cart-fill me-1"></i>
-                                Add to cart
-                            </button>
+                            <c:choose>
+
+                                <c:when test="${sessionScope.ISINCART == null}">
+                                    <form method="POST"
+                                          action="<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}">
+                                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                                            <i class="bi-cart-fill me-1"></i>
+                                            Add to cart
+                                        </button>
+                                    </form>
+                                </c:when>
+
+                                <c:otherwise>
+                                    <form action="<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}">
+                                        <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                                            <i class="bi-cart-fill me-1"></i>
+                                            View Cart
+                                        </button>
+                                    </form>
+                                </c:otherwise>
+
+                            </c:choose>
+
                         </div>
                     </div>
                 </div>

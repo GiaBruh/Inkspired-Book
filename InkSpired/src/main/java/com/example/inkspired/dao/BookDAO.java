@@ -6,6 +6,7 @@ import com.example.inkspired.model.Book;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -124,6 +125,23 @@ public class BookDAO implements DAO<Book> {
         } catch (Exception e) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
         }
+    }
+
+    public boolean isInUserCart(int cartid, int bookid) {
+        String query = "SELECT * FROM public.cart_book WHERE shopping_cart_id = ? and book_id = ?";
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, cartid);
+            ps.setInt(2, bookid);
+            rs = ps.executeQuery();
+
+            return rs.next();
+        } catch (Exception e) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        return false;
     }
 
     public static void main(String[] args) {
