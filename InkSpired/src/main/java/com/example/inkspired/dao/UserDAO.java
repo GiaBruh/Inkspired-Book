@@ -207,6 +207,31 @@ public class UserDAO implements DAO<User> {
 //       return false;
 //    }
 
+    /**
+     * Get user id from current login account to add to session cookie
+     * @param user
+     * @return
+     */
+    public int getUserIdFromUsername(User user) {
+        String query = "SELECT * FROM public.user WHERE username = ? and password = ?";
+        int userid = 0;
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, user.getUsername());
+            ps.setString(2, md5Hash(user.getPassword()));
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                userid = rs.getInt("id");
+            }
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        return userid;
+    }
+
     private String md5Hash(String password) {
         return DigestUtils.md5Hex(password).toLowerCase();
     }

@@ -76,7 +76,8 @@ public class LoginController extends HttpServlet {
             try {
                 boolean isLogin = dao.login(user);
                 if (isLogin) {
-                    Cookie cookie = new Cookie("userWithAccount", username);
+                    int userid = dao.getUserIdFromUsername(user);
+                    Cookie cookie = new Cookie("userWithAccount", "" + userid);
 
                     // Remember me function
                     if (request.getParameter("remembermecheckbox") != null && request.getParameter("remembermecheckbox").equals("on")) {
