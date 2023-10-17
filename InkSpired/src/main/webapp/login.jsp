@@ -109,7 +109,7 @@
                                         >
                                     </div>
                                 </div>
-                                <div class="row d-flex justify-content-between">
+                                <div class="row">
                                     <div class="col-md-6 mb-8">
                                         <div class="form-check-inline">
                                             <input type="checkbox" class="btn-check" id="rememberMe" autocomplete="off"
@@ -128,17 +128,6 @@
                                                     Forgot password?
                                                 </button>
                                             </label>
-<%--                                            <form class="d-flex" method="POST"--%>
-<%--                                                  action="<%= request.getServletContext().getContextPath()%>/forgot">--%>
-<%--                                                <button class="btn btn-outline-dark"--%>
-<%--                                                        type="submit"--%>
-<%--                                                        name="btnForgot"--%>
-<%--                                                        value="Forgot"--%>
-<%--                                                        data-bs-toggle="modal" data-bs-target="#emailVerification"--%>
-<%--                                                >--%>
-<%--                                                    Forgot password?--%>
-<%--                                                </button>--%>
-<%--                                            </form>--%>
                                         </div>
                                     </div>
                                 </div>

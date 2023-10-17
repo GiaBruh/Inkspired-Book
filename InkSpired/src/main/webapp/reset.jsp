@@ -4,7 +4,6 @@
 <head>
     <title>Forgot password</title>
     <link rel="stylesheet" href="css/button.css">
-    <link rel="stylesheet" href="css/toogle-password.css">
 </head>
 <style>
     .gradient-custom {
@@ -132,6 +131,5 @@
     </div>
 </footer>
 <script src="js/password-validate.js"></script>
-<script src="js/password-toggle.js" async></script>
 </body>
 </html>
