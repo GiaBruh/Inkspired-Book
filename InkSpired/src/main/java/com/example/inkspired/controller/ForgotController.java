@@ -21,10 +21,12 @@ import java.util.logging.Logger;
 public class ForgotController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String verificationCode = String.valueOf(generateVerificationCode());
         String email = request.getParameter("email");
+        // store email in session
+        session.setAttribute("email", email);
         // Store the verification code in the session
-        HttpSession session = request.getSession();
         session.setAttribute("verificationCode", verificationCode);
 
 

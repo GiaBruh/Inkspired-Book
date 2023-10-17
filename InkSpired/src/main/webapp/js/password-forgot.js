@@ -36,9 +36,7 @@ function resendVerificationCode() {
         console.log("Resend button is disabled. Please wait before resending.");
         return;
     }
-
     lastResendTime = currentTime;
-
     // Call the sendVerificationCode function to resend the verification code
     sendVerificationCode();
 }
@@ -46,16 +44,23 @@ function resendVerificationCode() {
 //verify the verification code
 function verifyVerificationCode() {
     const verificationCode = document.getElementById("verificationCode").value;
+    const redirectButton = document.getElementById("redirectButton");
+    const redirectButtonGroup = document.getElementById("redirectButtonGroup");
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/InkSpired/forgot?code=" + encodeURIComponent(verificationCode), true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 // Handle the response from the controller (if needed)
-                console.log("Verify starts", xhr.responseText);
+                // console.log("Verify starts", xhr.responseText);
             } else {
                 console.error("Error verifying verification code");
             }
+        }
+        if (xhr.responseText === "Correct verification code.") {
+            document.getElementById("buttonGroup").style.display = "none";
+            redirectButtonGroup.style.display = "block";
+            redirectButton.style.display = "block";
         }
     };
     xhr.send();

@@ -78,7 +78,7 @@
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Reset password</h3>
                         <form
                                 method="POST"
-<%--                                action="<%= request.getServletContext().getContextPath()%>/login"--%>
+                                action="<%= request.getServletContext().getContextPath()%>/reset"
                         >
                             <div class="row">
                                 <div class="col-md-12 mb-4">
@@ -87,6 +87,7 @@
                                             <input type="password" id="newPassword"
                                                    placeholder="New password goes here"
                                                    class="form-control form-control-lg"
+                                                   name="newPassword"
                                                    required
                                                    oninput="validatePasswords()"/>
                                         </div>
@@ -109,8 +110,10 @@
                                     <input
                                             class="btn btn-outline-dark btn-lg"
                                             type="submit"
+<%--                                            type="button"--%>
                                             name="btnSubmit"
                                             value="Reset password"
+<%--                                            onclick="redirectToResetController()"--%>
                                     />
                                 </div>
                             </div>
