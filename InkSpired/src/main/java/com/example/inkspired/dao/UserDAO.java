@@ -34,6 +34,30 @@ public class UserDAO implements DAO<User> {
         }
     }
 
+    public boolean checkExistingUserByEmail (String email_address)  throws SQLException {
+        String query = "SELECT * FROM public.user WHERE email_address = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, email_address);
+            rs = ps.executeQuery();
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return rs.next();
+    }
+    
+    public void updatePasswordByEmail (String password, String email_address) throws SQLException {
+        String query = "UPDATE public.user SET password = ? WHERE email_address = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, md5Hash(password));
+            ps.setString(2, email_address);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
     public boolean login(User u) throws SQLException {
         String query = "SELECT * FROM public.user WHERE username = ? and password = ?";
         try {
