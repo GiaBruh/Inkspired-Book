@@ -195,7 +195,9 @@
                     <button type="button" id="resendVerificationCode" class="btn btn-outline-dark" onclick="resendVerificationCode()" style="display: none">Resend code</button>
                     <button type="button" id="verifyVerificationCode" class="btn btn-outline-dark" onclick="verifyVerificationCode()" style="display: none">Verify code</button>
                 </div>
-                <button type="button" class="btn btn-outline-dark" style="display: none">Reset password</button>
+                <form action="<%= request.getServletContext().getContextPath() %>/reset" id="redirectButtonGroup" style="display: none">
+                    <button type="submit" id="redirectButton" class="btn btn-outline-dark" style="display: none">Reset password</button>
+                </form>
             </div>
         </div>
 
