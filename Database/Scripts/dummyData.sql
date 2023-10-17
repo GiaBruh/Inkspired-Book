@@ -21,10 +21,11 @@ VALUES ('nta', '202cb962ac59075b964b07152d234b70', 'nta@gmail.com', 'Nguyen Thi 
 
 -- Shopping_cart
 INSERT INTO public.shopping_cart (quantity)
-VALUES (0),
+VALUES (2),
        (0),
-       (0),
+       (1),
        (0);
+
 -- Admin
 INSERT INTO public."admin" (username, password, email_address, full_name)
 VALUES ('admin', '0192023a7bbd73250516f069df18b500', 'admin@gmail.com', 'Nguyen Van Admin');
@@ -183,6 +184,13 @@ VALUES (0, 'Pending'),
        (3, 'Delivering'),
        (4, 'Delivered'),
        (5, 'Cancelled');
+
+-- Cart_book
+INSERT INTO public.cart_book (shopping_cart_id, book_id)
+VALUES (1, 8),
+       (1, 4),
+       (3, 8)
+;
 
 -- -- Temporary unused dummy data
 -- Payment Types
