@@ -53,6 +53,8 @@ public class BookController extends HttpServlet {
 
         if (isInCart) {
             session.setAttribute("ISINCART", true);
+        } else {
+            session.setAttribute("ISINCART", false);
         }
 
         if (path.startsWith("/InkSpired/book")) {

@@ -231,7 +231,7 @@
 
                             <c:choose>
 
-                                <c:when test="${sessionScope.ISINCART == null}">
+                                <c:when test="${!sessionScope.ISINCART}">
                                     <form method="POST"
                                           action="<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}">
                                         <button class="btn btn-outline-dark flex-shrink-0" type="button">
@@ -242,8 +242,11 @@
                                 </c:when>
 
                                 <c:otherwise>
-                                    <form action="<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}">
-                                        <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                                    <form action="<%= request.getServletContext().getContextPath()%>/cart">
+                                        <button class="btn btn-outline-dark flex-shrink-0" type="submit"
+                                            name="cartid"
+                                                value="${sessionScope.userCookie.getValue()}"
+                                        >
                                             <i class="bi-cart-fill me-1"></i>
                                             View Cart
                                         </button>
