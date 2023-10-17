@@ -32,7 +32,6 @@ public class ShoppingCartDAO implements DAO<ShoppingCart> {
             while (rs.next()) {
                 ShoppingCart shopping_cart = new ShoppingCart();
                 shopping_cart.setShopping_card_id(rs.getInt("shopping_cart_id"));
-                shopping_cart.setBook_id(rs.getInt("book_id"));
                 shopping_cart.setQuantity(rs.getInt("quantity"));
                 result.add(shopping_cart);
             }
@@ -51,7 +50,7 @@ public class ShoppingCartDAO implements DAO<ShoppingCart> {
             rs = ps.executeQuery();
             if (rs.next()) {
                 ShoppingCart shopping_cart = new ShoppingCart();
-                shopping_cart.setBook_id(rs.getInt("book_id"));
+                shopping_cart.setShopping_card_id(rs.getInt("shopping_cart_id"));
                 shopping_cart.setQuantity(rs.getInt("quantity"));
                 return Optional.of(shopping_cart);
             }
@@ -63,28 +62,28 @@ public class ShoppingCartDAO implements DAO<ShoppingCart> {
 
     @Override
     public void add(ShoppingCart shoppingCart) {
-        String query = "INSERT INTO public.shopping_cart VALUES (?,?)";
-        try {
-            ps = conn.prepareStatement(query);
-            ps.setInt(1, shoppingCart.getBook_id());
-            ps.setInt(2, shoppingCart.getQuantity());
-            ps.executeUpdate();
-        } catch (Exception e) {
-            Logger.getLogger(ShoppingCartDAO.class.getName()).log(Level.SEVERE, null, e);
-        }
+//        String query = "INSERT INTO public.shopping_cart VALUES (?,?)";
+//        try {
+//            ps = conn.prepareStatement(query);
+//            ps.setInt(1, shoppingCart.getBook_id());
+//            ps.setInt(2, shoppingCart.getQuantity());
+//            ps.executeUpdate();
+//        } catch (Exception e) {
+//            Logger.getLogger(ShoppingCartDAO.class.getName()).log(Level.SEVERE, null, e);
+//        }
     }
 
     @Override
     public void update(ShoppingCart shoppingCart) {
-        String query = "UPDATE public.shopping_cart SET book_id = ?, quantity = ?";
-        try {
-            ps = conn.prepareStatement(query);
-            ps.setInt(1, shoppingCart.getBook_id());
-            ps.setInt(2, shoppingCart.getQuantity());
-            ps.executeUpdate();
-        } catch (Exception e) {
-            Logger.getLogger(ShoppingCartDAO.class.getName()).log(Level.SEVERE, null, e);
-        }
+//        String query = "UPDATE public.shopping_cart SET book_id = ?, quantity = ?";
+//        try {
+//            ps = conn.prepareStatement(query);
+//            ps.setInt(1, shoppingCart.getBook_id());
+//            ps.setInt(2, shoppingCart.getQuantity());
+//            ps.executeUpdate();
+//        } catch (Exception e) {
+//            Logger.getLogger(ShoppingCartDAO.class.getName()).log(Level.SEVERE, null, e);
+//        }
     }
 
     @Override

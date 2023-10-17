@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class ShoppingCart implements Serializable {
     private int shopping_cart_id;
-    private int book_id;
     private int quantity;
 
     public ShoppingCart() {
@@ -16,14 +15,6 @@ public class ShoppingCart implements Serializable {
 
     public void setShopping_card_id(int shopping_cart_id) {
         this.shopping_cart_id = shopping_cart_id;
-    }
-
-    public int getBook_id() {
-        return book_id;
-    }
-
-    public void setBook_id(int book_id) {
-        this.book_id = book_id;
     }
 
     public int getQuantity() {
@@ -38,7 +29,6 @@ public class ShoppingCart implements Serializable {
     public String toString() {
         return "ShoppingCart{" +
                 "shopping_card_id=" + shopping_cart_id +
-                ", book_id=" + book_id +
                 ", quantity=" + quantity +
                 '}';
     }

@@ -1,3 +1,6 @@
+<%@ page import="com.example.inkspired.model.ShoppingCart" %>
+<%@ page import="com.example.inkspired.dao.ShoppingCartDAO" %>
+<%@ page import="java.util.Optional" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -115,31 +118,24 @@
                 >
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div
-                        class="collapse navbar-collapse justify-content-end"
-                        id="navbarSupportedContent"
-                >
-                    <form class="d-flex pe-lg-3">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            <a href="<%= request.getServletContext().getContextPath()%>/cart?cartid=">Cart</a>
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
-                    </form>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 
                     <c:choose>
+
                         <c:when test="${sessionScope.userCookie == null}">
-                            <form
-                                    class="d-flex"
-                                    method="POST"
-                                    action="<%= request.getServletContext().getContextPath()%>/login"
-                            >
-                                <button
-                                        class="btn btn-outline-dark"
-                                        type="submit"
-                                        name="btnLogin"
-                                        value="Login"
-                                >
+
+                            <form class="d-flex pe-lg-3">
+                                <button class="btn btn-outline-dark" type="submit">
+                                    <i class="bi-cart-fill me-1"></i>
+                                    <a href="#">Cart</a>
+                                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                                </button>
+                            </form>
+
+                            <form class="d-flex" method="POST"
+                                  action="<%= request.getServletContext().getContextPath()%>/login">
+                                <button class="btn btn-outline-dark" type="submit" name="btnLogin"
+                                        value="Login">
                                     <i class="bi-person-fill"></i>
                                     Login
                                 </button>
@@ -147,37 +143,42 @@
                         </c:when>
 
                         <c:otherwise>
+
+                            <form class="d-flex pe-lg-3">
+                                <button class="btn btn-outline-dark" type="submit">
+                                    <i class="bi-cart-fill me-1"></i>
+                                    <a href="<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}">Cart</a>
+                                    <span class="badge bg-dark text-white ms-1 rounded-pill">
+                                                <%
+                                                    ShoppingCartDAO scDao = new ShoppingCartDAO();
+                                                    int cartid = Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue());
+                                                    Optional<ShoppingCart> cart = scDao.get(cartid);
+                                                    String quantity = String.valueOf(cart.get().getQuantity());
+                                                    out.print(quantity);
+                                                %>
+                                            </span>
+                                </button>
+                            </form>
+
                             <div class="dropdown">
-                                <button
-                                        class="btn btn-outline-dark dropdown-toggle"
-                                        type="button"
-                                        id="dropdownMenuButton"
-                                        data-mdb-toggle="dropdown"
-                                        aria-expanded="false"
-                                >
+                                <button class="btn btn-outline-dark dropdown-toggle" type="button"
+                                        id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
                                     Account
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <li>
-                                        <a class="item-dropdown" href="account.jsp"
-                                        >User Information</a
-                                        >
-                                    </li>
+                                    <li><a class="item-dropdown" href="account.jsp">User Information</a></li>
                                     <li><a class="item-dropdown" href="#">Order History</a></li>
                                     <li><a class="item-dropdown" href="#">Review History</a></li>
                                     <li>
                                         <div class="dropdown-divider"></div>
                                     </li>
-                                    <li>
-                                        <a
-                                                class="item-dropdown"
-                                                href="<%= request.getServletContext().getContextPath()%>/logout"
-                                        >Logout</a
-                                        >
+                                    <li><a class="item-dropdown"
+                                           href="<%= request.getServletContext().getContextPath()%>/logout">Logout</a>
                                     </li>
                                 </ul>
                             </div>
                         </c:otherwise>
+
                     </c:choose>
                 </div>
             </div>
@@ -206,7 +207,8 @@
                         <h1 class="display-5 fw-bolder">${sessionScope.BOOKINFO.get().getTitle()}</h1>
                         <h3>
                             Author:
-                            <a href="<%= request.getServletContext().getContextPath()%>/author?authorid=" class="fw-bold text-decoration-none"
+                            <a href="<%= request.getServletContext().getContextPath()%>/author?authorid="
+                               class="fw-bold text-decoration-none"
                             >Do Duc Dat</a
                             >
                         </h3>
