@@ -92,8 +92,8 @@ public class UserDAO implements DAO<User> {
         ArrayList<User> result = new ArrayList<>();
         String query = "SELECT * FROM public.user";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User();
                 user.setUserId(rs.getInt("id"));
@@ -117,9 +117,9 @@ public class UserDAO implements DAO<User> {
     public Optional<User> get(int id) {
         String query = "SELECT * FROM public.user where id = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query);
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
                 User user = new User();
                 user.setUserId(rs.getInt("id"));
@@ -147,7 +147,7 @@ public class UserDAO implements DAO<User> {
     public void update(User user) {
         String query = "UPDATE public.user SET username = ? , full_name = ? , gender = ? , birthdate = ? , phone_number = ? , user_image = ? WHERE id = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query);
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getFull_name());
             ps.setString(3, user.getGender());
@@ -165,7 +165,7 @@ public class UserDAO implements DAO<User> {
     public void delete(User user) {
         String query = "DELETE FROM public.user WHERE id = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query);
             ps.setInt(1, user.getUserId());
             ps.executeUpdate();
         } catch (Exception e) {
@@ -176,7 +176,7 @@ public class UserDAO implements DAO<User> {
     public boolean delete(int id) {
         String query = "DELETE FROM public.user WHERE id = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query);
             ps.setInt(1, id);
             return ps.executeUpdate() == 1;
         } catch (Exception e) {

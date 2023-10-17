@@ -16,8 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AuthorDAO implements DAO<Author> {
-
     private Connection conn = null;
+    private PreparedStatement ps = null;
+    private ResultSet rs = null;
 
     public AuthorDAO() {
         conn = PostgresqlConnection.getConn();
@@ -28,8 +29,8 @@ public class AuthorDAO implements DAO<Author> {
         ArrayList<Author> result = new ArrayList<>();
         String query = "SELECT * FROM public.author";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Author author = new Author();
                 author.setAuthor_id(rs.getInt("author_id"));
@@ -48,9 +49,9 @@ public class AuthorDAO implements DAO<Author> {
     public Optional<Author> get(int id) {
         String query = "SELECT * FROM public.author where author_id = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query);
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
                 Author author = new Author();
                 author.setAuthor_id(rs.getInt("author_id"));
@@ -69,7 +70,7 @@ public class AuthorDAO implements DAO<Author> {
     public void add(Author author) {
         String query = "INSERT INTO public.author VALUES (?,?,?)";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query);
             ps.setString(1, author.getAuthor_fullname());
             ps.setString(2, author.getAuthor_image());
             ps.setString(3, author.getAuthor_description());
@@ -81,12 +82,13 @@ public class AuthorDAO implements DAO<Author> {
 
     @Override
     public void update(Author author) {
-        String query = "UPDATE public.author SET author_fullname = ?, author_image = ?, author_description";
+        String query = "UPDATE public.author SET author_fullname = ?,  author_description = ?, author_image = ? where author_id = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query);
             ps.setString(1, author.getAuthor_fullname());
-            ps.setString(2, author.getAuthor_image());
-            ps.setString(3, author.getAuthor_description());
+            ps.setString(2, author.getAuthor_description());
+            ps.setString(3, author.getAuthor_image());
+            ps.setInt(4, author.getAuthor_id());
             ps.executeUpdate();
         } catch (Exception e) {
             Logger.getLogger(AuthorDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -96,11 +98,11 @@ public class AuthorDAO implements DAO<Author> {
     @Override
     public void delete(Author author) {
         String query = "DELETE FROM public.author WHERE author_id = ?";
-        try{
-            PreparedStatement ps = conn.prepareStatement(query);
+        try {
+            ps = conn.prepareStatement(query);
             ps.setInt(1, author.getAuthor_id());
             ps.executeUpdate();
-        } catch(Exception e) {
+        } catch (Exception e) {
             Logger.getLogger(AuthorDAO.class.getName()).log(Level.SEVERE, null, e);
         }
     }
@@ -108,7 +110,7 @@ public class AuthorDAO implements DAO<Author> {
     public boolean delete(int author_id) {
         String query = "DELETE FROM public.author WHERE author_id = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query);
             ps.setInt(1, author_id);
             return ps.executeUpdate() == 1;
         } catch (Exception e) {

@@ -14,8 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ShoppingCartDAO implements DAO<ShoppingCart> {
-
     private Connection conn = null;
+    private PreparedStatement ps = null;
+    private ResultSet rs = null;
 
     public ShoppingCartDAO() {
         conn = PostgresqlConnection.getConn();
@@ -26,8 +27,8 @@ public class ShoppingCartDAO implements DAO<ShoppingCart> {
         ArrayList<ShoppingCart> result = new ArrayList<>();
         String query = "SELECT * FROM public.shopping_cart";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 ShoppingCart shopping_cart = new ShoppingCart();
                 shopping_cart.setShopping_card_id(rs.getInt("shopping_cart_id"));
@@ -45,9 +46,9 @@ public class ShoppingCartDAO implements DAO<ShoppingCart> {
     public Optional<ShoppingCart> get(int id) {
         String query = "SELECT * FROM public.shopping_cart where shopping_cart_id = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query);
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
                 ShoppingCart shopping_cart = new ShoppingCart();
                 shopping_cart.setBook_id(rs.getInt("book_id"));
@@ -64,7 +65,7 @@ public class ShoppingCartDAO implements DAO<ShoppingCart> {
     public void add(ShoppingCart shoppingCart) {
         String query = "INSERT INTO public.shopping_cart VALUES (?,?)";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query);
             ps.setInt(1, shoppingCart.getBook_id());
             ps.setInt(2, shoppingCart.getQuantity());
             ps.executeUpdate();
@@ -77,7 +78,7 @@ public class ShoppingCartDAO implements DAO<ShoppingCart> {
     public void update(ShoppingCart shoppingCart) {
         String query = "UPDATE public.shopping_cart SET book_id = ?, quantity = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query);
             ps.setInt(1, shoppingCart.getBook_id());
             ps.setInt(2, shoppingCart.getQuantity());
             ps.executeUpdate();
@@ -90,7 +91,7 @@ public class ShoppingCartDAO implements DAO<ShoppingCart> {
     public void delete(ShoppingCart shoppingCart) {
         String query = "DELETE FROM public.shopping_cart WHERE shopping_cart_id = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query);
             ps.setInt(1, shoppingCart.getShopping_card_id());
             ps.executeUpdate();
         } catch (Exception e) {
