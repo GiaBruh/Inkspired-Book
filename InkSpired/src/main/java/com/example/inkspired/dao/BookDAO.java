@@ -126,6 +126,55 @@ public class BookDAO implements DAO<Book> {
         }
     }
 
+    public List<Book> searchByTitle(String title) {
+        List<Book> result = new ArrayList<>();
+        String query = "SELECT * FROM public.book WHERE titlle LIKE ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, "%" + title + "%");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Book book = new Book();
+                book.setBook_id(rs.getInt("book_id"));
+                book.setTitle(rs.getString("title"));
+                book.setPrice(rs.getInt("price"));
+                book.setBook_image(rs.getString("book_image"));
+                book.setIs_available(rs.getBoolean("is_available"));
+                result.add(book);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return result;
+    }
+
+    public List<Book> searchByAuthor(String author_fullname) {
+        List<Book> result = new ArrayList<>();
+        String query = "SELECT b.*, a.author_fullname AS author_name " +
+                "FROM public.book b " +
+                "INNER JOIN public.author a ON b.author_id = a.author_id " +
+                "WHERE a.author_fullname LIKE ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, "%" + author_fullname + "%");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Book book = new Book();
+                book.setBook_id(rs.getInt("book_id"));
+                book.setTitle(rs.getString("title"));
+                book.setPrice(rs.getInt("price"));
+                book.setBook_image(rs.getString("book_image"));
+                book.setIs_available(rs.getBoolean("is_available"));
+                result.add(book);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
     }
 }
