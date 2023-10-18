@@ -3,6 +3,7 @@ package com.example.inkspired.controller;
 import com.example.inkspired.dao.BookDAO;
 import com.example.inkspired.dao.ShoppingCartDAO;
 import com.example.inkspired.model.Book;
+import com.example.inkspired.model.ShoppingCart;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -11,12 +12,14 @@ import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet(name = "ShoppingCartController", value = "/cart")
 public class ShoppingCartController extends HttpServlet {
 
     private static final String HOME = "/";
     private static final String CART = "/cart";
+    private static final String BOOK = "/book";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -69,6 +72,17 @@ public class ShoppingCartController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        ShoppingCartDAO scDao = new ShoppingCartDAO();
+
+        if (request.getParameter("btnaddtocart") != null) {
+            int cartid = Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue());
+            int bookid = Integer.parseInt(request.getParameter("btnaddtocart"));
+            int quantity = scDao.get(cartid).get().getQuantity();
+
+            scDao.addToCart(cartid, bookid);
+            scDao.update(new ShoppingCart(cartid, quantity + 1));
+            response.sendRedirect(getServletContext().getContextPath() + "/book?bookid=" + bookid);
+        }
     }
 }

@@ -233,8 +233,11 @@
 
                                 <c:when test="${!sessionScope.ISINCART}">
                                     <form method="POST"
-                                          action="<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}">
-                                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                                          action="<%= request.getServletContext().getContextPath()%>/cart">
+                                        <button class="btn btn-outline-dark flex-shrink-0" type="submit"
+                                            name="btnaddtocart"
+                                            value="${sessionScope.BOOKINFO.get().getBook_id()}"
+                                        >
                                             <i class="bi-cart-fill me-1"></i>
                                             Add to cart
                                         </button>
@@ -244,7 +247,7 @@
                                 <c:otherwise>
                                     <form action="<%= request.getServletContext().getContextPath()%>/cart">
                                         <button class="btn btn-outline-dark flex-shrink-0" type="submit"
-                                            name="cartid"
+                                                name="cartid"
                                                 value="${sessionScope.userCookie.getValue()}"
                                         >
                                             <i class="bi-cart-fill me-1"></i>

@@ -74,17 +74,21 @@ public class ShoppingCartDAO implements DAO<ShoppingCart> {
 //        }
     }
 
+    /**
+     * Update quantity of user cart
+     * @param shoppingCart
+     */
     @Override
     public void update(ShoppingCart shoppingCart) {
-//        String query = "UPDATE public.shopping_cart SET book_id = ?, quantity = ?";
-//        try {
-//            ps = conn.prepareStatement(query);
-//            ps.setInt(1, shoppingCart.getBook_id());
-//            ps.setInt(2, shoppingCart.getQuantity());
-//            ps.executeUpdate();
-//        } catch (Exception e) {
-//            Logger.getLogger(ShoppingCartDAO.class.getName()).log(Level.SEVERE, null, e);
-//        }
+        String query = "UPDATE public.shopping_cart SET quantity = ? WHERE shopping_cart_id = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, shoppingCart.getQuantity());
+            ps.setInt(2, shoppingCart.getShopping_card_id());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            Logger.getLogger(ShoppingCartDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     @Override
@@ -135,6 +139,22 @@ public class ShoppingCartDAO implements DAO<ShoppingCart> {
         } catch (Exception e) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
         }
+        return result;
+    }
+
+    public int addToCart(int shopping_cart_id, int book_id) {
+        int result = 0;
+        String query = "INSERT INTO cart_book VALUES (?, ?)";
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, shopping_cart_id);
+            ps.setInt(2, book_id);
+            result = ps.executeUpdate();
+        } catch (Exception e) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+
         return result;
     }
 }

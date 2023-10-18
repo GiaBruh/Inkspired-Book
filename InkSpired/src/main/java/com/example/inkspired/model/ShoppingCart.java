@@ -9,6 +9,11 @@ public class ShoppingCart implements Serializable {
     public ShoppingCart() {
     }
 
+    public ShoppingCart(int shopping_cart_id, int quantity) {
+        this.shopping_cart_id = shopping_cart_id;
+        this.quantity = quantity;
+    }
+
     public int getShopping_card_id() {
         return shopping_cart_id;
     }
