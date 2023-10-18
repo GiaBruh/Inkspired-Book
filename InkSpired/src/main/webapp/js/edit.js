@@ -2,6 +2,8 @@ function toggleEditing() {
     const inputs = document.querySelectorAll('input[disabled]');
 
     inputs.forEach(input => {
-        input.removeAttribute('disabled');
+        if (input.name !== 'username' && input.name !== 'email') {
+            input.removeAttribute('disabled');
+        }
     });
 }
