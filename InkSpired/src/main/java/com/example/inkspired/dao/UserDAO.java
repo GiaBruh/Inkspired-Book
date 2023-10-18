@@ -48,14 +48,14 @@ public class UserDAO implements DAO<User> {
     }
 
     public boolean register(User u) {
-        String query = "INSERT INTO public.user (username, password, email_address, full_name, gender, birthdate, phone_number, user_image, user_status)" +
+        String query = "INSERT INTO public.user (username, password, email_address, display_name, gender, birthdate, phone_number, user_image, user_status)" +
                 "VALUES (?,?,?,?,?,?,?,?,?)";
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, u.getUsername());
             ps.setString(2, md5Hash(u.getPassword()));
             ps.setString(3, u.getEmail_address());
-            ps.setString(4, u.getFull_name());
+            ps.setString(4, u.getDisplay_name());
             ps.setString(5, u.getGender());
             ps.setDate(6, u.getBirthdate());
             ps.setString(7, u.getPhone_number());
@@ -63,7 +63,7 @@ public class UserDAO implements DAO<User> {
             ps.setBoolean(9, u.isUser_status());
             return ps.executeUpdate() == 1;
         } catch (Exception e) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Failed to register a new user", e);
         }
         return false;
     }
@@ -102,7 +102,7 @@ public class UserDAO implements DAO<User> {
                 user.setUserId(rs.getInt("id"));
                 user.setUsername(rs.getString("username"));
                 user.setEmail_address(rs.getString("email_address"));
-                user.setFull_name(rs.getString("full_name"));
+                user.setDisplay_name(rs.getString("display_name"));
                 user.setGender(rs.getString("gender"));
                 user.setBirthdate(rs.getDate("birthdate"));
                 user.setPhone_number(rs.getString("phone_number"));
@@ -128,7 +128,7 @@ public class UserDAO implements DAO<User> {
                 user.setUserId(rs.getInt("id"));
                 user.setUsername(rs.getString("username"));
                 user.setEmail_address(rs.getString("email_address"));
-                user.setFull_name(rs.getString("full_name"));
+                user.setDisplay_name(rs.getString("display_name"));
                 user.setGender(rs.getString("gender"));
                 user.setBirthdate(rs.getDate("birthdate"));
                 user.setPhone_number(rs.getString("phone_number"));
@@ -142,17 +142,31 @@ public class UserDAO implements DAO<User> {
         return Optional.empty();
     }
 
+    public boolean checkExistUser(User user) {
+        boolean result = false;
+        String query = "SELECT * from public.user where username = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, user.getUsername());
+            rs = ps.executeQuery();
+            result = rs.next();
+        } catch (Exception ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Can not find user with provided username", ex);
+        }
+        return result;
+    }
+
     @Override
     public void add(User user) {
     }
 
     @Override
     public void update(User user) {
-        String query = "UPDATE public.user SET username = ? , full_name = ? , gender = ? , birthdate = ? , phone_number = ? , user_image = ? WHERE id = ?";
+        String query = "UPDATE public.user SET username = ? , display_name = ? , gender = ? , birthdate = ? , phone_number = ? , user_image = ? WHERE id = ?";
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, user.getUsername());
-            ps.setString(2, user.getFull_name());
+            ps.setString(2, user.getDisplay_name());
             ps.setString(3, user.getGender());
             ps.setDate(4, user.getBirthdate());
             ps.setString(5, user.getPhone_number());
@@ -188,27 +202,28 @@ public class UserDAO implements DAO<User> {
         return false;
     }
 
-//    public boolean update(int id) {
-//       String query =  "UPDATE public.user SET username = ? , full_name = ? , gender = ? , birthdate = ? , phone_number = ? , user_image = ? WHERE id = ?";
-//       try {
-//           PreparedStatement ps = conn.prepareStatement(query);
-//           ps.setString(1, user.getUsername());
-//           ps.setString(2, user.getFull_name());
-//           ps.setString(3, user.getGender());
-//           ps.setDate(4, user.getBirthdate());
-//           ps.setString(5, user.getPhone_number());
-//           ps.setString(6, user.getUser_image());
-//           ps.setInt(7, user.getUserId());
-//           return ps.executeUpdate() == 1;
-//       } catch (Exception e) {
-//
-//           Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
-//       }
-//       return false;
-//    }
+    public boolean update(int id, User user) {
+        String query = "UPDATE public.user SET username = ? , display_name = ? , gender = ? , birthdate = ? , phone_number = ? , user_image = ? WHERE id = ?";
+        boolean result = false;
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getDisplay_name());
+            ps.setString(3, user.getGender());
+            ps.setDate(4, user.getBirthdate());
+            ps.setString(5, user.getPhone_number());
+            ps.setString(6, user.getUser_image());
+            ps.setInt(7, id);
+            result = ps.executeUpdate() == 1;
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return result;
+    }
 
     /**
      * Get user id from current login account to add to session cookie
+     *
      * @param user
      * @return
      */
@@ -237,7 +252,12 @@ public class UserDAO implements DAO<User> {
     }
 
     public static void main(String[] args) {
-        UserDAO dao = new UserDAO();
-        System.out.println(dao.delete(4));
+//        UserDAO dao = new UserDAO();
+//        System.out.println(dao.delete(4));
+//        Optional<User> optionalUser = dao.get(1);
+//        System.out.println(optionalUser.get().getUsername());
+//        User user = new User();
+//        user.setUsername("ntba");
+//        System.out.println(dao.checkExistUser(user));
     }
 }
