@@ -6,7 +6,7 @@
 --        ('Lộ Vòng Cung', 'An Khánh', 'Phong Điền', 'Cần Thơ', 'NaN', '270000');
 
 -- Users
-INSERT INTO public."user" ( username, password, email_address, display_name, gender, birthdate, phone_number
+INSERT INTO public."user" ( username, password, email_address, full_name, gender, birthdate, phone_number
                           , user_image
                           , user_status)
 VALUES ('nta', '202cb962ac59075b964b07152d234b70', 'nta@gmail.com', 'Nguyen Thi A', 'female', '1991-02-02',

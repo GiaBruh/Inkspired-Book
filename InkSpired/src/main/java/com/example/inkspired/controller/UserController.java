@@ -80,7 +80,7 @@ public class UserController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        processRequest(request, response);
         String username = request.getParameter("username");
-        String fullname = request.getParameter("display-name");
+        String fullname = request.getParameter("fullname");
         String gender = request.getParameter("inlineRadioOptions");
         String email_address = request.getParameter("email");
         Date birthdate = Date.valueOf(request.getParameter("birthdate"));

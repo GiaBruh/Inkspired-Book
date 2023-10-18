@@ -80,11 +80,11 @@
                                         <div class="col-md-12 mb-4">
 
                                             <div class="form-outline">
-                                                <input type="text" id="display-name"
+                                                <input type="text" id="fullname"
                                                        class="form-control form-control-lg"
-                                                       name="display-name"
+                                                       name="fullname"
                                                 />
-                                                <label class="form-label" for="display-name">Display Name</label>
+                                                <label class="form-label" for="fullname">Full Name</label>
                                             </div>
                                         </div>
 

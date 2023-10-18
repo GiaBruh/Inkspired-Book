@@ -82,15 +82,15 @@
                                                 disabled
                                         />
                                     </div>
-                                    <div id="display-name-input"
+                                    <div id="fullname-input"
                                          class="d-flex justify-content-center align-items-center mb-4">
-                                        <label for="display-name" class="me-3">Display Name:</label>
+                                        <label for="fullname" class="me-3">Full Name:</label>
                                         <input
                                                 type="text"
-                                                id="display-name"
+                                                id="fullname"
                                                 class="form-control"
-                                                name="display-name"
-                                                value="${sessionScope.userInfo.getDisplay_name()}"
+                                                name="fullname"
+                                                value="${sessionScope.userInfo.getFull_name()}"
                                                 disabled
                                         />
                                     </div>

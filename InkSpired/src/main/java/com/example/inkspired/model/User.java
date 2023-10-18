@@ -8,7 +8,7 @@ public class User implements Serializable {
     private String username;
     private String password;
     private String email_address;
-    private String display_name;
+    private String full_name;
     private String gender;
     private Date birthdate;
     private String phone_number;
@@ -23,22 +23,22 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public User(String username, String display_name, String gender, String email_address, Date birthdate,
+    public User(String username, String full_name, String gender, String email_address, Date birthdate,
                 String phone_number, String user_image) {
         this.username = username;
         this.email_address = email_address;
         this.gender = gender;
-        this.display_name = display_name;
+        this.full_name = full_name;
         this.birthdate = birthdate;
         this.phone_number = phone_number;
         this.user_image = user_image;
     }
 
-    public User(String username, String password, String email_address, String display_name, String gender, Date birthdate, String phone_number, String user_image, boolean user_status) {
+    public User(String username, String password, String email_address, String full_name, String gender, Date birthdate, String phone_number, String user_image, boolean user_status) {
         this.username = username;
         this.password = password;
         this.email_address = email_address;
-        this.display_name = display_name;
+        this.full_name = full_name;
         this.gender = gender;
         this.birthdate = birthdate;
         this.phone_number = phone_number;
@@ -78,12 +78,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getDisplay_name() {
-        return display_name;
+    public String getFull_name() {
+        return full_name;
     }
 
-    public void setDisplay_name(String display_name) {
-        this.display_name = display_name;
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
     }
 
     public Date getBirthdate() {
@@ -133,7 +133,7 @@ public class User implements Serializable {
                 ", email_address='" + email_address + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", full_name='" + display_name + '\'' +
+                ", full_name='" + full_name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", birthday=" + birthdate +
                 ", phone_number='" + phone_number + '\'' +

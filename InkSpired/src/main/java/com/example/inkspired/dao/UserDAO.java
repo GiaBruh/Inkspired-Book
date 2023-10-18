@@ -48,14 +48,14 @@ public class UserDAO implements DAO<User> {
     }
 
     public boolean register(User u) {
-        String query = "INSERT INTO public.user (username, password, email_address, display_name, gender, birthdate, phone_number, user_image, user_status)" +
+        String query = "INSERT INTO public.user (username, password, email_address, full_name, gender, birthdate, phone_number, user_image, user_status)" +
                 "VALUES (?,?,?,?,?,?,?,?,?)";
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, u.getUsername());
             ps.setString(2, md5Hash(u.getPassword()));
             ps.setString(3, u.getEmail_address());
-            ps.setString(4, u.getDisplay_name());
+            ps.setString(4, u.getFull_name());
             ps.setString(5, u.getGender());
             ps.setDate(6, u.getBirthdate());
             ps.setString(7, u.getPhone_number());
@@ -102,7 +102,7 @@ public class UserDAO implements DAO<User> {
                 user.setUserId(rs.getInt("id"));
                 user.setUsername(rs.getString("username"));
                 user.setEmail_address(rs.getString("email_address"));
-                user.setDisplay_name(rs.getString("display_name"));
+                user.setFull_name(rs.getString("full_name"));
                 user.setGender(rs.getString("gender"));
                 user.setBirthdate(rs.getDate("birthdate"));
                 user.setPhone_number(rs.getString("phone_number"));
@@ -128,7 +128,7 @@ public class UserDAO implements DAO<User> {
                 user.setUserId(rs.getInt("id"));
                 user.setUsername(rs.getString("username"));
                 user.setEmail_address(rs.getString("email_address"));
-                user.setDisplay_name(rs.getString("display_name"));
+                user.setFull_name(rs.getString("full_name"));
                 user.setGender(rs.getString("gender"));
                 user.setBirthdate(rs.getDate("birthdate"));
                 user.setPhone_number(rs.getString("phone_number"));
@@ -162,11 +162,11 @@ public class UserDAO implements DAO<User> {
 
     @Override
     public void update(User user) {
-        String query = "UPDATE public.user SET username = ? , display_name = ? , gender = ? , birthdate = ? , phone_number = ? , user_image = ? WHERE id = ?";
+        String query = "UPDATE public.user SET username = ? , full_name = ? , gender = ? , birthdate = ? , phone_number = ? , user_image = ? WHERE id = ?";
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, user.getUsername());
-            ps.setString(2, user.getDisplay_name());
+            ps.setString(2, user.getFull_name());
             ps.setString(3, user.getGender());
             ps.setDate(4, user.getBirthdate());
             ps.setString(5, user.getPhone_number());
@@ -203,12 +203,12 @@ public class UserDAO implements DAO<User> {
     }
 
     public boolean update(int id, User user) {
-        String query = "UPDATE public.user SET username = ? , display_name = ? , gender = ? , birthdate = ? , phone_number = ? , user_image = ? WHERE id = ?";
+        String query = "UPDATE public.user SET username = ? , full_name = ? , gender = ? , birthdate = ? , phone_number = ? , user_image = ? WHERE id = ?";
         boolean result = false;
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, user.getUsername());
-            ps.setString(2, user.getDisplay_name());
+            ps.setString(2, user.getFull_name());
             ps.setString(3, user.getGender());
             ps.setDate(4, user.getBirthdate());
             ps.setString(5, user.getPhone_number());
