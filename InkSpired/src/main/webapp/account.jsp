@@ -232,6 +232,6 @@
                 reserved.</p>
             </div>
         </footer>
-        <script src="js/edit.js"></script>
+        <script src="js/toggle-edit.js"></script>
     </body>
 </html>

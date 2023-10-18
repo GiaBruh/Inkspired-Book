@@ -113,18 +113,17 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <input type="text" class="form-control border-black"
-                                   placeholder="Search for products">
-                            <div class="input-group-append">
-                                <button class="btn btn-dark btn-small">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <input type="text" id="searchBar" class="form-control border-black" placeholder="Search for products">
+                    <div class="input-group-append">
+                        <button class="btn btn-dark btn-small">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"

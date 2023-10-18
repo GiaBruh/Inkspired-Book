@@ -184,12 +184,13 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <script src="js/quantity.js"></script>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright INKSPIRED BOOKS 2023, always
-                reserved.</p></div>
-        </footer>
-    </body>
+        </div>
+    </div>
+</section>
+<script src="js/quantity-change.js"></script>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright INKSPIRED BOOKS 2023, always reserved.</p></div>
+</footer>
+</body>
 </html>
