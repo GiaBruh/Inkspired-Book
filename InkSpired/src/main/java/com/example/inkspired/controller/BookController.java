@@ -49,6 +49,15 @@ public class BookController extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("BOOKINFO", book);
 
+        if (((Cookie)session.getAttribute("userCookie")) != null) {
+            boolean isInCart = bDao.isInUserCart(Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue()), bookid);
+            if (isInCart) {
+                session.setAttribute("ISINCART", true);
+            } else {
+                session.setAttribute("ISINCART", false);
+            }
+        }
+
         if (path.startsWith("/InkSpired/book")) {
             request.getRequestDispatcher("/book.jsp").forward(request, response);
         }
