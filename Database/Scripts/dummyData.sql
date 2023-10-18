@@ -6,17 +6,17 @@
 --        ('Lộ Vòng Cung', 'An Khánh', 'Phong Điền', 'Cần Thơ', 'NaN', '270000');
 
 -- Users
-INSERT INTO public."user" ( username, password, email_address, full_name, gender, birthdate, phone_number
+INSERT INTO public."user" ( username, password, email_address, display_name, gender, birthdate, phone_number
                           , user_image
                           , user_status)
 VALUES ('nta', '202cb962ac59075b964b07152d234b70', 'nta@gmail.com', 'Nguyen Thi A', 'female', '1991-02-02',
-        0912345678, '/', true), -- 202cb962ac59075b964b07152d234b70 = 123
+        '0912345678', '/', true), -- 202cb962ac59075b964b07152d234b70 = 123
        ('Hoai_N_V', 'caf1a3dfb505ffed0d024130f58c5cfa', 'nvh@gmail.com', 'Nguyen Van Hoai', 'male', '1998-10-19',
-        0841298550, '/', true), -- caf1a3dfb505ffed0d024130f58c5cfa = 321
+        '0841298550', '/', true), -- caf1a3dfb505ffed0d024130f58c5cfa = 321
        ('dio', 'ed20a959d410ccd843d9e1dfcee04228', 'kratos@gmail.com', 'Huynh Dai Tinh', 'male', '1991-03-01',
-        0830987675, '/', true), -- ed20a959d410ccd843d9e1dfcee04228 = a12
+        '0830987675', '/', true), -- ed20a959d410ccd843d9e1dfcee04228 = a12
        ('Dai_Gia_Ngheo', '1406f37190e825427440bc020919218a', 'javan@gmail.com', 'Do Dai Hoc', 'female', '2005-12-04',
-        0830987675, '/', true);
+        '0830987675', '/', true);
 -- 1406f37190e825427440bc020919218a = gogo
 
 -- Shopping_cart

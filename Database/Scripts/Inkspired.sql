@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS public."user"
     email_address character varying(100) UNIQUE NOT NULL,
     username      character varying(100) UNIQUE NOT NULL,
     password      character varying(100)        NOT NULL,
-    full_name     character varying(100)        NOT NULL,
+    display_name     character varying(100)        NOT NULL,
     gender        character varying(10)         NOT NULL,
     birthdate     date,
     phone_number  character varying(15)         NOT NULL,
