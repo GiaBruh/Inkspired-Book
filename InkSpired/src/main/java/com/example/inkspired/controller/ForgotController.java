@@ -13,6 +13,7 @@ import jakarta.mail.Authenticator;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,17 +25,39 @@ public class ForgotController extends HttpServlet {
         HttpSession session = request.getSession();
         String verificationCode = String.valueOf(generateVerificationCode());
         String email = request.getParameter("email");
-        // store email in session
-        session.setAttribute("email", email);
-        // Store the verification code in the session
-        session.setAttribute("verificationCode", verificationCode);
+//        // store email in session
+//        session.setAttribute("email", email);
+//        // Store the verification code in the session
+//        session.setAttribute("verificationCode", verificationCode);
+//        // Send the verification code to the user
+//        sendVerificationCodeEmail(email, verificationCode);
+//        // Send the status as the response
+//        response.setContentType("text/plain");
+//        response.getWriter().write("Verification code sent to your email: " + email);
 
-
-        sendVerificationCodeEmail(email, verificationCode);
-
-        // Send the verification code as the response
-        response.setContentType("text/plain");
-        response.getWriter().write("Verification code sent to your email: " + email);
+        // check if email exists in database
+        UserDAO userDAO = new UserDAO();
+        User user = new User();
+        user.setEmail_address(email);
+        try {
+            boolean emailExists = userDAO.checkExistingUserByEmail(email);
+            if (emailExists) {
+                // store email in session
+                session.setAttribute("email", email);
+                // Store the verification code in the session
+                session.setAttribute("verificationCode", verificationCode);
+                // Send the verification code to the user
+                sendVerificationCodeEmail(email, verificationCode);
+                // Send the status as the response
+                response.setContentType("text/plain");
+                response.getWriter().write("Verification code sent to your email: " + email);
+            } else {
+                response.getWriter().write("Email does not exist.");
+            }
+            return;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

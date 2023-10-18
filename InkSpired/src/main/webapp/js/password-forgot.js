@@ -1,11 +1,11 @@
 let lastResendTime = 0;
 let resendTimeout = 30000;
+let status = null;
 
 function sendVerificationCode() {
     // show the verification code input
     document.getElementById("verificationCode").style.display = "block";
     const emailAddress = document.getElementById("emailAddress").value;
-    console.log("Email address:", emailAddress);  // Log the email address
     // hide the send verification code button
     document.getElementById("sendVerificationCode").style.display = "none";
     // show the button group
@@ -14,20 +14,30 @@ function sendVerificationCode() {
     document.getElementById("resendVerificationCode").style.display = "block";
     // show the verify verification code button
     document.getElementById("verifyVerificationCode").style.display = "block"
-    disableResendButton(resendTimeout);
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/InkSpired/forgot?email=" + encodeURIComponent(emailAddress), true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 // Handle the response from the controller (if needed)
-                console.log("Verification code sent successfully", xhr.responseText);
+                disableResendButton(resendTimeout);
+                // console.log("Verification code sent successfully", xhr.responseText);
+                status = xhr.responseText;
+                console.log("Status: ", status);
             } else {
                 console.error("Error sending verification code");
+                document.getElementById("verificationCode").style.display = "none";
+                document.getElementById("buttonGroup").style.display = "none";
+                document.getElementById("sendVerificationCode").style.display = "block";
             }
         }
     };
     xhr.send();
+    if (status === "Email does not exist.") {
+        document.getElementById("verificationCode").style.display = "none";
+        document.getElementById("buttonGroup").style.display = "none";
+        document.getElementById("sendVerificationCode").style.display = "block";
+    }
 }
 
 function resendVerificationCode() {
