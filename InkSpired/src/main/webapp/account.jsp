@@ -68,7 +68,9 @@
                                     Account
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="item-dropdown" href="<%= request.getServletContext().getContextPath()%>/user">User Information</a></li>
+                                    <li><a class="item-dropdown"
+                                           href="<%= request.getServletContext().getContextPath()%>/user">User
+                                        Information</a></li>
                                     <li><a class="item-dropdown" href="#">Order History</a></li>
                                     <li><a class="item-dropdown" href="#">Review History</a></li>
                                     <li>
@@ -93,110 +95,135 @@
                 </div>
             </div>
         </header>
-        <!-- Product section-->
+        <!-- Account info section-->
         <section class="py-5 gradient-custom">
             <div class="container px-4 px-lg-5 my-5">
-                <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-9">
-                        <div class="card">
-                            <div class="card-body">
-                                <div id="username-input" class="d-flex justify-content-center align-items-center mb-4">
-                                    <label for="username" class="me-3">Username:</label>
-                                    <input
-                                            type="text"
-                                            id="username"
-                                            class="form-control"
-                                            name="username"
-                                            disabled
-                                    />
-                                </div>
-                                <div id="fullname-input" class="d-flex justify-content-center align-items-center mb-4">
-                                    <label for="fullname" class="me-3">Full Name:</label>
-                                    <input
-                                            type="text"
-                                            id="fullname"
-                                            class="form-control"
-                                            name="fullname"
-                                            disabled
-                                    />
-                                </div>
-                                <div class="col-md-6 d-flex mb-4" id="gender-input">
-
-                                    <h6 class="pe-5">Gender: </h6>
-
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio"
-                                               name="inlineRadioOptions" id="femaleGender"
-                                               value="option1"
-                                               disabled/>
-                                        <label class="form-check-label" for="femaleGender">Female</label>
+                <form method="post" action="<%= request.getServletContext().getContextPath()%>/user">
+                    <div class="row gx-4 gx-lg-5 align-items-center">
+                        <div class="col-md-9">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div id="username-input"
+                                         class="d-flex justify-content-center align-items-center mb-4">
+                                        <label for="username" class="me-3">Username:</label>
+                                        <input
+                                                type="text"
+                                                id="username"
+                                                class="form-control"
+                                                name="username"
+                                                value="${sessionScope.userInfo.getUsername()}"
+                                                readonly
+                                                disabled
+                                        />
                                     </div>
-
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio"
-                                               name="inlineRadioOptions" id="maleGender"
-                                               value="option2"
-                                               disabled/>
-                                        <label class="form-check-label" for="maleGender">Male</label>
+                                    <div id="fullname-input"
+                                         class="d-flex justify-content-center align-items-center mb-4">
+                                        <label for="fullname" class="me-3">Full Name:</label>
+                                        <input
+                                                type="text"
+                                                id="fullname"
+                                                class="form-control"
+                                                name="fullname"
+                                                value="${sessionScope.userInfo.getFull_name()}"
+                                                disabled
+                                        />
                                     </div>
+                                    <div class="col-md-6 d-flex mb-4" id="gender-input">
 
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio"
-                                               name="inlineRadioOptions" id="otherGender"
-                                               value="option3"
-                                               disabled/>
-                                        <label class="form-check-label" for="otherGender">Other</label>
-                                    </div>
+                                        <h6 class="pe-5">Gender: </h6>
 
-                                </div>
-                                <div id="email-input" class="d-flex justify-content-center align-items-center mb-4">
-                                    <label for="email" class="me-3">Email:</label>
-                                    <input
-                                            type="text"
-                                            id="email"
-                                            class="form-control"
-                                            name="email"
-                                            disabled
-                                    />
-                                </div>
-                                <div id="phone-input" class="d-flex justify-content-center align-items-center mb-4">
-                                    <label for="phone" class="me-3">Phone Number:</label>
-                                    <input
-                                            type="text"
-                                            id="phone"
-                                            class="form-control"
-                                            name="phone"
-                                            disabled
-                                    />
-                                </div>
-                                <div class="d-flex">
-                                    <div class="mt-4 me-3 pt-2">
-                                        <input class="btn btn-outline-dark btn-lg" type="submit" value="Submit"/>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio"
+                                                   name="inlineRadioOptions" id="femaleGender"
+                                                   value="${sessionScope.userInfo.getGender()}"
+                                            ${sessionScope.userInfo.getGender() == 'female' ? 'checked' : ''}
+                                                   disabled/>
+                                            <label class="form-check-label" for="femaleGender">Female</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio"
+                                                   name="inlineRadioOptions" id="maleGender"
+                                                   value="${sessionScope.userInfo.getGender()}"
+                                            ${sessionScope.userInfo.getGender() == 'male' ? 'checked' : ''}
+                                                   disabled/>
+                                            <label class="form-check-label" for="maleGender">Male</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio"
+                                                   name="inlineRadioOptions" id="otherGender"
+                                                   value="${sessionScope.userInfo.getGender()}"
+                                            ${sessionScope.userInfo.getGender() == 'other' ? 'checked' : ''}
+                                                   disabled/>
+                                            <label class="form-check-label" for="otherGender">Other</label>
+                                        </div>
+
                                     </div>
-                                    <div class="mt-4 pt-2">
-                                        <button class="btn btn-outline-dark btn-lg" onclick="toggleEditing()">Edit
-                                        </button>
+                                    <div id="email-input" class="d-flex justify-content-center align-items-center mb-4">
+                                        <label for="email" class="me-3">Email:</label>
+                                        <input
+                                                type="text"
+                                                id="email"
+                                                class="form-control"
+                                                name="email"
+                                                value="${sessionScope.userInfo.getEmail_address()}"
+                                                readonly
+                                                disabled
+                                        />
+                                    </div>
+                                    <div id="birthdate-input"
+                                         class="d-flex justify-content-center align-items-center mb-4">
+                                        <label for="birthdate" class="me-3">Birthdate:</label>
+                                        <input
+                                                type="date"
+                                                id="birthdate"
+                                                class="form-control"
+                                                name="birthdate"
+                                                value="${sessionScope.userInfo.getBirthdate()}"
+                                                disabled
+                                        />
+                                    </div>
+                                    <div id="phone-input" class="d-flex justify-content-center align-items-center mb-4">
+                                        <label for="phone" class="me-3">Phone Number:</label>
+                                        <input
+                                                type="text"
+                                                id="phone"
+                                                class="form-control"
+                                                name="phone"
+                                                value="${sessionScope.userInfo.getPhone_number()}"
+                                                disabled
+                                        />
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="mt-4 me-3 pt-2">
+                                            <input class="btn btn-outline-dark btn-lg" type="submit" value="Submit"/>
+                                        </div>
+                                        <div class="mt-4 pt-2">
+                                            <button type="button" class="btn btn-outline-dark btn-lg"
+                                                    onclick="toggleEditing()">Edit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img class="card-img-top"
+                                     src="https://dummyimage.com/50x50/dee2e6/DoDucDat.png&text=DoDucDat"
+                                     alt="Card image cap">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label for="formFile" class="form-label">Dụng lượng file tối đa 1 MB
+                                            Định dạng:.JPEG, .PNG</label>
+                                        <input class="form-control" type="file" id="formFile">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="card">
-                            <img class="card-img-top"
-                                 src="https://dummyimage.com/50x50/dee2e6/DoDucDat.png&text=DoDucDat"
-                                 alt="Card image cap">
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <label for="formFile" class="form-label">Dụng lượng file tối đa 1 MB
-                                        Định dạng:.JPEG, .PNG</label>
-                                    <input class="form-control" type="file" id="formFile">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                </form>
             </div>
         </section>
         <!-- Footer-->

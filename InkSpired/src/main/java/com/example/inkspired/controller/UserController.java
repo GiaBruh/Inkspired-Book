@@ -14,6 +14,7 @@ import java.util.List;
 
 @WebServlet(name = "UserController", value = "/user")
 public class UserController extends HttpServlet {
+    private  static  final  String USER = "/user";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -83,7 +84,9 @@ public class UserController extends HttpServlet {
         String fullname = request.getParameter("fullname");
         String gender = request.getParameter("inlineRadioOptions");
         String email_address = request.getParameter("email");
-        Date birthdate = Date.valueOf(request.getParameter("birthdate"));
+//        Date birthdate = Date.valueOf(request.getParameter("birthdate"));
+        String date = request.getParameter("birthdate");
+        Date birthdate = date != null ? Date.valueOf(date) : null;
         String phone_number = request.getParameter("phone");
         String user_image = request.getParameter("upload");
         int user_id = Integer.parseInt(getCookie(request).getValue());
@@ -92,10 +95,11 @@ public class UserController extends HttpServlet {
 //        user.setUserId(user_id);
 //        System.out.println(uDao.update(user_id, user));
         if(uDao.update(user_id, user) == true) {
-            response.sendRedirect(getServletContext().getContextPath() + "/user");
+            response.sendRedirect(getServletContext().getContextPath() + USER);
+        } else {
+            response.sendRedirect(getServletContext().getContextPath() + USER);
         }
     }
-
 
     private Cookie getCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
