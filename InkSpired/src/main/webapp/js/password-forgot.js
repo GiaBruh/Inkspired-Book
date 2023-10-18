@@ -3,17 +3,7 @@ let resendTimeout = 30000;
 let status = null;
 
 function sendVerificationCode() {
-    // show the verification code input
-    document.getElementById("verificationCode").style.display = "block";
     const emailAddress = document.getElementById("emailAddress").value;
-    // hide the send verification code button
-    document.getElementById("sendVerificationCode").style.display = "none";
-    // show the button group
-    document.getElementById("buttonGroup").style.display = "flex";
-    // show the resend verification code button
-    document.getElementById("resendVerificationCode").style.display = "block";
-    // show the verify verification code button
-    document.getElementById("verifyVerificationCode").style.display = "block"
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/InkSpired/forgot?email=" + encodeURIComponent(emailAddress), true);
     xhr.onreadystatechange = function () {
@@ -24,6 +14,12 @@ function sendVerificationCode() {
                 // console.log("Verification code sent successfully", xhr.responseText);
                 status = xhr.responseText;
                 console.log("Status: ", status);
+                if(status !== "Email does not exist."){
+                    console.log("Yes");
+                    var annoy = openSubmit();
+                } else {
+                    console.log("No");
+                }
             } else {
                 console.error("Error sending verification code");
                 document.getElementById("verificationCode").style.display = "none";
@@ -38,6 +34,20 @@ function sendVerificationCode() {
         document.getElementById("buttonGroup").style.display = "none";
         document.getElementById("sendVerificationCode").style.display = "block";
     }
+}
+
+function openSubmit(){
+    // show the verification code input
+    document.getElementById("verificationCode").style.display = "block";
+    // hide the send verification code button
+    document.getElementById("sendVerificationCode").style.display = "none";
+    // show the button group
+    document.getElementById("buttonGroup").style.display = "flex";
+    // show the resend verification code button
+    document.getElementById("resendVerificationCode").style.display = "block";
+    // show the verify verification code button
+    document.getElementById("verifyVerificationCode").style.display = "block"
+    return 1;
 }
 
 function resendVerificationCode() {
