@@ -113,7 +113,7 @@
                                     <tr>
                                         <td class="align-left">
                                             <img src="${book.getBook_image()}" alt="${book.getTitle()}"
-                                                 style="width: 150px;">
+                                                 style="height: 170px;">
                                             <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}">${book.getTitle()}</a>
                                         </td>
                                         <td class="align-middle">${book.getPrice()}&#x20AB</td>
@@ -135,7 +135,16 @@
                                             </div>
                                         </td>
                                         <td class="align-middle">
-                                            <button class="btn btn-sm btn-dark"><i class="fa fa-times"></i></button>
+                                            <form method="POST"
+                                                  action="<%= request.getServletContext().getContextPath()%>/cart/">
+                                                <button onclick="return confirm('Confirm removing this book from cart?')"
+                                                        class="btn btn-sm btn-dark"
+                                                        name="btndeletefromcart"
+                                                        value="${book.getBook_id()}"
+                                                >
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 </c:forEach>

@@ -75,14 +75,26 @@ public class ShoppingCartController extends HttpServlet {
         HttpSession session = request.getSession();
         ShoppingCartDAO scDao = new ShoppingCartDAO();
 
+        int cartid, bookid, quantity;
+
         if (request.getParameter("btnaddtocart") != null) {
-            int cartid = Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue());
-            int bookid = Integer.parseInt(request.getParameter("btnaddtocart"));
-            int quantity = scDao.get(cartid).get().getQuantity();
+            cartid = Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue());
+            bookid = Integer.parseInt(request.getParameter("btnaddtocart"));
+            quantity = scDao.get(cartid).get().getQuantity();
 
             scDao.addToCart(cartid, bookid);
             scDao.update(new ShoppingCart(cartid, quantity + 1));
-            response.sendRedirect(getServletContext().getContextPath() + "/book?bookid=" + bookid);
+            response.sendRedirect(getServletContext().getContextPath() + BOOK + "?bookid=" + bookid);
+        }
+
+        if (request.getParameter("btndeletefromcart") != null) {
+            cartid = Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue());
+            bookid = Integer.parseInt(request.getParameter("btndeletefromcart"));
+            quantity = scDao.get(cartid).get().getQuantity();
+
+            scDao.deleteFromCart(cartid, bookid);
+            scDao.update(new ShoppingCart(cartid, quantity - 1));
+            response.sendRedirect(getServletContext().getContextPath() + CART + "?cartid=" + cartid);
         }
     }
 }

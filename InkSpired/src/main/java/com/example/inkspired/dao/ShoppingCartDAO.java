@@ -144,7 +144,23 @@ public class ShoppingCartDAO implements DAO<ShoppingCart> {
 
     public int addToCart(int shopping_cart_id, int book_id) {
         int result = 0;
-        String query = "INSERT INTO cart_book VALUES (?, ?)";
+        String query = "INSERT INTO public.cart_book VALUES (?, ?)";
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, shopping_cart_id);
+            ps.setInt(2, book_id);
+            result = ps.executeUpdate();
+        } catch (Exception e) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        return result;
+    }
+
+    public int deleteFromCart(int shopping_cart_id, int book_id) {
+        int result = 0;
+        String query = "DELETE FROM public.cart_book WHERE shopping_cart_id = ? AND book_id = ?";
 
         try {
             ps = conn.prepareStatement(query);
