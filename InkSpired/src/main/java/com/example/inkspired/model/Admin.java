@@ -1,23 +1,33 @@
 package com.example.inkspired.model;
 
 public class Admin {
+    private int adminId;
     private String username;
     private String password;
-    private String email_address;
-    private String full_name;
+    private String fullName;
+    private String emailAddress;
 
     public Admin() {
     }
 
-    public Admin(String username, String password, String email_address, String full_name) {
+    public Admin(int adminId, String username, String password, String fullName, String emailAddress) {
+        this.adminId = adminId;
         this.username = username;
         this.password = password;
-        this.email_address = email_address;
-        this.full_name = full_name;
+        this.fullName = fullName;
+        this.emailAddress = emailAddress;
+    }
+
+    public int getAdminId() {
+        return this.adminId;
+    }
+
+    public void setAdminId(int adminId) {
+        this.adminId = adminId;
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {
@@ -25,31 +35,26 @@ public class Admin {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getEmail_address() {
-        return email_address;
+    public String getFullName() {
+        return this.fullName;
     }
 
-    public void setEmail_address(String email_address) {
-        this.email_address = email_address;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public String getFull_name() {
-        return full_name;
+    public String getEmailAddress() {
+        return this.emailAddress;
     }
 
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
-    }
-
-    @Override
-    public String toString() {
-        return "Admin{" + "username='" + username + '\'' + ", password='" + password + '\'' + ", email_address='" + email_address + '\'' + ", full_name='" + full_name + '\'' + '}';
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 }
