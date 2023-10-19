@@ -16,10 +16,12 @@ VALUES ('nta', '202cb962ac59075b964b07152d234b70', 'nta@gmail.com', 'Nguyen Thi 
        ('dio', 'ed20a959d410ccd843d9e1dfcee04228', 'kratos@gmail.com', 'Huynh Dai Tinh', 'male', '1991-03-01',
         '0830987675', '/', true), -- ed20a959d410ccd843d9e1dfcee04228 = a12
        ('Dai_Gia_Ngheo', '1406f37190e825427440bc020919218a', 'javan@gmail.com', 'Do Dai Hoc', 'female', '2005-12-04',
-        '0830987675', '/', true), -- 1406f37190e825427440bc020919218a = gogo
-        -- Add a test user for forgot password
-        ('IuseArch', 'a1f26721ed609e446e95f43a51951b49', 'dthai1345@gmail.com', 'Người Dùng Arch', 'male', '2003-11-10',
-        0346281383, 2, '/', true); -- a1f26721ed609e446e95f43a51951b49 = btw
+        '0830987675', '/', true); -- 1406f37190e825427440bc020919218a = gogo
+       -- Add a test user for forgot password
+       -- Do not uncomment below user data. Uncomment it will cause bug
+--        ('IuseArch', 'a1f26721ed609e446e95f43a51951b49', 'dthai1345@gmail.com', 'Người Dùng Arch', 'male', '2003-11-10',
+--         0346281383, '/', true); -- a1f26721 ed609e446e95f43a51951b49 = btw
+
 
 -- Shopping_cart
 INSERT INTO public.shopping_cart (quantity)
