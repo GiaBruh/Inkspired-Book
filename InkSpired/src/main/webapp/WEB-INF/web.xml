@@ -58,7 +58,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminController</servlet-name>
-        <url-pattern>/admin</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
@@ -84,6 +84,23 @@
         <servlet-name>AuthorController</servlet-name>
         <url-pattern>/author/*</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.css</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.min.css</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.js</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.min.js</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>/css/*</url-pattern>
@@ -99,6 +116,10 @@
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>/js/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.svg</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>/</welcome-file>
