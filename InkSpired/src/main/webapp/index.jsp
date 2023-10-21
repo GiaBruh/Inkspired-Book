@@ -210,92 +210,78 @@
 <section class="py-5 gradient-custom">
     <div id="carouselExample" class="carousel slide">
         <div class="carousel-inner">
-            <%--                    <div class="carousel-item active">--%>
-            <%--                        <img src="https://dummyimage.com/600x400/000/fff" class="d-block m-auto" style="width: 25%; height: 25%" alt="...">--%>
-            <%--                    </div>--%>
-            <%--                    <div class="carousel-item">--%>
-            <%--                        <img src="https://dummyimage.com/600x400/000/fff" class="d-block m-auto" style="width: 25%; height: 25%" alt="...">--%>
-            <%--                    </div>--%>
-            <%--                    <div class="carousel-item">--%>
-            <%--                        <img src="https://dummyimage.com/600x400/000/fff" class="d-block m-auto" style="width: 25%; height: 25%" alt="...">--%>
-            <%--                    </div>--%>
-                <%-- First, shuffle the BOOKLIST randomly --%>
-                <%@ page import="java.util.Collections" %>
+            <%-- First, shuffle the BOOKLIST randomly --%>
+            <%@ page import="java.util.Collections" %>
             <%@ page import="com.example.inkspired.model.Book" %>
-                <%@ page import="java.util.List" %>
+            <%@ page import="java.util.List" %>
 
-                <%
-                    List<Book> bookList = (List<Book>) request.getAttribute("BOOKLIST");
-                    Collections.shuffle(bookList);
-                %>
+            <%
+                List<Book> bookList = (List<Book>) request.getAttribute("BOOKLIST");
+                Collections.shuffle(bookList);
+            %>
 
-                <c:forEach var="book" items="${requestScope.BOOKLIST}" varStatus="loop">
-                <c:choose>
-                <c:when test="${loop.index == 0}">
-                <div class="carousel-item active">
-                    </c:when>
-                    <c:otherwise>
-                    <div class="carousel-item">
-                        </c:otherwise>
-                        </c:choose>
+            <c:forEach var="book" items="${requestScope.BOOKLIST}" varStatus="loop">
+            <c:choose>
+            <c:when test="${loop.index == 0}">
+            <div class="carousel-item active">
+                </c:when>
+                <c:otherwise>
+                <div class="carousel-item">
+                    </c:otherwise>
+                    </c:choose>
 
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>${book.getTitle()}</h5>
-                            <p>${book.getPrice()}&#x20AB</p>
-                        </div>
-                        <img src="https://dummyimage.com/600x400/000/fff" class="d-block m-auto" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>${book.getTitle()}</h5>
+<%--                        <p>${book.getPrice()}&#x20AB</p>--%>
                     </div>
-                    </c:forEach>
-
+                    <img src="https://dummyimage.com/600x400/000/fff" class="d-block m-auto" alt="...">
                 </div>
-        <%--                <c:forEach var="book" items="${requestScope.BOOKLIST}">--%>
-        <%--                    <div class="carousel-item active">--%>
-        <%--                        <img src="${book.getBook_image()}" class="d-block m-auto" style="width: 25%; height: 25%" alt="...">--%>
-        <%--                    </div>--%>
-        <%--                </c:forEach>--%>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-            <c:forEach var="book" items="${requestScope.BOOKLIST}">
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <img height="350px" width="100%" class="card-img-top"
-                             src="${book.getBook_image()}" alt="${book.getTitle()}"/>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder">
-                                        ${book.getTitle()}
-                                    <br/>
-                                </h5>
-                                <!-- Product price-->
-                                    ${book.getPrice()}&#x20AB
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center">
-                                <a class="btn btn-outline-dark mt-auto"
-                                   href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}">View
-                                    Book</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </c:forEach>
+                </c:forEach>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     </div>
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+                <c:forEach var="book" items="${requestScope.BOOKLIST}">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img height="350px" width="100%" class="card-img-top"
+                                 src="${book.getBook_image()}" alt="${book.getTitle()}"/>
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">
+                                            ${book.getTitle()}
+                                        <br/>
+                                    </h5>
+                                    <!-- Product price-->
+                                        ${book.getPrice()}&#x20AB
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <a class="btn btn-outline-dark mt-auto"
+                                       href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}">View
+                                        Book</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
 </section>
 <!-- Back to Top -->
 <a href="#" class="btn btn-light back-to-top"><i class="fa fa-angle-double-up"></i></a>
