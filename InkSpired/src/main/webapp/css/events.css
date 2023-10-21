@@ -1,0 +1,12 @@
+/*Css to edit user's pointer events*/
+[id^=infoItem]:hover {
+    background-color: #F6F6F6;
+}
+
+[id^=infoItem]:hover>input:disabled {
+    background-color: #F6F6F6;
+}
+
+[id^=infoItem]:active {
+    background-color: #E6E6E6;
+}
