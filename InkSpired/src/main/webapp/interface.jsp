@@ -47,6 +47,27 @@
     input {
         box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
     }
+    .cart-form a:hover {
+        color: #ffffff;
+    }
+    .cart-form a {
+        text-decoration: none;
+        color: #000;
+    }
+    .cart-form button:hover > a {
+        transition: color ease-in;
+        color: #ffffff;
+    }
+
+/*    if screen size is smaller than 1366 */
+    @media (max-width: 1366px) {
+        .cart-form  .cart-text {
+            display: none;
+        }
+        .login-form span {
+            display: none;
+        }
+    }
 </style>
 <script>
     $(window).scroll(function () {

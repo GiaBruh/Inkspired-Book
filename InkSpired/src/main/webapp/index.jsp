@@ -19,7 +19,7 @@
                 <a class="navbar-brand" href="<%= request.getServletContext().getContextPath()%>/">Inkspired
                     Books</a>
                 <div class="col-lg-6 col-6 offset-md-1 text-left">
-                    <div class="input-group">
+                    <div class="input-group pe-5">
                         <div id="navbarExample1">
                             <ul class="navbar-nav me-auto ps-lg-0" style="padding-left: 0.15rem">
                                 <li class="nav-item dropdown position-static">
@@ -124,38 +124,60 @@
                         </div>
                     </div>
                 </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+<%--                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"--%>
+<%--                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"--%>
+<%--                        aria-expanded="false" aria-label="Toggle navigation">--%>
+<%--                    <span class="navbar-toggler-icon"></span>--%>
+<%--                </button>--%>
+                <div class="navbar justify-content-end" id="navbarSupportedContent">
 
                     <c:choose>
 
                         <c:when test="${sessionScope.userCookie == null}">
 
-                            <form class="d-flex pe-lg-3">
-                                <button class="btn btn-outline-dark" type="submit">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    <a href="#">Cart</a>
-                                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                                </button>
+                            <form class="d-flex pe-lg-3 cart-form">
+                                <div>
+                                    <ul class="navbar-nav me-auto ps-lg-0" style="padding-left: 0.15rem">
+                                        <li class="nav-item dropdown position-static">
+                                            <button class="btn btn-outline-dark " type="button"
+                                                    data-mdb-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                <i class="bi-cart-fill me-1"></i>
+                                                <span class="cart-text">Cart</span>
+                                                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                                            </button>
+                                            <div class="dropdown-menu w-100 mt-0" aria-labelledby="navbarDropdown"
+                                                 style="border-top-left-radius: 0;border-top-right-radius: 0;">
+                                                <div class="container">
+                                                    <div class="row my-4">
+                                                        <div class="col-md-12 col-lg-12 mb-3 mb-lg-0">
+                                                            <div class="list-group list-group-flush">
+                                                               <p>It seems like you haven't logged in.</p>
+                                                                <p>Please consider login with your account or</p>
+                                                                <p>create a new account to use our services.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </form>
 
-                            <form class="d-flex" method="POST"
+                            <form class="d-flex login-form" method="POST"
                                   action="<%= request.getServletContext().getContextPath()%>/login">
                                 <button class="btn btn-outline-dark" type="submit" name="btnLogin"
                                         value="Login">
                                     <i class="bi-person-fill"></i>
-                                    Login
+                                    <span>Login</span>
                                 </button>
                             </form>
                         </c:when>
 
                         <c:otherwise>
 
-                            <form class="d-flex pe-lg-3">
+                            <form class="d-flex pe-lg-3 cart-form">
                                 <button class="btn btn-outline-dark" type="submit">
                                     <i class="bi-cart-fill me-1"></i>
                                     <a href="<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}">Cart</a>
