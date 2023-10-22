@@ -210,12 +210,12 @@ ALTER TABLE IF EXISTS public.order_detail
 ;
 
 
--- ALTER TABLE IF EXISTS public.shopping_cart
---     ADD CONSTRAINT user_id FOREIGN KEY (user_id)
---         REFERENCES public."user" (id) MATCH SIMPLE
---         ON UPDATE CASCADE
---         ON DELETE CASCADE
--- ;
+ALTER TABLE IF EXISTS public.shopping_cart
+    ADD FOREIGN KEY (shopping_cart_id)
+        REFERENCES public."user" (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+;
 
 
 ALTER TABLE IF EXISTS public.cart_book
