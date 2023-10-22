@@ -1,237 +1,188 @@
-<%@ page import="com.example.inkspired.dao.ShoppingCartDAO" %>
-<%@ page import="com.example.inkspired.model.ShoppingCart" %>
-<%@ page import="java.util.Optional" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Homepage</title>
-        <link rel="stylesheet" href="css/dropdown.css">
-        <link rel="stylesheet" href="css/background.css">
-    </head>
-    <%@include file="interface.jsp" %>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="<%= request.getServletContext().getContextPath()%>/">Inkspired Books</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false"
-                        aria-label="Toggle navigation"><span
-                        class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+<head>
+    <title>Homepage</title>
+    <link rel="stylesheet" href="css/dropdown.css">
+    <link rel="stylesheet" href="css/background.css">
+    <link rel="stylesheet" href="css/events.css">
+</head>
+<%@include file="interface.jsp" %>
+<body>
 
-                    <c:choose>
-
-                        <c:when test="${sessionScope.userCookie == null}">
-
-                            <form class="d-flex pe-lg-3">
-                                <button class="btn btn-outline-dark" type="submit">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    <a href="#">Cart</a>
-                                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                                </button>
-                            </form>
-
-                            <form class="d-flex" method="POST"
-                                  action="<%= request.getServletContext().getContextPath()%>/login">
-                                <button class="btn btn-outline-dark" type="submit" name="btnLogin"
-                                        value="Login">
-                                    <i class="bi-person-fill"></i>
-                                    Login
-                                </button>
-                            </form>
-                        </c:when>
-
-                        <c:otherwise>
-
-                            <form class="d-flex pe-lg-3">
-                                <button class="btn btn-outline-dark" type="submit">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    <a href="<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}">Cart</a>
-                                    <span class="badge bg-dark text-white ms-1 rounded-pill">
-                                                <%
-                                                    ShoppingCartDAO scDao = new ShoppingCartDAO();
-                                                    int cartid = Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue());
-                                                    Optional<ShoppingCart> cart = scDao.get(cartid);
-                                                    String quantity = String.valueOf(cart.get().getQuantity());
-                                                    out.print(quantity);
-                                                %>
-                                            </span>
-                                </button>
-                            </form>
-
-                            <div class="dropdown">
-                                <button class="btn btn-outline-dark dropdown-toggle" type="button"
-                                        id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
-                                    Account
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="item-dropdown"
-                                           href="<%= request.getServletContext().getContextPath()%>/user">User
-                                        Information</a></li>
-                                    <li><a class="item-dropdown" href="#">Order History</a></li>
-                                    <li><a class="item-dropdown" href="#">Review History</a></li>
-                                    <li>
-                                        <div class="dropdown-divider"></div>
-                                    </li>
-                                    <li><a class="item-dropdown"
-                                           href="<%= request.getServletContext().getContextPath()%>/logout">Logout</a>
-                                    </li>
-                                </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand text-decoration-none" href="index.jsp">Inkspired Books</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <form class="d-flex pe-lg-3">
+                <button class="btn btn-outline-dark" type="submit">
+                    <i class="bi-cart-fill me-1"></i>
+                    Cart
+                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                </button>
+            </form>
+            <form class="d-flex">
+                <button class="btn btn-outline-dark" type="submit">
+                    <i class="bi-person-fill"></i>
+                    Login
+                </button>
+            </form>
+            <div class="dropdown">
+                <button
+                        class="btn btn-outline-dark dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-mdb-toggle="dropdown"
+                        aria-expanded="false"
+                >
+                    Account
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="item-dropdown" href="#">User Information</a></li>
+                    <li><a class="item-dropdown" href="#">Order History</a></li>
+                    <li><a class="item-dropdown" href="#">Review History</a></li>
+                    <li>
+                        <div class="dropdown-divider"></div>
+                    </li>
+                    <li><a class="item-dropdown" href="#">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Account page</h1>
+        </div>
+    </div>
+</header>
+<!-- Product section-->
+<section class="gradient-custom">
+    <div class="container py-4 h-100">
+        <div class="row d-flex align-items-center pt-3 pb-3 justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-11 col-xl-9">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-1 pb-md-0 mb-md-5">Account information</h3>
+                        <form>
+                            <div class="row d-flex align-items-center pt-3 pb-3 d-flex align-items-center pb-2" id="infoItem_Picture">
+                                <label for="info_image" class="mb-0 title col-md-3 h6 h6">Profile picture</label>
+                                <input class="mb-0 col-md-6" type="text" id="info_image"
+                                       name="picture" placeholder="You're looking cute today (˵ •̀ ᴗ - ˵ ) ✧"
+                                       disabled />
+                                <div class="col-md-1">
+                                    &nbsp;
+                                </div>
+                                <img class="col-md-2 rounded-circle" src="https://dummyimage.com/60x60/000/fff" alt="profileImage">
                             </div>
-                        </c:otherwise>
-
-                    </c:choose>
-                </div>
-            </div>
-        </nav>
-        <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Account page</h1>
-                </div>
-            </div>
-        </header>
-        <!-- Account info section-->
-        <section class="py-5 gradient-custom">
-            <div class="container px-4 px-lg-5 my-5">
-                <form method="post" action="<%= request.getServletContext().getContextPath()%>/user">
-                    <div class="row gx-4 gx-lg-5 align-items-center">
-                        <div class="col-md-9">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div id="username-input"
-                                         class="d-flex justify-content-center align-items-center mb-4">
-                                        <label for="username" class="me-3">Username:</label>
-                                        <input
-                                                type="text"
-                                                id="username"
-                                                class="form-control"
-                                                name="username"
-                                                value="${sessionScope.userInfo.getUsername()}"
-                                                readonly
-                                                disabled
-                                        />
-                                    </div>
-                                    <div id="fullname-input"
-                                         class="d-flex justify-content-center align-items-center mb-4">
-                                        <label for="fullname" class="me-3">Full Name:</label>
-                                        <input
-                                                type="text"
-                                                id="fullname"
-                                                class="form-control"
-                                                name="fullname"
-                                                value="${sessionScope.userInfo.getFull_name()}"
-                                                disabled
-                                        />
-                                    </div>
-                                    <div class="col-md-6 d-flex mb-4" id="gender-input">
-
-                                        <h6 class="pe-5">Gender: </h6>
-
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio"
-                                                   name="inlineRadioOptions" id="femaleGender"
-                                                   value="${sessionScope.userInfo.getGender()}"
-                                            ${sessionScope.userInfo.getGender() == 'female' ? 'checked' : ''}
-                                                   disabled/>
-                                            <label class="form-check-label" for="femaleGender">Female</label>
-                                        </div>
-
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio"
-                                                   name="inlineRadioOptions" id="maleGender"
-                                                   value="${sessionScope.userInfo.getGender()}"
-                                            ${sessionScope.userInfo.getGender() == 'male' ? 'checked' : ''}
-                                                   disabled/>
-                                            <label class="form-check-label" for="maleGender">Male</label>
-                                        </div>
-
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio"
-                                                   name="inlineRadioOptions" id="otherGender"
-                                                   value="${sessionScope.userInfo.getGender()}"
-                                            ${sessionScope.userInfo.getGender() == 'other' ? 'checked' : ''}
-                                                   disabled/>
-                                            <label class="form-check-label" for="otherGender">Other</label>
-                                        </div>
-
-                                    </div>
-                                    <div id="email-input" class="d-flex justify-content-center align-items-center mb-4">
-                                        <label for="email" class="me-3">Email:</label>
-                                        <input
-                                                type="text"
-                                                id="email"
-                                                class="form-control"
-                                                name="email"
-                                                value="${sessionScope.userInfo.getEmail_address()}"
-                                                readonly
-                                                disabled
-                                        />
-                                    </div>
-                                    <div id="birthdate-input"
-                                         class="d-flex justify-content-center align-items-center mb-4">
-                                        <label for="birthdate" class="me-3">Birthdate:</label>
-                                        <input
-                                                type="date"
-                                                id="birthdate"
-                                                class="form-control"
-                                                name="birthdate"
-                                                value="${sessionScope.userInfo.getBirthdate()}"
-                                                disabled
-                                        />
-                                    </div>
-                                    <div id="phone-input" class="d-flex justify-content-center align-items-center mb-4">
-                                        <label for="phone" class="me-3">Phone Number:</label>
-                                        <input
-                                                type="text"
-                                                id="phone"
-                                                class="form-control"
-                                                name="phone"
-                                                value="${sessionScope.userInfo.getPhone_number()}"
-                                                disabled
-                                        />
-                                    </div>
-                                    <div class="d-flex">
-                                        <div class="mt-4 me-3 pt-2">
-                                            <input class="btn btn-outline-dark btn-lg" type="submit" value="Submit"/>
-                                        </div>
-                                        <div class="mt-4 pt-2">
-                                            <button type="button" class="btn btn-outline-dark btn-lg"
-                                                    onclick="toggleEditing()">Edit
-                                            </button>
-                                        </div>
-                                    </div>
+                            <hr class="my-0">
+                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Name">
+                                <label for="info_fullName" class="mb-0 title col-md-3 h6">Name</label>
+                                <input class="mb-0 description col-md-6" type="text" id="info_fullName"
+                                       name="fullName" placeholder="Beauti" disabled />
+                                <div class="col-md-2">
+                                    &nbsp;
+                                </div>
+                                <i class="bi bi-chevron-right col-md-1"></i>
+                            </div>
+                            <hr class="my-0">
+                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Gender">
+                                <label for="info_gender" class="mb-0 title col-md-3 h6">Gender</label>
+                                <input class="mb-0 description col-md-6" type="text" id="info_gender"
+                                       name="gender" placeholder="No worries (⁄ ⁄•⁄ω⁄•⁄ ⁄)"
+                                       disabled />
+                                <div class="col-md-2">
+                                    &nbsp;
+                                </div>
+                                <i class="bi bi-chevron-right col-md-1"></i>
+                            </div>
+                            <hr class="my-0">
+                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Birthday">
+                                <label for="info_birthday" class="mb-0 title col-md-3 h6">Birthday</label>
+                                <input class="mb-0 description col-md-6" type="text" id="info_birthday"
+                                       name="birthday" placeholder="You meant our date?"
+                                       disabled />
+                                <div class="col-md-2">
+                                    &nbsp;
+                                </div>
+                                <i class="bi bi-chevron-right col-md-1"></i>
+                            </div>
+                            <hr class="my-0">
+                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Email">
+                                <label for="info_email" class="mb-0 title col-md-3 h6">Email</label>
+                                <input class="mb-0 description col-md-6" type="text" id="info_email"
+                                       name="email" placeholder="beauti@gmail.com" disabled />
+                                <div class="col-md-2">
+                                    &nbsp;
+                                </div>
+                                <i class="bi bi-chevron-right col-md-1"></i>
+                            </div>
+                            <hr class="my-0">
+                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Phone">
+                                <label for="info_phone" class="mb-0 title col-md-3 h6">Phone number</label>
+                                <input class="mb-0 description col-md-6" type="text" id="info_phone"
+                                       name="phone" placeholder="This is a number" disabled />
+                                <div class="col-md-2">
+                                    &nbsp;
+                                </div>
+                                <i class="bi bi-chevron-right col-md-1"></i>
+                            </div>
+                            <hr class="my-0">
+                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Address">
+                                <label for="info_address" class="mb-0 title col-md-3 h6">Address ID</label>
+                                <input class="mb-0 description col-md-6" type="text" id="info_address"
+                                       name="address" placeholder="My place <( ⸝⸝•̀ v •́⸝⸝)>"
+                                       disabled />
+                                <div class="col-md-2">
+                                    &nbsp;
+                                </div>
+                                <i class="bi bi-chevron-right col-md-1"></i>
+                            </div>
+                            <hr class="my-0">
+                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Username">
+                                <label for="info_username" class="mb-0 title col-md-3 h6">Username</label>
+                                <input class="mb-0 description col-md-6" type="text" id="info_username"
+                                       name="username" placeholder="ItsBeauti" disabled />
+                                <div class="col-md-2">
+                                    &nbsp;
+                                </div>
+                                <i class="bi bi-chevron-right col-md-1"></i>
+                            </div>
+                            <hr class="my-0">
+                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Password">
+                                <label for="info_password" class="mb-0 title col-md-3 h6">Password</label>
+                                <input class="mb-0 description col-md-6" type="text" id="info_password"
+                                       name="password" placeholder="This is a secret between us <( ⸝⸝•̀ - •́⸝⸝)>" disabled />
+                                <div class="col-md-2">
+                                    &nbsp;
+                                </div>
+                                <i class="bi bi-chevron-right col-md-1"></i>
+                            </div>
+                            <div class="row d-flex">
+                                <div class="col-md-2 mt-4 pt-2 ml-0">
+                                    <input class="btn btn-outline-dark btn-lg" type="submit" value="Submit" />
+                                </div>
+                                <div class="col-md-2 mt-4 pt-2 px-0">
+                                    <button type="button" class="btn btn-outline-dark btn-lg" onclick="toggleEditing()">Edit</button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img class="card-img-top"
-                                     src="https://dummyimage.com/50x50/dee2e6/DoDucDat.png&text=DoDucDat"
-                                     alt="Card image cap">
-                                <div class="card-body">
-                                    <div class="mb-3">
-                                        <label for="formFile" class="form-label">Dụng lượng file tối đa 1 MB
-                                            Định dạng:.JPEG, .PNG</label>
-                                        <input class="form-control" type="file" id="formFile">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
-        </section>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark" id="footer">
-            <div class="container"><p class="m-0 text-center text-white">Copyright INKSPIRED BOOKS 2023, always
-                reserved.</p>
-            </div>
-        </footer>
-        <script src="js/toggle-edit.js"></script>
-    </body>
+        </div>
+    </div>
+</section>
+<!-- Footer-->
+<footer class="py-5 bg-dark" id="footer">
+    <div class="container"><p class="m-0 text-center text-white">Copyright INKSPIRED BOOKS 2023, always reserved.</p>
+    </div>
+</footer>
+<script src="js/edit.js"></script>
+</body>
 </html>

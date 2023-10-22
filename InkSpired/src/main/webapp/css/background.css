@@ -1,6 +1,13 @@
 * {
     scrollbar-width: none;
 }
+body {
+    background-color: #212529!important;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+}
 .gradient-custom {
     background: #f093fb;
 
@@ -16,3 +23,4 @@
             rgba(245, 87, 108, 1)
     );
 }
+
