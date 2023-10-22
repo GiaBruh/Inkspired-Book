@@ -9,7 +9,7 @@
 INSERT INTO public."user" ( username, password, email_address, full_name, gender, birthdate, phone_number
                           , user_image
                           , user_status)
-VALUES ('nta', '202cb962ac59075b964b07152d234b70', 'nta@gmail.com', 'Nguyen Thi A', 'female', '1991-02-02',
+VALUES ('nta', '202cb962ac59075b964b07152d234b70', 'hngiabao11122003v3@gmail.com', 'Nguyen Thi A', 'female', '1991-02-02',
         '0912345678', '/', true), -- 202cb962ac59075b964b07152d234b70 = 123
        ('Hoai_N_V', 'caf1a3dfb505ffed0d024130f58c5cfa', 'nvh@gmail.com', 'Nguyen Van Hoai', 'male', '1998-10-19',
         '0841298550', '/', true), -- caf1a3dfb505ffed0d024130f58c5cfa = 321
