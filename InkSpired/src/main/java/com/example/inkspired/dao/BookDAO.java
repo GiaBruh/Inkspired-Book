@@ -144,6 +144,55 @@ public class BookDAO implements DAO<Book> {
         return false;
     }
 
-    public static void main(String[] args) {
+    public List<Book> searchByTitle(String title) {
+        List<Book> result = new ArrayList<>();
+        String query = "SELECT * FROM public.book WHERE title ILIKE ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, "%" + title + "%");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Book book = new Book();
+                book.setBook_id(rs.getInt("book_id"));
+                book.setTitle(rs.getString("title"));
+                book.setPrice(rs.getInt("price"));
+                book.setBook_image(rs.getString("book_image"));
+                book.setIs_available(rs.getBoolean("is_available"));
+                result.add(book);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return result;
     }
+
+    public List<Book> searchByAuthor(String author_fullname) {
+        List<Book> result = new ArrayList<>();
+        String query = "SELECT author.author_fullname, b.*" +
+                "FROM public.author " +
+                "JOIN public.author_book ab ON author.author_id = ab.author_id " +
+                "JOIN public.book b ON ab.book_id = b.book_id " +
+                "WHERE author.author_fullname ILIKE ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, "%" + author_fullname + "%");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Book book = new Book();
+                book.setBook_id(rs.getInt("book_id"));
+                book.setTitle(rs.getString("title"));
+                book.setPrice(rs.getInt("price"));
+                book.setBook_image(rs.getString("book_image"));
+                book.setIs_available(rs.getBoolean("is_available"));
+                result.add(book);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return result;
+    }
+
+  
 }
