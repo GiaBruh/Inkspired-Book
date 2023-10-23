@@ -14,6 +14,53 @@ public class Book implements Serializable {
     private int publisher_id;
     private boolean is_available;
 
+    private String author_fullname;
+    private String publisher_name;
+    private String category_name;
+    private int category_id;
+    private int author_id;
+
+
+    public String getAuthor_fullname() {
+        return author_fullname;
+    }
+
+    public void setAuthor_fullname(String author_fullname) {
+        this.author_fullname = author_fullname;
+    }
+
+    public String getPublisher_name() {
+        return publisher_name;
+    }
+
+    public void setPublisher_name(String publisher_name) {
+        this.publisher_name = publisher_name;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
+
+    public int getAuthor_id() {
+        return author_id;
+    }
+
+    public void setAuthor_id(int author_id) {
+        this.author_id = author_id;
+    }
+
     public Book() {
 
     }
@@ -89,6 +136,9 @@ public class Book implements Serializable {
         this.is_available = is_available;
     }
 
+    public boolean getIs_available() {
+        return this.is_available;
+    }
     public String getBook_image() {
         return book_image;
     }
@@ -111,4 +161,6 @@ public class Book implements Serializable {
                 ", book_image='" + book_image + '\'' +
                 '}';
     }
+
+
 }
