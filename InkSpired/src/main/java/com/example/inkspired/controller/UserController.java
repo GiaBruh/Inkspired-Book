@@ -52,7 +52,6 @@ public class UserController extends HttpServlet {
 //                cookieName = cookie.getName();
 //                cookieValue = cookie.getValue();
 //            }
-
             for (Cookie cookie : cookies) {
                 cookieName = cookie.getName();
                 cookieValue = cookie.getValue();
@@ -82,7 +81,7 @@ public class UserController extends HttpServlet {
 //        processRequest(request, response);
         String username = request.getParameter("username");
         String fullname = request.getParameter("fullname");
-        String gender = request.getParameter("inlineRadioOptions");
+        String gender = request.getParameter("gender");
         String email_address = request.getParameter("email");
 //        Date birthdate = Date.valueOf(request.getParameter("birthdate"));
         String date = request.getParameter("birthdate");
@@ -94,7 +93,7 @@ public class UserController extends HttpServlet {
         User user = new User(username, fullname, gender, email_address, birthdate, phone_number, user_image);
 //        user.setUserId(user_id);
 //        System.out.println(uDao.update(user_id, user));
-        if(uDao.update(user_id, user) == true) {
+        if(uDao.update(user_id, user)) {
             response.sendRedirect(getServletContext().getContextPath() + USER);
         } else {
             response.sendRedirect(getServletContext().getContextPath() + USER);
