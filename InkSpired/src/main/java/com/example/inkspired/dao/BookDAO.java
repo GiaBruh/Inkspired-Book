@@ -128,7 +128,7 @@ public class BookDAO implements DAO<Book> {
 
     public List<Book> searchByTitle(String title) {
         List<Book> result = new ArrayList<>();
-        String query = "SELECT * FROM public.book WHERE titlle LIKE ?";
+        String query = "SELECT * FROM public.book WHERE title ILIKE ?";
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, "%" + title + "%");
@@ -151,10 +151,11 @@ public class BookDAO implements DAO<Book> {
 
     public List<Book> searchByAuthor(String author_fullname) {
         List<Book> result = new ArrayList<>();
-        String query = "SELECT b.*, a.author_fullname AS author_name " +
-                "FROM public.book b " +
-                "INNER JOIN public.author a ON b.author_id = a.author_id " +
-                "WHERE a.author_fullname LIKE ?";
+        String query = "SELECT author.author_fullname, b.*" +
+                "FROM public.author " +
+                "JOIN public.author_book ab ON author.author_id = ab.author_id " +
+                "JOIN public.book b ON ab.book_id = b.book_id " +
+                "WHERE author.author_fullname ILIKE ?";
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, "%" + author_fullname + "%");
