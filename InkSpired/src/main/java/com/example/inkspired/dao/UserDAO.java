@@ -3,6 +3,7 @@ package com.example.inkspired.dao;
 import com.example.inkspired.dbconnection.PostgresqlConnection;
 import com.example.inkspired.model.User;
 
+import com.example.inkspired.util.Utils;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.sql.*;
@@ -17,6 +18,7 @@ public class UserDAO implements DAO<User> {
     private Connection conn = null;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
+    private Utils utils = null;
 
     public UserDAO() {
         conn = PostgresqlConnection.getConn();
@@ -34,7 +36,7 @@ public class UserDAO implements DAO<User> {
         }
     }
 
-    public boolean checkExistingUserByEmail (String email_address)  throws SQLException {
+    public boolean checkExistingUserByEmail(String email_address) throws SQLException {
         String query = "SELECT * FROM public.user WHERE email_address = ?";
         try {
             ps = conn.prepareStatement(query);
@@ -45,12 +47,12 @@ public class UserDAO implements DAO<User> {
         }
         return rs.next();
     }
-    
-    public void updatePasswordByEmail (String password, String email_address) throws SQLException {
+
+    public void updatePasswordByEmail(String password, String email_address) throws SQLException {
         String query = "UPDATE public.user SET password = ? WHERE email_address = ?";
         try {
             ps = conn.prepareStatement(query);
-            ps.setString(1, md5Hash(password));
+            ps.setString(1, utils.md5Hash(password));
             ps.setString(2, email_address);
             ps.executeUpdate();
         } catch (Exception e) {
@@ -63,7 +65,7 @@ public class UserDAO implements DAO<User> {
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, u.getUsername());
-            ps.setString(2, md5Hash(u.getPassword()));
+            ps.setString(2, utils.md5Hash(u.getPassword()));
             rs = ps.executeQuery();
         } catch (Exception e) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -77,7 +79,7 @@ public class UserDAO implements DAO<User> {
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, u.getUsername());
-            ps.setString(2, md5Hash(u.getPassword()));
+            ps.setString(2, utils.md5Hash(u.getPassword()));
             ps.setString(3, u.getEmail_address());
             ps.setString(4, u.getFull_name());
             ps.setString(5, u.getGender());
@@ -258,7 +260,7 @@ public class UserDAO implements DAO<User> {
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, user.getUsername());
-            ps.setString(2, md5Hash(user.getPassword()));
+            ps.setString(2, utils.md5Hash(user.getPassword()));
             rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -271,9 +273,6 @@ public class UserDAO implements DAO<User> {
         return userid;
     }
 
-    private String md5Hash(String password) {
-        return DigestUtils.md5Hex(password).toLowerCase();
-    }
 
     public static void main(String[] args) {
 //        UserDAO dao = new UserDAO();
