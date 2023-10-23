@@ -71,103 +71,89 @@
                         <h3 class="mb-4 pb-1 pb-md-0 mb-md-5">Account information</h3>
                         <form>
                             <div class="row d-flex align-items-center pt-3 pb-3 d-flex align-items-center pb-2" id="infoItem_Picture">
-                                <label for="info_image" class="mb-0 title col-md-3 h6 h6">Profile picture</label>
-                                <input class="mb-0 col-md-6" type="text" id="info_image"
-                                       name="picture" placeholder="You're looking cute today (˵ •̀ ᴗ - ˵ ) ✧"
-                                       disabled />
+                                <div class="mb-0 title col-md-3 h6 h6">Profile picture</div>
+                                <div class="mb-0 col-md-6 px-0 text-muted" id="info_image">
+                                    A profile picture helps personalise your account
+                                </div>
                                 <div class="col-md-1">
                                     &nbsp;
                                 </div>
-                                <img class="col-md-2 rounded-circle" src="https://dummyimage.com/60x60/000/fff" alt="profileImage">
-                            </div>
-                            <hr class="my-0">
-                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Name">
-                                <label for="info_fullName" class="mb-0 title col-md-3 h6">Name</label>
-                                <input class="mb-0 description col-md-6" type="text" id="info_fullName"
-                                       name="fullName" placeholder="Beauti" disabled />
-                                <div class="col-md-2">
-                                    &nbsp;
-                                </div>
-                                <i class="bi bi-chevron-right col-md-1"></i>
-                            </div>
-                            <hr class="my-0">
-                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Gender">
-                                <label for="info_gender" class="mb-0 title col-md-3 h6">Gender</label>
-                                <input class="mb-0 description col-md-6" type="text" id="info_gender"
-                                       name="gender" placeholder="No worries (⁄ ⁄•⁄ω⁄•⁄ ⁄)"
-                                       disabled />
-                                <div class="col-md-2">
-                                    &nbsp;
-                                </div>
-                                <i class="bi bi-chevron-right col-md-1"></i>
-                            </div>
-                            <hr class="my-0">
-                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Birthday">
-                                <label for="info_birthday" class="mb-0 title col-md-3 h6">Birthday</label>
-                                <input class="mb-0 description col-md-6" type="text" id="info_birthday"
-                                       name="birthday" placeholder="You meant our date?"
-                                       disabled />
-                                <div class="col-md-2">
-                                    &nbsp;
-                                </div>
-                                <i class="bi bi-chevron-right col-md-1"></i>
-                            </div>
-                            <hr class="my-0">
-                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Email">
-                                <label for="info_email" class="mb-0 title col-md-3 h6">Email</label>
-                                <input class="mb-0 description col-md-6" type="text" id="info_email"
-                                       name="email" placeholder="beauti@gmail.com" disabled />
-                                <div class="col-md-2">
-                                    &nbsp;
-                                </div>
-                                <i class="bi bi-chevron-right col-md-1"></i>
-                            </div>
-                            <hr class="my-0">
-                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Phone">
-                                <label for="info_phone" class="mb-0 title col-md-3 h6">Phone number</label>
-                                <input class="mb-0 description col-md-6" type="text" id="info_phone"
-                                       name="phone" placeholder="This is a number" disabled />
-                                <div class="col-md-2">
-                                    &nbsp;
-                                </div>
-                                <i class="bi bi-chevron-right col-md-1"></i>
-                            </div>
-                            <hr class="my-0">
-                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Address">
-                                <label for="info_address" class="mb-0 title col-md-3 h6">Address ID</label>
-                                <input class="mb-0 description col-md-6" type="text" id="info_address"
-                                       name="address" placeholder="My place <( ⸝⸝•̀ v •́⸝⸝)>"
-                                       disabled />
-                                <div class="col-md-2">
-                                    &nbsp;
-                                </div>
-                                <i class="bi bi-chevron-right col-md-1"></i>
+                                <input type="file" id="img" name="img" accept="image/*" hidden>
+                                <label for="img" class="col-md-2 h100">
+                                    <img id="profileImage" width="100" height="100" class="rounded-circle" src="https://dummyimage.com/100x100/000/fff" alt="profileImage">
+                                </label>
+
                             </div>
                             <hr class="my-0">
                             <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Username">
                                 <label for="info_username" class="mb-0 title col-md-3 h6">Username</label>
                                 <input class="mb-0 description col-md-6" type="text" id="info_username"
                                        name="username" placeholder="ItsBeauti" disabled />
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     &nbsp;
                                 </div>
-                                <i class="bi bi-chevron-right col-md-1"></i>
                             </div>
                             <hr class="my-0">
-                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Password">
-                                <label for="info_password" class="mb-0 title col-md-3 h6">Password</label>
-                                <input class="mb-0 description col-md-6" type="text" id="info_password"
-                                       name="password" placeholder="This is a secret between us <( ⸝⸝•̀ - •́⸝⸝)>" disabled />
-                                <div class="col-md-2">
+                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Email">
+                                <label for="info_email" class="mb-0 title col-md-3 h6">Email</label>
+                                <input class="mb-0 description col-md-6" type="text" id="info_email"
+                                       name="email" placeholder="beauti@gmail.com" disabled />
+                                <div class="col-md-3">
                                     &nbsp;
                                 </div>
-                                <i class="bi bi-chevron-right col-md-1"></i>
                             </div>
+                            <hr class="my-0">
+                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Name">
+                                <label for="info_fullName" class="mb-0 title col-md-3 h6">Name</label>
+                                <input class="mb-0 description col-md-6" type="text" id="info_fullName"
+                                       name="fullName" placeholder="Beauti" disabled />
+                                <div class="col-md-3">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <hr class="my-0">
+                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Gender">
+                                <div class="mb-0 title col-md-3 h6">
+                                    Gender
+                                </div>
+                                <div class="mb-0 px-0 col-md-6">
+                                    <input type="radio" name="gender" id="info_Gender_Male" value="Male" checked disabled>
+                                    <label for="info_Gender_Male" class="radio-inline pl-0">Male</label>
+                                    <input type="radio" name="gender" id="info_Gender_Female" value="Female" disabled>
+                                    <label for="info_Gender_Female" class="radio-inline">Female</label>
+                                    <input type="radio" name="gender" id="info_Gender_Other" value="Other" disabled>
+                                    <label for="info_Gender_Other" class="radio-inline">Other</label>
+                                </div>
+                                <div class="col-md-3">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <hr class="my-0">
+                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Birthdate">
+                                <label for="info_birthdate" class="mb-0 title col-md-3 h6">Birthday</label>
+                                <input class="mb-0 description col-md-6" type="date" id="info_birthdate"
+                                       name="birthday"
+                                       disabled />
+                                <div class="col-md-3">
+                                    &nbsp;
+                                </div>
+                            </div>
+
+                            <hr class="my-0">
+                            <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Phone">
+                                <label for="info_phone" class="mb-0 title col-md-3 h6">Phone number</label>
+                                <input class="mb-0 description col-md-6" type="text" id="info_phone"
+                                       name="phone" placeholder="This is a number" disabled />
+                                <div class="col-md-3">
+                                    &nbsp;
+                                </div>
+                            </div>
+
                             <div class="row d-flex">
-                                <div class="col-md-2 mt-4 pt-2 ml-0">
+                                <div class="col-md-2 col-sm-6 mt-4 pt-2 pe-0 me-md-0">
                                     <input class="btn btn-outline-dark btn-lg" type="submit" value="Submit" />
                                 </div>
-                                <div class="col-md-2 mt-4 pt-2 px-0">
+                                <div class="col-md-2 col-sm-6 mt-4 pt-2 px-0">
                                     <button type="button" class="btn btn-outline-dark btn-lg" onclick="toggleEditing()">Edit</button>
                                 </div>
                             </div>
