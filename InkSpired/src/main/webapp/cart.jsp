@@ -12,79 +12,7 @@
     </head>
     <%@include file="interface.jsp" %>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="<%= request.getServletContext().getContextPath()%>/">Inkspired Books</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false"
-                        aria-label="Toggle navigation"><span
-                        class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <c:choose>
-
-                        <c:when test="${sessionScope.userCookie == null}">
-
-                            <form class="d-flex pe-lg-3">
-                                <button class="btn btn-outline-dark" type="submit">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    <a href="#">Cart</a>
-                                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                                </button>
-                            </form>
-
-                            <form class="d-flex" method="POST"
-                                  action="<%= request.getServletContext().getContextPath()%>/login">
-                                <button class="btn btn-outline-dark" type="submit" name="btnLogin"
-                                        value="Login">
-                                    <i class="bi-person-fill"></i>
-                                    Login
-                                </button>
-                            </form>
-                        </c:when>
-
-                        <c:otherwise>
-
-                            <form class="d-flex pe-lg-3">
-                                <button class="btn btn-outline-dark" type="submit">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    <a href="<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}">Cart</a>
-                                    <span class="badge bg-dark text-white ms-1 rounded-pill">
-                                                <%
-                                                    ShoppingCartDAO scDao = new ShoppingCartDAO();
-                                                    int cartid = Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue());
-                                                    Optional<ShoppingCart> cart = scDao.get(cartid);
-                                                    String quantity = String.valueOf(cart.get().getQuantity());
-                                                    out.print(quantity);
-                                                %>
-                                            </span>
-                                </button>
-                            </form>
-
-                            <div class="dropdown">
-                                <button class="btn btn-outline-dark dropdown-toggle" type="button"
-                                        id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
-                                    Account
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="item-dropdown" href="account.jsp">User Information</a></li>
-                                    <li><a class="item-dropdown" href="#">Order History</a></li>
-                                    <li><a class="item-dropdown" href="#">Review History</a></li>
-                                    <li>
-                                        <div class="dropdown-divider"></div>
-                                    </li>
-                                    <li><a class="item-dropdown"
-                                           href="<%= request.getServletContext().getContextPath()%>/logout">Logout</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </c:otherwise>
-
-                    </c:choose>
-
-                </div>
-            </div>
-        </nav>
+    <%@include file="header-yes.jsp" %>
         <!-- Header-->
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
@@ -188,9 +116,6 @@
     </div>
 </section>
 <script src="js/quantity-change.js"></script>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright INKSPIRED BOOKS 2023, always reserved.</p></div>
-</footer>
+<!-- Footer--><%@include file="footer.jsp"%>
 </body>
 </html>
