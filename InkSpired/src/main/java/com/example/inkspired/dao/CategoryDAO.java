@@ -1,6 +1,7 @@
 package com.example.inkspired.dao;
 
 import com.example.inkspired.dbconnection.PostgresqlConnection;
+import com.example.inkspired.model.Book;
 import com.example.inkspired.model.Category;
 
 import java.sql.Connection;
@@ -101,6 +102,31 @@ public class CategoryDAO implements DAO<Category> {
         }
     }
 
+    public List<Book> searchByCategory(String category_name) {
+        List<Book> result = new ArrayList<>();
+        String query = "SELECT category.category_name, b.* " +
+                "FROM public.category " +
+                "JOIN public.category_book cb ON category.category_id = cb.category_id " +
+                "JOIN public.book b ON cb.book_id = b.book_id " +
+                "WHERE category.category_name ILIKE ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, "%" + category_name + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Book book = new Book();
+                book.setBook_id(rs.getInt("book_id"));
+                book.setTitle(rs.getString("title"));
+                book.setPrice(rs.getInt("price"));
+                book.setBook_image(rs.getString("book_image"));
+                book.setIs_available(rs.getBoolean("is_available"));
+                result.add(book);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return result;
+    }
 
     public static void main(String[] args) {
         CategoryDAO dao = new CategoryDAO();
