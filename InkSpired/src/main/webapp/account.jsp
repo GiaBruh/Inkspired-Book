@@ -24,12 +24,6 @@
                     <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                 </button>
             </form>
-            <form class="d-flex">
-                <button class="btn btn-outline-dark" type="submit">
-                    <i class="bi-person-fill"></i>
-                    Login
-                </button>
-            </form>
             <div class="dropdown">
                 <button
                         class="btn btn-outline-dark dropdown-toggle"
@@ -164,11 +158,7 @@
         </div>
     </div>
 </section>
-<!-- Footer-->
-<footer class="py-5 bg-dark" id="footer">
-    <div class="container"><p class="m-0 text-center text-white">Copyright INKSPIRED BOOKS 2023, always reserved.</p>
-    </div>
-</footer>
+<%@include file="footer.jsp"%>
 <script src="js/edit.js"></script>
 </body>
 </html>
