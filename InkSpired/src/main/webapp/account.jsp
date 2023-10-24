@@ -183,13 +183,10 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark" id="footer">
-            <div class="container"><p class="m-0 text-center text-white">Copyright INKSPIRED BOOKS 2023, always
-                reserved.</p>
-            </div>
-        </footer>
-        <script src="js/toggle-edit.js"></script>
-    </body>
+        </div>
+    </div>
+</section>
+<%@include file="footer.jsp"%>
+<script src="js/toggle-edit.js"></script>
+</body>
 </html>

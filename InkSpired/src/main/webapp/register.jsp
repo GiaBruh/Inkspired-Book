@@ -167,9 +167,6 @@
         </section>
 
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright INKSPIRED BOOKS 2023, always
-                reserved.</p></div>
-        </footer>
+        <%@include file="footer.jsp"%>
     </body>
 </html>
