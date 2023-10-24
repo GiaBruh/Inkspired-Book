@@ -8,11 +8,17 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "UserController", value = "/user")
+@MultipartConfig(
+        fileSizeThreshold=1024*1024*10, 	// 10 MB
+        maxFileSize=1024*1024*5,      	// 5 MB
+        maxRequestSize=1024*1024*10)   	// 100 MB
 public class UserController extends HttpServlet {
     private  static  final  String USER = "/user";
 
@@ -87,15 +93,36 @@ public class UserController extends HttpServlet {
         String date = request.getParameter("birthdate");
         Date birthdate = date != null ? Date.valueOf(date) : null;
         String phone_number = request.getParameter("phone");
-        String user_image = request.getParameter("upload");
+        String user_image = "./uploadphotos/";
         int user_id = Integer.parseInt(getCookie(request).getValue());
+
+        //Upload images
+        try {
+            Part part = request.getPart("upload");
+
+            String realPath = request.getServletContext().getRealPath("/uploadphotos/userphotos/user" + user_id);
+            String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+
+            if (!Files.exists(Paths.get(realPath))) {
+                Files.createDirectories(Paths.get(realPath));
+            }
+
+            user_image = "./uploadphotos/userphotos/user" + user_id + "/" + fileName;
+            System.out.println(realPath + "/" + fileName);
+            part.write(realPath + "/" + fileName);
+        } catch (Exception e) {
+
+        }
+
         UserDAO uDao = new UserDAO();
         User user = new User(username, fullname, gender, email_address, birthdate, phone_number, user_image);
 //        user.setUserId(user_id);
 //        System.out.println(uDao.update(user_id, user));
         if(uDao.update(user_id, user)) {
+            System.out.println("Upload success");
             response.sendRedirect(getServletContext().getContextPath() + USER);
         } else {
+            System.out.println("Upload failed");
             response.sendRedirect(getServletContext().getContextPath() + USER);
         }
     }

@@ -79,7 +79,7 @@ public class RegisterController extends HttpServlet {
             String email = request.getParameter("email");
             String phone = request.getParameter("phone");
 
-            User user = new User(username, password, email, fullname, gender, birthdate, phone, "./", true);
+            User user = new User(username, password, email, fullname, gender, birthdate, phone, "https://dummyimage.com/100x100/000/fff", true);
             ShoppingCart cart = new ShoppingCart();
 
             UserDAO uDao = new UserDAO();
