@@ -10,13 +10,13 @@ INSERT INTO public."user" ( username, password, email_address, full_name, gender
                           , user_image
                           , user_status)
 VALUES ('nta', '202cb962ac59075b964b07152d234b70', 'hngiabao11122003v3@gmail.com', 'Nguyen Thi A', 'female', '1991-02-02',
-        '0912345678', '/', true), -- 202cb962ac59075b964b07152d234b70 = 123
+        '0912345678', 'https://dummyimage.com/100x100/000/fff', true), -- 202cb962ac59075b964b07152d234b70 = 123
        ('Hoai_N_V', 'caf1a3dfb505ffed0d024130f58c5cfa', 'nvh@gmail.com', 'Nguyen Van Hoai', 'male', '1998-10-19',
-        '0841298550', '/', true), -- caf1a3dfb505ffed0d024130f58c5cfa = 321
+        '0841298550', 'https://dummyimage.com/100x100/000/fff', true), -- caf1a3dfb505ffed0d024130f58c5cfa = 321
        ('dio', 'ed20a959d410ccd843d9e1dfcee04228', 'kratos@gmail.com', 'Huynh Dai Tinh', 'male', '1991-03-01',
-        '0830987675', '/', true), -- ed20a959d410ccd843d9e1dfcee04228 = a12
+        '0830987675', 'https://dummyimage.com/100x100/000/fff', true), -- ed20a959d410ccd843d9e1dfcee04228 = a12
        ('Dai_Gia_Ngheo', '1406f37190e825427440bc020919218a', 'javan@gmail.com', 'Do Dai Hoc', 'female', '2005-12-04',
-        '0830987675', '/', true); -- 1406f37190e825427440bc020919218a = gogo
+        '0830987675', 'https://dummyimage.com/100x100/000/fff', true); -- 1406f37190e825427440bc020919218a = gogo
        -- Add a test user for forgot password
        -- Do not uncomment below user data. Uncomment it will cause bug
 --        ('IuseArch', 'a1f26721ed609e446e95f43a51951b49', 'dthai1345@gmail.com', 'Người Dùng Arch', 'male', '2003-11-10',

@@ -69,7 +69,7 @@
                         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                             <div class="card-body p-4 p-md-5">
                                 <h3 class="mb-4 pb-1 pb-md-0 mb-md-5">Account information</h3>
-                                <form method="POST" action="<%=request.getServletContext().getContextPath()%>/user">
+                                <form method="POST" action="<%=request.getServletContext().getContextPath()%>/user" enctype="multipart/form-data">
                                     <div class="row d-flex align-items-center pt-3 pb-3 d-flex align-items-center pb-2"
                                          id="infoItem_Picture">
                                         <div class="mb-0 title col-md-3 h6 h6">Profile picture</div>
@@ -79,10 +79,12 @@
                                         <div class="col-md-1">
                                             &nbsp;
                                         </div>
-                                        <input type="file" id="img" name="upload" accept="image/*" hidden>
+                                        <input type="file" id="img" name="upload" hidden disabled>
                                         <label for="img" class="col-md-2 h100">
-                                            <img id="profileImage" width="100" height="100" class="rounded-circle"
-                                                 src="https://dummyimage.com/100x100/000/fff" alt="profileImage">
+                                            <img id="profileImage" width="100" height="100" class="rounded-circle" style="object-fit: cover"
+<%--                                                 src="https://dummyimage.com/100x100/000/fff" alt="profileImage">--%>
+                                                 src="${sessionScope.userInfo.getUser_image()}"
+                                                 alt="${sessionScope.userInfo.getUsername()} photo">
                                         </label>
 
                                     </div>
@@ -188,6 +190,6 @@
                 reserved.</p>
             </div>
         </footer>
-        <script src="js/edit.js"></script>
+        <script src="js/toggle-edit.js"></script>
     </body>
 </html>
