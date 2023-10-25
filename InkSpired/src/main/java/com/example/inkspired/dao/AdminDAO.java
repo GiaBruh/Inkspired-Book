@@ -17,86 +17,29 @@ public class AdminDAO {
     }
 
     // Method to insert a new admin record
-    public void addAdmin(Admin admin) {
-        try {
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("INSERT INTO public.admin(admin_id, username, password, full_name, email_address) VALUES (?, ?, ?, ?, ?)");
-            // Set the parameters for the SQL statement
-            preparedStatement.setInt(1, admin.getAdminId());
-            preparedStatement.setString(2, admin.getUsername());
-            preparedStatement.setString(3, admin.getPassword());
-            preparedStatement.setString(4, admin.getFullName());
-            preparedStatement.setString(5, admin.getEmailAddress());
 
-            // Execute the SQL statement
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Method to retrieve all admins
-    public List<Admin> getAllAdmins() {
-        List<Admin> admins = new ArrayList<>();
-        try {
-            ResultSet resultSet = connection.createStatement().
-                    executeQuery("SELECT * FROM public.admin");
-            while (resultSet.next()) {
-                Admin admin = new Admin();
-                admin.setAdminId(resultSet.getInt("admin_id"));
-                admin.setUsername(resultSet.getString("username"));
-                admin.setPassword(resultSet.getString("password"));
-                admin.setFullName(resultSet.getString("full_name"));
-                admin.setEmailAddress(resultSet.getString("email_address"));
-                admins.add(admin);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return admins;
-    }
-
-
-    public boolean checkCredentials(String username, String password) {
-        try {
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("SELECT * FROM public.admin WHERE username = ? AND password = ?");
-            // Set the parameters for the SQL statement
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
-
-            // Execute the SQL statement
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
     public Admin checkLogin(String username, String password) {
+        String sql = "SELECT * FROM admin WHERE username = ? AND password = ?";
+        Admin admin = null;
         try {
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("SELECT * FROM public.admin WHERE username = ? AND password = ?");
-            // Set the parameters for the SQL statement
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Admin admin = new Admin();
-                admin.setAdminId(resultSet.getInt("admin_id"));
-                admin.setUsername(resultSet.getString("username"));
-                admin.setPassword(resultSet.getString("password"));
-                admin.setFullName(resultSet.getString("full_name"));
-                admin.setEmailAddress(resultSet.getString("email_address"));
-                return admin;
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                admin = new Admin();
+                admin.setUsername(rs.getString("username"));
+                admin.setPassword(rs.getString("password"));
+                admin.setEmailAddress(rs.getString("email_address"));
+                admin.setFullName(rs.getString("full_name"));
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-        return null;
+        return admin;
     }
+
+
 
 }
