@@ -58,6 +58,7 @@
                                 <div class="table-responsive">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h4 class="section-title fw-light">List of book</h4>
+                                        <a href="<%= request.getContextPath() %>/admin/add-book" class="btn btn-primary mb-2">Add New Book</a>
                                     </div>
 
                                     <table id="book-table" class="table table-bordered m-0">
@@ -77,16 +78,16 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach var="book" items="${books}">
+                                        <c:forEach var="book" items="${requestScope.books}">
                                         <tr>
                                             <td>${book.book_id}</td>
-                                            <td><a href="<%= request.getContextPath() %>/admin/update-book?book_id=${book.book_id}" class="book-title">${book.title}</a></td>
+                                            <td><a href="<%= request.getContextPath() %>/admin/book-info?book_id=${book.book_id}" class="book-title">${book.title}</a></td>
                                             <td>${book.publication_date}</td>
                                             <td>${book.quantity}</td>
-                                            <td>${book.price} VND</td>
+                                            <td>${book.price} &#x20AB</td>
                                             <td>${book.publisher_name}</td>
                                             <td class="d-none">${book.book_description}</td>
-                                            <td><img src="${book.book_image}"></td>
+                                            <td><img src="<%= request.getContextPath() %>/${book.book_image}" alt="${book.title}" width="100px"></td>
                                             <td>
                                                 <span class="badge ${book.is_available ? 'badge-success' : 'badge-failed'}">
                                                         ${book.is_available ? 'Yes' : 'No'}
