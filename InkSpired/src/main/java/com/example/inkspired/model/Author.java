@@ -7,9 +7,28 @@ public class Author implements Serializable {
     private String author_fullname;
     private String author_description;
     private String author_image;
+    private int number_of_books;
+private boolean author_status;
+
+    public boolean getAuthor_status() {
+        return author_status;
+    }
+
+    public void setAuthor_status(boolean author_status) {
+        this.author_status = author_status;
+    }
 
     public Author() {
 
+    }
+
+    public int getNumber_of_books() {
+        return number_of_books;
+    }
+
+
+    public void setNumber_of_books(int number_of_books) {
+        this.number_of_books = number_of_books;
     }
 
     public int getAuthor_id() {
