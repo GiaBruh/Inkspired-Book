@@ -79,9 +79,10 @@
 
                         </div>
                         <div class="d-grid py-3 mt-4">
-                            <button type="submit" class="btn btn-lg btn-primary">
+                            <button type="submit" name="action" value="login" class="btn btn-lg btn-primary">
                                 Login
                             </button>
+
                         </div>
                         <div class="text-center py-3">or Login with</div>
                         <div class="d-flex gap-2 justify-content-center">
@@ -92,11 +93,7 @@
                                 <i class="bi bi-facebook me-2"></i>Facebook
                             </button>
                         </div>
-<%--                        <div class="text-center pt-4">--%>
-<%--                            <span>Not registered?</span>--%>
-<%--                            <a href="signup.html" class="text-blue text-decoration-underline ms-2">--%>
-<%--                                SignUp</a>--%>
-<%--                        </div>--%>
+
                     </div>
                 </div>
             </form>
