@@ -162,10 +162,12 @@
 
                 <c:otherwise>
 
-                    <form class="d-flex pe-lg-3 cart-form">
+                    <form class="d-flex pe-lg-3 cart-form"
+                          action="<%= request.getServletContext().getContextPath()%>/cart">
+                        <input type="hidden" name="cartid" value="${sessionScope.userCookie.getValue()}"/>
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
-                            <a href="<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}">Cart</a>
+                            <a>Cart</a>
                             <span class="badge bg-dark text-white ms-1 rounded-pill">
                                                 <%
                                                     ShoppingCartDAO scDao = new ShoppingCartDAO();
