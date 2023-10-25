@@ -1,23 +1,34 @@
 package com.example.inkspired.controller;
 
-import com.example.inkspired.dao.UserDAO;
-import com.example.inkspired.model.User;
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
-
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
+
+import com.example.inkspired.dao.UserDAO;
+import com.example.inkspired.model.User;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 
 @WebServlet(name = "UserController", value = "/user")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10, // 10 MB
+        maxFileSize = 1024 * 1024 * 5, // 5 MB
+        maxRequestSize = 1024 * 1024 * 10) // 100 MB
 public class UserController extends HttpServlet {
-    private  static  final  String USER = "/user";
+    private static final String USER = "/user";
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request  servlet request
      * @param response servlet response
@@ -41,32 +52,18 @@ public class UserController extends HttpServlet {
      * @throws IOException      if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        processRequest(request, response);
-        String cookieName = "";
-        String cookieValue = "";
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-//            for (int i = 0; i < cookies.length; ++i) {
-//                Cookie cookie = cookies[i];
-//                cookieName = cookie.getName();
-//                cookieValue = cookie.getValue();
-//            }
-            for (Cookie cookie : cookies) {
-                cookieName = cookie.getName();
-                cookieValue = cookie.getValue();
-            }
-        }
-//        System.out.println(cookieName);
-//        System.out.println(cookieValue);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // processRequest(request, response);
         UserDAO userDAO = new UserDAO();
         HttpSession session = null;
         session = request.getSession();
+        Cookie cookie = (Cookie) session.getAttribute("userCookie");
+        String cookieValue = cookie.getValue();
         User user = userDAO.get(Integer.parseInt(cookieValue)).get();
         session.setAttribute("userInfo", user);
         request.getRequestDispatcher("/account.jsp").forward(request, response);
     }
-
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -77,40 +74,50 @@ public class UserController extends HttpServlet {
      * @throws IOException      if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        processRequest(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // processRequest(request, response);
+
         String username = request.getParameter("username");
         String fullname = request.getParameter("fullname");
         String gender = request.getParameter("gender");
         String email_address = request.getParameter("email");
-//        Date birthdate = Date.valueOf(request.getParameter("birthdate"));
         String date = request.getParameter("birthdate");
         Date birthdate = date != null ? Date.valueOf(date) : null;
         String phone_number = request.getParameter("phone");
-        String user_image = request.getParameter("upload");
-        int user_id = Integer.parseInt(getCookie(request).getValue());
+        String user_image = "./uploadphotos/";
+
+        HttpSession session = null;
+        session = request.getSession();
+        Cookie cookie = (Cookie) session.getAttribute("userCookie");
+        int user_id = Integer.parseInt(cookie.getValue());
+
+        // Upload images
+        try {
+            Part part = request.getPart("upload");
+
+            String realPath = request.getServletContext().getRealPath("/uploadphotos/userphotos/user" + user_id);
+            String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+
+            if (!Files.exists(Paths.get(realPath))) {
+                Files.createDirectories(Paths.get(realPath));
+            }
+
+            user_image = "./uploadphotos/userphotos/user" + user_id + "/" + fileName;
+            System.out.println(realPath + "/" + fileName);
+            part.write(realPath + "/" + fileName);
+        } catch (Exception e) {
+        }
+
         UserDAO uDao = new UserDAO();
         User user = new User(username, fullname, gender, email_address, birthdate, phone_number, user_image);
-//        user.setUserId(user_id);
-//        System.out.println(uDao.update(user_id, user));
-        if(uDao.update(user_id, user)) {
+
+        if (uDao.update(user_id, user)) {
+            System.out.println("Upload success");
             response.sendRedirect(getServletContext().getContextPath() + USER);
         } else {
+            System.out.println("Upload failed");
             response.sendRedirect(getServletContext().getContextPath() + USER);
         }
-    }
-
-    private Cookie getCookie(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        Cookie userCookie = null;
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (!cookie.getName().equals("JSESSIONID")) {
-                    userCookie = cookie;
-                    break;
-                }
-            }
-        }
-        return userCookie;
     }
 }

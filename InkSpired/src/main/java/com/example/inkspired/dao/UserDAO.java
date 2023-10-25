@@ -15,10 +15,10 @@ import java.util.logging.Logger;
 
 public class UserDAO implements DAO<User> {
 
-    private Connection conn = null;
+    private Connection conn;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
-    private Utils utils = null;
+    private Utils utils = new Utils();
 
     public UserDAO() {
         conn = PostgresqlConnection.getConn();

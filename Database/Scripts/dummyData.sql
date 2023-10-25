@@ -9,16 +9,18 @@
 INSERT INTO public."user" ( username, password, email_address, full_name, gender, birthdate, phone_number
                           , user_image
                           , user_status)
-VALUES ('nta', '202cb962ac59075b964b07152d234b70', 'hngiabao11122003v3@gmail.com', 'Nguyen Thi A', 'female', '1991-02-02',
-        '0912345678', '/', true), -- 202cb962ac59075b964b07152d234b70 = 123
+VALUES ('nta', '202cb962ac59075b964b07152d234b70', 'hngiabao11122003v3@gmail.com', 'Nguyen Thi A', 'female',
+        '1991-02-02',
+        '0912345678', 'https://dummyimage.com/100x100/000/fff', true), -- 202cb962ac59075b964b07152d234b70 = 123
        ('Hoai_N_V', 'caf1a3dfb505ffed0d024130f58c5cfa', 'nvh@gmail.com', 'Nguyen Van Hoai', 'male', '1998-10-19',
-        '0841298550', '/', true), -- caf1a3dfb505ffed0d024130f58c5cfa = 321
+        '0841298550', 'https://dummyimage.com/100x100/000/fff', true), -- caf1a3dfb505ffed0d024130f58c5cfa = 321
        ('dio', 'ed20a959d410ccd843d9e1dfcee04228', 'kratos@gmail.com', 'Huynh Dai Tinh', 'male', '1991-03-01',
-        '0830987675', '/', true), -- ed20a959d410ccd843d9e1dfcee04228 = a12
+        '0830987675', 'https://dummyimage.com/100x100/000/fff', true), -- ed20a959d410ccd843d9e1dfcee04228 = a12
        ('Dai_Gia_Ngheo', '1406f37190e825427440bc020919218a', 'javan@gmail.com', 'Do Dai Hoc', 'female', '2005-12-04',
-        '0830987675', '/', true); -- 1406f37190e825427440bc020919218a = gogo
-       -- Add a test user for forgot password
-       -- Do not uncomment below user data. Uncomment it will cause bug
+        '0830987675', 'https://dummyimage.com/100x100/000/fff', true);
+-- 1406f37190e825427440bc020919218a = gogo
+-- Add a test user for forgot password
+-- Do not uncomment below user data. Uncomment it will cause bug
 --        ('IuseArch', 'a1f26721ed609e446e95f43a51951b49', 'dthai1345@gmail.com', 'Người Dùng Arch', 'male', '2003-11-10',
 --         0346281383, '/', true); -- a1f26721 ed609e446e95f43a51951b49 = btw
 
@@ -41,7 +43,10 @@ VALUES ('Pan Books'),
        ('Tre'),
        ('Van Hoc'),
        ('Hoi Nha Van'),
-       ('Kim Dong');
+       ('Kim Dong'),
+       ('Penguin Books'),
+       ('Grantham Book Services'),
+       ('Tong Hop TPHCM');
 
 -- Author
 INSERT INTO public.author (author_fullname, author_description, author_image)
@@ -66,7 +71,25 @@ VALUES ('Douglas Adams',
         'Among his works are the best - seller books De Men Phieu luu Ky (Diary of a cricket) (1941), Truyen Tay Bac (Stories of North West region) (1958), ' ||
         'Que nha (Home town) (1970), Ba nguoi khac (Three Others) (1991). Some of his works have been translated into foreign languages. ' ||
         'He won the Ho Chi Minh Prize for Literature in 1996.',
-        './uploadphotos/authorphotos/TH.jpg');
+        './uploadphotos/authorphotos/TH.jpg'),
+       ('Tara Westover',
+        'Tara Westover (born September 27, 1986) is an American memoirist, essayist and historian. Her memoir Educated (2018) debuted at No. 1 ' ||
+        'on The New York Times bestseller list and was a finalist for a number of national awards, including the LA Times Book Prize, PEN America''s Jean Stein Book Award, ' ||
+        'and two awards from the National Book Critics Circle Award. The New York Times ranked Educated as one of the 10 Best Books of 2018. ' ||
+        'Westover was chosen by Time magazine as one of the 100 most influential people of 2019.',
+        './uploadphotos/authorphotos/Tara-Westover.jpg'),
+       ('Ashlee Vance',
+        'Ashlee Vance (born 1977) is an American reporter, writer and filmmaker. His biography of Elon Musk, titled Elon Musk: ' ||
+        'Tesla, SpaceX, and the Quest for a Fantastic Future, was released on May 19, 2015.',
+        './uploadphotos/authorphotos/Ashlee_Vance.jpg'),
+       ('Giovanna Fletcher',
+        'Giovanna Fletcher (née Falcone, born 29 January 1985) is an English blogger, podcaster, author, actress, and presenter. ' ||
+        'Since 2019, she has presented the CBeebies series The Baby Club. She won series 20 of I''m a Celebrity...Get Me Out of Here!.',
+        './uploadphotos/authorphotos/Giovanna-Fletcher.jpg'),
+       ('Le Do Quynh Phuong',
+        'Quynh Huong used to be the MC of ''Thay loi muon noi'' - one of the oldest recurring music programs on television in Vietnam for the past 19 years. ' ||
+        'Master of musicology, author, and also an inspirational speaker with the desire to bring positive energy and spread love to the community.',
+        './uploadphotos/authorphotos/LeDoQuynhPhuong.png');
 
 -- Book
 INSERT INTO public.book (title, publication_date, quantity, price, publisher_id,
@@ -76,23 +99,23 @@ VALUES ('The Hitchhiker''s Guide to the Galaxy', '1979-10-12', 10, 10000, 1,
         'with a sixth book written by Eoin Colfer. The novel is an adaptation of the first four parts of Adams''s radio series of the same name, ' ||
         'centering on the adventures of the only man to survive the destruction of Earth.',
         './uploadphotos/bookphotos/TheHitchhikersGuideToTheGalaxy.jpg', TRUE),
-       ('The Restaurant at the End of the Universe', '1980-10-02', 5, 20000, 1,
+       ('The Restaurant at the End of the Universe', '1980-10-02', 10, 20000, 1,
         'The Restaurant at the End of the Universe is the second book in the Hitchhiker''s Guide to the Galaxy comedy science fiction "trilogy" by Douglas Adams, and is a sequel. ' ||
         'It was originally published by Pan Books as a paperback in 1980. The book was inspired by the song "Grand Hotel" by British rock band Procol Harum.' ||
         ' The book title refers to Milliways, the Restaurant at the End of the Universe, one of the settings of the book. ' ||
         'Elements of it are adapted from the radio series, primarily the Secondary Phase, although Milliways itself, ' ||
         'Arthur and Ford''s final fate come from Fits the Fifth and Sixth of the Primary Phase.',
         './uploadphotos/bookphotos/RestaurantAtTheEndOfTheUniverse.jpg', TRUE),
-       ('Life, the Universe and Everything', '1982-10-14', 3, 30000, 1,
+       ('Life, the Universe and Everything', '1982-10-14', 10, 30000, 1,
         'Life, the Universe and Everything (1982, ISBN 0-345-39182-9) is the third book in the six-volume Hitchhiker''s Guide to the Galaxy science fiction "trilogy of five books" ' ||
         'by British writer Douglas Adams. The title refers to the Answer to Life, the Universe, and Everything.',
         './uploadphotos/bookphotos/Life,_The_Universe_and_Everything_cover.jpg', TRUE),
-       ('Mua He Khong Ten', '2023-09-22', 10, 109000, 2,
+       ('Mua He Khong Ten', '2023-09-22', 20, 109000, 2,
         'Mua He Khong Ten is the latest long story by writer Nguyen Nhat Anh, with childhood stories filled with countless mischief, thrilling moments and countless memories. ' ||
         'Then, as the innocent days of friendship gradually passed, the children in each simple family grew up witnessing the touching moments of a close love story, ' ||
         'the longing for peaceful happiness, and the confusion of each step. When we grow up, love comes with many obstacles.',
         './uploadphotos/bookphotos/mua-he-khong-ten.jpg', TRUE),
-       ('Nhung Nguoi Hang Xom', '2022-12-01', 10, 78000, 2,
+       ('Nhung Nguoi Hang Xom', '2022-12-01', 20, 78000, 2,
         'The story follows the story of a guy who just got married, is getting ready to go to work, and is interested in writing. ' ||
         'He loves his wife in his own way, praises and worships his lover in his own way, but looks at life the way his neighbors live. ' ||
         'Living in the love of your wife is full of fragrance and sweetness. Witness the policeman''s love for his medical girlfriend; ' ||
@@ -106,11 +129,35 @@ VALUES ('The Hitchhiker''s Guide to the Galaxy', '1979-10-12', 10, 10000, 1,
         'Although the manuscript Song Mon was completed by writer Nam Cao before the Revolution, ' ||
         'it was not until after peace was restored in the North that the novel first appeared to readers.',
         './uploadphotos/bookphotos/SongMon.jpg', TRUE),
-       ('De Men Phieu Luu Ky', '2019-01-01', 5, 50000, 5,
+       ('De Men Phieu Luu Ky', '2019-01-01', 35, 50000, 5,
         'For more than half a century since it was first introduced to readers in 1941, "De Men Phieu Luu Ky" has been one of writer To Hoai''s most beloved works.
 The work has been reprinted many times and translated into more than 20 languages around the world and is always welcomed by generations of young readers.
 The work has been published in many different forms.',
-        './uploadphotos/bookphotos/de-men-phieu-luu-ky.jpg', TRUE);
+        './uploadphotos/bookphotos/de-men-phieu-luu-ky.jpg', TRUE),
+       ('Educated: A Memoir', '2018-02-18', 10, 175000, 6,
+        'Born to survivalists in the mountains of Idaho, Tara Westover was seventeen the first time she set foot in a classroom. ' ||
+        'Her family was so isolated from mainstream society that there was no one to ensure the children received an education, ' ||
+        'and no one to intervene when one of Tara''s older brothers became violent. When another brother got himself into college, Tara decided to try a new kind of life. ' ||
+        'Her quest for knowledge transformed her, taking her over oceans and across continents, to Harvard and to Cambridge University. ' ||
+        'Only then would she wonder if she''d traveled too far, if there was still a way home.',
+        './uploadphotos/bookphotos/Educated.jpg', TRUE),
+       ('Elon Musk: How the Billionaire CEO of SpaceX and Tesla is Shaping our Future', '2015-05-19', 10, 200000, 7,
+        'In the spirit of Steve Jobs and Moneyball, Elon Musk is both an illuminating and authorized look at the extraordinary life of one of Silicon Valley''s most exciting, ' ||
+        'eccentric, and ambitious entrepreneurs--a real-life Tony Stark--and a fascinating exploration of the renewal of American invention and its new "makers."',
+        './uploadphotos/bookphotos/elon_musk_intl_tesla__spacex__and_the_quest_for_a_fantastic_future.jpg', TRUE),
+       ('Some Kind of Wonderful', '2017-01-01', 10, 188100, 6,
+        'When the love of your life says you''re not The One, what next? ' ||
+        'After celebrating a decade together, everyone thinks Lizzy and Ian are about to get engaged. ' ||
+        'Instead, a romantic escape to Dubai leaves Lizzy with no ring, no fiancé and no future. ' ||
+        'Lizzy is heartbroken - but through the tears, she sees an opportunity. This is her moment to discover what she''s been missing while playing Ian''s ''better half''. ' ||
+        'But how much has Ian changed her, and who is she without him? Lizzy sets out to rediscover the girl she was before - and, in the meantime, have a little fun . . .',
+        './uploadphotos/bookphotos/SomeKindofWonderful.jpeg', TRUE),
+       ('Thay Doi Cuoc Song Voi Than So Hoc', '2020-10-01', 10, 178600, 8,
+        'In every human''s life, we often have to explore and find our own path without knowing for sure whether that path is right for us or not. ' ||
+        'Sometimes, we have to stumble, stumble and even get lost to learn experiences and lessons. If we understand Numerology, ' ||
+        'and through certain knowledge about the meaning and combination of numbers, we can chart out for ourselves a relatively specific direction, minimizing the times " trial and error", ' ||
+        'thereby finding more joy, happiness, and meaning in life.',
+        './uploadphotos/bookphotos/ThayDoiCuocSongVoiThanSoHoc.jpg', TRUE);
 
 -- Author_book
 INSERT INTO public.author_book (author_id, book_id)
@@ -121,64 +168,64 @@ VALUES (1, 1),
        (2, 5),
        (3, 6),
        (3, 7),
-       (4, 8);
+       (4, 8),
+       (5, 9),
+       (6, 10),
+       (7, 11),
+       (8, 12);
 
 -- Category
 INSERT INTO public.category (category_name)
-VALUES ('Non-fiction'),
-       ('Fiction'),
-       ('Science Fiction'),
-       ('Fantasy'),
-       ('Mystery'),
+VALUES ('Foreign book'),
        ('Romance'),
-       ('Thriller'),
-       ('Horror'),
-       ('Children'),
-       ('Young Adult'),
-       ('Poetry'),
-       ('Comics'),
-       ('Art'),
-       ('Biography'),
-       ('History'),
-       ('Cooking'),
-       ('Health'),
-       ('Business'),
-       ('Travel'),
+       ('Technology'),
+       ('Fantasy & Science fiction'),
+       ('Thrillers & Horror'),
        ('Self-help'),
-       ('Religion'),
-       ('Comedy'),
-       ('Crime'),
-       ('Drama'),
-       ('Action'),
-       ('Adventure'),
-       ('Politics'),
-       ('Philosophy'),
-       ('Science'),
-       ('Sports'),
-       ('Music'),
-       ('Literature'),
-       ('Novels'),
+       ('Biographies, memoirs & autobiography'),
        ('Short Stories'),
+       ('Cookbooks'),
+       ('Politics'),
+       ('Education'),
+       ('Novel'),
+       ('Light novel'),
+       ('Comic'),
+       ('Dictionary'),
+       ('Economics'),
+       ('Children book'),
+       ('Fiction'),
+       ('Comedy'),
        ('Other');
 
 -- Category_book
 INSERT INTO public.category_book (category_id, book_id)
-VALUES (3, 1),
-       (22, 1),
-       (3, 2),
-       (22, 2),
-       (3, 3),
-       (22, 3),
-       (32, 4),
-       (33, 4),
-       (32, 5),
-       (33, 5),
-       (32, 6),
-       (34, 6),
-       (32, 7),
-       (33, 7),
-       (9, 8),
-       (12, 8);
+VALUES (1, 1),
+       (4, 1),
+       (12, 1),
+       (19, 1),
+       (1, 2),
+       (4, 2),
+       (12, 2),
+       (19, 2),
+       (1, 3),
+       (4, 3),
+       (12, 3),
+       (19, 3),
+       (12, 4),
+       (12, 5),
+       (8, 6),
+       (12, 7),
+       (14, 8),
+       (17, 8),
+       (1, 9),
+       (7, 9),
+       (1, 10),
+       (3, 10),
+       (7, 10),
+       (16, 10),
+       (1, 11),
+       (2, 11),
+       (6, 12);
 
 -- Order_status
 INSERT INTO public.order_status
@@ -191,7 +238,7 @@ VALUES (0, 'Pending'),
 
 -- Cart_book
 INSERT INTO public.cart_book (shopping_cart_id, book_id)
-VALUES (1, 8),
+VALUES (1, 7),
        (1, 4),
        (3, 8)
 ;
