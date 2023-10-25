@@ -67,6 +67,9 @@
         .login-form span {
             display: none;
         }
+        .account-dropdown span {
+            display: none;
+        }
     }
     .carousel img {
         width: 30%;

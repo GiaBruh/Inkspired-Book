@@ -29,10 +29,11 @@
                         <table class="table table-bordered text-center mb-0">
                             <thead class="bg-secondary text-dark">
                                 <tr>
-                                    <th>Products</th>
+                                    <th colspan="2">Products</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Remove</th>
+                                    <th>Add to order</th>
                                 </tr>
                             </thead>
                             <tbody class="align-middle">
@@ -42,6 +43,8 @@
                                         <td class="align-left">
                                             <img src="${book.getBook_image()}" alt="${book.getTitle()}"
                                                  style="height: 170px;">
+                                        </td>
+                                        <td>
                                             <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}">${book.getTitle()}</a>
                                         </td>
                                         <td class="align-middle">${book.getPrice()}&#x20AB</td>
@@ -73,6 +76,17 @@
                                                     <i class="fa fa-times"></i>
                                                 </button>
                                             </form>
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" id="${book.getBook_id()}" name="book${book.getBook_id()}" value="${book.getBook_id()}" hidden>
+                                            <button
+                                                    onclick="AddTO(${book.getBook_id()})"
+                                                    class="btn btn-sm btn-dark"
+                                                    id="btn_${book.getBook_id()}"
+                                                    style="color: white;"
+                                            >
+                                                <i class="fa fa-check"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 </c:forEach>
