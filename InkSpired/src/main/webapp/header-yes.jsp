@@ -162,12 +162,11 @@
 
                 <c:otherwise>
 
-                    <form class="d-flex pe-lg-3 cart-form"
-                          action="<%= request.getServletContext().getContextPath()%>/cart">
-                        <input type="hidden" name="cartid" value="${sessionScope.userCookie.getValue()}"/>
+                    <form class="d-flex pe-lg-3 cart-form" action="<%= request.getServletContext().getContextPath()%>/cart">
+                        <input type="hidden" name="cartid" value="${sessionScope.userCookie.getValue()}" />
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
-                            <a>Cart</a>
+                            <span class="cart-text">Cart</span>
                             <span class="badge bg-dark text-white ms-1 rounded-pill">
                                                 <%
                                                     ShoppingCartDAO scDao = new ShoppingCartDAO();
@@ -180,10 +179,12 @@
                         </button>
                     </form>
 
-                    <div class="dropdown">
+                    <div class="dropdown account-dropdown">
                         <button class="btn btn-outline-dark dropdown-toggle" type="button"
                                 id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
-                            Account
+
+                            <i class="bi-person-fill"></i>
+                            <span>Account</span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li><a class="item-dropdown"
