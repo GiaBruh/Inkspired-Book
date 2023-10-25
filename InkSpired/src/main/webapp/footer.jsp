@@ -1,4 +1,6 @@
 <%@include file="interface.jsp" %>
+<!-- Back to Top -->
+<button class="btn btn-light back-to-top"><i class="fa fa-angle-double-up"></i></button>
 <!-- Footer-->
 <footer class="py-5 bg-dark">
     <div class="container">
