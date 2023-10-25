@@ -1,40 +1,56 @@
 package com.example.inkspired.controller;
 
-import com.example.inkspired.dao.*;
-import com.example.inkspired.model.*;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.lang.String;
 
+import com.example.inkspired.dao.AdminDAO;
+import com.example.inkspired.dao.AuthorDAO;
+import com.example.inkspired.dao.BookDAO;
+import com.example.inkspired.dao.CategoryDAO;
+import com.example.inkspired.dao.PublisherDAO;
+import com.example.inkspired.model.Admin;
+import com.example.inkspired.model.Author;
+import com.example.inkspired.model.Book;
+import com.example.inkspired.model.Category;
+import com.example.inkspired.model.Publisher;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 public class AdminController extends HttpServlet {
+    private static final String ADMIN = "/admin";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String path = request.getRequestURI();
+
+        if (path.endsWith(ADMIN)) {
+            request.getRequestDispatcher("/admin-login.jsp").forward(request, response);
+        }
+
         Cookie[] cookies = request.getCookies();
 
-//        // Retrieve the username from the cookie
-//        String fullName = null;
-//
-//        if (cookies != null) {
-//            for (Cookie cookie : cookies) {
-//                if (cookie.getName().equals("fullName")) {
-//                    fullName = cookie.getValue();
-//                    break;
-//                }
-//            }
-//        }
-//
-//        if (fullName != null) {
-//            // Set the full name as a request attribute to display in the JSP
-//            request.setAttribute("fullName", fullName);
-//        }
-
+        // // Retrieve the username from the cookie
+        // String fullName = null;
+        //
+        // if (cookies != null) {
+        // for (Cookie cookie : cookies) {
+        // if (cookie.getName().equals("fullName")) {
+        // fullName = cookie.getValue();
+        // break;
+        // }
+        // }
+        // }
+        //
+        // if (fullName != null) {
+        // // Set the full name as a request attribute to display in the JSP
+        // request.setAttribute("fullName", fullName);
+        // }
 
         boolean isLoggedIn = false;
         String pathInfo = request.getPathInfo();
@@ -48,20 +64,17 @@ public class AdminController extends HttpServlet {
         }
         HttpSession session = request.getSession(false);
         if (isLoggedIn) {
-//            if (session != null && session.getAttribute("admin") != null) {
-//                // Retrieve the Admin object from the session
-//                Admin admin = (Admin) session.getAttribute("admin");
-//            }
+            // if (session != null && session.getAttribute("admin") != null) {
+            // // Retrieve the Admin object from the session
+            // Admin admin = (Admin) session.getAttribute("admin");
+            // }
 
-            if(pathInfo.equals("/")){
+            if (pathInfo.equals("/")) {
 
                 response.sendRedirect(request.getContextPath() + "/admin/dashboard");
 
-            }
-
-            else if(pathInfo.equals("/dashboard")){
+            } else if (pathInfo.equals("/dashboard")) {
                 request.getRequestDispatcher("/admin-dashboard.jsp").forward(request, response);
-
 
             } else if (pathInfo.equals("/table-order")) {
                 request.getRequestDispatcher("/admin-table-order.jsp").forward(request, response);
@@ -79,7 +92,7 @@ public class AdminController extends HttpServlet {
             } else if (pathInfo.startsWith("/update-book")) {
                 String bookIdString = request.getParameter("book_id");
 
-                if (bookIdString != null && !bookIdString.isEmpty()){
+                if (bookIdString != null && !bookIdString.isEmpty()) {
                     int bookId = Integer.parseInt(bookIdString);
                     BookDAO bookDAO = new BookDAO();
                     Book book = bookDAO.selectBookByID(bookId);
@@ -102,15 +115,14 @@ public class AdminController extends HttpServlet {
                 } else {
                     response.sendRedirect(request.getContextPath() + "/admin/table-book");
                 }
-            }
-            else if(pathInfo.equals("/login")){
+            } else if (pathInfo.equals("/login")) {
                 request.getRequestDispatcher("/admin-login.jsp").forward(request, response);
 
-            } else if(pathInfo.equals("/logout")){
+            } else if (pathInfo.equals("/logout")) {
                 // Delete the session cookie
                 Cookie sessionCookie = new Cookie("sessionId", "");
                 sessionCookie.setPath(request.getContextPath());
-                sessionCookie.setMaxAge(0);  // Delete the cookie
+                sessionCookie.setMaxAge(0); // Delete the cookie
                 response.addCookie(sessionCookie);
 
                 // Redirect to the login page
@@ -120,7 +132,6 @@ public class AdminController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/admin/dashboard");
             }
 
-
         } else {
             // User is not logged in, display the login form
             request.getRequestDispatcher("/admin-login.jsp").forward(request, response);
@@ -129,47 +140,49 @@ public class AdminController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (request.getParameter("btnAdmin") != null && request.getParameter("btnAdmin").equals("Admin")) {
+            response.sendRedirect(getServletContext().getContextPath() + ADMIN);
+        }
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        if (request.getParameter("btnSubmit") != null && request.getParameter("btnSubmit").equals("Submit")) {
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
 
-        // Assuming you have a method in AdminDAO to check credentials
-        AdminDAO adminDAO = new AdminDAO();
-        Admin validCredentials = adminDAO.checkLogin(username, password);
+            // Assuming you have a method in AdminDAO to check credentials
+            AdminDAO adminDAO = new AdminDAO();
+            Admin validCredentials = adminDAO.checkLogin(username, password);
 
-        if (validCredentials != null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("admin", validCredentials);
-//            // Retrieve the full name from your Admin object, assuming it has a method getFullName()
-//            String fullName = validCredentials.getFullName();
-//
-//            // URL encode the full name
-//            String encodedFullName = URLEncoder.encode(fullName, StandardCharsets.UTF_8);
+            if (validCredentials != null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("admin", validCredentials);
+                // // Retrieve the full name from your Admin object, assuming it has a method
+                // getFullName()
+                // String fullName = validCredentials.getFullName();
+                //
+                // // URL encode the full name
+                // String encodedFullName = URLEncoder.encode(fullName, StandardCharsets.UTF_8);
 
-            // Create a session cookie
-            Cookie sessionCookie = new Cookie("sessionId", "uniqueSessionId");
-            sessionCookie.setPath(request.getContextPath());
-            sessionCookie.setMaxAge(30 * 60);  // Set the session cookie's max age to 30 minutes
-            response.addCookie(sessionCookie);
+                // Create a session cookie
+                Cookie sessionCookie = new Cookie("sessionId", "uniqueSessionId");
+                sessionCookie.setPath(request.getContextPath());
+                sessionCookie.setMaxAge(30 * 60); // Set the session cookie's max age to 30 minutes
+                response.addCookie(sessionCookie);
 
-//            // Create a cookie for the full name
-//            Cookie fullNameCookie = new Cookie("fullName", encodedFullName);
-//            fullNameCookie.setPath(request.getContextPath());
-//            fullNameCookie.setMaxAge(30 * 60);  // Set the cookie's max age to 30 minutes
-//            response.addCookie(fullNameCookie);
+                // // Create a cookie for the full name
+                // Cookie fullNameCookie = new Cookie("fullName", encodedFullName);
+                // fullNameCookie.setPath(request.getContextPath());
+                // fullNameCookie.setMaxAge(30 * 60); // Set the cookie's max age to 30 minutes
+                // response.addCookie(fullNameCookie);
 
-            // Redirect to the dashboard
-            response.sendRedirect(request.getContextPath() + "/admin/dashboard");
-        } else {
-            // Invalid credentials, display the login form with error message
-            request.setAttribute("errorMessage", "Invalid username or password");
-            request.getRequestDispatcher("/admin-login.jsp").forward(request, response);
+                // Redirect to the dashboard
+                response.sendRedirect(request.getContextPath() + "/admin/dashboard");
+            } else {
+                // Invalid credentials, display the login form with error message
+                request.setAttribute("errorMessage", "Invalid username or password");
+                request.getRequestDispatcher("/admin-login.jsp").forward(request, response);
+            }
         }
     }
-
-
-
-
-
-    // Other methods (e.g., doPut, doDelete) can be implemented for respective HTTP methods
+// Other methods (e.g., doPut, doDelete) can be implemented for respective HTTP
+// methods
 }

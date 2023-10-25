@@ -53,7 +53,7 @@
                 class="collapse navbar-collapse justify-content-end"
                 id="navbarSupportedContent"
         >
-            <form class="d-flex" method="POST"
+            <form class="d-flex pe-3" method="POST"
                   action="<%= request.getServletContext().getContextPath()%>/register">
                 <button class="btn btn-outline-dark"
                         type="submit"
@@ -64,6 +64,19 @@
                     Register
                 </button>
             </form>
+
+            <form class="d-flex" method="POST"
+                  action="<%= request.getServletContext().getContextPath()%>/admin">
+                <button class="btn btn-outline-dark"
+                        type="submit"
+                        name="btnAdmin"
+                        value="Admin"
+                >
+                    <i class="bi-person-fill"></i>
+                    Admin
+                </button>
+            </form>
+
         </div>
     </div>
 </nav>
