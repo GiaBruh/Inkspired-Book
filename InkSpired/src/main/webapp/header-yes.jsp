@@ -103,9 +103,13 @@
                 <input type="text" id="searchBar" class="form-control border-black"
                        placeholder="Search for products">
                 <div class="input-group-append">
-                    <button class="btn btn-dark btn-small">
+<%--                    <button class="btn btn-dark btn-small">--%>
+<%--                        <i class="fa fa-search"></i>--%>
+<%--                    </button>--%>
+                    <button class="btn btn-dark btn-small" onclick="location.href = 'http://localhost:8080/InkSpired/searchResult.jsp'; ">
                         <i class="fa fa-search"></i>
                     </button>
+
                 </div>
             </div>
         </div>
@@ -163,9 +167,14 @@
                 <c:otherwise>
 
                     <form class="d-flex pe-lg-3 cart-form">
-                        <button class="btn btn-outline-dark" type="submit">
+                        <button class="btn btn-outline-dark"
+                                type="button"
+                                onclick="location.href
+                                = 'http://localhost:8080' +
+                                 '<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}'; ">
                             <i class="bi-cart-fill me-1"></i>
-                            <a href="<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}">Cart</a>
+<%--                            <a href="<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}">Cart</a>--%>
+                            <span>Cart</span>
                             <span class="badge bg-dark text-white ms-1 rounded-pill">
                                                 <%
                                                     ShoppingCartDAO scDao = new ShoppingCartDAO();
