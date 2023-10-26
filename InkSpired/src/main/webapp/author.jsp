@@ -30,11 +30,9 @@
                                                src="https://dummyimage.com/125x150/dee2e6/DoDucDat.png&text=DoDucDat"
                                                alt="..."/></div>
                     <div class="col-md-6">
-                        <h1 class="display-5 fw-bolder">Do Duc Dat</h1>
-                        <h3>29/4/2003 - Present</h3>
-                        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem
-                            quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius
-                            blanditiis delectus ipsam minima ea iste laborum vero?</p>
+                        <h1 class="display-5 fw-bolder">${requestScope.AUTHORINFO.get().getAuthor_fullname()}</h1>
+<%--                        <h3>29/4/2003 - Present</h3>--%>
+                        <p class="lead">${requestScope.AUTHORINFO.get().getAuthor_description()}</p>
                     </div>
                 </div>
             </div>

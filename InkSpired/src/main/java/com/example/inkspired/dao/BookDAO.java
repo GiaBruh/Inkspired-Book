@@ -1,8 +1,5 @@
 package com.example.inkspired.dao;
 
-import com.example.inkspired.dbconnection.PostgresqlConnection;
-import com.example.inkspired.model.Book;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +10,10 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.example.inkspired.dbconnection.PostgresqlConnection;
+import com.example.inkspired.model.Author;
+import com.example.inkspired.model.Book;
+
 public class BookDAO implements DAO<Book> {
     private Connection conn = null;
     private PreparedStatement ps = null;
@@ -21,7 +22,6 @@ public class BookDAO implements DAO<Book> {
     public BookDAO() {
         conn = PostgresqlConnection.getConn();
     }
-
 
     @Override
     public List<Book> getAll() {
@@ -151,7 +151,6 @@ public class BookDAO implements DAO<Book> {
             ps = conn.prepareStatement(query);
             ps.setString(1, "%" + title + "%");
             rs = ps.executeQuery();
-
             while (rs.next()) {
                 Book book = new Book();
                 book.setBook_id(rs.getInt("book_id"));
@@ -194,5 +193,39 @@ public class BookDAO implements DAO<Book> {
         return result;
     }
 
-  
+    public List<Author> getBookAuthors(int id) {
+        List<Author> result = new ArrayList<>();
+        String query = "SELECT\n" +
+                "    author.author_id,\n" +
+                "    author.author_fullname,\n" +
+                "    author.author_description,\n" +
+                "    author.author_image\n" +
+                "\n" +
+                "FROM author_book\n" +
+                "         INNER JOIN author ON author_book.author_id = author.author_id\n" +
+                "WHERE author_book.book_id = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Author author = new Author();
+                author.setAuthor_id(rs.getInt("author_id"));
+                author.setAuthor_fullname(rs.getString("author_fullname"));
+                author.setAuthor_description(rs.getString("author_description"));
+                author.setAuthor_image(rs.getString("author_image"));
+                result.add(author);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        BookDAO dao = new BookDAO();
+        for(Author a : dao.getBookAuthors(1)) {
+            System.out.println(a);
+        }
+    }
 }

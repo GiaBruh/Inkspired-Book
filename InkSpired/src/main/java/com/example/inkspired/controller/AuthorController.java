@@ -1,11 +1,16 @@
 package com.example.inkspired.controller;
 
+import com.example.inkspired.dao.AuthorDAO;
+import com.example.inkspired.dao.BookDAO;
+import com.example.inkspired.model.Author;
+import com.example.inkspired.model.Book;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Optional;
 
 @WebServlet(name = "AuthorController", value = "/author")
 public class AuthorController extends HttpServlet {
@@ -37,7 +42,19 @@ public class AuthorController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/author.jsp").forward(request, response);
+//        System.out.println(request.getSession().getAttribute("BOOKINFO"));
+//        Optional<Book> book = (Optional<Book>) request.getSession().getAttribute("BOOKINFO");
+//        System.out.println(book.get().getBook_id());
+        String path = request.getRequestURI();
+        int authorid = Integer.parseInt(request.getParameter("authorid"));
+        AuthorDAO aDao = new AuthorDAO();
+        Optional<Author> author = aDao.get(authorid);
+//        HttpSession session = request.getSession();
+        request.setAttribute("AUTHORINFO", author);
+
+        if(path.startsWith("/InkSpired/author")) {
+            request.getRequestDispatcher("/author.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -50,6 +67,9 @@ public class AuthorController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+
+
+
     }
 }

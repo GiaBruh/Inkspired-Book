@@ -12,7 +12,7 @@
     </head>
     <%@include file="interface.jsp" %>
     <body>
-    <%@include file="header-yes.jsp" %>
+        <%@include file="header-yes.jsp" %>
         <!-- Header-->
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
@@ -37,10 +37,16 @@
                         <h1 class="display-5 fw-bolder">${sessionScope.BOOKINFO.get().getTitle()}</h1>
                         <h3>
                             Author:
-                            <a href="<%= request.getServletContext().getContextPath()%>/author?authorid="
-                               class="fw-bold text-decoration-none"
-                            >Do Duc Dat</a
-                            >
+                            <c:set var="count" value="0"></c:set>
+                            <c:forEach var="author" items="${requestScope.AUTHORLIST}">
+                                <a href="<%= request.getServletContext().getContextPath()%>/author?authorid=${author.getAuthor_id()}"
+                                   class="fw-bold text-decoration-none"
+                                >${author.getAuthor_fullname()}</a>
+                                <c:set var="count" value="${count + 1}"/>
+                                <c:if test="${count < requestScope.AUTHORLIST.size()}">
+                                    ,
+                                </c:if>
+                            </c:forEach>
                         </h3>
                         <div class="fs-5 mb-5">
                             <%--                            <span class="text-decoration-line-through">$420.00</span>--%>
@@ -264,6 +270,6 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-light back-to-top"><i class="fa fa-angle-double-up"></i></a>
         <!-- Footer-->
-        <%@include file="footer.jsp"%>
+        <%@include file="footer.jsp" %>
     </body>
 </html>
