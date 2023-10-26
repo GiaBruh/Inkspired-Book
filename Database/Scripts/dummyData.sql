@@ -40,13 +40,14 @@ VALUES ('admin', '0192023a7bbd73250516f069df18b500', 'admin@gmail.com', 'Nguyen 
 -- Publisher
 INSERT INTO public.publisher(publisher_name)
 VALUES ('Pan Books'),
-       ('Tre'),
-       ('Van Hoc'),
-       ('Hoi Nha Van'),
-       ('Kim Dong'),
+       ('Trẻ'),
+       ('Văn Học'),
+       ('Hội Nhà Văn'),
+       ('Kim Đồng'),
        ('Penguin Books'),
        ('Grantham Book Services'),
-       ('Tong Hop TPHCM');
+       ('Tổng Hợp TPHCM'),
+       ('Bách Việt');
 
 -- Author
 INSERT INTO public.author (author_fullname, author_description, author_image)
@@ -55,21 +56,21 @@ VALUES ('Douglas Adams',
         'best known for The Hitchhiker''s Guide to the Galaxy. Originally a 1978 BBC radio comedy, ' ||
         'The Hitchhiker''s Guide to the Galaxy developed into a "trilogy" of five books that sold more than 15 million copies in his lifetime.',
         './uploadphotos/authorphotos/Douglas_adams_portrait_cropped.jpg'),
-       ('Nguyen Nhat Anh',
-        'Nguyen Nhat Anh (born May 7, 1955) is a Vietnamese author who writes for teenagers and adults. ' ||
+       ('Nguyễn Nhật Ánh',
+        'Nguyễn Nhật Ánh (born May 7, 1955) is a Vietnamese author who writes for teenagers and adults. ' ||
         'He also works as a teacher, poet and correspondent. His works include approximately 30 novels, ' ||
         '4 essays, 2 series and some collections of poems. He is regarded as one of Vietnam''s most successful writers. ' ||
-        'His best-known series, Kinh Van Hoa (Kaleidoscope), which contains 54 volumes, has been made into 3 drama series of the same name.',
+        'His best-known series, Kính Vạn Hoa (Kaleidoscope), which contains 54 volumes, has been made into 3 drama series of the same name.',
         './uploadphotos/authorphotos/tacgia-NNA.jpg'),
        ('Nam Cao',
-        'Tran Huu Tri (1915—1951), commonly known by his pseudonym Nam Cao, was a Vietnamese short story writer and novelist. ' ||
+        'Trần Hữu Trí (1915—1951), commonly known by his pseudonym Nam Cao, was a Vietnamese short story writer and novelist. ' ||
         'His works generally received high acclaim from critics for their thoughtful description and veracious reflection of the society in the 1945 era. ',
         './uploadphotos/authorphotos/Nha-van-Nam-Cao.p'),
-       ('To Hoai',
-        'To Hoai (Birth name: Nguyen Sen; September 27, 1920 – July 6, 2014)[1] was a Vietnamese writer, playwright, screenwriter, journalist and correspondent. ' ||
-        'The pen name To Hoai is derived from the names of To Lich River and Hoai Duc district, which are landmarks of his hometown. ' ||
-        'Among his works are the best - seller books De Men Phieu luu Ky (Diary of a cricket) (1941), Truyen Tay Bac (Stories of North West region) (1958), ' ||
-        'Que nha (Home town) (1970), Ba nguoi khac (Three Others) (1991). Some of his works have been translated into foreign languages. ' ||
+       ('Tô Hoài',
+        'Tô Hoài (Birth name: Nguyễn Sen; September 27, 1920 – July 6, 2014) was a Vietnamese writer, playwright, screenwriter, journalist and correspondent. ' ||
+        'The pen name Tô Hoài is derived from the names of Tô Lịch River and Hoài Đức district, which are landmarks of his hometown. ' ||
+        'Among his works are the best - seller books Dế Mèn Phiêu Lưu Ký (Diary of a cricket) (1941), Truyện Tây Bắc (Stories of North West region) (1958), ' ||
+        'Quê Nhà (Home town) (1970), Ba Người Khác (Three Others) (1991). Some of his works have been translated into foreign languages. ' ||
         'He won the Ho Chi Minh Prize for Literature in 1996.',
         './uploadphotos/authorphotos/TH.jpg'),
        ('Tara Westover',
@@ -86,10 +87,12 @@ VALUES ('Douglas Adams',
         'Giovanna Fletcher (née Falcone, born 29 January 1985) is an English blogger, podcaster, author, actress, and presenter. ' ||
         'Since 2019, she has presented the CBeebies series The Baby Club. She won series 20 of I''m a Celebrity...Get Me Out of Here!.',
         './uploadphotos/authorphotos/Giovanna-Fletcher.jpg'),
-       ('Le Do Quynh Phuong',
-        'Quynh Huong used to be the MC of ''Thay loi muon noi'' - one of the oldest recurring music programs on television in Vietnam for the past 19 years. ' ||
+       ('Lê Đỗ Quỳnh Phương',
+        'Quỳnh Phương used to be the MC of ''Thay lời muốn nói'' - one of the oldest recurring music programs on television in Vietnam for the past 19 years. ' ||
         'Master of musicology, author, and also an inspirational speaker with the desire to bring positive energy and spread love to the community.',
-        './uploadphotos/authorphotos/LeDoQuynhPhuong.png');
+        './uploadphotos/authorphotos/LeDoQuynhPhuong.png'),
+       ('Tào Đình', null, null),
+       ('Tâm Phạm', null, null);
 
 -- Book
 INSERT INTO public.book (title, publication_date, quantity, price, publisher_id,
@@ -110,27 +113,27 @@ VALUES ('The Hitchhiker''s Guide to the Galaxy', '1979-10-12', 10, 10000, 1,
         'Life, the Universe and Everything (1982, ISBN 0-345-39182-9) is the third book in the six-volume Hitchhiker''s Guide to the Galaxy science fiction "trilogy of five books" ' ||
         'by British writer Douglas Adams. The title refers to the Answer to Life, the Universe, and Everything.',
         './uploadphotos/bookphotos/Life,_The_Universe_and_Everything_cover.jpg', TRUE),
-       ('Mua He Khong Ten', '2023-09-22', 20, 109000, 2,
-        'Mua He Khong Ten is the latest long story by writer Nguyen Nhat Anh, with childhood stories filled with countless mischief, thrilling moments and countless memories. ' ||
+       ('Mùa Hè Không Tên', '2023-09-22', 20, 109000, 2,
+        'Mùa Hè Không Tên is the latest long story by writer Nguyễn Nhật Ánh, with childhood stories filled with countless mischief, thrilling moments and countless memories. ' ||
         'Then, as the innocent days of friendship gradually passed, the children in each simple family grew up witnessing the touching moments of a close love story, ' ||
         'the longing for peaceful happiness, and the confusion of each step. When we grow up, love comes with many obstacles.',
         './uploadphotos/bookphotos/mua-he-khong-ten.jpg', TRUE),
-       ('Nhung Nguoi Hang Xom', '2022-12-01', 20, 78000, 2,
+       ('Những Người Hàng Xóm', '2022-12-01', 20, 78000, 2,
         'The story follows the story of a guy who just got married, is getting ready to go to work, and is interested in writing. ' ||
         'He loves his wife in his own way, praises and worships his lover in his own way, but looks at life the way his neighbors live. ' ||
         'Living in the love of your wife is full of fragrance and sweetness. Witness the policeman''s love for his medical girlfriend; ' ||
         'The second love of a kind woman and a sign language announcer. ' ||
         'And contemplate the passionate love every day of the old painter who misses his beautiful wife - his model, his muse.',
         './uploadphotos/bookphotos/NhungNguoiHangXom.jpg', TRUE),
-       ('Nhung Canh Hoa Tan', '2023-06-01', 10, 32100, 3,
-        'NaN',
+       ('Những Cánh Hoa Tàn', '2023-06-01', 10, 32100, 3,
+        null,
         './uploadphotos/bookphotos/NhungCanhHoaTan.jpg', TRUE),
-       ('Song Mon', '2022-03-01', 10, 81100, 3,
+       ('Sống Mòn', '2022-03-01', 10, 81100, 3,
         'Although the manuscript Song Mon was completed by writer Nam Cao before the Revolution, ' ||
         'it was not until after peace was restored in the North that the novel first appeared to readers.',
         './uploadphotos/bookphotos/SongMon.jpg', TRUE),
-       ('De Men Phieu Luu Ky', '2019-01-01', 35, 50000, 5,
-        'For more than half a century since it was first introduced to readers in 1941, "De Men Phieu Luu Ky" has been one of writer To Hoai''s most beloved works.
+       ('Dế Mèn Phiêu Lưu Ký', '2019-01-01', 35, 50000, 5,
+        'For more than half a century since it was first introduced to readers in 1941, "Dế Mèn Phiêu Lưu Ký" has been one of writer Tô Hoài''s most beloved works.
 The work has been reprinted many times and translated into more than 20 languages around the world and is always welcomed by generations of young readers.
 The work has been published in many different forms.',
         './uploadphotos/bookphotos/de-men-phieu-luu-ky.jpg', TRUE),
@@ -152,12 +155,23 @@ The work has been published in many different forms.',
         'Lizzy is heartbroken - but through the tears, she sees an opportunity. This is her moment to discover what she''s been missing while playing Ian''s ''better half''. ' ||
         'But how much has Ian changed her, and who is she without him? Lizzy sets out to rediscover the girl she was before - and, in the meantime, have a little fun . . .',
         './uploadphotos/bookphotos/SomeKindofWonderful.jpeg', TRUE),
-       ('Thay Doi Cuoc Song Voi Than So Hoc', '2020-10-01', 10, 178600, 8,
+       ('Thay Đổi Cuộc Sống Với Thần Số Học', '2020-10-01', 10, 178600, 8,
         'In every human''s life, we often have to explore and find our own path without knowing for sure whether that path is right for us or not. ' ||
         'Sometimes, we have to stumble, stumble and even get lost to learn experiences and lessons. If we understand Numerology, ' ||
         'and through certain knowledge about the meaning and combination of numbers, we can chart out for ourselves a relatively specific direction, minimizing the times " trial and error", ' ||
         'thereby finding more joy, happiness, and meaning in life.',
-        './uploadphotos/bookphotos/ThayDoiCuocSongVoiThanSoHoc.jpg', TRUE);
+        './uploadphotos/bookphotos/ThayDoiCuocSongVoiThanSoHoc.jpg', TRUE),
+       ('Yêu Anh Hơn Cả Tử Thần', '2019-01-01', 20, 66300, 9,
+        null,
+        './uploadphotos/bookphotos/YeuAnhHonCaTuThan.jpg', TRUE),
+       ('Vẽ Em Bằng Màu Nỗi Nhớ', '2022-01-01', 20, 108800, 9,
+        'Painting You with the Color of Nostalgia is a true love story that has touched the hearts of many readers. The story is the memoir of character Khanh during his return to Vietnam, ' ||
+        'interwoven with memories of the previous 6 years. Khanh returned to his hometown when so many things had changed, only the feelings of relatives and old friends remained unchanged. ' ||
+        'In Saigon, Khanh met Linh again - the girl from the old memories, and Miu - a girl who seemed strange but was very familiar. Can he forget Linh - the girl he once loved passionately? ' ||
+        'And will he recognize Miu - the little girl with an erratic mood? The story revolves around the daily lives of young and dynamic young people, ' ||
+        'where there is not only love between couples, but also friendship, teacher love, family love, and compatriot love. children living far away from home... ' ||
+        'It all brings so many emotions, from humor to curiosity, sometimes even emotional tears.',
+        './uploadphotos/bookphotos/VeEmBangMauNoiNho.jpeg', TRUE);
 
 -- Author_book
 INSERT INTO public.author_book (author_id, book_id)
@@ -172,14 +186,16 @@ VALUES (1, 1),
        (5, 9),
        (6, 10),
        (7, 11),
-       (8, 12);
+       (8, 12),
+       (9, 13),
+       (10, 14);
 
 -- Category
 INSERT INTO public.category (category_name)
 VALUES ('Foreign book'),
        ('Romance'),
        ('Technology'),
-       ('Fantasy & Science fiction'),
+       ('Fantasy, Fiction & Science fiction'),
        ('Thrillers & Horror'),
        ('Self-help'),
        ('Biographies, memoirs & autobiography'),
@@ -193,7 +209,7 @@ VALUES ('Foreign book'),
        ('Dictionary'),
        ('Economics'),
        ('Children book'),
-       ('Fiction'),
+       ('Non-fiction'),
        ('Comedy'),
        ('Other');
 
@@ -225,7 +241,9 @@ VALUES (1, 1),
        (16, 10),
        (1, 11),
        (2, 11),
-       (6, 12);
+       (6, 12),
+       (2, 13),
+       (2, 14);
 
 -- Order_status
 INSERT INTO public.order_status
