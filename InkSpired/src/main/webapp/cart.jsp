@@ -103,7 +103,7 @@
                         </table>
                     </div>
                     <div class="col-lg-4">
-                        <form class="mb-5" action="">
+                        <form class="mb-5" action="<%= request.getServletContext().getContextPath()%>/checkout" method="POST">
                             <div class="card border-secondary mb-5">
                                 <div class="card-header bg-white border-0">
                                     <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
@@ -125,9 +125,7 @@
                                     </div>
                                     <button class="btn btn-block btn-outline-dark my-3 py-3" name="btncheckout"
                                             value="checkout" disabled>
-                                        <a href="checkout.jsp" class="text-decoration-none">
                                             Proceed To Checkout
-                                        </a>
                                     </button>
                                 </div>
                             </div>

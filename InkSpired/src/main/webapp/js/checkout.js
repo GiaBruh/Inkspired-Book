@@ -24,7 +24,7 @@ function changQuantity(bookid, operator) {
 
 function ajaxConnecttion(bookid, operator, isChecked) {
     $.ajax({
-        url: '/InkSpired/checkout',
+        url: '/InkSpired/checkout/total',
         type: "get",
         data: {
             bookid: bookid,
