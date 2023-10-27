@@ -27,7 +27,6 @@
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
                     </form>
-
                     <div class="dropdown">
                         <button
                                 class="btn btn-outline-dark dropdown-toggle"
@@ -176,6 +175,14 @@
                                                     onclick="toggleEditing()">Edit
                                             </button>
                                         </div>
+                                        <div class="col-md-2 col-sm-6 mt-4 pt-2 px-0">
+                                            <button type="button" class="btn btn-outline-dark btn-lg"
+                                                    id="cancel"
+                                                    onclick="cancelEditing()"
+                                                    style="display: none"
+                                            >Cancel
+                                            </button>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -183,10 +190,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-<%@include file="footer.jsp"%>
-<script src="js/toggle-edit.js"></script>
-</body>
+        </section>
+        <!-- Footer-->
+        <%@include file="footer.jsp"%>
+        <script src="js/toggle-edit.js"></script>
+    </body>
 </html>

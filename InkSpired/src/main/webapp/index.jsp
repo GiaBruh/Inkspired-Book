@@ -100,9 +100,8 @@
             </div>
         </div>
 </section>
-<!-- Back to Top -->
-<a href="#" class="btn btn-light back-to-top"><i class="fa fa-angle-double-up"></i></a>
-<%@include file="footer.jsp"%>
+    <%--<a href="#" class="btn btn-light back-to-top"><i class="fa fa-angle-double-up"></i></a>--%>
+    <%@include file="footer.jsp"%>
 </body>
 
 </html>
