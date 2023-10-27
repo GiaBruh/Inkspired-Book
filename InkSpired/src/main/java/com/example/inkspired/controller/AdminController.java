@@ -84,7 +84,7 @@ public class AdminController extends HttpServlet {
                     request.getRequestDispatcher("/admin-table-order.jsp").forward(request, response);
                 }
 
-            }  else if (pathInfo.equals("/table-book")) {
+            } else if (pathInfo.equals("/table-book")) {
                 {
                     BookDAO bookDAO = new BookDAO();
                     List<Book> books = bookDAO.getAllBooks();
@@ -100,7 +100,7 @@ public class AdminController extends HttpServlet {
                     request.getRequestDispatcher("/admin-table-publisher.jsp").forward(request, response);
                 }
 
-            }else if (pathInfo.equals("/table-author")) {
+            } else if (pathInfo.equals("/table-author")) {
                 {
                     AuthorDAO authorDAO = new AuthorDAO();
                     List<Author> authors = authorDAO.getBooksByAuthor();
@@ -198,7 +198,7 @@ public class AdminController extends HttpServlet {
                         response.sendRedirect(request.getContextPath() + "/admin/table-author");
                     }
                 }
-                
+
             } else if (pathInfo.startsWith("/category-info")) {
                 {
                     String categoryIdString = request.getParameter("category_id");
@@ -220,7 +220,7 @@ public class AdminController extends HttpServlet {
                     }
                 }
 
-            }else if (pathInfo.startsWith("/delete-book")) {
+            } else if (pathInfo.startsWith("/delete-book")) {
                 {
                     int bookId = Integer.parseInt(request.getParameter("book_id"));
 
@@ -235,7 +235,7 @@ public class AdminController extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/admin/table-book");
                 }
 
-            }else if (pathInfo.startsWith("/delete-publisher")){
+            } else if (pathInfo.startsWith("/delete-publisher")) {
                 {
                     int publisherId = Integer.parseInt(request.getParameter("publisher_id"));
 
@@ -246,7 +246,7 @@ public class AdminController extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/admin/table-publisher");
                 }
 
-            } else if (pathInfo.startsWith("/delete-author") ){
+            } else if (pathInfo.startsWith("/delete-author")) {
                 {
                     int authorId = Integer.parseInt(request.getParameter("author_id"));
 
@@ -268,7 +268,7 @@ public class AdminController extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/admin/table-category");
                 }
 
-            } else if(pathInfo.equals("/add-book")){
+            } else if (pathInfo.equals("/add-book")) {
                 {
                     AuthorDAO authorDAO = new AuthorDAO();
                     List<Author> authors = authorDAO.getAll();
@@ -285,16 +285,13 @@ public class AdminController extends HttpServlet {
                     request.getRequestDispatcher("/admin-add-book.jsp").forward(request, response);
                 }
 
-            }else if(pathInfo.equals("/add-publisher")) {
+            } else if (pathInfo.equals("/add-publisher")) {
                 request.getRequestDispatcher("/admin-add-publisher.jsp").forward(request, response);
-            }else if(pathInfo.equals("/add-author")) {
+            } else if (pathInfo.equals("/add-author")) {
                 request.getRequestDispatcher("/admin-add-author.jsp").forward(request, response);
-            }else if(pathInfo.equals("/add-category")) {
+            } else if (pathInfo.equals("/add-category")) {
                 request.getRequestDispatcher("/admin-add-category.jsp").forward(request, response);
-            }
-
-
-            else if(pathInfo.equals("/login")){
+            } else if (pathInfo.equals("/login")) {
                 request.getRequestDispatcher("/admin-login.jsp").forward(request, response);
 
             } else if (pathInfo.equals("/logout")) {
@@ -321,7 +318,13 @@ public class AdminController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         // Check if this is a login request
-        if ("login".equals(request.getParameter("action"))) {
+
+        if (request.getParameter("btnAdmin") != null && request.getParameter("btnAdmin").equals("Admin")) {
+            response.sendRedirect(getServletContext().getContextPath() + ADMIN);
+        }
+
+
+        if (request.getParameter("btnSubmit") != null && request.getParameter("btnSubmit").equals("Submit")) {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
 
@@ -354,7 +357,7 @@ public class AdminController extends HttpServlet {
                 request.getRequestDispatcher("/admin-login.jsp").forward(request, response);
             }
 
-        }else if (request.getParameter("updateBookSubmit") != null) {
+        } else if (request.getParameter("updateBookSubmit") != null) {
             {
                 String book_image = "./uploadphotos/";
                 Part part = request.getPart("upload");
@@ -406,7 +409,7 @@ public class AdminController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/admin/table-book");
             }
 
-        }else if (request.getParameter("addBookSubmit") != null) {
+        } else if (request.getParameter("addBookSubmit") != null) {
             {  // Parse the request to get the new book details
 
                 String book_image = "./uploadphotos/";
@@ -441,14 +444,14 @@ public class AdminController extends HttpServlet {
 
                 // Call methods to update the book in the database
                 BookDAO bookDAO = new BookDAO();
-                if  (bookDAO.doesBookExist(book.getBook_id())) {
+                if (bookDAO.doesBookExist(book.getBook_id())) {
 
                     HttpSession session = request.getSession();
                     session.setAttribute("errorMessage", "This book is already existed");
                     response.sendRedirect(request.getContextPath() + "/admin/add-book");
                 } else {
 
-                        bookDAO.add(book);
+                    bookDAO.add(book);
                     int bookId = bookDAO.getBookIdByTitle(book.getTitle());
 
                     try {
@@ -500,7 +503,7 @@ public class AdminController extends HttpServlet {
 
                 response.sendRedirect(request.getContextPath() + "/admin/table-publisher");
             }
-        }else if (request.getParameter("addAuthorSubmit") != null){
+        } else if (request.getParameter("addAuthorSubmit") != null) {
             {
                 String author_image = "./uploadphotos/";
                 Part part = request.getPart("upload");
@@ -555,14 +558,14 @@ public class AdminController extends HttpServlet {
 
                 response.sendRedirect(request.getContextPath() + "/admin/table-author");
             }
-        } else if (request.getParameter("deleteAuthorSubmit") != null){
+        } else if (request.getParameter("deleteAuthorSubmit") != null) {
             {
                 AuthorDAO authorDAO = new AuthorDAO();
                 int author_id = Integer.parseInt(request.getParameter("author_id"));
                 authorDAO.delete(author_id);
                 response.sendRedirect(request.getContextPath() + "/admin/table-author");
             }
-        } else if (request.getParameter("addCategorySubmit") != null){
+        } else if (request.getParameter("addCategorySubmit") != null) {
             {
                 Category category = new Category();
 //                category.setCategory_id(Integer.parseInt(request.getParameter("category_id")));
@@ -592,7 +595,7 @@ public class AdminController extends HttpServlet {
 
                 response.sendRedirect(request.getContextPath() + "/admin/table-category");
             }
-        } else if (request.getParameter("deleteCategorySubmit") != null){
+        } else if (request.getParameter("deleteCategorySubmit") != null) {
             {
                 CategoryDAO categoryDAO = new CategoryDAO();
                 int category_id = Integer.parseInt(request.getParameter("category_id"));
@@ -602,10 +605,6 @@ public class AdminController extends HttpServlet {
 
         }
     }
-
-
-
-
 
 
     // Other methods (e.g., doPut, doDelete) can be implemented for respective HTTP methods
