@@ -52,17 +52,22 @@
                                             <span class="price">${book.getPrice()}</span>&#x20AB
                                         </td>
                                         <td class="align-middle">
-                                            <div class="input-group quantity mx-auto" style="width: 100px;">
+                                            <div id="quantity${book.getBook_id()}" class="input-group quantity mx-auto"
+                                                 style="width: 100px;">
                                                 <div class="input-group-btn">
-                                                    <button class="btn btn-sm btn-dark btn-minus">
+                                                    <button
+                                                            onclick="changQuantity(${book.getBook_id()}, '-')"
+                                                            class="btn btn-sm btn-dark btn-minus" disabled>
                                                         <i class="fa fa-minus"></i>
                                                     </button>
                                                 </div>
                                                 <input type="text"
                                                        class="form-control form-control-sm bg-white text-center"
-                                                       value="1">
+                                                       value="1" disabled>
                                                 <div class="input-group-btn">
-                                                    <button class="btn btn-sm btn-dark btn-plus">
+                                                    <button
+                                                            onclick="changQuantity(${book.getBook_id()}, '+')"
+                                                            class="btn btn-sm btn-dark btn-plus" disabled>
                                                         <i class="fa fa-plus"></i>
                                                     </button>
                                                 </div>
@@ -118,7 +123,8 @@
                                         <h5 class="font-weight-bold">Total</h5>
                                         <h5 class="font-weight-bold"><span id="total">10000</span>&#x20AB</h5>
                                     </div>
-                                    <button class="btn btn-block btn-outline-dark my-3 py-3">
+                                    <button class="btn btn-block btn-outline-dark my-3 py-3" name="btncheckout"
+                                            value="checkout" disabled>
                                         <a href="checkout.jsp" class="text-decoration-none">
                                             Proceed To Checkout
                                         </a>

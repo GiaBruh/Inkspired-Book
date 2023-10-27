@@ -8,11 +8,15 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
-import static com.example.inkspired.controller.ShoppingCartController.booksOrder;
+import static com.example.inkspired.controller.ShoppingCartController.booksChecked;
 
 @WebServlet(name = "CheckoutController", value = "/checkout")
 public class CheckoutController extends HttpServlet {
+
+    static List<Integer> booksOrder = new ArrayList<>();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -42,23 +46,43 @@ public class CheckoutController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getRequestURI();
         BookDAO bDao = new BookDAO();
+        String operator = request.getParameter("operator");
         int bookid = Integer.parseInt(request.getParameter("bookid"));
         boolean isChecked = Boolean.parseBoolean(request.getParameter("isChecked"));
         Book book = bDao.get(bookid).get();
 
-        if(isChecked) {
-            booksOrder.add(book);
+        if (isChecked) {
+            if (operator.equals("-")) {
+                for (int i = 0; i < booksChecked.size(); i++) {
+                    if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
+                        booksChecked.remove(i);
+                        break;
+                    }
+                }
+            } else {
+                booksChecked.add(book);
+            }
         } else {
-            for (int i = 0; i < booksOrder.size(); i++) {
-                if (book.getBook_id() == booksOrder.get(i).getBook_id()) {
-                    booksOrder.remove(i);
-                    break;
+            for (int i = 0; i < booksChecked.size(); i++) {
+                if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
+                    booksChecked.remove(i);
+                    --i;
                 }
             }
         }
 
-        System.out.println(booksOrder);
-        response.getWriter().write(book.getPrice() + "");
+// Uncomment to test in console
+//        for (Book b: booksChecked) {
+//            System.out.println(b.getBook_id() + ": " + b.getTitle());
+//        }
+//        System.out.println("------");
+
+        int subtotal = 0;
+        for (Book b : booksChecked) {
+            subtotal += b.getPrice();
+        }
+
+        response.getWriter().write(subtotal + "");
     }
 
     /**

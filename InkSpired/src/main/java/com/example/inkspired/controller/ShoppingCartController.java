@@ -21,7 +21,7 @@ public class ShoppingCartController extends HttpServlet {
     private static final String HOME = "/";
     private static final String CART = "/cart";
     private static final String BOOK = "/book";
-    protected static List<Book> booksOrder = null;
+    protected static List<Book> booksChecked = null;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -50,7 +50,7 @@ public class ShoppingCartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getRequestURI();
-        booksOrder = new ArrayList<>();
+        booksChecked = new ArrayList<>();
 
         int cartid = Integer.parseInt(request.getParameter("cartid"));
 
