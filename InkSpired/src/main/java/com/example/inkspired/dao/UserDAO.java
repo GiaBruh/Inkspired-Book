@@ -34,6 +34,30 @@ public class UserDAO implements DAO<User> {
         }
     }
 
+    public boolean checkExistingUserByEmail (String email_address)  throws SQLException {
+        String query = "SELECT * FROM public.user WHERE email_address = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, email_address);
+            rs = ps.executeQuery();
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return rs.next();
+    }
+    
+    public void updatePasswordByEmail (String password, String email_address) throws SQLException {
+        String query = "UPDATE public.user SET password = ? WHERE email_address = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, md5Hash(password));
+            ps.setString(2, email_address);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
     public boolean login(User u) throws SQLException {
         String query = "SELECT * FROM public.user WHERE username = ? and password = ?";
         try {
@@ -63,7 +87,7 @@ public class UserDAO implements DAO<User> {
             ps.setBoolean(9, u.isUser_status());
             return ps.executeUpdate() == 1;
         } catch (Exception e) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Failed to register a new user", e);
         }
         return false;
     }
@@ -142,6 +166,20 @@ public class UserDAO implements DAO<User> {
         return Optional.empty();
     }
 
+    public boolean checkExistUser(User user) {
+        boolean result = false;
+        String query = "SELECT * from public.user where username = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, user.getUsername());
+            rs = ps.executeQuery();
+            result = rs.next();
+        } catch (Exception ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Can not find user with provided username", ex);
+        }
+        return result;
+    }
+
     @Override
     public void add(User user) {
     }
@@ -188,31 +226,62 @@ public class UserDAO implements DAO<User> {
         return false;
     }
 
-//    public boolean update(int id) {
-//       String query =  "UPDATE public.user SET username = ? , full_name = ? , gender = ? , birthdate = ? , phone_number = ? , user_image = ? WHERE id = ?";
-//       try {
-//           PreparedStatement ps = conn.prepareStatement(query);
-//           ps.setString(1, user.getUsername());
-//           ps.setString(2, user.getFull_name());
-//           ps.setString(3, user.getGender());
-//           ps.setDate(4, user.getBirthdate());
-//           ps.setString(5, user.getPhone_number());
-//           ps.setString(6, user.getUser_image());
-//           ps.setInt(7, user.getUserId());
-//           return ps.executeUpdate() == 1;
-//       } catch (Exception e) {
-//
-//           Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
-//       }
-//       return false;
-//    }
+    public boolean update(int id, User user) {
+        String query = "UPDATE public.user SET username = ? , full_name = ? , gender = ? , birthdate = ? , phone_number = ? , user_image = ? WHERE id = ?";
+        boolean result = false;
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getFull_name());
+            ps.setString(3, user.getGender());
+            ps.setDate(4, user.getBirthdate());
+            ps.setString(5, user.getPhone_number());
+            ps.setString(6, user.getUser_image());
+            ps.setInt(7, id);
+            result = ps.executeUpdate() == 1;
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return result;
+    }
+
+    /**
+     * Get user id from current login account to add to session cookie
+     *
+     * @param user
+     * @return
+     */
+    public int getUserIdFromUsername(User user) {
+        String query = "SELECT * FROM public.user WHERE username = ? and password = ?";
+        int userid = 0;
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, user.getUsername());
+            ps.setString(2, md5Hash(user.getPassword()));
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                userid = rs.getInt("id");
+            }
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        return userid;
+    }
 
     private String md5Hash(String password) {
         return DigestUtils.md5Hex(password).toLowerCase();
     }
 
     public static void main(String[] args) {
-        UserDAO dao = new UserDAO();
-        System.out.println(dao.delete(4));
+//        UserDAO dao = new UserDAO();
+//        System.out.println(dao.delete(4));
+//        Optional<User> optionalUser = dao.get(1);
+//        System.out.println(optionalUser.get().getUsername());
+//        User user = new User();
+//        user.setUsername("ntba");
+//        System.out.println(dao.checkExistUser(user));
     }
 }

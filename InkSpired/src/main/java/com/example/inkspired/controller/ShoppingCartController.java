@@ -1,15 +1,25 @@
 package com.example.inkspired.controller;
 
+import com.example.inkspired.dao.BookDAO;
+import com.example.inkspired.dao.ShoppingCartDAO;
+import com.example.inkspired.model.Book;
+import com.example.inkspired.model.ShoppingCart;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.Optional;
 
 @WebServlet(name = "ShoppingCartController", value = "/cart")
 public class ShoppingCartController extends HttpServlet {
 
+    private static final String HOME = "/";
+    private static final String CART = "/cart";
+    private static final String BOOK = "/book";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,7 +47,19 @@ public class ShoppingCartController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/cart.jsp").forward(request, response);
+        String path = request.getRequestURI();
+
+        int cartid = Integer.parseInt(request.getParameter("cartid"));
+
+        ShoppingCartDAO scDao = new ShoppingCartDAO();
+        List<Book> books = scDao.getBookFromCartId(cartid);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("CARTINFO", books);
+
+        if (path.startsWith("/InkSpired/cart")) {
+            request.getRequestDispatcher("/cart.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -50,6 +72,29 @@ public class ShoppingCartController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        ShoppingCartDAO scDao = new ShoppingCartDAO();
+
+        int cartid, bookid, quantity;
+
+        if (request.getParameter("btnaddtocart") != null) {
+            cartid = Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue());
+            bookid = Integer.parseInt(request.getParameter("btnaddtocart"));
+            quantity = scDao.get(cartid).get().getQuantity();
+
+            scDao.addToCart(cartid, bookid);
+            scDao.update(new ShoppingCart(cartid, quantity + 1));
+            response.sendRedirect(getServletContext().getContextPath() + BOOK + "?bookid=" + bookid);
+        }
+
+        if (request.getParameter("btndeletefromcart") != null) {
+            cartid = Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue());
+            bookid = Integer.parseInt(request.getParameter("btndeletefromcart"));
+            quantity = scDao.get(cartid).get().getQuantity();
+
+            scDao.deleteFromCart(cartid, bookid);
+            scDao.update(new ShoppingCart(cartid, quantity - 1));
+            response.sendRedirect(getServletContext().getContextPath() + CART + "?cartid=" + cartid);
+        }
     }
 }

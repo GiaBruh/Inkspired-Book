@@ -55,7 +55,8 @@
                         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                             <div class="card-body p-4 p-md-5">
                                 <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-                                <form method="POST" action="<%= request.getServletContext().getContextPath()%>/register">
+                                <form method="POST"
+                                      action="<%= request.getServletContext().getContextPath()%>/register">
 
                                     <div class="row">
                                         <div class="col-md-12 mb-4">
@@ -79,10 +80,11 @@
                                         <div class="col-md-12 mb-4">
 
                                             <div class="form-outline">
-                                                <input type="text" id="fullName" class="form-control form-control-lg"
+                                                <input type="text" id="fullname"
+                                                       class="form-control form-control-lg"
                                                        name="fullname"
                                                 />
-                                                <label class="form-label" for="fullName">Full Name</label>
+                                                <label class="form-label" for="fullname">Full Name</label>
                                             </div>
                                         </div>
 
@@ -151,7 +153,8 @@
                                             </div>
                                         </div>
                                         <div class="mt-4 pt-2">
-                                            <input class="btn btn-outline-dark btn-lg" type="submit" name="btnsubmit" value="Submit"/>
+                                            <input class="btn btn-outline-dark btn-lg" type="submit" name="btnsubmit"
+                                                   value="Submit"/>
                                         </div>
 
                                     </div>
@@ -164,9 +167,6 @@
         </section>
 
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright INKSPIRED BOOKS 2023, always
-                reserved.</p></div>
-        </footer>
+        <%@include file="footer.jsp"%>
     </body>
 </html>

@@ -1,0 +1,30 @@
+/*Css to edit user's pointer events*/
+[id^=infoItem]:hover {
+    background-color: #F6F6F6;
+}
+
+[id^=infoItem]:hover>input:disabled {
+    background-color: #F6F6F6;
+}
+
+[id^=infoItem]:active {
+    background-color: #E6E6E6;
+}
+input[type="radio"][disabled]+label {
+    display:none;
+}
+input[type="radio"]+label{
+    padding-right: 30px;
+}
+input[type="radio"][disabled]{
+    display:none;
+}
+input[type="radio"][disabled][checked] + label {
+    display:inline-block;
+    padding-left: 10px;
+    color:#757575;
+}
+input[type="radio"][enabled][checked] + label {
+    display:inline-block;
+    color:black;
+}

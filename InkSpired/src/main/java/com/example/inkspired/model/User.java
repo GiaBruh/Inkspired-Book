@@ -22,16 +22,20 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
     }
-
-    public User(String username, String password, String email_address, String full_name, String gender, Date birthdate,
-            String phone_number) {
-        this.username = username;
-        this.password = password;
+    
+    public User(String email_address) {
         this.email_address = email_address;
-        this.full_name = full_name;
+    }
+
+    public User(String username, String full_name, String gender, String email_address, Date birthdate,
+                String phone_number, String user_image) {
+        this.username = username;
+        this.email_address = email_address;
         this.gender = gender;
+        this.full_name = full_name;
         this.birthdate = birthdate;
         this.phone_number = phone_number;
+        this.user_image = user_image;
     }
 
     public User(String username, String password, String email_address, String full_name, String gender, Date birthdate, String phone_number, String user_image, boolean user_status) {

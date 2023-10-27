@@ -86,10 +86,16 @@ CREATE TABLE IF NOT EXISTS public.order_detail
 CREATE TABLE IF NOT EXISTS public.shopping_cart
 (
     shopping_cart_id serial  NOT NULL,
-    book_id          integer,
     quantity         integer NOT NULL,
     PRIMARY KEY (shopping_cart_id)
 );
+
+CREATE TABLE IF NOT EXISTS public.cart_book
+(
+    shopping_cart_id integer NOT NULL,
+    book_id          integer NOT NULL
+);
+
 
 CREATE TABLE IF NOT EXISTS public.book
 (
@@ -212,13 +218,18 @@ ALTER TABLE IF EXISTS public.order_detail
 -- ;
 
 
-ALTER TABLE IF EXISTS public.shopping_cart
+ALTER TABLE IF EXISTS public.cart_book
     ADD FOREIGN KEY (book_id)
         REFERENCES public.book (book_id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE
 ;
 
+ALTER TABLE IF EXISTS public.cart_book
+    ADD FOREIGN KEY (shopping_cart_id)
+        REFERENCES public.shopping_cart (shopping_cart_id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE;
 
 ALTER TABLE IF EXISTS public.author_book
     ADD FOREIGN KEY (book_id)
@@ -233,7 +244,6 @@ ALTER TABLE IF EXISTS public.author_book
         ON UPDATE CASCADE
         ON DELETE CASCADE
 ;
-
 
 
 ALTER TABLE IF EXISTS public.category_book

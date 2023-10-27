@@ -18,6 +18,13 @@ public class Book implements Serializable {
 
     }
 
+    public Book(int book_id, String title, String book_image, long price) {
+        this.book_id = book_id;
+        this.title = title;
+        this.book_image = book_image;
+        this.price = price;
+    }
+
     public int getBook_id() {
         return book_id;
     }
