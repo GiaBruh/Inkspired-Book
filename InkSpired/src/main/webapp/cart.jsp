@@ -12,7 +12,7 @@
     </head>
     <%@include file="interface.jsp" %>
     <body>
-    <%@include file="header-yes.jsp" %>
+        <%@include file="header-yes.jsp" %>
         <!-- Header-->
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
@@ -22,6 +22,7 @@
             </div>
         </header>
         <!-- Product section-->
+        <
         <section class="py-5 gradient-custom">
             <div class="container-fluid pt-5">
                 <div class="row px-xl-5">
@@ -47,7 +48,9 @@
                                         <td>
                                             <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}">${book.getTitle()}</a>
                                         </td>
-                                        <td class="align-middle">${book.getPrice()}&#x20AB</td>
+                                        <td class="align-middle">
+                                            <span class="price">${book.getPrice()}</span>&#x20AB
+                                        </td>
                                         <td class="align-middle">
                                             <div class="input-group quantity mx-auto" style="width: 100px;">
                                                 <div class="input-group-btn">
@@ -79,12 +82,16 @@
                                         </td>
                                         <td>
                                             <input
+                                                    onclick="addTocheckout(${book.getBook_id()})"
                                                     type="checkbox" id="${book.getBook_id()}"
-                                                    name="book${book.getBook_id()}" value="${book.getBook_id()}"
-                                                    class="btn-check"
+                                                    name="book${book.getBook_id()}" value="${book.getBook_id()}">
+                                            <button
+                                                    class="btn btn-sm btn-dark"
+                                                    id="btn_${book.getBook_id()}"
+                                                    style="color: white;"
                                             >
-                                            <label class="btn btn-outline-dark btn-circle btn-sm me-1"
-                                                   for="${book.getBook_id()}"><i class="fa fa-check"></i></label>
+                                                <i class="fa fa-check"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -101,17 +108,17 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between mb-3 pt-1">
                                         <h6 class="font-weight-medium">Subtotal</h6>
-                                        <h6 class="font-weight-medium">$150</h6>
+                                        <h6 class="font-weight-medium"><span id="subtotal">0</span>&#x20AB</h6>
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <h6 class="font-weight-medium">Shipping</h6>
-                                        <h6 class="font-weight-medium">$10</h6>
+                                        <h6 class="font-weight-medium"><span id="shipping">10000</span>&#x20AB</h6>
                                     </div>
                                 </div>
                                 <div class="card-footer border-secondary bg-transparent">
                                     <div class="d-flex justify-content-between mt-2">
                                         <h5 class="font-weight-bold">Total</h5>
-                                        <h5 class="font-weight-bold">$160</h5>
+                                        <h5 class="font-weight-bold"><span id="total">10000</span>&#x20AB</h5>
                                     </div>
                                     <button class="btn btn-block btn-outline-dark my-3 py-3">
                                         <a href="checkout.jsp" class="text-decoration-none">
@@ -124,10 +131,10 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-<script src="js/quantity-change.js"></script>
-<!-- Footer--><%@include file="footer.jsp"%>
-</body>
+        </section>
+        <script src="js/quantity-change.js"></script>
+        <script src="js/checkout.js"></script>
+        <!-- Footer-->
+        <%@include file="footer.jsp" %>
+    </body>
 </html>

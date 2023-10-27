@@ -42,7 +42,10 @@
     <servlet>
         <servlet-name>AuthorController</servlet-name>
         <servlet-class>com.example.inkspired.controller.AuthorController</servlet-class>
-    </servlet>
+    </servlet><servlet>
+    <servlet-name>CheckoutController</servlet-name>
+    <servlet-class>com.example.inkspired.controller.CheckoutController</servlet-class>
+</servlet>
 
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
@@ -83,6 +86,10 @@
     <servlet-mapping>
         <servlet-name>AuthorController</servlet-name>
         <url-pattern>/author/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutController</servlet-name>
+        <url-pattern>/checkout/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
