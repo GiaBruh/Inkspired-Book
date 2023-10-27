@@ -8,11 +8,11 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Optional;
+
+import static com.example.inkspired.controller.ShoppingCartController.booksOrder;
 
 @WebServlet(name = "CheckoutController", value = "/checkout")
 public class CheckoutController extends HttpServlet {
-
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -43,8 +43,22 @@ public class CheckoutController extends HttpServlet {
         String path = request.getRequestURI();
         BookDAO bDao = new BookDAO();
         int bookid = Integer.parseInt(request.getParameter("bookid"));
-        Optional<Book> book = bDao.get(bookid);
-        response.getWriter().write(book.get().getPrice() + "");
+        boolean isChecked = Boolean.parseBoolean(request.getParameter("isChecked"));
+        Book book = bDao.get(bookid).get();
+
+        if(isChecked) {
+            booksOrder.add(book);
+        } else {
+            for (int i = 0; i < booksOrder.size(); i++) {
+                if (book.getBook_id() == booksOrder.get(i).getBook_id()) {
+                    booksOrder.remove(i);
+                    break;
+                }
+            }
+        }
+
+        System.out.println(booksOrder);
+        response.getWriter().write(book.getPrice() + "");
     }
 
     /**
