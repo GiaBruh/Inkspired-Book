@@ -64,7 +64,7 @@ VALUES ('Douglas Adams',
        ('Nam Cao',
         'Tran Huu Tri (1915—1951), commonly known by his pseudonym Nam Cao, was a Vietnamese short story writer and novelist. ' ||
         'His works generally received high acclaim from critics for their thoughtful description and veracious reflection of the society in the 1945 era. ',
-        './uploadphotos/authorphotos/Nha-van-Nam-Cao.p'),
+        './uploadphotos/authorphotos/Nha-van-Nam-Cao.png'),
        ('To Hoai',
         'To Hoai (Birth name: Nguyen Sen; September 27, 1920 – July 6, 2014)[1] was a Vietnamese writer, playwright, screenwriter, journalist and correspondent. ' ||
         'The pen name To Hoai is derived from the names of To Lich River and Hoai Duc district, which are landmarks of his hometown. ' ||
@@ -164,6 +164,7 @@ INSERT INTO public.author_book (author_id, book_id)
 VALUES (1, 1),
        (1, 2),
        (1, 3),
+       (2, 1),
        (2, 4),
        (2, 5),
        (3, 6),
