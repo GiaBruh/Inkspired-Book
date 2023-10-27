@@ -84,14 +84,12 @@
                                             <input
                                                     onclick="addTocheckout(${book.getBook_id()})"
                                                     type="checkbox" id="${book.getBook_id()}"
-                                                    name="book${book.getBook_id()}" value="${book.getBook_id()}">
-                                            <button
-                                                    class="btn btn-sm btn-dark"
-                                                    id="btn_${book.getBook_id()}"
-                                                    style="color: white;"
+                                                    name="book${book.getBook_id()}" value="${book.getBook_id()}"
+                                                    class="btn-check"
                                             >
-                                                <i class="fa fa-check"></i>
-                                            </button>
+                                            <label class="btn btn-outline-dark btn-circle btn-sm me-1"
+                                                   for="${book.getBook_id()}"><i class="fa fa-check"></i>
+                                            </label>
                                         </td>
                                     </tr>
                                 </c:forEach>
