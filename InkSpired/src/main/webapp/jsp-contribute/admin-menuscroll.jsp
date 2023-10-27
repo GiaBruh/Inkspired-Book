@@ -107,17 +107,17 @@
             <li class="list-group">
                 <a href="">
                     <i class="bi bi-plus-circle"></i>
-                    <span class="menu-text">Insert</span>
+                    <span class="menu-text">Insert New</span>
                 </a>
                 <ul class="treeview-menu">
                     <li>
-                        <a href="accordions.html">Books</a>
+                        <a href="<%= request.getContextPath() %>/admin/add-book">Books</a>
                     </li>
                     <li>
-                        <a href="alerts.html">Author</a>
+                        <a href="<%= request.getContextPath() %>/admin/add-author">Author</a>
                     </li>
                     <li>
-                        <a href="buttons.html">Publisher</a>
+                        <a href="<%= request.getContextPath() %>/admin/add-publisher">Publisher</a>
                     </li>
                     <li>
                         <a href="badges.html">Category</a>

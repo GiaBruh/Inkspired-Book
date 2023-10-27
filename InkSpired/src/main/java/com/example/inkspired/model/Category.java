@@ -6,6 +6,7 @@ public class Category implements Serializable {
     private int category_id;
     private String category_name;
 
+    private int number_of_usage;
     public Category() {
     }
 
@@ -23,6 +24,14 @@ public class Category implements Serializable {
 
     public void setCategory_name(String category_name) {
         this.category_name = category_name;
+    }
+
+    public int getNumber_of_usage() {
+        return number_of_usage;
+    }
+
+    public void setNumber_of_usage(int number_of_usage) {
+        this.number_of_usage = number_of_usage;
     }
 
     @Override

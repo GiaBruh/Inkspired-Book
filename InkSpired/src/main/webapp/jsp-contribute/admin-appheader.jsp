@@ -1,3 +1,9 @@
+<%
+    // Get the user's information from the session
+    String adminUsername = (String) session.getAttribute("adminUsername");
+    String adminFullname = (String) session.getAttribute("adminFullname");
+    String adminEmail = (String) session.getAttribute("adminEmail");
+%>
 <!-- App header starts -->
 <div class="app-header d-flex align-items-center">
 
@@ -110,7 +116,7 @@
                href="#!" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="d-none d-md-block me-2">
                     <!-- username here -->
-                    ${admin.fullName}
+                    <%= adminFullname %>
                 </span>
                 <img src="${pageContext.request.contextPath}/assets/images/user.png" class="rounded-circle img-3x" alt="Bootstrap Gallery" />
             </a>

@@ -22,24 +22,28 @@ public class AdminDAO {
     }
 
 
+
     public Admin checkLogin(String username, String password) {
+        String sql = "SELECT * FROM admin WHERE username = ? AND password = ?";
+        Admin admin = null;
         try {
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("SELECT * FROM public.admin WHERE username = ? AND password = ?");
-            // Set the parameters for the SQL statement
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, utils.md5Hash(password));
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Admin admin = new Admin();
-                admin.setUsername(resultSet.getString("username"));
-                admin.setPassword(resultSet.getString("password"));
-                return admin;
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                admin = new Admin();
+                admin.setUsername(rs.getString("username"));
+                admin.setPassword(rs.getString("password"));
+                admin.setEmailAddress(rs.getString("email_address"));
+                admin.setFullName(rs.getString("full_name"));
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-        return null;
+        return admin;
     }
+
+
 
 }
