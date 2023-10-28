@@ -1,13 +1,16 @@
 package com.example.inkspired.controller;
 
 import com.example.inkspired.dao.BookDAO;
+import com.example.inkspired.model.Author;
 import com.example.inkspired.model.Book;
+import com.example.inkspired.model.Publisher;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Optional;
 
 @WebServlet(name = "BookController", value = "/book")
@@ -45,9 +48,15 @@ public class BookController extends HttpServlet {
         int bookid = Integer.parseInt(request.getParameter("bookid"));
         BookDAO bDao = new BookDAO();
         Optional<Book> book = bDao.get(bookid);
+        List<Author> authors = bDao.getBookAuthors(bookid);
+        Publisher publisher = bDao.getPublisher(book.get().getPublisher_id());
+        List<Book> booksByPublisher = bDao.searchByPublisher(publisher.getPublisher_id());
 
         HttpSession session = request.getSession();
         session.setAttribute("BOOKINFO", book);
+        request.setAttribute("AUTHORLIST", authors);
+        request.setAttribute("PUBLISHERINFO", publisher);
+        request.setAttribute("BOOKSBYPUBLISHER", booksByPublisher);
 
         if (((Cookie)session.getAttribute("userCookie")) != null) {
             boolean isInCart = bDao.isInUserCart(Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue()), bookid);

@@ -57,7 +57,8 @@ public class HomeController extends HttpServlet {
         BookDAO bDao = new BookDAO();
         List<Book> books = bDao.getAll();
         request.setAttribute("BOOKLIST", books);
-
+//        HttpSession session = request.getSession();
+//        session.setAttribute("BOOKLIST", books);
         request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
 

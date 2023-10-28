@@ -1,18 +1,25 @@
 package com.example.inkspired.controller;
 
+import com.example.inkspired.dao.AuthorDAO;
+import com.example.inkspired.dao.BookDAO;
+import com.example.inkspired.model.Author;
+import com.example.inkspired.model.Book;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @WebServlet(name = "AuthorController", value = "/author")
 public class AuthorController extends HttpServlet {
 
-
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request  servlet request
      * @param response servlet response
@@ -36,8 +43,29 @@ public class AuthorController extends HttpServlet {
      * @throws IOException      if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/author.jsp").forward(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // System.out.println(request.getSession().getAttribute("BOOKINFO"));
+        // Optional<Book> book = (Optional<Book>)
+        // request.getSession().getAttribute("BOOKINFO");
+        // System.out.println(book.get().getBook_id());
+        String path = request.getRequestURI();
+        int authorid = Integer.parseInt(request.getParameter("authorid"));
+        AuthorDAO aDao = new AuthorDAO();
+        BookDAO bDAO = new BookDAO();
+        Optional<Author> author = aDao.get(authorid);
+//        if(!author.isPresent()) {
+//             response.sendRedirect(getServletContext().getContextPath() + "/");
+//        }
+        String authorName = author.get().getAuthor_fullname();
+        List<Book> booksByAuthor = bDAO.searchByAuthor(authorName);
+        // HttpSession session = request.getSession();
+        request.setAttribute("AUTHORINFO", author);
+        request.setAttribute("BOOKSBYAUTHOR", booksByAuthor);
+
+        if (path.startsWith("/InkSpired/author")) {
+            request.getRequestDispatcher("/author.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -49,7 +77,9 @@ public class AuthorController extends HttpServlet {
      * @throws IOException      if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // processRequest(request, response);
+
     }
 }
