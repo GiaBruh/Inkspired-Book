@@ -57,7 +57,7 @@
                     <span class="menu-text">Dashboard</span>
                 </a>
             </li>
-            <li class="list-group">
+            <li class="treeview">
                 <a href="">
                     <i class="bi bi-border-all"></i>
                     <span class="menu-text">Show list of</span>
@@ -66,9 +66,9 @@
                     <li>
                         <a href="<%= request.getContextPath() %>/admin/table-order">Order, Order Detail</a>
                     </li>
-                    <li>
-                        <a href="<%= request.getContextPath() %>/admin/table-bill">Bills</a>
-                    </li>
+<%--                    <li>--%>
+<%--                        <a href="<%= request.getContextPath() %>/admin/table-bill">Bills</a>--%>
+<%--                    </li>--%>
                     <li>
                         <a href="<%= request.getContextPath() %>/admin/table-book">Books</a>
                     </li>
@@ -82,11 +82,11 @@
                         <a href="<%= request.getContextPath() %>/admin/table-category">Category</a>
                     </li>
                     <li>
-                        <a href="<%= request.getContextPath() %>/admin/table-customer">Customer</a>
+                        <a href="<%= request.getContextPath() %>/admin/table-user">Customer</a>
                     </li>
                 </ul>
             </li>
-            <li class="list-group">
+            <li class="treeview">
                 <a href="">
                     <i class="bi bi-pie-chart"></i>
                     <span class="menu-text">Statics</span>
@@ -104,7 +104,7 @@
 
                 </ul>
             </li>
-            <li class="list-group">
+            <li class="treeview">
                 <a href="">
                     <i class="bi bi-plus-circle"></i>
                     <span class="menu-text">Insert New</span>
@@ -120,11 +120,9 @@
                         <a href="<%= request.getContextPath() %>/admin/add-publisher">Publisher</a>
                     </li>
                     <li>
-                        <a href="badges.html">Category</a>
+                        <a href="<%= request.getContextPath() %>/admin/add-category">Category</a>
                     </li>
-                    <li>
-                        <a href="carousel.html">Admin</a>
-                    </li>
+
                 </ul>
             </li>
         </ul>

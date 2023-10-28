@@ -33,6 +33,8 @@
 
         $('#category-table').DataTable();
 
+        $('#user-table').DataTable();
+
     } );
 </script>
 <%--Book page--%>
@@ -98,6 +100,7 @@
         document.getElementById('updateForm').style.display = 'none'; // hide update form
         document.getElementById('categoryInfoForm').style.display = 'block'; // show book info form
     }
+
 
 </script>
 <script>
