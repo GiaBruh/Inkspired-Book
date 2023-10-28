@@ -29,7 +29,7 @@ public class AdminDAO {
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, username);
-            ps.setString(2, password);
+            ps.setString(2, utils.md5Hash(password));
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 admin = new Admin();
