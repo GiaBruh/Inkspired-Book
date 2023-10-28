@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 public class UserDAO implements DAO<User> {
 
-    private Connection conn;
+    private Connection conn = null;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
     private Utils utils = new Utils();
@@ -249,7 +249,6 @@ public class UserDAO implements DAO<User> {
 
     /**
      * Get user id from current login account to add to session cookie
-     *
      * @param user
      * @return
      */
@@ -273,6 +272,51 @@ public class UserDAO implements DAO<User> {
         return userid;
     }
 
+    public void authorizeUser(int user_id, boolean status) {
+        String query = "UPDATE \"user\" SET user_status = ? WHERE id = ?";
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setBoolean(1, status);
+            ps.setInt(2, user_id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+
+    public User getUser(int id) {
+        String query = "SELECT * FROM public.user where id = ?";
+        User user = new User();
+        try{
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            if(rs.next()){
+                user.setUserId(rs.getInt("id"));
+                user.setEmail_address(rs.getString("email_address"));
+                user.setUsername(rs.getString("username"));
+                user.setFull_name(rs.getString("full_name"));
+                user.setGender(rs.getString("gender"));
+                user.setBirthdate(rs.getDate("birthdate"));
+                user.setPhone_number(rs.getString("phone_number"));
+                user.setUser_image(rs.getString("user_image"));
+                user.setUser_status(rs.getBoolean("user_status"));
+            }
+
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return user;
+    }
+
+
+    private String md5Hash(String password) {
+        return DigestUtils.md5Hex(password).toLowerCase();
+    }
 
     public static void main(String[] args) {
 //        UserDAO dao = new UserDAO();
