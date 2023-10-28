@@ -79,7 +79,7 @@
 
                         </div>
                         <div class="d-grid py-3 mt-4">
-                            <button type="submit" class="btn btn-lg btn-primary" name="btnSubmit" value="Submit">
+                            <button type="submit" class="btn btn-lg btn-primary" name="loginSubmit" value="Submit">
                             <!-- <button type="submit" name="action" value="login" class="btn btn-lg btn-primary"> -->
                                 Login
                             </button>
