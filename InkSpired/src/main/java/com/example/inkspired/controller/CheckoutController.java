@@ -1,15 +1,20 @@
 package com.example.inkspired.controller;
 
 import com.example.inkspired.dao.BookDAO;
+import com.example.inkspired.dao.OrderDAO;
+import com.example.inkspired.dao.OrderDetailDAO;
+import com.example.inkspired.dao.ShoppingCartDAO;
 import com.example.inkspired.model.Book;
 import com.example.inkspired.model.Order;
 import com.example.inkspired.model.OrderDetail;
+import com.example.inkspired.model.ShoppingCart;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -75,6 +80,7 @@ public class CheckoutController extends HttpServlet {
 
             session.setAttribute("SUBTOTAL", subtotal);
 
+            // Discount system
             int totalDiscount = 0;
             if (subtotal >= 600000) {
               totalDiscount = 30;
@@ -154,6 +160,51 @@ public class CheckoutController extends HttpServlet {
             }
 
             response.sendRedirect(getServletContext().getContextPath() + CHECKOUT);
+        }
+
+        if (request.getParameter("btnPlaceOrder") != null && request.getParameter("btnPlaceOrder").equals("placeorder")) {
+            HttpSession session = request.getSession();
+
+            OrderDAO oDao = new OrderDAO();
+            OrderDetailDAO odDao = new OrderDetailDAO();
+            ShoppingCartDAO scDao = new ShoppingCartDAO();
+            BookDAO bDao = new BookDAO();
+
+            int userid = Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue());
+            Date date = new java.sql.Date(System.currentTimeMillis());
+            String address = request.getParameter("address");
+            int total = (int)Float.parseFloat(session.getAttribute("total").toString());
+            int status = 0;
+
+            try {
+                oDao.add(new Order(userid, date, address, total, status));
+                int orderid = oDao.getOrderId(userid);
+                booksOrder.forEach((bookid, quantity) -> {
+                    Book book = bDao.get(bookid).get();
+                    odDao.add(new OrderDetail(bookid, orderid, quantity));
+                    // Delete from cart
+                    scDao.deleteFromCart(userid, bookid);
+                    scDao.update(new ShoppingCart(userid, scDao.get(userid).get().getQuantity() - 1));
+                    // Delete from book
+                    bDao.update(new Book(bookid,
+                            book.getTitle(),
+                            book.getBook_image(),
+                            book.getPublication_date(),
+                            book.getQuantity() - quantity,
+                            book.getPrice(),
+                            book.getBook_description(),
+                            book.getPublisher_id(),
+                            book.isAvailable()));
+                });
+
+                session.setAttribute("CONFIRMORDER", true);
+                response.sendRedirect(getServletContext().getContextPath() + CHECKOUT);
+            } catch (Exception e) {
+                session.setAttribute("CONFIRMORDER", false);
+                response.sendRedirect(getServletContext().getContextPath() + CHECKOUT);
+            }
+
+
         }
     }
 }

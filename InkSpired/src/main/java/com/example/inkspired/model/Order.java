@@ -7,12 +7,20 @@ public class Order implements Serializable {
     private int order_id;
     private int user_id;
     private Date order_date;
-    private int delivery_address;
+    private String delivery_address;
     private long order_total;
     private int order_status;
 
     public Order() {
 
+    }
+
+    public Order(int user_id, Date order_date, String delivery_address, long order_total, int order_status) {
+        this.user_id = user_id;
+        this.order_date = order_date;
+        this.delivery_address = delivery_address;
+        this.order_total = order_total;
+        this.order_status = order_status;
     }
 
     public int getOrder_id() {
@@ -40,11 +48,11 @@ public class Order implements Serializable {
     }
 
 
-    public int getDelivery_address() {
+    public String getDelivery_address() {
         return delivery_address;
     }
 
-    public void setDelivery_address(int delivery_address) {
+    public void setDelivery_address(String delivery_address) {
         this.delivery_address = delivery_address;
     }
 
