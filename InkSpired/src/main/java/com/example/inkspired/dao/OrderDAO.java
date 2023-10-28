@@ -34,7 +34,7 @@ public class OrderDAO implements DAO<Order> {
                 order.setOrder_id(rs.getInt("order_id"));
                 order.setUser_id(rs.getInt("user_id"));
                 order.setOrder_date(rs.getDate("order_date"));
-                order.setDelivery_address(rs.getInt("shipping_address_id"));
+                order.setDelivery_address(rs.getString("shipping_address_id"));
                 order.setOrder_total(rs.getLong("order_total"));
                 order.setOrder_status(rs.getInt("order_status"));
                 result.add(order);
@@ -56,7 +56,7 @@ public class OrderDAO implements DAO<Order> {
                 Order order = new Order();
                 order.setUser_id(rs.getInt("user_id"));
                 order.setOrder_date(rs.getDate("order_date"));
-                order.setDelivery_address(rs.getInt("delivery_address"));
+                order.setDelivery_address(rs.getString("delivery_address"));
                 order.setOrder_total(rs.getLong("order_total"));
                 order.setOrder_status(rs.getInt("order_status"));
                 return Optional.of(order);
@@ -74,7 +74,7 @@ public class OrderDAO implements DAO<Order> {
             ps = conn.prepareStatement(query);
             ps.setInt(1, order.getUser_id());
             ps.setDate(2, order.getOrder_date());
-            ps.setInt(3, order.getDelivery_address());
+            ps.setString(3, order.getDelivery_address());
             ps.setLong(4, order.getOrder_total());
             ps.setInt(5, order.getOrder_status());
             ps.executeUpdate();
@@ -106,4 +106,170 @@ public class OrderDAO implements DAO<Order> {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
         }
     }
+
+    public List<Order> getOrdersByUser(int userId) {
+        List<Order> orders = new ArrayList<>();
+        String query = "SELECT * FROM \"order\" where user_id = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, userId);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                Order order = new Order();
+                order.setOrder_id(rs.getInt("order_id"));
+                order.setUser_id(rs.getInt("user_id"));
+                order.setOrder_date(rs.getDate("order_date"));
+                order.setDelivery_address(rs.getString("delivery_address"));
+                order.setOrder_total(rs.getLong("order_total"));
+                order.setOrder_status(rs.getInt("order_status"));
+                orders.add(order);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return orders;
+    }
+
+    public void updateOrderStatus(int orderId, int newStatus) {
+        String sql = "UPDATE \"order\" SET order_status = ? WHERE order_id = ?";
+
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, newStatus);
+            ps.setInt(2, orderId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+    public List<Order> getAllOrderStatus(){
+        String query = "SELECT * FROM order_status";
+        List<Order> orderStatuses = new ArrayList<>();
+        try {
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Order orderStatus = new Order();
+                orderStatus.setOrder_status(rs.getInt("order_status_id"));
+                orderStatus.setOrder_status_name(rs.getString("status")); // Changed to "status"
+                orderStatuses.add(orderStatus);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return orderStatuses;
+    }
+
+
+    public List<Order> getAllWithUser(){
+        String query = "SELECT o.order_id, o.user_id, o.order_date, o.delivery_address, o.order_total,o.order_status, os.status AS order_status_name, u.full_name\n" +
+                "FROM \"order\" AS o\n" +
+                "         JOIN \"user\" AS u ON o.user_id = u.id\n" +
+                "         JOIN order_status AS os ON o.order_status = os.order_status_id;";
+        List<Order> orders = new ArrayList<>();
+        try{
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                Order order = new Order();
+                order.setOrder_id(rs.getInt("order_id"));
+                order.setUser_id(rs.getInt("user_id"));
+                order.setFull_name(rs.getString("full_name"));
+                order.setOrder_date(rs.getDate("order_date"));
+                order.setDelivery_address(rs.getString("delivery_address"));
+                order.setOrder_total(rs.getLong("order_total"));
+                order.setOrder_status(rs.getInt("order_status"));
+                order.setOrder_status_name(rs.getString("order_status_name"));
+                orders.add(order);
+            }
+        }catch (Exception e){
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return orders;
+    }
+
+    public List<Order> getAllOrderDetail(){
+        String query = "SELECT\n" +
+                "    od.order_detail_id,\n" +
+                "    od.book_id,\n" +
+                "    b.title AS book_name,\n" +
+                "    u.id AS user_id,\n" +
+                "    u.full_name AS full_name,--or u.user-name\n" +
+                "    od.quantity,\n" +
+                "    b.price,\n" +
+                "    od.quantity * b.price AS total_price,\n" +
+                "    od.order_id,\n" +
+                "    o.order_date\n" +
+                "FROM\n" +
+                "    order_detail od\n" +
+                "        JOIN\n" +
+                "    book b ON od.book_id = b.book_id\n" +
+                "        JOIN\n" +
+                "    \"user\" u ON u.id = (SELECT user_id FROM \"order\" WHERE order_id = od.order_id)\n" +
+                "        JOIN\n" +
+                "    \"order\" o ON od.order_id = o.order_id;";
+        List<Order> orders = new ArrayList<>();
+        try {
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Order order = new Order();
+                order.setOrder_detail_id(rs.getInt("order_detail_id"));
+                order.setBook_id(rs.getInt("book_id"));
+                order.setBook_title(rs.getString("book_name"));
+                order.setUser_id(rs.getInt("user_id"));
+                order.setFull_name(rs.getString("full_name"));
+                order.setQuantity(rs.getInt("quantity"));
+                order.setPrice(rs.getLong("price"));
+                order.setTotal_price(rs.getLong("total_price"));
+                order.setOrder_id(rs.getInt("order_id"));
+                order.setOrder_date(rs.getDate("order_date"));
+                orders.add(order);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return orders;
+
+    }
+
+    public Order getByOrder(int orderId){
+        String query = "SELECT o.order_id, o.user_id, o.order_date, o.delivery_address, o.order_total,o.order_status, os.status AS order_status_name, u.full_name\n" +
+                "FROM \"order\" AS o\n" +
+                "         JOIN \"user\" AS u ON o.user_id = u.id\n" +
+                "         JOIN order_status AS os ON o.order_status = os.order_status_id where  o.order_id = ?;";
+        Order order = new Order();
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, orderId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                order.setOrder_id(rs.getInt("order_id"));
+                order.setUser_id(rs.getInt("user_id"));
+                order.setFull_name(rs.getString("full_name"));
+                order.setOrder_date(rs.getDate("order_date"));
+                order.setDelivery_address(rs.getString("delivery_address"));
+                order.setOrder_total(rs.getLong("order_total"));
+                order.setOrder_status(rs.getInt("order_status"));
+                order.setOrder_status_name(rs.getString("order_status_name"));
+            }
+        } catch (Exception e) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return order;
+
+    }
+
+    //test getAllOrderDetail
+    public static void main(String[] args) {
+        OrderDAO orderDAO = new OrderDAO();
+        List<Order> orders = orderDAO.getAllOrderDetail();
+        for (Order order : orders) {
+            System.out.println(order.getOrder_detail_id() + " " + order.getBook_id() + " " + order.getBook_title() + " " + order.getUser_id() + " " + order.getFull_name() + " " + order.getQuantity() + " " + order.getPrice() + " " + order.getTotal_price() + " " + order.getOrder_id() + " " + order.getOrder_date());
+        }
+    }
+
+
 }
+
