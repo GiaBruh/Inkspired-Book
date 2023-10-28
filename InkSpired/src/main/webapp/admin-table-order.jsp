@@ -74,10 +74,9 @@
                                         <thead>
                                         <tr>
                                             <th scope="col" data-toggle="true" class="col-md-1">Order ID</th>
-                                            <th scope="col" data-toggle="true" class="col-md-1 user-id-col">User ID</th>
+<%--                                            <th scope="col" data-toggle="true" class="col-md-1 user-id-col">User ID</th>--%>
                                             <th scope="col" data-toggle="true" class="col-md-2">Full Name</th>
                                             <th scope="col" data-toggle="true" class="col-md-1">Order Date</th>
-<%--                                            <th scope="col" data-toggle="true" class="col-md-1 shipping-address-id-col">Address ID</th>--%>
                                             <th scope="col" data-toggle="true" class="col-md-5">Address</th>
                                             <th scope="col" data-toggle="true" class="col-md-1">Order Total</th>
                                             <th scope="col" data-toggle="true" class="col-md-1">Order Status</th>
@@ -85,16 +84,21 @@
                                         </thead>
                                         <tbody>
                                         <!-- Sample data -->
-                                        <tr>
-                                            <td>1</td>
-                                            <td class="user-id-col">101</td>
-                                            <td>John Doe</td>
-                                            <td>2022-10-10</td>
-<%--                                            <td class="shipping-address-id-col">1001</td>--%>
-                                            <td>1234 Elm St, Bangalore</td>
-                                            <td>$100.00</td>
-                                            <td><span class="badge badge-success">Shipped</span></td>
-                                        </tr>
+                                        <c:forEach items="${orders}" var="orders">
+                                            <tr>
+                                                <td>${orders.order_id}</td>
+<%--                                                <td class="user-id-col">${orders.user_id}</td>--%>
+                                                <td>
+                                                    <a href="<%= request.getContextPath() %>/admin/order-info?order_id=${orders.order_id}">${orders.full_name}</a>
+                                                </td>
+                                                <td>${orders.order_date}</td>
+                                                <td>${orders.delivery_address}</td>
+                                                <td>${orders.order_total}</td>
+
+                                                <td>${orders.order_status_name}</td>
+
+                                            </tr>
+                                        </c:forEach>
                                         <!-- Add more rows with data -->
                                         </tbody>
                                     </table>
@@ -145,30 +149,28 @@
                                         <thead>
                                         <tr>
                                             <th scope="col" data-toggle="true">Order detail id</th>
-<%--                                            <th scope="col" data-toggle="true">Book id</th>--%>
                                             <th scope="col" data-toggle="true">Book name</th>
-<%--                                            <th scope="col" data-toggle="true">User id</th>--%>
                                             <th scope="col" data-toggle="true">Full name</th>
                                             <th scope="col" data-toggle="true">Quantity</th>
                                             <th scope="col" data-toggle="true">Price</th>
                                             <th scope="col" data-toggle="true">Total</th>
-<%--                                            <th scope="col" data-toggle="true">Order id</th>--%>
                                             <th scope="col" data-toggle="true">Order date</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>1</td>
-<%--                                            <td>101</td>--%>
-                                            <td>Book Title 1</td>
-<%--                                            <td>1001</td>--%>
-                                            <td>John Doe</td>
-                                            <td>3</td>
-                                            <td>$50.00</td>
-                                            <td>$150.00</td>
-<%--                                            <td>123</td>--%>
-                                            <td>2023-10-15</td>
-                                        </tr>
+                                        <c:forEach items="${orderDetail}" var="orderDetail">
+                                            <tr>
+                                                <td>${orderDetail.order_detail_id}</td>
+                                                <td>${orderDetail.book_title}</td>
+                                                <td>${orderDetail.user_id}</td>
+                                                <td>${orderDetail.full_name}</td>
+                                                <td>${orderDetail.quantity}</td>
+                                                <td>${orderDetail.price}</td>
+                                                <td>${orderDetail.total_price}</td>
+                                                <td>${orderDetail.order_id}</td>
+                                                <td>${orderDetail.order_date}</td>
+                                            </tr>
+                                        </c:forEach>
                                         <!-- Add more rows with dummy data -->
                                         </tbody>
                                     </table>
