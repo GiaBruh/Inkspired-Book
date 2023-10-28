@@ -3,6 +3,7 @@
 <%@ page import="java.util.Optional" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -49,7 +50,7 @@
                                             <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}">${book.getTitle()}</a>
                                         </td>
                                         <td class="align-middle">
-                                            <span class="price">${book.getPrice()}</span>&#x20AB
+                                            <span class="price"><fmt:formatNumber value="${book.getPrice()}" minFractionDigits="0" maxFractionDigits="0"/></span>&#x20AB
                                         </td>
                                         <td class="align-middle">
                                             <div id="quantity${book.getBook_id()}" class="input-group quantity mx-auto"
@@ -115,13 +116,13 @@
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <h6 class="font-weight-medium">Shipping</h6>
-                                        <h6 class="font-weight-medium"><span id="shipping">10000</span>&#x20AB</h6>
+                                        <h6 class="font-weight-medium"><span id="shipping">10.000</span>&#x20AB</h6>
                                     </div>
                                 </div>
                                 <div class="card-footer border-secondary bg-transparent">
                                     <div class="d-flex justify-content-between mt-2">
                                         <h5 class="font-weight-bold">Total</h5>
-                                        <h5 class="font-weight-bold"><span id="total">10000</span>&#x20AB</h5>
+                                        <h5 class="font-weight-bold"><span id="total">10.000</span>&#x20AB</h5>
                                     </div>
                                     <button class="btn btn-block btn-outline-dark my-3 py-3" name="btncheckout"
                                             value="checkout" disabled>

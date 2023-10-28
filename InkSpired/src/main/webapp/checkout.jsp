@@ -3,6 +3,7 @@
 <%@ page import="java.util.Optional" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -41,107 +42,94 @@
                                             <tbody class="align-middle">
 
                                                 <c:forEach var="orderdetail" items="${sessionScope.BOOKSORDERLIST}">
-                                                    <tr>
-                                                        <td class="align-left">
-                                                            <img src="${orderdetail.getBook_image()}"
-                                                                 alt="${orderdetail.getTitle()}"
-                                                                 style="height: 170px;">
-                                                        </td>
-                                                        <td>
-                                                            <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${orderdetail.getBook_id()}">${orderdetail.getTitle()}</a>
-                                                        </td>
-                                                        <td class="align-middle">
-                                                            <span class="price">${orderdetail.getPrice()}</span>&#x20AB
-                                                        </td>
-                                                        <td class="align-middle">
-                                                            <div id="quantity${orderdetail.getBook_id()}"
-                                                                 class="input-group quantity mx-auto"
-                                                                 style="width: 100px;">
-                                                                <span>${orderdetail.getQuantity()}</span>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
-
-                                            </tbody>
-                                        </table>
+                                                <tr>
+                                                    <td class="align-left">
+                                                        <img src="${orderdetail.getBook_image()}"
+                                                             alt="${orderdetail.getTitle()}"
+                                                             style="height: 170px;">
+                                                    </td>
+                                                    <td>
+                                                        <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${orderdetail.getBook_id()}">${orderdetail.getTitle()}</a>
+                                                    </td>
+                                                    <td class="align-middle">
+                                                        <span class="price"><fmt:formatNumber
+                                                                value="${orderdetail.getPrice()}" minFractionDigits="0"
+                                                                maxFractionDigits="0"/></span>&#x20AB
+                                                    </td>
+                                                    <td class="align-middle">
+                                                        <div id="quantity${orderdetail.getBook_id()}"
+                                                        <span>${orderdetail.getQuantity()}</span>
                                     </div>
+                                    </td>
+                                    </tr>
+                                    </c:forEach>
+
+                                    </tbody>
+                                    </table>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
-                                <div class="card border-secondary mb-5">
-                                    <div class="card-header border-0">
-                                        <h4 class="font-weight-semi-bold m-0">Order Total</h4>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card border-secondary mb-5">
+                                <div class="card-header border-0">
+                                    <h4 class="font-weight-semi-bold m-0">Order Total</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-3 pt-1">
+                                        <h6 class="font-weight-medium">Subtotal</h6>
+                                        <h6 class="font-weight-medium">
+                                            <span class="price"><fmt:formatNumber value="${sessionScope.SUBTOTAL}"
+                                                                                  minFractionDigits="0"
+                                                                                  maxFractionDigits="0"/></span>&#x20AB
+                                        </h6>
                                     </div>
-                                    <div class="card-body">
-                                        <h5 class="font-weight-medium mb-3">Products</h5>
-                                        <div class="d-flex justify-content-between">
-                                            <p>Do Duc Dat</p>
-                                            <p>$69</p>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <p>Do Duc Dat</p>
-                                            <p>$69</p>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <p>Do Duc Dat</p>
-                                            <p>$69</p>
-                                        </div>
-                                        <hr class="mt-0">
-                                        <div class="d-flex justify-content-between mb-3 pt-1">
-                                            <h6 class="font-weight-medium">Subtotal</h6>
-                                            <h6 class="font-weight-medium">$420</h6>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <h6 class="font-weight-medium">Shipping</h6>
-                                            <h6 class="font-weight-medium">$0</h6>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer border-secondary bg-transparent">
-                                        <div class="d-flex justify-content-between mt-2">
-                                            <h5 class="font-weight-bold">Total</h5>
-                                            <h5 class="font-weight-bold">$69420</h5>
-                                        </div>
+                                    <div class="d-flex justify-content-between">
+                                        <h6 class="font-weight-medium">Shipping</h6>
+                                        <h6 class="font-weight-medium">
+                                            <span class="price">10.000</span>&#x20AB
+                                        </h6>
                                     </div>
                                 </div>
-                                <div class="card border-secondary mb-5">
-                                    <div class="card-header border-0">
-                                        <h4 class="font-weight-semi-bold m-0">Payment</h4>
+                                <div class="card-footer border-secondary bg-transparent">
+                                    <div class="d-flex justify-content-between mt-2">
+                                        <h5 class="font-weight-bold">Total</h5>
+                                        <h5 class="font-weight-bold">
+                                            <c:choose>
+                                                <c:when test="${sessionScope.TOTALDISCOUNT != 0}">
+                                                    <c:set var="total"
+                                                           value="${(sessionScope.SUBTOTAL + 10000) * (100 -sessionScope.TOTALDISCOUNT) / 100}"
+                                                           scope="session"/>
+
+                                                    <span style="color: white; background-color: #f2093b; border-radius: 5px; padding: 3px;">-${sessionScope.TOTALDISCOUNT}%</span>
+                                                    <s><span class="price"><fmt:formatNumber
+                                                            value="${sessionScope.SUBTOTAL + 10000}"
+                                                            minFractionDigits="0" maxFractionDigits="0"/></span>&#x20AB</s>
+                                                    <br/>
+                                                    <span class="price float-end"><fmt:formatNumber value="${total}"
+                                                                                                    minFractionDigits="0"
+                                                                                                    maxFractionDigits="0"/>&#x20AB</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="price"><fmt:formatNumber
+                                                            value="${sessionScope.SUBTOTAL + 10000}"
+                                                            minFractionDigits="0" maxFractionDigits="0"/></span>&#x20AB
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </h5>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" name="payment"
-                                                       id="momo">
-                                                <label class="custom-control-label" for="momo">Paypal</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" name="payment"
-                                                       id="directpay">
-                                                <label class="custom-control-label" for="directpay">Direct Pay</label>
-                                            </div>
-                                        </div>
-                                        <div class="">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" name="payment"
-                                                       id="banktransfer">
-                                                <label class="custom-control-label" for="banktransfer">Bank
-                                                    Transfer</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer border-secondary bg-transparent">
-                                        <button class="btn btn-lg btn-block btn-outline-dark font-weight-bold my-3 py-3">
+                                    <form method="POST"
+                                          action="<%= request.getServletContext().getContextPath()%>/checkout">
+                                        <button class="btn btn-lg btn-block btn-outline-dark font-weight-bold my-3 py-3"
+                                                name="btnPlaceOrder" value="placeorder">
                                             Place Order
                                         </button>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </section>
         <!-- Back to Top -->

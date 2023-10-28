@@ -62,9 +62,30 @@ public class CheckoutController extends HttpServlet {
                 od.add(new OrderDetail(key, title, book_image, price, 0, quantity));
             });
 
+            int subtotal = 0;
+
             for (OrderDetail b : od) {
-                System.out.println(b.getBook_id() + ": " + b.getTitle() + ": " + b.getQuantity());
+                int quantity = b.getQuantity();
+                while(quantity != 0) {
+                    subtotal += b.getPrice();
+
+                    --quantity;
+                }
             }
+
+            session.setAttribute("SUBTOTAL", subtotal);
+
+            int totalDiscount = 0;
+            if (subtotal >= 600000) {
+              totalDiscount = 30;
+            } else if (subtotal >= 400000) {
+                totalDiscount = 20;
+            } else if (subtotal >= 300000) {
+                totalDiscount = 10;
+            }
+
+            session.setAttribute("TOTALDISCOUNT", totalDiscount);
+
             session.setAttribute("BOOKSORDERLIST", od);
 
             request.getRequestDispatcher("./checkout.jsp").forward(request, response);

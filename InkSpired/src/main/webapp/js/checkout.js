@@ -37,8 +37,9 @@ function ajaxConnecttion(bookid, operator, isChecked) {
 
             disableCheckoutButton(responseText);
 
-            $('#subtotal').text(subtotal + "");
-            $('#total').text(total + "");
+
+            $('#subtotal').text(new Intl.NumberFormat('en-DE').format(subtotal));
+            $('#total').text(new Intl.NumberFormat('en-DE').format(total));
         }
     });
 }
