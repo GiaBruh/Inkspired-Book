@@ -84,6 +84,7 @@
 <%--                                                 src="https://dummyimage.com/100x100/000/fff" alt="profileImage">--%>
                                                  src="${sessionScope.userInfo.getUser_image()}"
                                                  alt="${sessionScope.userInfo.getUsername()} photo">
+                                            <input name="image" value="${sessionScope.userInfo.getUser_image()}" hidden/>
                                         </label>
 
                                     </div>
