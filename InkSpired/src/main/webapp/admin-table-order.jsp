@@ -60,26 +60,18 @@
                                 <div class="table-responsive">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h4 class="section-title fw-light">Order</h4>
-<%--                                        <div class="dropdown mb-2">--%>
-<%--                                            <button class="btn btn-primary dropdown-toggle" type="button" id="columnDropdown" data-toggle="dropdown" aria-expanded="false">--%>
-<%--                                                Hide Columns--%>
-<%--                                            </button>--%>
-<%--                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="columnDropdown">--%>
-<%--                                                <li><label class="dropdown-item"><input type="checkbox" class="toggle-column" data-target=".user-id-col"> User ID</label></li>--%>
-<%--                                                <li><label class="dropdown-item"><input type="checkbox" class="toggle-column" data-target=".shipping-address-id-col"> Shipping Address ID</label></li>--%>
-<%--                                            </ul>--%>
-<%--                                        </div>--%>
+
                                     </div>
                                     <table id="order-table" class="table table-bordered m-0">
                                         <thead>
                                         <tr>
-                                            <th scope="col" data-toggle="true" class="col-md-1">Order ID</th>
-<%--                                            <th scope="col" data-toggle="true" class="col-md-1 user-id-col">User ID</th>--%>
-                                            <th scope="col" data-toggle="true" class="col-md-2">Full Name</th>
-                                            <th scope="col" data-toggle="true" class="col-md-1">Order Date</th>
-                                            <th scope="col" data-toggle="true" class="col-md-5">Address</th>
-                                            <th scope="col" data-toggle="true" class="col-md-1">Order Total</th>
-                                            <th scope="col" data-toggle="true" class="col-md-1">Order Status</th>
+                                            <th class="col-md-1">Order ID</th>
+<%--                                            <th class="col-md-1 user-id-col">User ID</th>--%>
+                                            <th class="col-md-2">Full Name</th>
+                                            <th class="col-md-1">Order Date</th>
+                                            <th class="col-md-5">Address</th>
+                                            <th class="col-md-1">Order Total</th>
+                                            <th class="col-md-1">Order Status</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -132,42 +124,34 @@
                                 <div class="table-responsive">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h4 class="section-title fw-light">Order detail</h4>
-<%--                                        <div class="dropdown mb-2">--%>
-<%--                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">--%>
-<%--                                                Hide column--%>
-<%--                                            </button>--%>
-<%--                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">--%>
-<%--                                                <li><label class="dropdown-item"><input type="checkbox" onclick="toggleColumn(1)"> Book id</label></li>--%>
-<%--                                                <li><label class="dropdown-item"><input type="checkbox" onclick="toggleColumn(3)"> User id</label></li>--%>
-<%--                                                <li><label class="dropdown-item"><input type="checkbox" onclick="toggleColumn(6)"> Price</label></li>--%>
-<%--                                                <li><label class="dropdown-item"><input type="checkbox" onclick="toggleColumn(8)"> Order id</label></li>--%>
-<%--                                            </ul>--%>
-<%--                                        </div>--%>
+
                                     </div>
 
                                     <table id="order-detail-table" class="table table-bordered m-0">
                                         <thead>
                                         <tr>
-                                            <th scope="col" data-toggle="true">Order detail id</th>
-                                            <th scope="col" data-toggle="true">Book name</th>
-                                            <th scope="col" data-toggle="true">Full name</th>
-                                            <th scope="col" data-toggle="true">Quantity</th>
-                                            <th scope="col" data-toggle="true">Price</th>
-                                            <th scope="col" data-toggle="true">Total</th>
-                                            <th scope="col" data-toggle="true">Order date</th>
+                                            <th>Order detail id</th>
+                                            <th>From order</th>
+                                            <th>Book name</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+
+
+                                            <th>Total</th>
+                                            <th>Order by</th>
+                                            <th>Order date</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <c:forEach items="${orderDetail}" var="orderDetail">
                                             <tr>
                                                 <td>${orderDetail.order_detail_id}</td>
-                                                <td>${orderDetail.book_title}</td>
-                                                <td>${orderDetail.user_id}</td>
-                                                <td>${orderDetail.full_name}</td>
-                                                <td>${orderDetail.quantity}</td>
-                                                <td>${orderDetail.price}</td>
-                                                <td>${orderDetail.total_price}</td>
                                                 <td>${orderDetail.order_id}</td>
+                                                <td>${orderDetail.book_title}</td>
+                                                <td>${orderDetail.price}</td>
+                                                <td>${orderDetail.quantity}</td>
+                                                <td>${orderDetail.total_price}</td>
+                                                <td>${orderDetail.full_name}</td>
                                                 <td>${orderDetail.order_date}</td>
                                             </tr>
                                         </c:forEach>
