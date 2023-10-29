@@ -3,6 +3,7 @@
 <%@ page import="java.util.Optional" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -83,7 +84,7 @@
                                         <br/>
                                     </h5>
                                     <!-- Product price-->
-                                        ${book.getPrice()}&#x20AB
+                                    <fmt:formatNumber value="${book.getPrice()}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB
                                 </div>
                             </div>
                             <!-- Product actions-->

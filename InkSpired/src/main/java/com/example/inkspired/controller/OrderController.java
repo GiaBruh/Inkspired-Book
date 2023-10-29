@@ -1,15 +1,23 @@
 package com.example.inkspired.controller;
 
+import com.example.inkspired.dao.OrderDAO;
+import com.example.inkspired.dao.OrderDetailDAO;
+import com.example.inkspired.model.Order;
+import com.example.inkspired.model.OrderDetail;
+import com.oracle.wls.shaded.org.apache.xpath.operations.Or;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @WebServlet(name = "OrderController", value = "/order")
 public class OrderController extends HttpServlet {
 
+    private static final String HOME = "/";
+    private static final String ORDER = "/order";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,7 +45,28 @@ public class OrderController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        String path = request.getRequestURI();
+        HttpSession session = request.getSession();
+
+        OrderDAO oDao = new OrderDAO();
+        int orderid = Integer.parseInt((request.getParameter("orderid") == null) ? "0" : request.getParameter("orderid"));
+
+        if (path.endsWith("/InkSpired/order") && orderid == 0) {
+
+            int userid = Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue());
+            List<Order> orderHistory = oDao.getAllFromUserId(userid);
+
+            session.setAttribute("ORDERHISTORY", orderHistory);
+
+            request.getRequestDispatcher("/orderHistory.jsp").forward(request, response);
+        } else if (path.endsWith("/InkSpired/order") && orderid != 0) {
+            OrderDetailDAO odDao = new OrderDetailDAO();
+            List<OrderDetail> orderDetails = odDao.getOrderDetailByOrderId(orderid);
+
+            session.setAttribute("ORDERDETAIL", orderDetails);
+
+            request.getRequestDispatcher("/orderDetail.jsp").forward(request, response);
+        }
     }
 
     /**

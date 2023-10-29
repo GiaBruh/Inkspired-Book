@@ -34,7 +34,7 @@ public class OrderDAO implements DAO<Order> {
                 order.setOrder_id(rs.getInt("order_id"));
                 order.setUser_id(rs.getInt("user_id"));
                 order.setOrder_date(rs.getDate("order_date"));
-                order.setDelivery_address(rs.getInt("shipping_address_id"));
+                order.setDelivery_address(rs.getString("delivery_address"));
                 order.setOrder_total(rs.getLong("order_total"));
                 order.setOrder_status(rs.getInt("order_status"));
                 result.add(order);
@@ -56,7 +56,7 @@ public class OrderDAO implements DAO<Order> {
                 Order order = new Order();
                 order.setUser_id(rs.getInt("user_id"));
                 order.setOrder_date(rs.getDate("order_date"));
-                order.setDelivery_address(rs.getInt("delivery_address"));
+                order.setDelivery_address(rs.getString("delivery_address"));
                 order.setOrder_total(rs.getLong("order_total"));
                 order.setOrder_status(rs.getInt("order_status"));
                 return Optional.of(order);
@@ -69,12 +69,13 @@ public class OrderDAO implements DAO<Order> {
 
     @Override
     public void add(Order order) {
-        String query = "INSERT INTO public.order VALUES (?,?,?,?,?)";
+        String query = "INSERT INTO public.\"order\" (user_id, order_date, delivery_address, order_total, order_status) " +
+                "VALUES (?,?,?,?,?)";
         try {
             ps = conn.prepareStatement(query);
             ps.setInt(1, order.getUser_id());
             ps.setDate(2, order.getOrder_date());
-            ps.setInt(3, order.getDelivery_address());
+            ps.setString(3, order.getDelivery_address());
             ps.setLong(4, order.getOrder_total());
             ps.setInt(5, order.getOrder_status());
             ps.executeUpdate();
@@ -105,5 +106,62 @@ public class OrderDAO implements DAO<Order> {
         } catch (Exception e) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
         }
+    }
+
+    public int getOrderId(int userid) {
+        String query = "SELECT order_id FROM public.\"order\" WHERE user_id = ? ORDER BY order_date DESC, order_id DESC LIMIT 1";
+        int result = 0;
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, userid);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                result = rs.getInt("order_id");
+            }
+        } catch (Exception e) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        return result;
+    }
+
+    public void confirmCheckoutDelete(int orderid) {
+        String query = "DELETE FROM public.order WHERE order_id = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, orderid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    public List<Order> getAllFromUserId(int userid) {
+        String query = "SELECT order_id, user_id, u.username, order_date, delivery_address, order_total, os.status FROM public.\"order\"\n" +
+                "JOIN public.\"user\" u on u.id = \"order\".user_id\n" +
+                "JOIN public.order_status os on os.order_status_id = \"order\".order_status\n" +
+                "WHERE user_id = ? ORDER BY order_date DESC, order_id DESC";
+        ArrayList<Order> result = new ArrayList<>();
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, userid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Order order = new Order();
+                order.setOrder_id(rs.getInt("order_id"));
+                order.setUser_id(rs.getInt("user_id"));
+                order.setUsername(rs.getString("username"));
+                order.setOrder_date(rs.getDate("order_date"));
+                order.setDelivery_address(rs.getString("delivery_address"));
+                order.setOrder_total(rs.getLong("order_total"));
+                order.setStatus(rs.getString("status"));
+                result.add(order);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return result;
     }
 }
