@@ -185,7 +185,9 @@ public class CheckoutController extends HttpServlet {
                     Integer quantity = entry.getValue();
                     Book book = bDao.get(bookid).get();
 
+                    // Delete latest order id if quantity is not match
                     if (book.getQuantity() < quantity) {
+                        oDao.confirmCheckoutDelete(orderid);
                         throw new Exception();
                     }
 

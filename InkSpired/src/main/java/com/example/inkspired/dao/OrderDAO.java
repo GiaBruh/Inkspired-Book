@@ -126,4 +126,15 @@ public class OrderDAO implements DAO<Order> {
 
         return result;
     }
+
+    public void confirmCheckoutDelete(int orderid) {
+        String query = "DELETE FROM public.order WHERE order_id = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, orderid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
 }
