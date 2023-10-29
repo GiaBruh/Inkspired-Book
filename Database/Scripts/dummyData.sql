@@ -65,12 +65,12 @@ VALUES ('Douglas Adams',
        ('Nam Cao',
         'Trần Hữu Trí (1915—1951), commonly known by his pseudonym Nam Cao, was a Vietnamese short story writer and novelist. ' ||
         'His works generally received high acclaim from critics for their thoughtful description and veracious reflection of the society in the 1945 era. ',
-        './uploadphotos/authorphotos/Nha-van-Nam-Cao.p'),
-       ('Tô Hoài',
-        'Tô Hoài (Birth name: Nguyễn Sen; September 27, 1920 – July 6, 2014) was a Vietnamese writer, playwright, screenwriter, journalist and correspondent. ' ||
-        'The pen name Tô Hoài is derived from the names of Tô Lịch River and Hoài Đức district, which are landmarks of his hometown. ' ||
-        'Among his works are the best - seller books Dế Mèn Phiêu Lưu Ký (Diary of a cricket) (1941), Truyện Tây Bắc (Stories of North West region) (1958), ' ||
-        'Quê Nhà (Home town) (1970), Ba Người Khác (Three Others) (1991). Some of his works have been translated into foreign languages. ' ||
+        './uploadphotos/authorphotos/Nha-van-Nam-Cao.png'),
+       ('To Hoai',
+        'To Hoai (Birth name: Nguyen Sen; September 27, 1920 – July 6, 2014)[1] was a Vietnamese writer, playwright, screenwriter, journalist and correspondent. ' ||
+        'The pen name To Hoai is derived from the names of To Lich River and Hoai Duc district, which are landmarks of his hometown. ' ||
+        'Among his works are the best - seller books De Men Phieu luu Ky (Diary of a cricket) (1941), Truyen Tay Bac (Stories of North West region) (1958), ' ||
+        'Que nha (Home town) (1970), Ba nguoi khac (Three Others) (1991). Some of his works have been translated into foreign languages. ' ||
         'He won the Ho Chi Minh Prize for Literature in 1996.',
         './uploadphotos/authorphotos/TH.jpg'),
        ('Tara Westover',
@@ -178,6 +178,7 @@ INSERT INTO public.author_book (author_id, book_id)
 VALUES (1, 1),
        (1, 2),
        (1, 3),
+       (2, 1),
        (2, 4),
        (2, 5),
        (3, 6),

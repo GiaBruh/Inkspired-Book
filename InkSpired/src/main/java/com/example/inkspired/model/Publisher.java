@@ -6,8 +6,18 @@ public class Publisher implements Serializable {
     private int publisher_id;
     private String publisher_name;
 
+    private int number_of_books;
+
     public Publisher() {
 
+    }
+
+    public int getNumber_of_books() {
+        return number_of_books;
+    }
+
+    public void setNumber_of_books(int number_of_books) {
+        this.number_of_books = number_of_books;
     }
 
     public int getPublisher_id() {

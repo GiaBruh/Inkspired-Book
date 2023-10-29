@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="css/background.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -33,7 +34,7 @@
     * {
         .card {
             border-radius: 15px;
-            box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+            box-shadow: rgba(32, 72, 160, 0.4) 8px 8px, rgba(32, 72, 160, 0.3) 12px 12px, rgba(32, 72, 160, 0.2) 16px 16px, rgba(32, 72, 160, 0.1) 20px 20px, rgba(32, 72, 160, 0.05) 24px 24px;
         }
         .btn {
             box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
