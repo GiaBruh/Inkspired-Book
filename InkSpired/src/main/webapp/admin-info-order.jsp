@@ -63,25 +63,37 @@
                             <div class="row flex-lg-row-reverse align-items-center">
                                 <div class="col-10 col-sm-8 col-lg-6">
                                     <div class="mt-4">
-<%--                                        <table id="user-table" class="table table-striped table-bordered" style="width:100%">--%>
-<%--                                            <thead>--%>
-<%--                                            <tr>--%>
-<%--                                                <th>Order ID</th>--%>
-<%--                                                <th>Order Total</th>--%>
-<%--                                                <th>Order Status</th>--%>
-<%--                                            </tr>--%>
-<%--                                            </thead>--%>
-<%--                                            <tbody>--%>
-<%--                                            <c:forEach items="${orders}" var="orders">--%>
-<%--                                                <tr>--%>
-<%--                                                    <td><a href="<%= request.getContextPath() %>/admin/order-info?order_id=${orders.order_id}">${orders.order_id}</a></td>--%>
-<%--                                                    <td>${orders.order_total}</td>--%>
-<%--                                                    <td>${orders.order_status}</td>--%>
-<%--                                                </tr>--%>
-<%--                                            </c:forEach>--%>
-<%--                                            </tbody>--%>
-<%--                                        </table>--%>
+                                        <table id="order-detail-table" class="table table-bordered m-0">
+                                            <thead>
+                                            <tr>
+                                                <th>Order detail id</th>
+                                                <%--                                                <th>From order</th>--%>
+                                                <th>Book name</th>
+                                                <th>Price</th>
+                                                <th>Quantity</th>
 
+
+                                                <th>Total</th>
+                                                <%--                                                <th>Order by</th>--%>
+                                                <%--                                                <th>Order date</th>--%>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <c:forEach items="${requestScope.orderDetail}" var="orderDetail">
+                                                <c:if test="${orderDetail.order_id == order.order_id}">
+                                                    <tr>
+                                                        <td>${orderDetail.order_detail_id}</td>
+                                                        <td>${orderDetail.book_title}</td>
+                                                        <td>${orderDetail.price}</td>
+                                                        <td>${orderDetail.quantity}</td>
+                                                        <td>${orderDetail.total_price}</td>
+
+                                                    </tr>
+                                                </c:if>
+                                            </c:forEach>
+                                            <!-- Add more rows with dummy data -->
+                                            </tbody>
+                                        </table>
 
                                     </div>
                                 </div>
