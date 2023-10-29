@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.*;
 import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ public class ShoppingCartController extends HttpServlet {
     private static final String HOME = "/";
     private static final String CART = "/cart";
     private static final String BOOK = "/book";
+    protected static List<Book> booksChecked = null;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -48,6 +50,7 @@ public class ShoppingCartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getRequestURI();
+        booksChecked = new ArrayList<>();
 
         int cartid = Integer.parseInt(request.getParameter("cartid"));
 

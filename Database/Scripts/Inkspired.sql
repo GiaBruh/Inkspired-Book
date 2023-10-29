@@ -55,12 +55,12 @@ CREATE TABLE IF NOT EXISTS public.review
 
 CREATE TABLE IF NOT EXISTS public."order"
 (
-    order_id         serial         NOT NULL,
-    user_id          integer UNIQUE NOT NULL,
-    order_date       date           NOT NULL,
-    delivery_address text           NOT NULL,
-    order_total      bigint         NOT NULL,
-    order_status     integer        NOT NULL,
+    order_id         serial  NOT NULL,
+    user_id          integer NOT NULL,
+    order_date       date    NOT NULL,
+    delivery_address text    NOT NULL,
+    order_total      bigint  NOT NULL,
+    order_status     integer NOT NULL,
     PRIMARY KEY (order_id)
 );
 

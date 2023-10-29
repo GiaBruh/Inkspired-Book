@@ -3,6 +3,7 @@
 <%@ page import="java.util.Optional" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -53,7 +54,7 @@
                         <h3>Publisher: ${requestScope.PUBLISHERINFO.getPublisher_name()}</h3>
                         <div class="fs-5 mb-5">
                             <%--                            <span class="text-decoration-line-through">$420.00</span>--%>
-                            <span>${sessionScope.BOOKINFO.get().getPrice()}&#x20AB</span>
+                            <span><fmt:formatNumber value="${sessionScope.BOOKINFO.get().getPrice()}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB</span>
                         </div>
                         <p class="lead">
                             ${sessionScope.BOOKINFO.get().getBook_description()}
@@ -63,9 +64,10 @@
                             <input
                                     class="form-control text-center me-3"
                                     id="inputQuantity"
-                                    type="number"
-                                    value="1"
-                                    style="max-width: 6rem"
+                                    type="text"
+                                    value="Available: ${sessionScope.BOOKINFO.get().getQuantity()}"
+                                    style="max-width: 10rem"
+                                    readonly
                             />
 
                             <c:choose>

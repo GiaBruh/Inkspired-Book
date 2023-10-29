@@ -46,7 +46,12 @@ public class SearchController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        RequestDispatcher dispatcher = request.getRequestDispatcher("./login.jsp");
 //        dispatcher.forward(request, response);
+        String path = request.getRequestURI();
+        if (path.endsWith(SEARCH)) {
+            request.getRequestDispatcher("/searchResult.jsp").forward(request, response);
+        }
     }
+
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -60,18 +65,20 @@ public class SearchController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        processRequest(request, response);
         if (request.getParameter("btn-search") != null &&
-                request.getParameter("btn-search").equals("search-by-keyword")){
+                request.getParameter("btn-search").equals("search-by-keyword")) {
             String keyword = request.getParameter("keyword").trim();
 
             if (keyword != null && !keyword.isEmpty()) {
                 BookDAO bookDAO = new BookDAO();
-                List<Book> searchResultByTitle = bookDAO.searchByTitle(keyword);
-                request.setAttribute("searchResultByTitle", searchResultByTitle);
-                List<Book> searchResultByAuthor = bookDAO.searchByAuthor(keyword);
-                request.setAttribute("searchResultByAuthor", searchResultByAuthor);
-                response.sendRedirect(getServletContext().getContextPath() + "/login");
+                List<Book> searchResultByKeyword = bookDAO.searchByTitleAndAuthor(keyword);
+                HttpSession session = request.getSession();
+                session.setAttribute("searchResultByKeyword", searchResultByKeyword);
+
+                session.setAttribute("keyword", keyword);
+
+                response.sendRedirect(getServletContext().getContextPath() + SEARCH);
             } else {
-                response.sendRedirect(getServletContext().getContextPath() + "/register");
+                response.sendRedirect(getServletContext().getContextPath() + "/home");
             }
         }
     }

@@ -85,7 +85,7 @@ public class UserController extends HttpServlet {
         String date = request.getParameter("birthdate");
         Date birthdate = date != null ? Date.valueOf(date) : null;
         String phone_number = request.getParameter("phone");
-        String user_image = "./uploadphotos/";
+        String user_image = request.getParameter("image");
 
         HttpSession session = null;
         session = request.getSession();
@@ -103,7 +103,10 @@ public class UserController extends HttpServlet {
                 Files.createDirectories(Paths.get(realPath));
             }
 
-            user_image = "./uploadphotos/userphotos/user" + user_id + "/" + fileName;
+            if (!fileName.equals("")) {
+                user_image = "./uploadphotos/userphotos/user" + user_id + "/" + fileName;
+            }
+
             System.out.println(realPath + "/" + fileName);
             part.write(realPath + "/" + fileName);
         } catch (Exception e) {

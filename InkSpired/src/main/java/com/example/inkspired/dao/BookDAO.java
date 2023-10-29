@@ -9,9 +9,7 @@ import java.sql.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -174,28 +172,29 @@ public class BookDAO implements DAO<Book> {
         return false;
     }
 
-    public List<Book> searchByTitle(String title) {
-        List<Book> result = new ArrayList<>();
-        String query = "SELECT * FROM public.book WHERE title ILIKE ?";
-        try {
-            ps = conn.prepareStatement(query);
-            ps.setString(1, "%" + title + "%");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Book book = new Book();
-                book.setBook_id(rs.getInt("book_id"));
-                book.setTitle(rs.getString("title"));
-                book.setPrice(rs.getInt("price"));
-                book.setBook_image(rs.getString("book_image"));
-                book.setIs_available(rs.getBoolean("is_available"));
-                result.add(book);
-            }
-        } catch (Exception e) {
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
-        }
-        return result;
-    }
-
+//    public List<Book> searchByTitle(String title) {
+//        List<Book> result = new ArrayList<>();
+//        String query = "SELECT * FROM public.book WHERE title ILIKE ?";
+//        try {
+//            ps = conn.prepareStatement(query);
+//            ps.setString(1, "%" + title + "%");
+//            rs = ps.executeQuery();
+//
+//            while (rs.next()) {
+//                Book book = new Book();
+//                book.setBook_id(rs.getInt("book_id"));
+//                book.setTitle(rs.getString("title"));
+//                book.setPrice(rs.getInt("price"));
+//                book.setBook_image(rs.getString("book_image"));
+//                book.setIs_available(rs.getBoolean("is_available"));
+//                result.add(book);
+//            }
+//        } catch (Exception e) {
+//            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+//        }
+//        return result;
+//    }
+//
     public List<Book> searchByAuthor(String author_fullname) {
         List<Book> result = new ArrayList<>();
         String query = "SELECT author.author_fullname, b.*" +
@@ -216,6 +215,39 @@ public class BookDAO implements DAO<Book> {
                 book.setBook_image(rs.getString("book_image"));
                 book.setIs_available(rs.getBoolean("is_available"));
                 result.add(book);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return result;
+    }
+
+    public List<Book> searchByTitleAndAuthor(String keyword) {
+        Set<Integer> uniqueBookIds = new HashSet<>(); // Use a Set to track unique book id
+        List<Book> result = new ArrayList<>();
+        String query = "SELECT * FROM public.book WHERE title ILIKE ? OR book_id IN (" +
+                "SELECT book_id FROM public.author_book ab " +
+                "JOIN public.author a ON ab.author_id = a.author_id " +
+                "WHERE a.author_fullname ILIKE ?)";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, "%" + keyword + "%");
+            ps.setString(2, "%" + keyword + "%");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int bookId = rs.getInt("book_id");
+                // Check if the book has already been added to the result
+                if (!uniqueBookIds.contains(bookId)) {
+                    Book book = new Book();
+                    book.setBook_id(bookId);
+                    book.setTitle(rs.getString("title"));
+                    book.setPrice(rs.getInt("price"));
+                    book.setBook_image(rs.getString("book_image"));
+                    book.setIs_available(rs.getBoolean("is_available"));
+                    result.add(book);
+                    uniqueBookIds.add(bookId); // Add book id to the set to prevent duplicates
+                }
             }
         } catch (Exception e) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);

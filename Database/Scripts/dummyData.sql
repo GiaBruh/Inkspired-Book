@@ -253,7 +253,8 @@ VALUES (0, 'Pending'),
        (2, 'Packaging'),
        (3, 'Delivering'),
        (4, 'Delivered'),
-       (5, 'Cancelled');
+       (5, 'Cancelled'),
+       (6, 'Cancel Pending');
 
 -- Cart_book
 INSERT INTO public.cart_book (shopping_cart_id, book_id)

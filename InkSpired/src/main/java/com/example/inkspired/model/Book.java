@@ -72,6 +72,18 @@ public class Book implements Serializable {
         this.price = price;
     }
 
+    public Book(int book_id, String title, String book_image, Date publication_date, int quantity, long price, String book_description, int publisher_id, boolean is_available) {
+        this.book_id = book_id;
+        this.title = title;
+        this.book_image = book_image;
+        this.publication_date = publication_date;
+        this.quantity = quantity;
+        this.price = price;
+        this.book_description = book_description;
+        this.publisher_id = publisher_id;
+        this.is_available = is_available;
+    }
+
     public int getBook_id() {
         return book_id;
     }

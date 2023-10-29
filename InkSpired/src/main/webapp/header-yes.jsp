@@ -1,3 +1,6 @@
+<%@ page import="com.example.inkspired.dao.ShoppingCartDAO" %>
+<%@ page import="com.example.inkspired.model.ShoppingCart" %>
+<%@ page import="java.util.Optional" %>
 <%@include file="interface.jsp" %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
@@ -19,79 +22,34 @@
                                     <div class="row my-4">
                                         <div class="col-md-6 col-lg-3 mb-3 mb-lg-0">
                                             <div class="list-group list-group-flush">
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Lorem
-                                                    ipsum</a>
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Dolor
-                                                    sit</a>
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Amet
-                                                    consectetur</a>
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Cras
-                                                    justo
-                                                    odio</a>
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Adipisicing
-                                                    elit</a>
+                                                <c:set var="menuItems" value="${['Lorem ipsum', 'Dolor sit', 'Amet consectetur', 'Cras justo odio', 'Adipisicing elit']}"/>
+                                                <c:forEach items="${menuItems}" var="menuItem">
+                                                    <a href="<%= request.getServletContext().getContextPath()%>/search" class="list-group-item list-group-item-action">${menuItem}</a>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-lg-3 mb-3 mb-lg-0">
                                             <div class="list-group list-group-flush">
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Explicabo
-                                                    voluptas</a>
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Perspiciatis
-                                                    quo</a>
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Cras
-                                                    justo
-                                                    odio</a>
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Laudantium
-                                                    maiores</a>
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Provident
-                                                    dolor</a>
+                                                <c:set var="menuItems" value="${['DD', 'aa', 'category7', 'jesus', 'alahu abkba']}"/>
+                                                <c:forEach items="${menuItems}" var="menuItem">
+                                                    <a href="<%= request.getServletContext().getContextPath()%>/search" class="list-group-item list-group-item-action">${menuItem}</a>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-lg-3 mb-3 mb-md-0">
                                             <div class="list-group list-group-flush">
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Iste
-                                                    quaerato</a>
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Cras
-                                                    justo
-                                                    odio</a>
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Est
-                                                    iure</a>
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Praesentium</a>
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Laboriosam</a>
+                                                <c:set var="menuItems" value="${['Lorem ipsum', 'Dolor sit', 'Amet consectetur', 'Cras justo odio', 'Adipisicing elit']}"/>
+                                                <c:forEach items="${menuItems}" var="menuItem">
+                                                    <a href="<%= request.getServletContext().getContextPath()%>/search" class="list-group-item list-group-item-action">${menuItem}</a>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-lg-3">
                                             <div class="list-group list-group-flush">
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Cras
-                                                    justo
-                                                    odio</a>
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Saepe</a>
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Vel
-                                                    alias</a>
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Sunt
-                                                    doloribus</a>
-                                                <a href=""
-                                                   class="list-group-item list-group-item-action">Cum
-                                                    dolores</a>
+                                                <c:set var="menuItems" value="${['Lorem ipsum', 'Dolor sit', 'Amet consectetur', 'Cras justo odio', 'Adipisicing elit']}"/>
+                                                <c:forEach items="${menuItems}" var="menuItem">
+                                                    <a href="<%= request.getServletContext().getContextPath()%>/search" class="list-group-item list-group-item-action">${menuItem}</a>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                     </div>
@@ -100,17 +58,19 @@
                         </li>
                     </ul>
                 </div>
-                <input type="text" id="searchBar" class="form-control border-black"
-                       placeholder="Search for products">
-                <div class="input-group-append">
-<%--                    <button class="btn btn-dark btn-small">--%>
-<%--                        <i class="fa fa-search"></i>--%>
-<%--                    </button>--%>
-                    <button class="btn btn-dark btn-small" onclick="location.href = 'http://localhost:8080/InkSpired/searchResult.jsp'; ">
-                        <i class="fa fa-search"></i>
-                    </button>
-
-                </div>
+                <form class="d-flex w-75" method="POST" action="<%= request.getServletContext().getContextPath()%>/search">
+                    <input type="text" id="searchBar" class="form-control border-black" name="keyword"
+                           placeholder="Search for products">
+                    <div class="input-group-append">
+                        <%--                    <button class="btn btn-dark btn-small">--%>
+                        <%--                        <i class="fa fa-search"></i>--%>
+                        <%--                    </button>--%>
+                        <button class="btn btn-dark btn-small" name="btn-search" value="search-by-keyword">
+                            <%--                        onclick="location.href = 'http://localhost:8080/InkSpired/searchResult.jsp'; "--%>
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
         <%--                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"--%>
@@ -170,10 +130,10 @@
                         <button class="btn btn-outline-dark"
                                 type="button"
                                 onclick="location.href
-                                = 'http://localhost:8080' +
-                                 '<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}'; ">
+                                        = 'http://localhost:8080' +
+                                        '<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}'; ">
                             <i class="bi-cart-fill me-1"></i>
-<%--                            <a href="<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}">Cart</a>--%>
+                                <%--                            <a href="<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}">Cart</a>--%>
                             <span>Cart</span>
                             <span class="badge bg-dark text-white ms-1 rounded-pill">
                                                 <%
@@ -198,7 +158,7 @@
                             <li><a class="item-dropdown"
                                    href="<%= request.getServletContext().getContextPath()%>/user">User
                                 Information</a></li>
-                            <li><a class="item-dropdown" href="#">Order History</a></li>
+                            <li><a class="item-dropdown" href="<%= request.getServletContext().getContextPath()%>/order">Order History</a></li>
                             <li><a class="item-dropdown" href="#">Review History</a></li>
                             <li>
                                 <div class="dropdown-divider"></div>
