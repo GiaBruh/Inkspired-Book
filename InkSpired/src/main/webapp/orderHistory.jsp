@@ -40,12 +40,28 @@
                             <tbody>
                                 <c:forEach var="order" items="${sessionScope.ORDERHISTORY}">
                                     <tr>
-                                        <td>${order.getOrder_id()}</td>
-                                        <td><fmt:formatNumber value="${order.getOrder_total()}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB</td>
-                                        <td>${order.getOrder_date()}</td>
-                                        <td>${order.getUsername()}</td>
-                                        <td>${order.getStatus()}</td>
-                                        <td>${order.getDelivery_address()}</td>
+                                        <td>
+                                                ${order.getOrder_id()}
+                                            <a class="btn btn-block btn-outline-dark my-3 mx-2"
+                                               href="<%= request.getServletContext().getContextPath()%>/order?orderid=${order.getOrder_id()}">View
+                                                Detail</a>
+                                        </td>
+                                        <td>
+                                            <div class="my-3"><fmt:formatNumber value="${order.getOrder_total()}" minFractionDigits="0"
+                                                                                maxFractionDigits="0"/>&#x20AB</div>
+                                        </td>
+                                        <td>
+                                            <div class="my-3">${order.getOrder_date()}</div>
+                                        </td>
+                                        <td>
+                                            <div class="my-3">${order.getUsername()}</div>
+                                        </td>
+                                        <td>
+                                            <div class="my-3">${order.getStatus()}</div>
+                                        </td>
+                                        <td>
+                                            <div class="my-3">${order.getDelivery_address()}</div>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -57,12 +73,6 @@
         <script>
             new DataTable('#example');
         </script>
-        <footer class="py-5 bg-dark">
-            <div class="container">
-                <p class="m-0 text-center text-white">
-                    Copyright INKSPIRED BOOKS 2023, always reserved.
-                </p>
-            </div>
-        </footer>
+        <%@include file="footer.jsp"%>
     </body>
 </html>

@@ -1,7 +1,9 @@
 package com.example.inkspired.controller;
 
 import com.example.inkspired.dao.OrderDAO;
+import com.example.inkspired.dao.OrderDetailDAO;
 import com.example.inkspired.model.Order;
+import com.example.inkspired.model.OrderDetail;
 import com.oracle.wls.shaded.org.apache.xpath.operations.Or;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -47,8 +49,9 @@ public class OrderController extends HttpServlet {
         HttpSession session = request.getSession();
 
         OrderDAO oDao = new OrderDAO();
+        int orderid = Integer.parseInt((request.getParameter("orderid") == null) ? "0" : request.getParameter("orderid"));
 
-        if (path.endsWith("/InkSpired/order")) {
+        if (path.endsWith("/InkSpired/order") && orderid == 0) {
 
             int userid = Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue());
             List<Order> orderHistory = oDao.getAllFromUserId(userid);
@@ -56,6 +59,13 @@ public class OrderController extends HttpServlet {
             session.setAttribute("ORDERHISTORY", orderHistory);
 
             request.getRequestDispatcher("/orderHistory.jsp").forward(request, response);
+        } else if (path.endsWith("/InkSpired/order") && orderid != 0) {
+            OrderDetailDAO odDao = new OrderDetailDAO();
+            List<OrderDetail> orderDetails = odDao.getOrderDetailByOrderId(orderid);
+
+            session.setAttribute("ORDERDETAIL", orderDetails);
+
+            request.getRequestDispatcher("/orderDetail.jsp").forward(request, response);
         }
     }
 
