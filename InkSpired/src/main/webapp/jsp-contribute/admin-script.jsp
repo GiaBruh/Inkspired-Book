@@ -19,6 +19,7 @@
         }
     };
 </script>
+
 <script>
     $(document).ready( function () {
         $('#book-table').DataTable();

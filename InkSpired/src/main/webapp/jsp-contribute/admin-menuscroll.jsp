@@ -2,51 +2,13 @@
 <nav id="sidebar" class="sidebar-wrapper">
 
     <!-- App brand starts -->
-    <div class="app-brand px-3 py-3 d-flex align-items-center">
-        <a href="index.html">
-            <img src="${pageContext.request.contextPath}/assets/images/logo.svg" class="logo" alt="Bootstrap Gallery" />
+    <div class="app-brand px-3 py-3 d-flex align-items-center logo" >
+        <a href="<%= request.getContextPath() %>/admin/dashboard">
+            <img src="${pageContext.request.contextPath}/assets/images/inspired_admin_flat.jpg" style="width: 220px; height: 70px;border-radius: 8px;"  />
         </a>
     </div>
 
-    <!-- Sidebar menu starts -->
-    <!-- Sidebar menu needed
-     - dashboard
-        + overview
-        + simple number sales
-        + simple number expenses
-        + simple number income
-        + just number of customer, books, ordered
-     - table,show info, edit, delete
-        + customer, address with lock status
-        + book with lock status, can delete
-        + order with order detail
-        + combined order (billed per customer)
-        + author, category, publisher (cant delete, or delete with 2 step)
 
-     - chart, statitics (not do it yet)
-        + bar chart: number of books per category
-        + line chat: sale, expenses, income
-        + line chart: number of user signed in per day
-
-     - input
-        + form add admin, edit admin (reset too)
-        + form add book, edit book
-        + form add author, edit author
-        + form add category, edit category
-        + form add publisher, edit publisher
-
-     - misc
-        + profile
-        + setting
-        + login, logout
-        + forgot password
-        + 404 page
-        + maintenance page
-        + print page or import to excel or word
-     -->
-
-
-    <!--My Sidebar menu start -->
 
         <ul class="sidebar-menu">
             <%-- Class: current-page --%>

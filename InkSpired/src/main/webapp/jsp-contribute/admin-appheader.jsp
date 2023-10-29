@@ -1,3 +1,4 @@
+<%@ page import="com.example.inkspired.model.Order" %>
 <%
     // Get the user's information from the session
     String adminUsername = (String) session.getAttribute("adminUsername");
@@ -40,37 +41,47 @@
 <%--            <!-- Search container end -->--%>
 
         </div>
+<%--        <div class="dropdown ms-3">--%>
+<%--            <a class="dropdown-toggle d-flex p-2 py-3" href="#!" role="button" data-bs-toggle="dropdown"--%>
+<%--               aria-expanded="false">--%>
+<%--                <i class="bi bi-grid fs-2 lh-1"></i>--%>
+<%--            </a>--%>
+<%--            <div class="dropdown-menu dropdown-menu-end shadow">--%>
+<%--                <!-- Row start -->--%>
+<%--                <div class="d-flex gap-2 m-2">--%>
+<%--                    <a href="javascript:void(0)" class="g-col-4 p-2 border rounded-2">--%>
+<%--                        <img src="${pageContext.request.contextPath}/assets/images/brand-behance.svg" class="img-3x" alt="Admin Themes" />--%>
+<%--                    </a>--%>
+<%--                    <a href="javascript:void(0)" class="g-col-4 p-2 border rounded-2">--%>
+<%--                        <img src="${pageContext.request.contextPath}/assets/images/brand-gatsby.svg" class="img-3x" alt="Admin Themes" />--%>
+<%--                    </a>--%>
+<%--                    <a href="javascript:void(0)" class="g-col-4 p-2 border rounded-2">--%>
+<%--                        <img src="${pageContext.request.contextPath}/assets/images/brand-google.svg" class="img-3x" alt="Admin Themes" />--%>
+<%--                    </a>--%>
+<%--                    <a href="javascript:void(0)" class="g-col-4 p-2 border rounded-2">--%>
+<%--                        <img src="${pageContext.request.contextPath}/assets/images/brand-bitcoin.svg" class="img-3x" alt="Admin Themes" />--%>
+<%--                    </a>--%>
+<%--                    <a href="javascript:void(0)" class="g-col-4 p-2 border rounded-2">--%>
+<%--                        <img src="${pageContext.request.contextPath}/assets/images/brand-dribbble.svg" class="img-3x" alt="Admin Themes" />--%>
+<%--                    </a>--%>
+<%--                </div>--%>
+<%--                <!-- Row end -->--%>
+<%--            </div>--%>
+<%--        </div>--%>
         <div class="dropdown ms-3">
             <a class="dropdown-toggle d-flex p-2 py-3" href="#!" role="button" data-bs-toggle="dropdown"
                aria-expanded="false">
-                <i class="bi bi-grid fs-2 lh-1"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end shadow">
-                <!-- Row start -->
-                <div class="d-flex gap-2 m-2">
-                    <a href="javascript:void(0)" class="g-col-4 p-2 border rounded-2">
-                        <img src="${pageContext.request.contextPath}/assets/images/brand-behance.svg" class="img-3x" alt="Admin Themes" />
-                    </a>
-                    <a href="javascript:void(0)" class="g-col-4 p-2 border rounded-2">
-                        <img src="${pageContext.request.contextPath}/assets/images/brand-gatsby.svg" class="img-3x" alt="Admin Themes" />
-                    </a>
-                    <a href="javascript:void(0)" class="g-col-4 p-2 border rounded-2">
-                        <img src="${pageContext.request.contextPath}/assets/images/brand-google.svg" class="img-3x" alt="Admin Themes" />
-                    </a>
-                    <a href="javascript:void(0)" class="g-col-4 p-2 border rounded-2">
-                        <img src="${pageContext.request.contextPath}/assets/images/brand-bitcoin.svg" class="img-3x" alt="Admin Themes" />
-                    </a>
-                    <a href="javascript:void(0)" class="g-col-4 p-2 border rounded-2">
-                        <img src="${pageContext.request.contextPath}/assets/images/brand-dribbble.svg" class="img-3x" alt="Admin Themes" />
-                    </a>
+                <div class="notification">
+                    <c:set var="count" value="0" />
+                    <c:forEach var="order" items="${orders}">
+                        <c:if test="${order.order_status == 0 || order.order_status == 6}">
+                            <c:set var="count" value="${count + 1}" />
+                        </c:if>
+                    </c:forEach>
+                    <i class="bi bi-bell fs-2 lh-1"></i>
+                    <span class="badge" id="notificationCount">${count}</span>
+
                 </div>
-                <!-- Row end -->
-            </div>
-        </div>
-        <div class="dropdown ms-3">
-            <a class="dropdown-toggle d-flex p-2 py-3" href="#!" role="button" data-bs-toggle="dropdown"
-               aria-expanded="false">
-                <i class="bi bi-bell fs-2 lh-1"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end shadow">
                 <c:forEach var="orders" items="${orders}">
@@ -79,19 +90,36 @@
                             <div class="d-flex py-2 border-bottom">
 <%--                                <img src="${pageContext.request.contextPath}/user-image.jpg" class="img-4x me-3 rounded-3" alt="user name" />--%>
                                 <div class="m-0">
-                                    <h6 href="${pageContext.request.contextPath}/table-order"
-                                            class="mb-1 fw-semibold">${orders.full_name}</h6>
-                                    <p class="small mb-1">had order in</p>
-                                    <p class="small m-0 text-primary">${orders.order_date}</p>
+                                    <h6 class="mb-1 fw-semibold">
+                                            <a href="<%= request.getContextPath() %>/admin/order-info?order_id=${orders.order_id}">${orders.full_name}</a>
+                                    </h6>
+                                    <p class="mb-1">had order in <span class="text-primary">${orders.order_date}</span></p>
+
                                 </div>
                             </div>
                         </div>
                     </c:if>
+                    <c:if test="${orders.order_status == 6}">
+                        <div class="dropdown-item">
+                            <div class="d-flex py-2 border-bottom">
+                                    <%--                                <img src="${pageContext.request.contextPath}/user-image.jpg" class="img-4x me-3 rounded-3" alt="user name" />--%>
+                                <div class="m-0">
+                                    <h6 class="mb-1 fw-semibold">
+                                        <a href="<%= request.getContextPath() %>/admin/order-info?order_id=${orders.order_id}">${orders.full_name}</a>
+                                    </h6>
+                                    <p class="mb-1 text-danger">had cancel order in <span class="text-primary">${orders.order_date}</span></p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </c:if>
+
                 </c:forEach>
+                <div style="display: none" id="noOrderMessage">No new order here</div>
 
 
                 <div class="border-top py-2 px-3 text-end">
-                    <a href="${pageContext.request.contextPath}/admin/table-order">View all</a>
+                    <a href="${pageContext.request.contextPath}/admin/table-order">View all order</a>
                 </div>
             </div>
         </div>
@@ -118,6 +146,15 @@
         </div>
     </div>
     <!-- App header actions end -->
+<script>
+    window.onload = function() {
+        var count = document.getElementById('notificationCount').innerText;
+        if (count == '0') {
+            document.getElementById('notificationCount').style.display = 'none';
+            document.getElementById('noOrderMessage').style.display = 'block';
+        }
+    };
 
+</script>
 </div>
 <!-- App header ends -->

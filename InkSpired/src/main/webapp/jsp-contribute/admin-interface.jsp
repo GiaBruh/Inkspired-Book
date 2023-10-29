@@ -60,5 +60,19 @@
     #custom-file-name {
         margin-left: 10px;
     }
+    .notification {
+        position: relative;
+        display: inline-block;
+    }
+
+    .notification .badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background-color: red;
+        color: white;
+    }
 
 </style>
