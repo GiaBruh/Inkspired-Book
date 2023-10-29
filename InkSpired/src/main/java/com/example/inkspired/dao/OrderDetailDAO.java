@@ -132,4 +132,32 @@ public class OrderDetailDAO implements DAO<OrderDetail> {
 
         return result;
     }
+    public List<OrderDetail> getOrderDetailByOrderId(int orderid) {
+        ArrayList<OrderDetail> result = new ArrayList<>();
+        String query = "SELECT order_id, order_detail.book_id, title, book_image, price, order_detail.quantity FROM public.order_detail\n" +
+                "JOIN public.book b on b.book_id = order_detail.book_id\n" +
+                "WHERE order_id = ?";
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, orderid);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                OrderDetail od = new OrderDetail();
+                od.setBook_id(rs.getInt("book_id"));
+                od.setOrder_id(rs.getInt("order_id"));
+                od.setQuantity(rs.getInt("quantity"));
+                od.setTitle(rs.getString("title"));
+                od.setPrice(rs.getLong("price"));
+                od.setBook_image(rs.getString("book_image"));
+                result.add(od);
+            }
+
+        } catch (Exception e) {
+            Logger.getLogger(OrderDetail.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        return result;
+    }
 }
