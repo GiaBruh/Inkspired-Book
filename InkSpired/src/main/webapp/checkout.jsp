@@ -13,7 +13,7 @@
 
         <style>
             .modal-backdrop {
-                background-color: rgba(0,0,0,.3) !important;
+                background-color: rgba(0, 0, 0, .3) !important;
             }
         </style>
     </head>
@@ -54,7 +54,9 @@
                                                                  style="height: 170px;">
                                                         </td>
                                                         <td>
-                                                            <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${orderdetail.getBook_id()}">${orderdetail.getTitle()}</a>
+                                                            <a onclick="return confirm('Click this link without placing order might cancel the current checkout session' +
+                                                                     '\nDo you wish to continue?')"
+                                                               href="<%= request.getServletContext().getContextPath()%>/book?bookid=${orderdetail.getBook_id()}">${orderdetail.getTitle()}</a>
                                                         </td>
                                                         <td class="align-middle">
                                                         <span class="price"><fmt:formatNumber
@@ -150,7 +152,8 @@
         <c:choose>
             <c:when test="${sessionScope.CONFIRMORDER == true}">
                 <!-- Modal -->
-                <div class="modal fade" id="confirmmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop='static'>
+                <div class="modal fade" id="confirmmodal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true" data-bs-backdrop='static'>
                     <div class="modal-dialog modal-dialog-centered">
                         <!-- Modal content-->
                         <div class="modal-content">
@@ -160,16 +163,18 @@
                             </div>
                             <div class="modal-footer d-flex justify-content-center">
                                 <a href="<%= request.getServletContext().getContextPath()%>/"
-                                   class="btn btn-lg btn-block btn-outline-dark font-weight-bold my-3 py-3">Back To Home Page</a>
+                                   class="btn btn-lg btn-block btn-outline-dark font-weight-bold my-3 py-3">Back To Home
+                                    Page</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <c:set var="CONFIRMORDER" scope="session" value="${null}" />
+                <c:set var="CONFIRMORDER" scope="session" value="${null}"/>
             </c:when>
 
             <c:when test="${sessionScope.CONFIRMORDER == false}">
-                <div class="modal fade" id="confirmmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop='static'>
+                <div class="modal fade" id="confirmmodal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true" data-bs-backdrop='static'>
                     <div class="modal-dialog modal-dialog-centered">
                         <!-- Modal content-->
                         <div class="modal-content">
@@ -179,12 +184,13 @@
                             </div>
                             <div class="modal-footer d-flex justify-content-center">
                                 <a href="<%= request.getServletContext().getContextPath()%>/"
-                                   class="btn btn-lg btn-block btn-outline-dark font-weight-bold my-3 py-3">Back To Home Page</a>
+                                   class="btn btn-lg btn-block btn-outline-dark font-weight-bold my-3 py-3">Back To Home
+                                    Page</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <c:set var="CONFIRMORDER" scope="session" value="${null}" />
+                <c:set var="CONFIRMORDER" scope="session" value="${null}"/>
             </c:when>
         </c:choose>
 
