@@ -55,9 +55,10 @@
                             <input
                                     class="form-control text-center me-3"
                                     id="inputQuantity"
-                                    type="number"
-                                    value="1"
-                                    style="max-width: 6rem"
+                                    type="text"
+                                    value="Available: ${sessionScope.BOOKINFO.get().getQuantity()}"
+                                    style="max-width: 10rem"
+                                    readonly
                             />
 
                             <c:choose>

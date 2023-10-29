@@ -18,6 +18,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import static com.example.inkspired.controller.ShoppingCartController.booksChecked;
 
@@ -179,8 +180,15 @@ public class CheckoutController extends HttpServlet {
             try {
                 oDao.add(new Order(userid, date, address, total, status));
                 int orderid = oDao.getOrderId(userid);
-                booksOrder.forEach((bookid, quantity) -> {
+                for (Map.Entry<Integer, Integer> entry : booksOrder.entrySet()) {
+                    Integer bookid = entry.getKey();
+                    Integer quantity = entry.getValue();
                     Book book = bDao.get(bookid).get();
+
+                    if (book.getQuantity() < quantity) {
+                        throw new Exception();
+                    }
+
                     odDao.add(new OrderDetail(bookid, orderid, quantity));
                     // Delete from cart
                     scDao.deleteFromCart(userid, bookid);
@@ -195,7 +203,7 @@ public class CheckoutController extends HttpServlet {
                             book.getBook_description(),
                             book.getPublisher_id(),
                             book.isAvailable()));
-                });
+                }
 
                 session.setAttribute("CONFIRMORDER", true);
                 response.sendRedirect(getServletContext().getContextPath() + CHECKOUT);
