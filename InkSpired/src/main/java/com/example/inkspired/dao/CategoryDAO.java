@@ -55,7 +55,7 @@ public class CategoryDAO implements DAO<Category> {
     }
 
     @Override
-    public Optional get(int id) {
+    public Optional<Category> get(int id) {
         String query = "SELECT * FROM public.category where category_id = ?";
         try {
             ps = conn.prepareStatement(query);
@@ -112,38 +112,15 @@ public class CategoryDAO implements DAO<Category> {
         }
     }
 
-    public List<Category> getAllCategories() {
-        List<Category> result = new ArrayList<>();
-        String query = "SELECT c.category_id, c.category_name, COUNT(cb.book_id) AS number_of_usage " +
-                "FROM category c " +
-                "LEFT JOIN category_book cb ON c.category_id = cb.category_id " +
-                "GROUP BY c.category_id, c.category_name " +
-                "ORDER BY c.category_id";
-        try {
-            ps = conn.prepareStatement(query);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Category category = new Category();
-                category.setCategory_id(rs.getInt("category_id"));
-                category.setCategory_name(rs.getString("category_name"));
-                category.setNumber_of_usage(rs.getInt("number_of_usage"));
-                result.add(category);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return result;
-    }
-    public List<Book> searchByCategory(String category_name) {
+    public List<Book> searchByCategory(int category_id) {
         List<Book> result = new ArrayList<>();
-        String query = "SELECT category.category_name, b.* " +
-                "FROM public.category " +
-                "JOIN public.category_book cb ON category.category_id = cb.category_id " +
-                "JOIN public.book b ON cb.book_id = b.book_id " +
-                "WHERE category.category_name ILIKE ?";
+        String query = "SELECT b.* " +
+                "FROM public.book b " +
+                "JOIN public.category_book cb ON b.book_id = cb.book_id " +
+                "WHERE cb.category_id = ?";
         try {
             ps = conn.prepareStatement(query);
-            ps.setString(1, "%" + category_name + "%");
+            ps.setInt(1, category_id);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Book book = new Book();
