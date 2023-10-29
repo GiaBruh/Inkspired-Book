@@ -46,9 +46,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:set var="menuItems"
-                                       value="${['Lorem ipsum', 'Dolor sit', 'Amet consectetur', 'Cras justo odio', 'Adipisicing elit']}"/>
-                                <c:forEach items="${menuItems}" var="menuItem">
+                                <c:forEach items="${sessionScope.categoryList}" var="category">
                                     <tr>
                                         <td>
                                             <div class="form-check d-flex justify-content-center">
@@ -57,7 +55,7 @@
                                                 <label class="form-check-label" for="checkbox1"></label>
                                             </div>
                                         </td>
-                                        <td>${menuItem}</td>
+                                        <td>${category.category_name}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -68,19 +66,56 @@
             </div>
             <div class="col-md-8">
                 <c:choose>
-                    <c:when test="${sessionScope.searchResultByKeyword.isEmpty()}">
-                        <h1 class="d-flex justify-content-center">There is no result for "${sessionScope.keyword}"</h1>
+                    <c:when test="${sessionScope.searchResultByCategory == null}">
+                        <c:choose>
+                            <c:when test="${sessionScope.searchResultByKeyword.isEmpty()}">
+                                <h1 class="d-flex justify-content-center">There is no result for
+                                    "${sessionScope.keyword}"</h1>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                                    <c:forEach var="book" items="${sessionScope.searchResultByKeyword}"
+                                               varStatus="loop">
+                                        <div class="col mb-5">
+                                            <div class="card h-100">
+                                                <!-- Product image-->
+                                                <img
+                                                        class="card-img-top"
+                                                        src="${book.getBook_image()}" alt="${book.getTitle()}"/>
+                                                <!-- Product details-->
+                                                <div class="card-body p-4">
+                                                    <div class="text-center">
+                                                        <!-- Product name-->
+                                                        <h5 class="fw-bolder">${book.getTitle()}</h5>
+                                                        <!-- Product price-->
+                                                        $40.00 - $80.00
+                                                    </div>
+                                                </div>
+                                                <!-- Product actions-->
+                                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                                    <div class="text-center">
+                                                        <a class="btn btn-outline-dark mt-auto"
+                                                           href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}">
+                                                            View options</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
                     </c:when>
                     <c:otherwise>
                         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                            <c:forEach var="book" items="${sessionScope.searchResultByKeyword}" varStatus="loop">
+                            <c:forEach var="book" items="${sessionScope.searchResultByCategory}"
+                                       varStatus="loop">
                                 <div class="col mb-5">
                                     <div class="card h-100">
                                         <!-- Product image-->
                                         <img
                                                 class="card-img-top"
                                                 src="${book.getBook_image()}" alt="${book.getTitle()}"/>
-                                        />
                                         <!-- Product details-->
                                         <div class="card-body p-4">
                                             <div class="text-center">
@@ -102,36 +137,6 @@
                                 </div>
                             </c:forEach>
                         </div>
-<%--                        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">--%>
-<%--                            <c:forEach var="book" items="${sessionScope.searchResultByAuthor}" varStatus="loop">--%>
-<%--                                <div class="col mb-5">--%>
-<%--                                    <div class="card h-100">--%>
-<%--                                        <!-- Product image-->--%>
-<%--                                        <img--%>
-<%--                                                class="card-img-top"--%>
-<%--                                                src="${book.getBook_image()}" alt="${book.getTitle()}"/>--%>
-<%--                                        />--%>
-<%--                                        <!-- Product details-->--%>
-<%--                                        <div class="card-body p-4">--%>
-<%--                                            <div class="text-center">--%>
-<%--                                                <!-- Product name-->--%>
-<%--                                                <h5 class="fw-bolder">${book.getTitle()}</h5>--%>
-<%--                                                <!-- Product price-->--%>
-<%--                                                $40.00 - $80.00--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                        <!-- Product actions-->--%>
-<%--                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">--%>
-<%--                                            <div class="text-center">--%>
-<%--                                                <a class="btn btn-outline-dark mt-auto"--%>
-<%--                                                   href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}">--%>
-<%--                                                    View options</a>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </c:forEach>--%>
-<%--                        </div>--%>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -300,5 +305,7 @@
 <a href="#" class="btn btn-light back-to-top"><i class="fa fa-angle-double-up"></i></a>
 <!-- Footer-->
 <%@include file="footer.jsp" %>
+<script src="js/checkbox.js">
+</script>
 </body>
 </html>

@@ -1,7 +1,9 @@
 package com.example.inkspired.controller;
 
 import com.example.inkspired.dao.BookDAO;
+import com.example.inkspired.dao.CategoryDAO;
 import com.example.inkspired.model.Book;
+import com.example.inkspired.model.Category;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -58,7 +60,13 @@ public class HomeController extends HttpServlet {
         List<Book> books = bDao.getAll();
         request.setAttribute("BOOKLIST", books);
 
+        HttpSession session = request.getSession();
+        CategoryDAO categoryDAO = new CategoryDAO();
+        List<Category> categoryList = categoryDAO.getAll();
+        session.setAttribute("categoryList", categoryList);
+
         request.getRequestDispatcher("/index.jsp").forward(request, response);
+
     }
 
     /**
