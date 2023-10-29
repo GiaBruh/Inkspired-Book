@@ -158,7 +158,7 @@
                             <li><a class="item-dropdown"
                                    href="<%= request.getServletContext().getContextPath()%>/user">User
                                 Information</a></li>
-                            <li><a class="item-dropdown" href="#">Order History</a></li>
+                            <li><a class="item-dropdown" href="<%= request.getServletContext().getContextPath()%>/order">Order History</a></li>
                             <li><a class="item-dropdown" href="#">Review History</a></li>
                             <li>
                                 <div class="dropdown-divider"></div>

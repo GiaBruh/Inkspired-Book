@@ -34,7 +34,7 @@ public class OrderDAO implements DAO<Order> {
                 order.setOrder_id(rs.getInt("order_id"));
                 order.setUser_id(rs.getInt("user_id"));
                 order.setOrder_date(rs.getDate("order_date"));
-                order.setDelivery_address(rs.getString("shipping_address_id"));
+                order.setDelivery_address(rs.getString("delivery_address"));
                 order.setOrder_total(rs.getLong("order_total"));
                 order.setOrder_status(rs.getInt("order_status"));
                 result.add(order);
@@ -136,5 +136,32 @@ public class OrderDAO implements DAO<Order> {
         } catch (Exception e) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
         }
+    }
+    public List<Order> getAllFromUserId(int userid) {
+        String query = "SELECT order_id, user_id, u.username, order_date, delivery_address, order_total, os.status FROM public.\"order\"\n" +
+                "JOIN public.\"user\" u on u.id = \"order\".user_id\n" +
+                "JOIN public.order_status os on os.order_status_id = \"order\".order_status\n" +
+                "WHERE user_id = ? ORDER BY order_date DESC, order_id DESC";
+        ArrayList<Order> result = new ArrayList<>();
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, userid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Order order = new Order();
+                order.setOrder_id(rs.getInt("order_id"));
+                order.setUser_id(rs.getInt("user_id"));
+                order.setUsername(rs.getString("username"));
+                order.setOrder_date(rs.getDate("order_date"));
+                order.setDelivery_address(rs.getString("delivery_address"));
+                order.setOrder_total(rs.getLong("order_total"));
+                order.setStatus(rs.getString("status"));
+                result.add(order);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return result;
     }
 }
