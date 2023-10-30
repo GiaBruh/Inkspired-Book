@@ -22,20 +22,33 @@ function addTocheckout(bookid) {
 
     if (isChecked) {
         $("#quantity" + bookid + " > div > button").removeAttr("disabled");
-        $("#quantity" + bookid + " > input").removeAttr("disabled");
     } else {
         $("#quantity" + bookid + " > div > button").attr('disabled', '');
-        $("#quantity" + bookid + " > input").attr('disabled', '');
         $("#quantity" + bookid + " > input").val(1);
     }
 
     ajaxConnecttion(bookid, '+', isChecked);
 }
 
-function changQuantity(bookid, operator) {
+function countQuantity(bookid, operator, quantity) {
+    let a = parseInt($("#quantityval" + bookid).val());
+    if (operator === '+') {
+        if (a < quantity) {
+            $("#quantityval" + bookid).val(a + 1);
+        }
+    } else {
+        if (a > 1) {
+            $("#quantityval" + bookid).val(a - 1);
+        } else {
+            $("#quantityval" + bookid).val(1);
+        }
+    }
+
     let isChecked = $("#" + bookid).is(":checked");
 
-    ajaxConnecttion(bookid, operator, isChecked);
+    if (a < quantity ||  operator === '-' && a > 1) {
+        ajaxConnecttion(bookid, operator, isChecked);
+    }
 }
 
 function ajaxConnecttion(bookid, operator, isChecked) {

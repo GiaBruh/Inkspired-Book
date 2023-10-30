@@ -113,6 +113,17 @@ public class CheckoutController extends HttpServlet {
                             break;
                         }
                     }
+
+                    boolean isFound = false;
+                    for (int i = 0; i < booksChecked.size(); i++) {
+                        if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
+                            isFound = true;
+                        }
+                    }
+
+                    if (!isFound) {
+                        booksChecked.add(book);
+                    }
                 } else {
                     booksChecked.add(book);
                 }

@@ -73,21 +73,23 @@
                                                          style="width: 100px;">
                                                         <div class="input-group-btn">
                                                             <button
-                                                                    onclick="changQuantity(${book.getBook_id()}, '-')"
+                                                                    onclick="countQuantity(${book.getBook_id()}, '-', ${book.getQuantity()})"
                                                                     class="btn btn-sm btn-dark btn-minus" disabled>
                                                                 <i class="fa fa-minus"></i>
                                                             </button>
                                                         </div>
                                                         <input type="text"
+                                                               id="quantityval${book.getBook_id()}"
                                                                class="form-control form-control-sm bg-white text-center"
                                                                value="1" disabled>
                                                         <div class="input-group-btn">
                                                             <button
-                                                                    onclick="changQuantity(${book.getBook_id()}, '+')"
+                                                                    onclick="countQuantity(${book.getBook_id()}, '+', ${book.getQuantity()})"
                                                                     class="btn btn-sm btn-dark btn-plus" disabled>
                                                                 <i class="fa fa-plus"></i>
                                                             </button>
                                                         </div>
+                                                        <input type="text" name="maxquantity${book.getBook_id()}" value="${book.getQuantity()}" hidden />
                                                     </div>
                                                 </td>
                                                 <td class="align-middle">
