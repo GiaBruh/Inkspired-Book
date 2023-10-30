@@ -54,7 +54,8 @@ public class UserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+
         UserDAO userDAO = new UserDAO();
         HttpSession session = null;
         session = request.getSession();
@@ -76,7 +77,8 @@ public class UserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
         String username = request.getParameter("username");
         String fullname = request.getParameter("fullname");

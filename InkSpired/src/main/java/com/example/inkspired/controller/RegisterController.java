@@ -47,7 +47,8 @@ public class RegisterController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+
         String path = request.getRequestURI();
 
         if (path.endsWith(REGISTER)) {
@@ -65,7 +66,9 @@ public class RegisterController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
         if (request.getParameter("btnRegister") != null && request.getParameter("btnRegister").equals("Register")) {
             response.sendRedirect(getServletContext().getContextPath() + REGISTER);
         }
