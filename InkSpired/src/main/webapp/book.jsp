@@ -23,7 +23,7 @@
             </div>
         </header>
         <!-- Product section-->
-        <section class="py-5 gradient-custom">
+        <section class="py-5 gradient-custom ">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6">
@@ -40,7 +40,7 @@
                             <c:set var="count" value="0"></c:set>
                             <c:forEach var="author" items="${requestScope.AUTHORLIST}">
                                 <a href="<%= request.getServletContext().getContextPath()%>/author?authorid=${author.getAuthor_id()}"
-                                   class="fw-bold text-decoration-none"
+                                   class="fw-bold text-decoration-none text-white"
                                 >${author.getAuthor_fullname()}</a>
                                 <c:set var="count" value="${count + 1}"/>
                                 <c:if test="${count < requestScope.AUTHORLIST.size()}">
