@@ -59,10 +59,9 @@
                 <!-- modify border white  -->
                 <div class="">
                     <div class="login-form">
-                        <a href="index.html" class="mb-4 d-flex">
-<%--                            <img src="${pageContext.request.contextPath}/assets/images/logo.svg" class="img-fluid login-logo" alt="Admin" />--%>
-                        </a>
-                        <h5 class="fw-light mb-5">Sign in to access dashboard.</h5>
+
+                        <img src="${pageContext.request.contextPath}/assets/images/inspired_admin_round.jpg" class="img-fluid login-logo mx-auto d-block" alt="Admin" />
+                        <h2 class="text-center fw-light mb-1">Log In</h2>
                         <div class="mb-3">
                             <label class="form-label">Your Username</label>
                             <input type="text" class="form-control" name="username" placeholder="Enter your username" />
@@ -79,21 +78,20 @@
 
                         </div>
                         <div class="d-grid py-3 mt-4">
-                            <button type="submit" class="btn btn-lg btn-primary" name="btnSubmit" value="Submit">
-                            <!-- <button type="submit" name="action" value="login" class="btn btn-lg btn-primary"> -->
+                            <button type="submit" class="btn btn-lg btn-primary" name="loginSubmit" value="Submit">
                                 Login
                             </button>
 
                         </div>
-                        <div class="text-center py-3">or Login with</div>
-                        <div class="d-flex gap-2 justify-content-center">
-                            <button type="submit" class="btn btn-outline-danger">
-                                <i class="bi bi-google me-2"></i>Gmail
-                            </button>
-                            <button type="submit" class="btn btn-outline-info">
-                                <i class="bi bi-facebook me-2"></i>Facebook
-                            </button>
-                        </div>
+<%--                        <div class="text-center py-3">or Login with</div>--%>
+<%--                        <div class="d-flex gap-2 justify-content-center">--%>
+<%--                            <button type="submit" class="btn btn-outline-danger">--%>
+<%--                                <i class="bi bi-google me-2"></i>Gmail--%>
+<%--                            </button>--%>
+<%--                            <button type="submit" class="btn btn-outline-info">--%>
+<%--                                <i class="bi bi-facebook me-2"></i>Facebook--%>
+<%--                            </button>--%>
+<%--                        </div>--%>
 
                     </div>
                 </div>

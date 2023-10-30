@@ -19,6 +19,7 @@
         }
     };
 </script>
+
 <script>
     $(document).ready( function () {
         $('#book-table').DataTable();
@@ -32,6 +33,8 @@
         $('#author-table').DataTable();
 
         $('#category-table').DataTable();
+
+        $('#user-table').DataTable();
 
     } );
 </script>
@@ -98,6 +101,7 @@
         document.getElementById('updateForm').style.display = 'none'; // hide update form
         document.getElementById('categoryInfoForm').style.display = 'block'; // show book info form
     }
+
 
 </script>
 <script>
