@@ -5,34 +5,6 @@
     <title>Sign in</title>
     <link rel="stylesheet" href="css/button.css">
 </head>
-<style>
-    .gradient-custom {
-        background: #f093fb;
-
-        background: -webkit-linear-gradient(
-                to bottom right,
-                rgba(240, 147, 251, 1),
-                rgba(245, 87, 108, 1)
-        );
-
-        background: linear-gradient(
-                to bottom right,
-                rgba(240, 147, 251, 1),
-                rgba(245, 87, 108, 1)
-        );
-    }
-
-    .card-registration .select-input.form-control[readonly]:not([disabled]) {
-        font-size: 1rem;
-        line-height: 2.15;
-        padding-left: 0.75em;
-        padding-right: 0.75em;
-    }
-
-    .card-registration .select-arrow {
-        top: 13px;
-    }
-</style>
 <%@include file="interface.jsp" %>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
