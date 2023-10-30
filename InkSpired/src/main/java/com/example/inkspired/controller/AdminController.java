@@ -355,7 +355,7 @@ public class AdminController extends HttpServlet {
         }
 
 
-        if (request.getParameter("btnSubmit") != null && request.getParameter("btnSubmit").equals("Submit")) {
+        if (request.getParameter("loginSubmit") != null && request.getParameter("loginSubmit").equals("Submit")) {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
 

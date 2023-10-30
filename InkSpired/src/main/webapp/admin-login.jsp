@@ -81,7 +81,6 @@
                             <button type="submit" class="btn btn-lg btn-primary" name="loginSubmit" value="Submit">
                                 Login
                             </button>
-
                         </div>
 <%--                        <div class="text-center py-3">or Login with</div>--%>
 <%--                        <div class="d-flex gap-2 justify-content-center">--%>
