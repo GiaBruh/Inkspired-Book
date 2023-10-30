@@ -175,4 +175,15 @@ public class OrderDAO implements DAO<Order> {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
         }
     }
+
+    public void confirmOrderReceived(int orderid) {
+        String query = "UPDATE public.order SET order_status = 4 WHERE order_id = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, orderid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
 }
