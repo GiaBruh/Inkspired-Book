@@ -130,6 +130,7 @@
                                                         class="form-control form-control-lg"
                                                         id="address" type="text" name="address"
                                                         placeholder="Delivery Address"/>
+                                                <span id="errormessage" class="text-danger"></span>
                                             </div>
                                             <button
                                                     onclick="return confirm('Confirm placing this order?')"
@@ -196,6 +197,7 @@
 
         <!-- Footer-->
         <%@include file="footer.jsp" %>
+        <script src="js/Validation/CheckoutValidation.js"></script>
         <script src="js/checkout.js"></script>
     </body>
 </html>
