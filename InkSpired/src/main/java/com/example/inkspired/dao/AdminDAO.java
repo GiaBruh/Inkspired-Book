@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.example.inkspired.util.Utils;
 import com.example.inkspired.model.Admin;
@@ -17,9 +19,14 @@ public class AdminDAO {
     private Connection connection;
     private Utils utils = new Utils();
 
+    private PreparedStatement preparedStatement = null;
+    private ResultSet resultSet = null;
+
     public AdminDAO() {
         connection = PostgresqlConnection.getConn();
     }
+
+
 
 
 
@@ -42,6 +49,30 @@ public class AdminDAO {
             throwables.printStackTrace();
         }
         return admin;
+    }
+
+    public boolean checkExistingUserByEmail(String email_address) throws SQLException {
+        String query = "SELECT * FROM public.admin WHERE email_address = ?";
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email_address);
+            resultSet = preparedStatement.executeQuery();
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return resultSet.next();
+    }
+
+    public void updatePasswordByEmail(String password, String email_address) throws SQLException {
+        String query = "UPDATE public.admin SET password = ? WHERE email_address = ?";
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, utils.md5Hash(password));
+            preparedStatement.setString(2, email_address);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
 

@@ -18,6 +18,15 @@ public class Admin {
         this.emailAddress = emailAddress;
     }
 
+    public Admin (String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public Admin (String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public int getAdminId() {
         return this.adminId;
     }
