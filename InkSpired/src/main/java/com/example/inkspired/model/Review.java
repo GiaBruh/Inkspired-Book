@@ -10,10 +10,18 @@ public class Review implements Serializable {
     private int ordered_book_id;
     private int rating;
     private String comment;
-
+    private String username;
     public Review() {
 
     }
+    public Review(Date review_date, int user_id, int ordered_book_id, int rating, String comment){
+        this.review_date = review_date;
+        this.user_id = user_id;
+        this.ordered_book_id = ordered_book_id;
+        this.rating = rating;
+        this.comment = comment;
+    }
+
     public int getReview_id() {
         return review_id;
     }
@@ -62,6 +70,14 @@ public class Review implements Serializable {
         this.comment = comment;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
         return "Review{" +
@@ -70,7 +86,8 @@ public class Review implements Serializable {
                 ", user_id=" + user_id +
                 ", ordered_book_id=" + ordered_book_id +
                 ", rating=" + rating +
-                ", comment='" + comment + '\'' +
+                ", comment='" + comment +
+                ", username='" + username + '\'' +
                 '}';
     }
 }
