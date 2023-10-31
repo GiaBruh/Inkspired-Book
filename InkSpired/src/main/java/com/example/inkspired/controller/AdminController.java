@@ -17,6 +17,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10, // 10 MB
@@ -35,22 +36,6 @@ public class AdminController extends HttpServlet {
 
         Cookie[] cookies = request.getCookies();
         request.setCharacterEncoding("UTF-8");
-//        // Retrieve the username from the cookie
-//        String fullName = null;
-//
-//        if (cookies != null) {
-//            for (Cookie cookie : cookies) {
-//                if (cookie.getName().equals("fullName")) {
-//                    fullName = cookie.getValue();
-//                    break;
-//                }
-//            }
-//        }
-//
-//        if (fullName != null) {
-//            // Set the full name as a request attribute to display in the JSP
-//            request.setAttribute("fullName", fullName);
-//        }
 
         boolean isLoggedIn = false;
         String pathInfo = request.getPathInfo();
@@ -64,10 +49,11 @@ public class AdminController extends HttpServlet {
         }
         HttpSession session = request.getSession(false);
         if (isLoggedIn) {
-            // if (session != null && session.getAttribute("admin") != null) {
-            // // Retrieve the Admin object from the session
-            // Admin admin = (Admin) session.getAttribute("admin");
-            // }
+            OrderDAO orderDAO = new OrderDAO();
+            List<Order> orders = orderDAO.getAllWithUser();
+            request.setAttribute("orders", orders);
+            List<Order> orderDetail = orderDAO.getAllOrderDetail();
+            request.setAttribute("orderDetail", orderDetail);
 
             if (pathInfo.equals("/")) {
 
@@ -78,9 +64,10 @@ public class AdminController extends HttpServlet {
 
             } else if (pathInfo.equals("/table-order")) {
                 {
-                    OrderDAO orderDAO = new OrderDAO();
-                    List<Order> orders = orderDAO.getAll();
-                    request.setAttribute("orders", orders);
+
+
+
+
                     request.getRequestDispatcher("/admin-table-order.jsp").forward(request, response);
                 }
 
@@ -220,6 +207,50 @@ public class AdminController extends HttpServlet {
                     }
                 }
 
+            }else if (pathInfo.startsWith("/user-info")){
+                {
+                    String userIdString = request.getParameter("user_id");
+                    System.out.println("getID = "+ userIdString);
+                    if (userIdString != null && !userIdString.isEmpty()) {
+                        int userId = Integer.parseInt(userIdString);
+
+
+                        orders = orderDAO.getOrdersByUser(userId);
+                        request.setAttribute("orders", orders);
+
+                        UserDAO userDAO = new UserDAO();
+                        User user = userDAO.getUser(userId);
+                        request.setAttribute("user", user);
+
+                        request.getRequestDispatcher("/admin-info-user.jsp").forward(request, response);
+                    } else {
+                        response.sendRedirect(request.getContextPath() + "/admin/table-user");
+                    }
+                }
+
+            } else if (pathInfo.startsWith("/order-info")) {
+                {
+                    String orderIdString = request.getParameter("order_id");
+
+                    if (orderIdString != null && !orderIdString.isEmpty()) {
+                        int orderId = Integer.parseInt(orderIdString);
+
+                         orderDAO = new OrderDAO();
+
+                        List<Order> order_status = orderDAO.getAllOrderStatus();
+                        request.setAttribute("order_status", order_status);
+
+                        Order order = orderDAO.getByOrder(orderId);
+                        System.out.println("Order ID: " + orderId); // Print the order ID for testing
+                        request.setAttribute("order", order);
+
+
+                        request.getRequestDispatcher("/admin-info-order.jsp").forward(request, response);
+                    } else {
+                        response.sendRedirect(request.getContextPath() + "/admin/table-order");
+                    }
+                }
+
             } else if (pathInfo.startsWith("/delete-book")) {
                 {
                     int bookId = Integer.parseInt(request.getParameter("book_id"));
@@ -324,7 +355,7 @@ public class AdminController extends HttpServlet {
         }
 
 
-        if (request.getParameter("btnSubmit") != null && request.getParameter("btnSubmit").equals("Submit")) {
+        if (request.getParameter("loginSubmit") != null && request.getParameter("loginSubmit").equals("Submit")) {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
 
@@ -568,7 +599,6 @@ public class AdminController extends HttpServlet {
         } else if (request.getParameter("addCategorySubmit") != null) {
             {
                 Category category = new Category();
-//                category.setCategory_id(Integer.parseInt(request.getParameter("category_id")));
                 category.setCategory_name(request.getParameter("category_name"));
 
                 CategoryDAO categoryDAO = new CategoryDAO();
@@ -601,6 +631,29 @@ public class AdminController extends HttpServlet {
                 int category_id = Integer.parseInt(request.getParameter("category_id"));
                 categoryDAO.deleteCategoryByID(category_id);
                 response.sendRedirect(request.getContextPath() + "/admin/table-category");
+            }
+
+        }else if (request.getParameter("authorizeUserSubmit") != null) {
+            String action = request.getParameter("authorizeUserSubmit");
+            int user_id = Integer.parseInt(request.getParameter("user_id"));
+            UserDAO userDAO = new UserDAO();
+
+            if ("Allow".equals(action)) {
+                userDAO.authorizeUser(user_id, true);
+            } else if ("Block".equals(action)) {
+                userDAO.authorizeUser(user_id, false);
+            }
+
+            response.sendRedirect(request.getContextPath() + "/admin/table-user");
+
+
+    }else if(request.getParameter("authorizeOrderSubmit") != null){
+            {
+                OrderDAO orderDAO = new OrderDAO();
+                int order_id = Integer.parseInt(request.getParameter("order_id"));
+                int order_status = Integer.parseInt(request.getParameter("order_status"));
+                orderDAO.updateOrderStatus(order_id, order_status);
+                response.sendRedirect(request.getContextPath() + "/admin/table-order");
             }
 
         }

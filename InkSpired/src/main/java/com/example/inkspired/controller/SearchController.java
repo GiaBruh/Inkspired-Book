@@ -46,6 +46,7 @@ public class SearchController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
 //        RequestDispatcher dispatcher = request.getRequestDispatcher("./login.jsp");
 //        dispatcher.forward(request, response);
         String path = request.getRequestURI();
@@ -65,9 +66,11 @@ public class SearchController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
 //        processRequest(request, response);
         HttpSession session = request.getSession();
-        int category = Integer.parseInt((request.getParameter("category_id") == null)? "0" : request.getParameter("category_id"));
+        int category = Integer.parseInt((request.getParameter("category_id") == null) ? "0" : request.getParameter("category_id"));
 
         CategoryDAO categoryDAO = new CategoryDAO();
 
