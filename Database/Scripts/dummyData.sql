@@ -26,11 +26,11 @@ VALUES ('nta', '202cb962ac59075b964b07152d234b70', 'hngiabao11122003v3@gmail.com
 
 
 -- Shopping_cart
-INSERT INTO public.shopping_cart (quantity)
-VALUES (2),
-       (0),
-       (1),
-       (0);
+INSERT INTO public.shopping_cart
+VALUES (1, 2),
+       (2, 0),
+       (3, 1),
+       (4, 0);
 
 -- Admin
 INSERT INTO public."admin" (username, password, email_address, full_name)

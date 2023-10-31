@@ -28,9 +28,9 @@ $(document).ready(function() {
     });
 
     $("input[name='fullname'], input[name='birthdate'], input[name='phone']").on("keyup", function() {
-        let recentdate = new Date();
+        let recentdate = new Date().setHours(7, 0, 0, 0);
         fullname = $("input[name='fullname']").val().trim();
-        birthdate = new Date($("input[name='birthdate']").val());
+        birthdate = new Date($("input[name='birthdate']").val()).setHours(7, 0, 0, 0);
         phonenumber = $("input[name='phone']").val().trim();
         image = $("input[name='upload']").val().trim();
 
@@ -47,7 +47,7 @@ $(document).ready(function() {
 
         if (phonenumber.length < 3 || phonenumber.length > 15) {
             validphonenumber = false;
-            $("#errorphone").html("The phone can only be at most 15 characters.");
+            $("#errorphone").html("The phone must be from 3 to 15 characters.");
         } else if (!phoneregex.test(phonenumber)) {
             validphonenumber = false;
             $("#errorphone").html("The phone can only contains numbers and start with 0.");
@@ -71,10 +71,10 @@ $(document).ready(function() {
         }
     });
 
-    $("input[name='upload']").change(function() {
-        let recentdate = new Date();
+    $("input[name='upload'], input[name='birthdate'], input[name='gender']").change(function() {
+        let recentdate = new Date().setHours(7, 0, 0, 0);
         fullname = $("input[name='fullname']").val().trim();
-        birthdate = new Date($("input[name='birthdate']").val());
+        birthdate = new Date($("input[name='birthdate']").val()).setHours(7, 0, 0, 0);
         phonenumber = $("input[name='phone']").val().trim();
         image = $("input[name='upload']").val();
 
@@ -108,7 +108,7 @@ $(document).ready(function() {
             $("#errorbirthdate").html("");
         }
 
-        if (image.endsWith(".jpg") || image.endsWith(".jpeg") || image.endsWith(".png") || image.endsWith(".jfif") || image.endsWith(".gif")) {
+        if (image.endsWith(".jpg") || image.endsWith(".jpeg") || image.endsWith(".png") || image.endsWith(".jfif") || image.endsWith(".gif") || image === '') {
             validbirthdate = true;
             $("#errorimage").html("");
         } else {

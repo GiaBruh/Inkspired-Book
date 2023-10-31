@@ -1,29 +1,10 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
     <head>
         <title>Sign up</title>
     </head>
-    <style>
-        .gradient-custom {
-            background: #f093fb;
-
-            background: -webkit-linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));
-
-            background: linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1))
-        }
-
-        .card-registration .select-input.form-control[readonly]:not([disabled]) {
-            font-size: 1rem;
-            line-height: 2.15;
-            padding-left: .75em;
-            padding-right: .75em;
-        }
-
-        .card-registration .select-arrow {
-            top: 13px;
-        }
-    </style>
     <%@include file="interface.jsp" %>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -66,6 +47,7 @@
                                                        name="username"/>
                                                 <label class="form-label" for="username">User Name</label>
                                             </div>
+                                            <span id="errorusername" class="text-danger"></span>
                                         </div>
 
                                         <div class="col-md-12 mb-4">
@@ -76,6 +58,7 @@
                                                        name="password"/>
                                                 <label class="form-label" for="password">Password</label>
                                             </div>
+                                            <span id="errorpassword" class="text-danger"></span>
                                         </div>
                                         <div class="col-md-12 mb-4">
 
@@ -86,10 +69,11 @@
                                                 />
                                                 <label class="form-label" for="fullname">Full Name</label>
                                             </div>
+                                            <span id="errorfullname" class="text-danger"></span>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-6 mb-4 d-flex align-items-center">
+                                            <div class="col-md-6 d-flex align-items-center">
 
                                                 <div class="form-outline datepicker w-100">
                                                     <input type="date" class="form-control form-control-lg"
@@ -98,9 +82,8 @@
                                                     />
                                                     <label for="birthdayDate" class="form-label">Birthdate</label>
                                                 </div>
-
                                             </div>
-                                            <div class="col-md-6 mb-4">
+                                            <div class="col-md-6">
 
                                                 <h6 class="mb-2 pb-1">Gender: </h6>
 
@@ -124,7 +107,15 @@
                                                            value="other"/>
                                                     <label class="form-check-label" for="otherGender">Other</label>
                                                 </div>
+                                            </div>
+                                        </div>
 
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4 d-flex align-items-center">
+                                                <span id="errorbirthdate" class="text-danger"></span>
+                                            </div>
+                                            <div class="col-md-6 mb-4">
+                                                <span id="errorgenders" class="text-danger"></span>
                                             </div>
                                         </div>
 
@@ -132,13 +123,20 @@
                                             <div class="col-md-6 mb-4 pb-2">
 
                                                 <div class="form-outline">
-                                                    <input type="email" id="emailAddress"
+                                                    <input type="text" id="emailAddress"
                                                            class="form-control form-control-lg"
                                                            name="email"
                                                     />
                                                     <label class="form-label" for="emailAddress">Email</label>
                                                 </div>
-
+                                                <c:choose>
+                                                    <c:when test="${sessionScope.EMAILEXISTED == true}">
+                                                        <span id="erroremail" class="text-danger">Either username or email has already been registered</span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span id="erroremail" class="text-danger"></span>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </div>
                                             <div class="col-md-6 mb-4 pb-2">
 
@@ -149,12 +147,12 @@
                                                     />
                                                     <label class="form-label" for="phoneNumber">Phone Number</label>
                                                 </div>
-
+                                                <span id="errorphone" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="mt-4 pt-2">
                                             <input class="btn btn-outline-dark btn-lg" type="submit" name="btnsubmit"
-                                                   value="Submit"/>
+                                                   value="Submit" disabled/>
                                         </div>
 
                                     </div>
@@ -168,5 +166,6 @@
 
         <!-- Footer-->
         <%@include file="footer.jsp"%>
+        <script src="js/Validation/RegisterValidation.js"></script>
     </body>
 </html>
