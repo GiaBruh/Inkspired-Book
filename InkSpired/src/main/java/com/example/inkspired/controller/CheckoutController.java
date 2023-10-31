@@ -54,6 +54,8 @@ public class CheckoutController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
         String path = request.getRequestURI();
         HttpSession session = request.getSession();
 
@@ -111,6 +113,17 @@ public class CheckoutController extends HttpServlet {
                             break;
                         }
                     }
+
+                    boolean isFound = false;
+                    for (int i = 0; i < booksChecked.size(); i++) {
+                        if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
+                            isFound = true;
+                        }
+                    }
+
+                    if (!isFound) {
+                        booksChecked.add(book);
+                    }
                 } else {
                     booksChecked.add(book);
                 }
@@ -148,6 +161,9 @@ public class CheckoutController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
         if (request.getParameter("btncheckout") != null && request.getParameter("btncheckout").equals("checkout")) {
             booksOrder = new Hashtable<>();
 

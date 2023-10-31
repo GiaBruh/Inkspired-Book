@@ -13,7 +13,7 @@
 
         <style>
             .modal-backdrop {
-                background-color: rgba(0, 0, 0, .5) !important;
+                background-color: rgba(0, 0, 0, .999) !important;
             }
         </style>
     </head>

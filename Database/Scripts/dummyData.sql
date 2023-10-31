@@ -47,7 +47,12 @@ VALUES ('Pan Books'),
        ('Penguin Books'),
        ('Grantham Book Services'),
        ('Tổng Hợp TPHCM'),
-       ('Bách Việt');
+       ('Bách Việt'),
+       ('Hồng Đức'),
+       ('Hà Nội'),
+       ('Page Street Publishing'),
+       ('Thế Giới'),
+       ('Thanh Hóa');
 
 -- Author
 INSERT INTO public.author (author_fullname, author_description, author_image)
@@ -92,7 +97,26 @@ VALUES ('Douglas Adams',
         'Master of musicology, author, and also an inspirational speaker with the desire to bring positive energy and spread love to the community.',
         './uploadphotos/authorphotos/LeDoQuynhPhuong.png'),
        ('Tào Đình', null, null),
-       ('Tâm Phạm', null, null);
+       ('Tâm Phạm', null, null),
+       ('Otsuichi', null, null),
+       ('Seiichi Makino', null, null),
+       ('Michio Tsutsui', null, null),
+       ('Mei Hachimoku',
+        'Mei Hachimoku debuted as an author at the 13th Shogakukan Light Novel Competition, where he won the Gagaga Award and the Judge’s Special Award for “The Tunnel to Summer, ' ||
+        'The Exit of Goodbyes.” He also wrote “Wait for Me Yesterday in Spring” and “Amber Autumn, Zero Second Journey” as part of the same “Time and Four Seasons” series, ' ||
+        'as well as “Mimosa’s Confession.”',
+        './uploadphotos/authorphotos/MeiHachimoku.png'),
+       ('Kukka', null, null),
+       ('Rebecca Lindamood',
+        '"I grew up cooking alongside my mother, Cathy,  in the commercial kitchens of the camps and retreat centers my father, Jim, managed and went on to cook in various food service venues including a deli, ' ||
+        'a bistro, and a corporate chain restaurant that shall remain unnamed. I credit my mother, Cathy,  with igniting my passion for adventuring with my food."',
+        './uploadphotos/authorphotos/Rebecca_Lindamood.jpg'),
+       ('Andrew Roberts',
+        'Andrew Roberts, Baron Roberts of Belgravia, FRSL FRHistS (born 13 January 1963), is a British popular historian, journalist and member of the House of Lords. ' ||
+        'He is the Roger and Martha Mertz Visiting Research Fellow at the Hoover Institution at Stanford University and a Lehrman Institute Distinguished Lecturer at' ||
+        ' the New-York Historical Society. He served as a trustee of the National Portrait Gallery from 2013 to 2021.',
+        './uploadphotos/authorphotos/Andrew_Roberts.jpg'),
+       ('Various Artist', null, null);
 
 -- Book
 INSERT INTO public.book (title, publication_date, quantity, price, publisher_id,
@@ -171,7 +195,49 @@ The work has been published in many different forms.',
         'And will he recognize Miu - the little girl with an erratic mood? The story revolves around the daily lives of young and dynamic young people, ' ||
         'where there is not only love between couples, but also friendship, teacher love, family love, and compatriot love. children living far away from home... ' ||
         'It all brings so many emotions, from humor to curiosity, sometimes even emotional tears.',
-        './uploadphotos/bookphotos/VeEmBangMauNoiNho.jpeg', TRUE);
+        './uploadphotos/bookphotos/VeEmBangMauNoiNho.jpeg', TRUE),
+       ('Lời Nguyền Shiraisan', '2022-10-09', 15, 95000, 10,
+        'Before they died, these people had all heard a horror story, called The Curse of Shiraisan. In the story, there is a soul-stealing curse. ' ||
+        'Whether intentionally searching or accidentally surfing the internet and reading it, already knowing the story''s content and characters, ' ||
+        'people will surely explode and die, and then it is concluded that it is due to heart failure.
+   Such acts of widespread destruction are often associated with a sense of revenge against society, stemming from the perpetrator''s unfortunate past. ' ||
+        'However, the past here is difficult to verify, the witnesses who come forward are unreliable, we only know that each person''s life after reading/' ||
+        'listening to the story will be a series of days imprisoned by terror, paranoia and ended in tragedy.',
+        './uploadphotos/bookphotos/LoiNguyenShiraisan.jpg', TRUE),
+       ('Từ Điển Ngữ Pháp Tiếng Nhật Sơ Cấp', '2021-10-23', 20, 195000, 10,
+        null,
+        './uploadphotos/bookphotos/TuDienNguPhapTiengNhatSoCap.png', TRUE),
+       ('Đường Hầm Tới Mùa Hạ - Lối Thoát Của Biệt Ly', '2022-5-17', 20, 119000, 11,
+        '“Do you know the Urashima tunnel? I heard that once you step inside, all your wishes will come true, but at the cost of age..."
+
+   High school student Tono Kaoru accidentally heard about that urban legend. That same night, he accidentally found a tunnel with similarities...
+
+   Entering the tunnel, he may not be able to bring back his sister who passed away five years ago.
+
+   After class, Kaoru investigated this tunnel, but unexpectedly was discovered by her friend Hanashiro Anzu - a new transfer student.
+
+   The two of them work together to achieve both of their dreams... The start of a summer full of exciting surprises that no one has ever known.
+
+   Tunnel to Summer - The way out of separation, a meaningful story about family affection and love, is a farewell to the joys and sorrows of the past, finding what has been lost to be able to move forward. to the future.',
+        'uploadphotos/bookphotos/bia_duong_ham_toi_mua_ha_3.jpg', TRUE),
+       ('The Ultimate Guide To Vegetable Side Dishes', '2022-01-01', 30, 436000, 12,
+        'The Ultimate Guide to Vegetable Side Dishes is a collection of 100 recipes for side dishes to accompany any main course.',
+        './uploadphotos/bookphotos/TheUltimateGuideToVegetableSideDishses.jpg', TRUE),
+       ('Napoleon Đại Đế', '2021-8-23', 25, 529000, 13,
+        'Napoleon is an especially great and fascinating figure in French history as well as world history. His life, career, views, and talents have been the subject of thousands ' ||
+        'of books over the past two centuries, and will probably continue to be studied for many more centuries to come.
+
+   In the context that the books translated into Vietnamese about him as well as about the post-French Revolution period in Vietnam are still counted on the fingers of one hand, ' ||
+        'few in both number and stature, the book Napoleon the Great can be considered a A phenomenon whose size, scale, and rich historical nature have created the ' ||
+        'special value of the work.',
+        './uploadphotos/bookphotos/Napoleon_dai_de.jpg', TRUE),
+    ('1000 Hợp Âm Cho Đàn Guitare', '2022-12-31', 50, 85000, 14,
+     'The book 1000 GUITARE CHORDS talks about how chords (scales) for the guitar are as important as the notes of a melody. It''s impossible to play guitar without knowing chords.
+
+The book introduces 100 finger positions for the most commonly used chords. Each chord has 4 different finger positions on the fretboard, except for some major chords and 7th chords which have 8 finger positions.
+
+Serious training is the key to all success. Please practice the piano for 10 minutes every day to conquer each chord, then you can change the scale and start creating your favorite music!',
+     './uploadphotos/bookphotos/1000Chords.jpg', TRUE);
 
 -- Author_book
 INSERT INTO public.author_book (author_id, book_id)
@@ -189,7 +255,15 @@ VALUES (1, 1),
        (7, 11),
        (8, 12),
        (9, 13),
-       (10, 14);
+       (10, 14),
+       (11, 15),
+       (12, 16),
+       (13, 16),
+       (14, 17),
+       (15, 17),
+       (16, 18),
+       (17, 19),
+       (18, 20);
 
 -- Category
 INSERT INTO public.category (category_name)
@@ -244,7 +318,16 @@ VALUES (1, 1),
        (2, 11),
        (6, 12),
        (2, 13),
-       (2, 14);
+       (2, 14),
+       (5, 15),
+       (18, 15),
+       (11, 16),
+       (15, 16),
+       (13, 17),
+       (1, 18),
+       (9, 18),
+       (10, 19),
+       (20, 20);
 
 -- Order_status
 INSERT INTO public.order_status

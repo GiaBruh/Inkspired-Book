@@ -80,12 +80,18 @@ public class OrderController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        OrderDAO oDao = new OrderDAO();
 
         if (request.getParameter("btnconfirmcancel") != null) {
-            OrderDAO oDao = new OrderDAO();
-
             int orderid = Integer.parseInt(request.getParameter("btnconfirmcancel"));
             oDao.cancelOrder(orderid);
+
+            response.sendRedirect(getServletContext().getContextPath() + ORDER);
+        }
+
+        if (request.getParameter("btnconfirmreceived") != null) {
+            int orderid = Integer.parseInt(request.getParameter("btnconfirmreceived"));
+            oDao.confirmOrderReceived(orderid);
 
             response.sendRedirect(getServletContext().getContextPath() + ORDER);
         }
