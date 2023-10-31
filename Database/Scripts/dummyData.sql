@@ -230,7 +230,7 @@ The work has been published in many different forms.',
    In the context that the books translated into Vietnamese about him as well as about the post-French Revolution period in Vietnam are still counted on the fingers of one hand, ' ||
         'few in both number and stature, the book Napoleon the Great can be considered a A phenomenon whose size, scale, and rich historical nature have created the ' ||
         'special value of the work.',
-        './uploadphotos/bookphotos/Napoleon_dai_de.jpg', TRUE),
+        './uploadphotos/bookphotos/Napoleon_dai_de.png', TRUE),
     ('1000 Hợp Âm Cho Đàn Guitare', '2022-12-31', 50, 85000, 14,
      'The book 1000 GUITARE CHORDS talks about how chords (scales) for the guitar are as important as the notes of a melody. It''s impossible to play guitar without knowing chords.
 
