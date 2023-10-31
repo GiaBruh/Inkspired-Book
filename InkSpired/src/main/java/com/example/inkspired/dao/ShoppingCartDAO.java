@@ -119,7 +119,7 @@ public class ShoppingCartDAO implements DAO<ShoppingCart> {
 
     public List<Book> getBookFromCartId(int cartid) {
         ArrayList<Book> result = new ArrayList<>();
-        String query = "SELECT b.book_id, b.book_image, b.title, b.price FROM public.shopping_cart\n" +
+        String query = "SELECT b.book_id, b.book_image, b.title, b.price, b.quantity FROM public.shopping_cart\n" +
                 "JOIN public.cart_book cb on shopping_cart.shopping_cart_id = cb.shopping_cart_id\n" +
                 "JOIN public.book b on b.book_id = cb.book_id\n" +
                 "WHERE cb.shopping_cart_id = ? and b.is_available = true";
@@ -134,6 +134,7 @@ public class ShoppingCartDAO implements DAO<ShoppingCart> {
                 book.setTitle(rs.getString("title"));
                 book.setPrice(rs.getInt("price"));
                 book.setBook_image(rs.getString("book_image"));
+                book.setQuantity(rs.getInt("quantity"));
                 result.add(book);
             }
         } catch (Exception e) {
