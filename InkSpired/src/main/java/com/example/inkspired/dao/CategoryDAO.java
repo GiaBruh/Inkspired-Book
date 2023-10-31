@@ -8,9 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -124,6 +122,44 @@ public class CategoryDAO implements DAO<Category> {
         } catch (Exception e) {
             Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, e);
         }
+        return result;
+    }
+
+    public  List<Book> searchByCategories(List<Integer> categoryIds) {
+        List<Book> result = new ArrayList<>();
+
+        if(categoryIds.isEmpty()) {
+            return result;
+        }
+
+        String questionMarks = String.join(",", Collections.nCopies(categoryIds.size(), "?"));
+
+        String query = "SELECT b.* " +
+                "FROM public.book b " +
+                "JOIN public.category_book cb ON b.book_id = cb.book_id " +
+                "WHERE cb.category_id IN (" + questionMarks + ")";
+
+        try {
+            ps = conn.prepareStatement(query);
+
+            for (int i = 0; i < categoryIds.size(); i++) {
+                ps.setInt(i + 1, categoryIds.get(i));
+            }
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Book book = new Book();
+                book.setBook_id(rs.getInt("book_id"));
+                book.setTitle(rs.getString("title"));
+                book.setPrice(rs.getInt("price"));
+                book.setBook_image(rs.getString("book_image"));
+                book.setIs_available(rs.getBoolean("is_available"));
+                result.add(book);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+
         return result;
     }
 

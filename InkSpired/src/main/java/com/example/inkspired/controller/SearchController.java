@@ -10,7 +10,10 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @WebServlet(name = "SearchController", value = "/search")
 public class SearchController extends HttpServlet {
@@ -48,10 +51,34 @@ public class SearchController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        RequestDispatcher dispatcher = request.getRequestDispatcher("./login.jsp");
 //        dispatcher.forward(request, response);
+
+        response.setContentType("text/html;charset=UTF-8");
         String path = request.getRequestURI();
-        if (path.endsWith(SEARCH)) {
-            request.getRequestDispatcher("/searchResult.jsp").forward(request, response);
-        }
+
+//        HttpSession session = request.getSession();
+//
+//        if (path.endsWith(SEARCH)) {
+//            String[] selectedCategories = request.getParameterValues("checkbox-filter");
+//            if (selectedCategories != null && selectedCategories.length > 0) {
+//                // Convert selected categories to a list of integers
+//                List<Integer> selectedCategoryIds = new ArrayList<>();
+//                for (String categoryId : selectedCategories) {
+//                    selectedCategoryIds.add(Integer.parseInt(categoryId));
+//                }
+//
+//                // Perform the category search based on selectedCategoryIds
+//                CategoryDAO categoryDAO = new CategoryDAO();
+//                List<Book> searchResultByCategory = categoryDAO.searchByCategories(selectedCategoryIds);
+//
+//                // Store the search results in the session
+//                session.setAttribute("searchResultByCategory", searchResultByCategory);
+//
+//                // Redirect to the search result page
+//                response.sendRedirect(getServletContext().getContextPath() + SEARCH);
+//                return;
+//            }
+//        }
+        request.getRequestDispatcher("/searchResult.jsp").forward(request, response);
     }
 
 
@@ -66,8 +93,11 @@ public class SearchController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
         HttpSession session = request.getSession();
-        int category = Integer.parseInt((request.getParameter("category_id") == null)? "0" : request.getParameter("category_id"));
+        int category = Integer.parseInt((request.getParameter("category_id") == null) ? "0" : request.getParameter("category_id"));
 
         CategoryDAO categoryDAO = new CategoryDAO();
 
@@ -79,6 +109,7 @@ public class SearchController extends HttpServlet {
             }
 
             String keyword = request.getParameter("keyword").trim();
+            keyword = removeExtraSpaces(keyword);
 
             if (keyword != null && !keyword.isEmpty()) {
                 BookDAO bookDAO = new BookDAO();
@@ -99,5 +130,11 @@ public class SearchController extends HttpServlet {
 
             response.sendRedirect(getServletContext().getContextPath() + SEARCH);
         }
+    }
+
+    private String removeExtraSpaces(String input) {
+        Pattern pattern = Pattern.compile("\\s+");
+        Matcher matcher = pattern.matcher(input);
+        return matcher.replaceAll(" ").trim();
     }
 }
