@@ -1,3 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.example.inkspired.dao.ShoppingCartDAO" %>
+<%@ page import="com.example.inkspired.model.ShoppingCart" %>
+<%@ page import="java.util.Optional" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -12,43 +16,56 @@
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand text-decoration-none"
-                   href="<%= request.getServletContext().getContextPath()%>/home">Inkspired Books</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false"
-                        aria-label="Toggle navigation"><span
-                        class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <form class="d-flex pe-lg-3">
-                        <button class="btn btn-outline-dark" type="submit">
+                <a class="navbar-brand" href="<%= request.getServletContext().getContextPath()%>/">Inkspired Books</a>
+                <div class="col-lg-6 col-6 offset-md-1 text-left"></div>
+
+                <div class="navbar justify-content-end" id="navbarSupportedContent">
+
+                    <form class="d-flex pe-lg-3 cart-form">
+                        <button class="btn btn-outline-dark"
+                                type="button"
+                                onclick="location.href
+                                        = 'http://localhost:8080' +
+                                        '<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}'; ">
                             <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            <%--                            <a href="<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}">Cart</a>--%>
+                            <span>Cart</span>
+                            <span class="badge bg-dark text-white ms-1 rounded-pill">
+                                                <%
+                                                    ShoppingCartDAO scDao = new ShoppingCartDAO();
+                                                    int cartid = Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue());
+                                                    Optional<ShoppingCart> cart = scDao.get(cartid);
+                                                    String quantity = String.valueOf(cart.get().getQuantity());
+                                                    out.print(quantity);
+                                                %>
+                                            </span>
                         </button>
                     </form>
-                    <div class="dropdown">
-                        <button
-                                class="btn btn-outline-dark dropdown-toggle"
-                                type="button"
-                                id="dropdownMenuButton"
-                                data-mdb-toggle="dropdown"
-                                aria-expanded="false"
-                        >
-                            Account
+
+                    <div class="dropdown account-dropdown">
+                        <button class="btn btn-outline-dark dropdown-toggle" type="button"
+                                id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
+
+                            <i class="bi-person-fill"></i>
+                            <span>Account</span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="item-dropdown" href="<%=request.getServletContext().getContextPath()%>/user">User
+                            <li><a class="item-dropdown"
+                                   href="<%= request.getServletContext().getContextPath()%>/user">User
                                 Information</a></li>
-                            <li><a class="item-dropdown" href="orderHistory.jsp">Order History</a></li>
-                            <li><a class="item-dropdown" href="reviewHistory.jsp">Review History</a></li>
+                            <li><a class="item-dropdown"
+                                   href="<%= request.getServletContext().getContextPath()%>/order">Order History</a>
+                            </li>
+                            <li><a class="item-dropdown" href="#">Review History</a></li>
                             <li>
                                 <div class="dropdown-divider"></div>
                             </li>
                             <li><a class="item-dropdown"
-                                   href="<%=request.getServletContext().getContextPath()%>/logout">Logout</a></li>
+                                   href="<%= request.getServletContext().getContextPath()%>/logout">Logout</a>
+                            </li>
                         </ul>
                     </div>
+
                 </div>
             </div>
         </nav>
@@ -68,7 +85,8 @@
                         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                             <div class="card-body p-4 p-md-5">
                                 <h3 class="mb-4 pb-1 pb-md-0 mb-md-5">Account information</h3>
-                                <form method="POST" action="<%=request.getServletContext().getContextPath()%>/user" enctype="multipart/form-data">
+                                <form method="POST" action="<%=request.getServletContext().getContextPath()%>/user"
+                                      enctype="multipart/form-data">
                                     <div class="row d-flex align-items-center pt-3 pb-3 d-flex align-items-center pb-2"
                                          id="infoItem_Picture">
                                         <div class="mb-0 title col-md-3 h6 h6">Profile picture</div>
@@ -80,20 +98,29 @@
                                         </div>
                                         <input type="file" id="img" name="upload" hidden disabled>
                                         <label for="img" class="col-md-2 h100">
-                                            <img id="profileImage" width="100" height="100" class="rounded-circle" style="object-fit: cover"
-<%--                                                 src="https://dummyimage.com/100x100/000/fff" alt="profileImage">--%>
+                                            <img id="profileImage" width="100" height="100" class="rounded-circle"
+                                                 style="object-fit: cover"
+                                            <%--                                                 src="https://dummyimage.com/100x100/000/fff" alt="profileImage">--%>
                                                  src="${sessionScope.userInfo.getUser_image()}"
                                                  alt="${sessionScope.userInfo.getUsername()} photo">
-                                            <input name="image" value="${sessionScope.userInfo.getUser_image()}" hidden/>
+                                            <input name="image" value="${sessionScope.userInfo.getUser_image()}"
+                                                   hidden/>
                                         </label>
-
+                                        <c:choose>
+                                            <c:when test="${sessionScope.FILESIZEEXCEEDED == true}">
+                                                <span id="errorimage" class="text-danger">The photo uploaded must be less than 5MB.</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span id="errorimage" class="text-danger"></span>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                     <hr class="my-0">
                                     <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Username">
                                         <label for="info_username" class="mb-0 title col-md-3 h6">Username</label>
                                         <input class="mb-0 description col-md-6" type="text" id="info_username"
                                                name="username" value="${sessionScope.userInfo.getUsername()}"
-                                               placeholder="Username" readonly/>
+                                               placeholder="Username" disabled readonly/>
                                         <div class="col-md-3">
                                             &nbsp;
                                         </div>
@@ -103,7 +130,7 @@
                                         <label for="info_email" class="mb-0 title col-md-3 h6">Email</label>
                                         <input class="mb-0 description col-md-6" type="text" id="info_email"
                                                name="email" value="${sessionScope.userInfo.getEmail_address()}"
-                                               placeholder="Email" readonly/>
+                                               placeholder="Email" disabled readonly/>
                                         <div class="col-md-3">
                                             &nbsp;
                                         </div>
@@ -117,6 +144,7 @@
                                         <div class="col-md-3">
                                             &nbsp;
                                         </div>
+                                        <span id="errorfullname" class="text-danger"></span>
                                     </div>
                                     <hr class="my-0">
                                     <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Gender">
@@ -143,6 +171,7 @@
                                         <div class="col-md-3">
                                             &nbsp;
                                         </div>
+                                        <span id="errorgender" class="text-danger"></span>
                                     </div>
                                     <hr class="my-0">
                                     <div class="row d-flex align-items-center pt-3 pb-3" id="infoItem_Birthdate">
@@ -154,6 +183,7 @@
                                         <div class="col-md-3">
                                             &nbsp;
                                         </div>
+                                        <span id="errorbirthdate" class="text-danger"></span>
                                     </div>
 
                                     <hr class="my-0">
@@ -165,19 +195,21 @@
                                         <div class="col-md-3">
                                             &nbsp;
                                         </div>
+                                        <span id="errorphone" class="text-danger"></span>
                                     </div>
 
                                     <div class="row d-flex">
                                         <div class="col-md-2 col-sm-6 mt-4 pt-2 pe-0 me-md-0">
-                                            <input class="btn btn-outline-dark btn-lg" type="submit" value="Submit"/>
+                                            <input class="submit btn btn-outline-dark btn-lg" type="submit"
+                                                   value="Submit" disabled/>
                                         </div>
                                         <div class="col-md-2 col-sm-6 mt-4 pt-2 px-0">
-                                            <button type="button" class="btn btn-outline-dark btn-lg"
+                                            <button type="button" class="edit btn btn-outline-dark btn-lg"
                                                     onclick="toggleEditing()">Edit
                                             </button>
                                         </div>
                                         <div class="col-md-2 col-sm-6 mt-4 pt-2 px-0">
-                                            <button type="button" class="btn btn-outline-dark btn-lg"
+                                            <button type="reset" class="cancel btn btn-outline-dark btn-lg"
                                                     id="cancel"
                                                     onclick="cancelEditing()"
                                                     style="display: none"
@@ -193,7 +225,8 @@
             </div>
         </section>
         <!-- Footer-->
-        <%@include file="footer.jsp"%>
+        <%@include file="footer.jsp" %>
+        <script src="js/Validation/AccountValidate.js"></script>
         <script src="js/toggle-edit.js"></script>
     </body>
 </html>

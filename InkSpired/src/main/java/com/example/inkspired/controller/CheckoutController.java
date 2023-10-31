@@ -100,46 +100,47 @@ public class CheckoutController extends HttpServlet {
                 session.setAttribute("BOOKSORDERLIST", od);
 
                 request.getRequestDispatcher("./checkout.jsp").forward(request, response);
-            } catch (Exception e) {
+            } catch (NullPointerException npe) {
                 response.sendRedirect(getServletContext().getContextPath() + HOME);
             }
         } else {
-            BookDAO bDao = new BookDAO();
-            String operator = request.getParameter("operator");
-            int bookid = Integer.parseInt(request.getParameter("bookid"));
-            boolean isChecked = Boolean.parseBoolean(request.getParameter("isChecked"));
-            Book book = bDao.get(bookid).get();
+            try {
+                BookDAO bDao = new BookDAO();
+                String operator = request.getParameter("operator");
+                int bookid = Integer.parseInt(request.getParameter("bookid"));
+                boolean isChecked = Boolean.parseBoolean(request.getParameter("isChecked"));
+                Book book = bDao.get(bookid).get();
 
-            if (isChecked) {
-                if (operator.equals("-")) {
-                    for (int i = 0; i < booksChecked.size(); i++) {
-                        if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
-                            booksChecked.remove(i);
-                            break;
+                if (isChecked) {
+                    if (operator.equals("-")) {
+                        for (int i = 0; i < booksChecked.size(); i++) {
+                            if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
+                                booksChecked.remove(i);
+                                break;
+                            }
                         }
-                    }
 
-                    boolean isFound = false;
-                    for (int i = 0; i < booksChecked.size(); i++) {
-                        if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
-                            isFound = true;
+                        boolean isFound = false;
+                        for (int i = 0; i < booksChecked.size(); i++) {
+                            if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
+                                isFound = true;
+                            }
                         }
-                    }
 
-                    if (!isFound) {
+                        if (!isFound) {
+                            booksChecked.add(book);
+                        }
+                    } else {
                         booksChecked.add(book);
                     }
                 } else {
-                    booksChecked.add(book);
-                }
-            } else {
-                for (int i = 0; i < booksChecked.size(); i++) {
-                    if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
-                        booksChecked.remove(i);
-                        --i;
+                    for (int i = 0; i < booksChecked.size(); i++) {
+                        if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
+                            booksChecked.remove(i);
+                            --i;
+                        }
                     }
                 }
-            }
 
 // Uncomment to test in console
 //        for (Book b: booksChecked) {
@@ -147,12 +148,15 @@ public class CheckoutController extends HttpServlet {
 //        }
 //        System.out.println("------");
 
-            int subtotal = 0;
-            for (Book b : booksChecked) {
-                subtotal += b.getPrice();
-            }
+                int subtotal = 0;
+                for (Book b : booksChecked) {
+                    subtotal += b.getPrice();
+                }
 
-            response.getWriter().write(subtotal + "");
+                response.getWriter().write(subtotal + "");
+            } catch (NumberFormatException nfe) {
+                response.sendRedirect(getServletContext().getContextPath() + HOME);
+            }
         }
     }
 

@@ -24,6 +24,8 @@ import jakarta.servlet.http.Part;
         maxFileSize = 1024 * 1024 * 5, // 5 MB
         maxRequestSize = 1024 * 1024 * 10) // 100 MB
 public class UserController extends HttpServlet {
+
+    private static final String HOME = "/";
     private static final String USER = "/user";
 
     /**
@@ -55,15 +57,19 @@ public class UserController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String path = request.getRequestURI();
+        HttpSession session = request.getSession();
 
         UserDAO userDAO = new UserDAO();
-        HttpSession session = null;
-        session = request.getSession();
         Cookie cookie = (Cookie) session.getAttribute("userCookie");
-        String cookieValue = cookie.getValue();
-        User user = userDAO.get(Integer.parseInt(cookieValue)).get();
-        session.setAttribute("userInfo", user);
-        request.getRequestDispatcher("/account.jsp").forward(request, response);
+        try {
+            String cookieValue = cookie.getValue();
+            User user = userDAO.get(Integer.parseInt(cookieValue)).get();
+            session.setAttribute("userInfo", user);
+            request.getRequestDispatcher("/account.jsp").forward(request, response);
+        } catch (NullPointerException npe) {
+            response.sendRedirect(getServletContext().getContextPath() + HOME);
+        }
     }
 
     /**
@@ -111,11 +117,16 @@ public class UserController extends HttpServlet {
 
             System.out.println(realPath + "/" + fileName);
             part.write(realPath + "/" + fileName);
-        } catch (Exception e) {
+        } catch (IllegalStateException ise) {
+            System.out.println("Upload failed");
+            session.setAttribute("FILESIZEEXCEEDED", true);
+            response.sendRedirect(getServletContext().getContextPath() + USER);
+            return;
         }
 
         UserDAO uDao = new UserDAO();
         User user = new User(username, fullname, gender, email_address, birthdate, phone_number, user_image);
+        session.setAttribute("FILESIZEEXCEEDED", false);
 
         if (uDao.update(user_id, user)) {
             System.out.println("Upload success");
