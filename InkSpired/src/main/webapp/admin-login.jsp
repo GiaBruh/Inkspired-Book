@@ -72,8 +72,9 @@
                         </div>
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="form-check m-0">
-                                <a href="forgot-password.html"
-                                   class="text-blue text-decoration-underline">Forget my password?</a>
+                                <a
+                                   class="text-blue text-decoration-underline"
+                                   data-bs-toggle="modal" data-bs-target="#emailVerification">Forgot password?</a>
                             </div>
 
                         </div>
@@ -100,6 +101,62 @@
     </div>
 </div>
 <!-- Container end -->
-</body>
+<!-- Modal -->
+<div class="modal fade" id="emailVerification" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header gradient-custom">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <a class="text-primary text-decoration-none" href="admin-reset.jsp">
+                        Forgot password?
+                    </a>
+                </h5>
+                <button type="button" class="btn-close btn-outline-light" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-4">
+                    <p>
+                        Please enter your email address and we will send you a verification code.
+                    </p>
+                </div>
+                <div class="col-md-12 mb-4">
+                    <div class="form-outline">
+                        <div>
+                            <input type="email" id="emailAddress" class="form-control form-control-lg" placeholder="Your email goes here!" required />
+                            <div class="invalid-feedback">
+                                Invalid email, please enter a valid email address.
+                            </div>
+                            <div class="valid-feedback">
+                                Correct email, a verification code has been sent. Please check your email.
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <input type="text" id="verificationCode" class="form-control form-control-lg" placeholder="Verification code goes here!" required style="display: none"/>
+                            <div class="invalid-feedback">
+                                Wrong verification code, please enter it again.
+                            </div>
+                            <div class="valid-feedback">
+                                Correct verification code.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="sendVerificationCode" class="btn btn-outline-dark" onclick="sendVerificationCode()">Send verification code</button>
+                <div class="btn-group" style="display: none" id="buttonGroup">
+                    <button type="button" id="resendVerificationCode" class="btn btn-outline-dark" onclick="resendVerificationCode()" style="display: none">Resend code</button>
+                    <button type="button" id="verifyVerificationCode" class="btn btn-outline-dark" onclick="verifyVerificationCode()" style="display: none">Verify code</button>
+                </div>
+                <form action="<%= request.getServletContext().getContextPath() %>/admin/reset" id="redirectButtonGroup" style="display: none">
+                    <button type="submit" id="redirectButton" class="btn btn-outline-dark" style="display: none">Reset password</button>
+                </form>
+            </div>
+        </div>
 
+    </div>
+</div>
+</body>
+<script src="js/admin-password-forgot.js"></script>
 </html>
