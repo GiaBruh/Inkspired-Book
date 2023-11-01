@@ -54,9 +54,11 @@
                                                                  style="height: 170px;">
                                                         </td>
                                                         <td>
-                                                            <a onclick="return confirm('Click this link without placing order might cancel the current checkout session' +
+                                                            <a
+                                                                    class="btn btn-block btn-outline-dark"
+                                                                    onclick="return confirm('Click this link without placing order might cancel the current checkout session' +
                                                                      '\nDo you wish to continue?')"
-                                                               href="<%= request.getServletContext().getContextPath()%>/book?bookid=${orderdetail.getBook_id()}">${orderdetail.getTitle()}</a>
+                                                                    href="<%= request.getServletContext().getContextPath()%>/book?bookid=${orderdetail.getBook_id()}">${orderdetail.getTitle()}</a>
                                                         </td>
                                                         <td class="align-middle">
                                                         <span class="price"><fmt:formatNumber

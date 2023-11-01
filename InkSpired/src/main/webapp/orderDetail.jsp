@@ -41,7 +41,9 @@
                                          style="height: 170px;">
                                 </td>
                                 <td>
-                                    <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${orderdetail.getBook_id()}">${orderdetail.getTitle()}</a>
+                                    <a
+                                            class="btn btn-block btn-outline-dark"
+                                            href="<%= request.getServletContext().getContextPath()%>/book?bookid=${orderdetail.getBook_id()}">${orderdetail.getTitle()}</a>
                                 </td>
                                 <td class="align-middle">
                                                         <span class="price"><fmt:formatNumber
