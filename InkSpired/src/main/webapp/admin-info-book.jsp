@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>List of book</title>
+    <title>Book information</title>
 
     <!-- Meta -->
     <meta name="author" content="Vinh" />
@@ -81,7 +81,9 @@
 
                                         <p class="fs-4">Date Publish: ${book.publication_date}</p>
                                         <p class="fs-4">Quantity: ${book.quantity}</p>
-                                        <p class="fs-4">Price: ${book.price}</p>
+                                        <p class="fs-4">Price:
+                                        <fmt:formatNumber  value="${book.getPrice()}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB
+                                        </p>
                                         <p class="fs-4">Publisher: ${book.publisher_name}</p>
                                         <p class="fs-4">Author: ${book.author_fullname}</p>
                                         <p class="fs-4">Category: ${book.category_name}</p>
@@ -101,12 +103,12 @@
                                 <div class="d-flex gap-2 justify-content-end">
                                     <a class="btn btn-outline-primary" href="<%= request.getContextPath() %>/admin/table-book">Go Back</a>
                                     <button class="btn btn-primary" onclick="editBook()">Edit</button>
-                                    <a class="btn btn-danger" href="<%=request.getContextPath()%>/admin/delete-book?book_id=${book.book_id}">Delete</a>
+<%--                                    <a class="btn btn-danger" href="<%=request.getContextPath()%>/admin/delete-book?book_id=${book.book_id}" onclick="return confirm('Are you sure you want to delete this book?')">Delete</a>--%>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card shadow mb-4" id="updateForm" style="display: none;" >
+                        <div class="card shadow mb-4" id="updateForm" style="display: none" >
                             <div class="card-header">
                                 <h5 class="card-title">Update Book</h5>
                             </div>
@@ -125,20 +127,20 @@
                                     <div class="col-lg-3 col-sm-4 col-12">
                                         <div class="mb-3">
                                             <label class="form-label">Book Title</label>
-                                            <input class="form-control" type="text" id="title" name="title" value="${book.title}" required>
+                                            <input class="form-control" type="text" id="title" name="title" value="${book.title}" >
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-4 col-12">
                                         <div class="mb-3">
                                             <label class="form-label">Date Publish</label>
                                             <fmt:formatDate var="formattedDate" value="${book.publication_date}" pattern="yyyy-MM-dd" />
-                                            <input class="form-control" type="date" id="date" name="date" value="${formattedDate}" required>
+                                            <input class="form-control" type="date" id="date" name="date" value="${formattedDate}" >
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-4 col-12">
                                         <div class="mb-3">
                                             <label class="form-label">Quantity</label>
-                                            <input class="form-control" type="number" id="quantity" name="quantity" value="${book.quantity}" min="0" required>
+                                            <input class="form-control" type="number" id="quantity" name="quantity" value="${book.quantity}" >
                                         </div>
                                     </div>
 
@@ -152,15 +154,15 @@
                                             <label class="form-label">Price</label>
                                             <div class="input-group">
 
-                                            <input class="form-control" type="number" id="price" name="price" value="${book.price}" min="0" required>
-                                            <span class="input-group-text">VND</span>
+                                                <input class="form-control" type="number" id="price" name="price" value="${book.price}"  >
+                                            <span class="input-group-text">&#x20AB</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-4 col-12">
                                         <div class="mb-3">
                                             <label class="form-label">Publisher</label>
-                                            <select class="form-select" name="publisherId">
+                                            <select class="form-select" name="publisherId" id="publisherSelect">
 <%--                                                <option value="">Select a Publisher</option>--%>
                                                 <c:forEach var="publisher" items="${publishers}">
                                                     <option value="${publisher.publisher_id}"
@@ -174,7 +176,7 @@
                                     <div class="col-lg-3 col-sm-4 col-12">
                                         <div class="mb-3">
                                             <label class="form-label">Image</label>
-                                            <input class="form-control" type="file" id="upload" name="upload" onchange="loadFile(event)" required>
+                                            <input class="form-control" type="file" id="upload" name="upload" onchange="loadFile(event)"  >
                                         </div>
                                     </div>
 
@@ -197,7 +199,7 @@
                                     <div class="col-sm-6 col-12">
                                         <div class="mb-3">
                                             <label class="form-label">Description</label>
-                                            <textarea type="text" class="form-control" id="description" name="description" placeholder="Please add some description" rows="5" required><c:out value="${book.book_description}"/></textarea>
+                                            <textarea type="text" class="form-control" id="description" name="description" placeholder="Please add some description" rows="5" ><c:out value="${book.book_description}"/></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-4 col-12">
@@ -207,7 +209,7 @@
                                                 Review
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <img id="output" src="<%= request.getContextPath() %>/${book.book_image}" style="width: 200px; height: auto;" />
+                                                <img id="output" src="<%= request.getContextPath() %>/${book.book_image}" style="max-width: 100%; height: auto;" />
                                             </div>
 
                                         </div>
@@ -228,7 +230,7 @@
                                             <input class="form-control" type="text" id="authorSearch" placeholder="Search Authors" onkeyup="filterAuthors()">
                                         <!-- Loop over all authors -->
 
-                                            <div class="checkbox-container mt-1" style="width: 270px; height: 100px; overflow-y: scroll;">
+                                            <div class="checkbox-container mt-1" style="max-width: 100%; height: 100px; overflow-y: scroll;">
                                                 <%
                                                     String[] bookAuthors = book.getAuthor_fullname().split(", ");
                                                     Set<String> bookAuthorSet = new HashSet<>(Arrays.asList(bookAuthors));
@@ -270,20 +272,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                                    <script>
-                                        $(document).ready(function() {
-                                            $("#submitButton").click(function(event) {
-                                                var checkedCategories = $('input[type="checkbox"][name="categoryIds"]:checked').length > 0;
-                                                var checkedAuthors = $('input[type="checkbox"][name="authorIds"]:checked').length > 0;
 
-                                                if (!checkedCategories || !checkedAuthors) {
-                                                    alert("Please select at least one category or one author.");
-                                                    event.preventDefault(); // Prevent the default form submission behavior
-                                                }
-                                            });
-                                        });
-                                    </script>
 
 
                                 </div>
@@ -294,17 +283,172 @@
                             <div class="card-footer">
                                 <div class="d-flex gap-2 justify-content-end">
                                     <a class="btn btn-outline-info" onclick="cancelEdit()">Cancel</a>
-                                    <button id="submitButton" type="submit" class="btn btn-primary" name="updateBookSubmit" value="Update Book">
+                                    <button class="btn btn-primary">
                                         Update
                                     </button>
-                                    <a class="btn btn-danger" href="<%=request.getContextPath()%>/admin/delete-book?book_id=${book.book_id}">Delete</a>
+<%--                                    <a class="btn btn-danger" href="<%=request.getContextPath()%>/admin/delete-book?book_id=${book.book_id}" onclick="return confirm('Are you sure you want to delete this book?')">Delete</a>--%>
                                 </div>
                             </div>
+
+                                <div class="modal fade" id="exampleModalCenter2" tabindex="-1"
+                                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalCenterTitle2">
+                                                    Warning
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h4>Are you sure to update this book?</h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button id="submitButton" type="submit" class="btn btn-primary" name="updateBookSubmit" value="Update Book">
+                                                    Update Book
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                             </c:if>
                         </div>
                     </div>
                 </div>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                    function showError(message) {
+                        $('.modal-body p').text(message);
+                        $('#exampleModalCenter').modal('show');
+                    }
+
+
+
+                    $(document).ready(function() {
+                        $('form').submit(function(event) {
+                            // Check for empty fields
+                            if (!$('#title').val() || !$('#date').val() || !$('#quantity').val() || !$('#price').val()) {
+                                showError('Please fill in all fields.');
+                                event.preventDefault();
+                                return;
+                            }
+
+
+
+                            // Date validation
+                            var selectedDate = new Date($('#date').val());
+                            var currentDate = new Date();
+                            if (selectedDate > currentDate) {
+                                showError('Selected date should not be in the future.');
+                                event.preventDefault();
+                                return;
+                            }
+                            if ($('#publisherId').val() === 'none') {
+                                showError('Please select a Publisher.');
+                                event.preventDefault();
+                                return;
+                            }
+
+                            // Price and Quantity range
+                            var price = parseFloat($('#price').val());
+                            var quantity = parseInt($('#quantity').val());
+                            if (quantity < 1 || quantity > 1200) {
+                                showError('Please input quantity should between 1 and 1200.');
+                                event.preventDefault();
+                                return;
+                            }
+                            if (price < 1000 || price > 10000000) {
+                                showError('Price should be between 1000 and 10000000.');
+                                event.preventDefault();
+                                return;
+                            }
+
+                            // Handling empty spaces
+                            if ($.trim($('#title').val()) === '' || $.trim($('#date').val()) === '') {
+                                showError('Please enter valid values, not just empty spaces.');
+                                event.preventDefault();
+                                return;
+                            }
+
+                            const upload = document.getElementById("upload");
+                            const fileName = upload.value;
+                            // Check the file extension for image upload
+                            if (!/\.(jpg|jpeg|png|jfif)$/i.test(fileName)) {
+                                showError("Please upload a image file (jpg, png, jfif).");
+                                event.preventDefault();
+                                return;
+                            }
+
+                            const availableRadioButtons = document.querySelectorAll("input[type=radio][name=available]:checked");
+                            if (availableRadioButtons.length === 0) {
+                                showError("Please select 'Yes' or 'No' for availability.");
+                                event.preventDefault();
+                                return;
+                            }
+
+                            const checkboxes = document.querySelectorAll("input[name=authorIds]:checked");
+                            if (checkboxes.length === 0) {
+                                showError("Please select at least one author.");
+                                event.preventDefault();
+                                return;
+                            }
+
+                            const checkboxes2 = document.querySelectorAll("input[name=categoryIds]:checked");
+                            if (checkboxes2.length === 0) {
+                                showError("Please select at least one category.");
+                                event.preventDefault();
+                                return;
+                            }
+
+                            // Confirmation dialog
+                            event.preventDefault(); // Prevent form submission for now
+                            $('#exampleModalCenter2').modal('show');
+
+                        });
+
+                        // Confirmation dialog for reset
+                        $('button[type="reset"]').click(function() {
+                            if (!confirm('Are you sure you want to reset the form?')) {
+                                return false;
+                            }
+                        });
+                        $('#submitButton').click(function () {
+                            // If the user confirms in the modal, allow the form submission
+                            $('form').off('submit'); // Remove the previous submit event handler
+                            $('form').submit(); // Submit the form
+                        });
+                    });
+
+                </script>
+
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1"
+                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenterTitle">
+                                    Warning
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>[text about here]</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Close
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
 
 
             </div>
@@ -312,7 +456,7 @@
 
             <!-- App footer start -->
             <div class="app-footer">
-                <span>© Bootstrap Gallery 2023</span>
+                <span>Copyright INKSPIRED BOOKS 2023, always reserved.</span>
             </div>
             <!-- App footer end -->
 
