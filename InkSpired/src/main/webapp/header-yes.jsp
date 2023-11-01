@@ -283,7 +283,15 @@
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
-                        <a href="login.jsp" class="nav-item nav-link"> Customer Login</a>
+<%--                        <a href="login.jsp" class="nav-item nav-link">Customer Login</a>--%>
+                        <form class="d-flex login-form" method="POST"
+                              action="<%= request.getServletContext().getContextPath()%>/login">
+                            <button class="btn nav-item nav-link" type="submit" name="btnLogin"
+                                    value="Login">
+                                <i class="bi-person-fill"></i>
+                                <span>Customer Login</span>
+                            </button>
+                        </form>
                         <a href="" class="nav-item nav-link">Admin Login</a>
                     </div>
                 </div>
