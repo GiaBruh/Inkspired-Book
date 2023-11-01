@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @WebServlet(name = "AuthorController", value = "/author")
@@ -50,21 +51,25 @@ public class AuthorController extends HttpServlet {
         // request.getSession().getAttribute("BOOKINFO");
         // System.out.println(book.get().getBook_id());
         String path = request.getRequestURI();
-        int authorid = Integer.parseInt(request.getParameter("authorid"));
-        AuthorDAO aDao = new AuthorDAO();
-        BookDAO bDAO = new BookDAO();
-        Optional<Author> author = aDao.get(authorid);
+        try {
+            int authorid = Integer.parseInt(request.getParameter("authorid"));
+            AuthorDAO aDao = new AuthorDAO();
+            BookDAO bDAO = new BookDAO();
+            Optional<Author> author = aDao.get(authorid);
 //        if(!author.isPresent()) {
 //             response.sendRedirect(getServletContext().getContextPath() + "/");
 //        }
-        String authorName = author.get().getAuthor_fullname();
-        List<Book> booksByAuthor = bDAO.searchByAuthor(authorName);
-        // HttpSession session = request.getSession();
-        request.setAttribute("AUTHORINFO", author);
-        request.setAttribute("BOOKSBYAUTHOR", booksByAuthor);
+            String authorName = author.get().getAuthor_fullname();
+            List<Book> booksByAuthor = bDAO.searchByAuthor(authorName);
+            // HttpSession session = request.getSession();
+            request.setAttribute("AUTHORINFO", author);
+            request.setAttribute("BOOKSBYAUTHOR", booksByAuthor);
 
-        if (path.startsWith("/InkSpired/author")) {
-            request.getRequestDispatcher("/author.jsp").forward(request, response);
+            if (path.startsWith("/InkSpired/author")) {
+                request.getRequestDispatcher("/author.jsp").forward(request, response);
+            }
+        }catch (NoSuchElementException e) {
+            response.sendRedirect(getServletContext().getContextPath() + "/404NotFound");
         }
     }
 

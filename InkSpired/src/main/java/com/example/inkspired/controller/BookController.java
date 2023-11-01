@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @WebServlet(name = "BookController", value = "/book")
@@ -44,31 +45,33 @@ public class BookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getRequestURI();
+        try {
+            int bookid = Integer.parseInt(request.getParameter("bookid"));
+            BookDAO bDao = new BookDAO();
+            Optional<Book> book = bDao.get(bookid);
+            List<Author> authors = bDao.getBookAuthors(bookid);
+            Publisher publisher = bDao.getPublisher(book.get().getPublisher_id());
+            List<Book> booksByPublisher = bDao.searchByPublisher(publisher.getPublisher_id());
 
-        int bookid = Integer.parseInt(request.getParameter("bookid"));
-        BookDAO bDao = new BookDAO();
-        Optional<Book> book = bDao.get(bookid);
-        List<Author> authors = bDao.getBookAuthors(bookid);
-        Publisher publisher = bDao.getPublisher(book.get().getPublisher_id());
-        List<Book> booksByPublisher = bDao.searchByPublisher(publisher.getPublisher_id());
+            HttpSession session = request.getSession();
+            session.setAttribute("BOOKINFO", book);
+            request.setAttribute("AUTHORLIST", authors);
+            request.setAttribute("PUBLISHERINFO", publisher);
+            request.setAttribute("BOOKSBYPUBLISHER", booksByPublisher);
 
-        HttpSession session = request.getSession();
-        session.setAttribute("BOOKINFO", book);
-        request.setAttribute("AUTHORLIST", authors);
-        request.setAttribute("PUBLISHERINFO", publisher);
-        request.setAttribute("BOOKSBYPUBLISHER", booksByPublisher);
-
-        if (((Cookie)session.getAttribute("userCookie")) != null) {
-            boolean isInCart = bDao.isInUserCart(Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue()), bookid);
-            if (isInCart) {
-                session.setAttribute("ISINCART", true);
-            } else {
-                session.setAttribute("ISINCART", false);
+            if (((Cookie) session.getAttribute("userCookie")) != null) {
+                boolean isInCart = bDao.isInUserCart(Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue()), bookid);
+                if (isInCart) {
+                    session.setAttribute("ISINCART", true);
+                } else {
+                    session.setAttribute("ISINCART", false);
+                }
             }
-        }
-
-        if (path.startsWith("/InkSpired/book")) {
-            request.getRequestDispatcher("/book.jsp").forward(request, response);
+            if (path.startsWith("/InkSpired/book")) {
+                request.getRequestDispatcher("/book.jsp").forward(request, response);
+            }
+        } catch (NoSuchElementException e) {
+            response.sendRedirect(getServletContext().getContextPath() + "/404NotFound");
         }
     }
 
