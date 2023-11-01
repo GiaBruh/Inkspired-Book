@@ -220,6 +220,8 @@
     <title>Login and Register</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300, 400, 500" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <link rel="stylesheet" href="css/login.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 </head>
 <body>
@@ -266,20 +268,57 @@
             </div>
             <div class="user_forms-signup">
                 <h2 class="forms_title">Register</h2>
-                <form class="forms_form">
-                    <fieldset class="forms_fieldset">
-                        <div class="forms_field">
-                            <input type="text" placeholder="Full Name" class="forms_field-input" required />
-                        </div>
-                        <div class="forms_field">
-                            <input type="email" placeholder="Email" class="forms_field-input" required />
-                        </div>
-                        <div class="forms_field">
-                            <input type="password" placeholder="Password" class="forms_field-input" required />
-                        </div>
-                    </fieldset>
-                    <div class="forms_buttons">
-                        <input type="submit" value="Register" class="forms_buttons-action">
+                <form class="forms_form" method="POST"
+                      action="<%= request.getServletContext().getContextPath()%>/register">
+                    <div class="row col-lg-12">
+                        <fieldset class="forms_fieldset col-lg-6 col-md-12">
+                            <div class="forms_field">
+                                <input type="text" id="username" class="forms_field-input"
+                                       name="username" placeholder="Username" required/>
+                            </div>
+                            <div class="forms_field">
+                                <input type="password" id="password"
+                                       class="forms_field-input"
+                                       name="password" placeholder="Password" required/>
+                            </div>
+                            <div class="forms_field">
+                                <input type="text" id="fullname"
+                                       class="forms_field-input"
+                                       name="fullname" placeholder="Full Name" required/>
+                            </div>
+                            <div class="forms_field">
+                                <input type="date" class="forms_field-input"
+                                       id="birthdayDate"
+                                       name="birthdate" placeholder="Birthdate" required/>
+                            </div>
+                        </fieldset>
+                        <fieldset class="forms_fieldset col-lg-6 col-md-12">
+                            <div class="forms_field">
+                                <label class="forms_field-input">Gender</label>
+                                <div class="pt-4 text-center">
+                                    <label><input type="radio" name="gender" value="male"> Male</label>
+                                    <label><input type="radio" name="gender" value="female"> Female</label>
+                                    <label><input type="radio" name="gender" value="other"> Other</label>
+                                </div>
+                            </div>
+                            <div class="forms_field">
+                                <input type="text" id="emailAddress"
+                                       class="forms_field-input"
+                                       name="email"
+                                       placeholder="Email Address" required
+                                />
+                            </div>
+                            <div class="forms_field">
+                                <input type="tel" id="phoneNumber"
+                                       class="forms_field-input"
+                                       name="phone"
+                                       placeholder="Phone Number" required
+                                />
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="forms_buttons justify-content-center pb-md-5">
+                        <input type="submit" value="Submit" name="btnSubmit" class="forms_buttons-action">
                     </div>
                 </form>
             </div>
