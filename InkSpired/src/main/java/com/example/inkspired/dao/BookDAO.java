@@ -34,7 +34,7 @@ public class BookDAO implements DAO<Book> {
     @Override
     public List<Book> getAll() {
         ArrayList<Book> result = new ArrayList<>();
-        String query = "SELECT * FROM book";
+        String query = "SELECT * FROM book where is_available = true";
 
         try {
             ps = conn.prepareStatement(query);

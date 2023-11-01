@@ -61,7 +61,7 @@ public class UserDAO implements DAO<User> {
     }
 
     public boolean login(User u) throws SQLException {
-        String query = "SELECT * FROM public.user WHERE username = ? and password = ?";
+        String query = "SELECT * FROM public.user WHERE username = ? and password = ? and user_status = true";
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, u.getUsername());
