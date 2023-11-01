@@ -226,7 +226,11 @@
                     <c:forEach var="review" items="${requestScope.reviews}">
                         <div class="row">
                             <div class="col-1">
-                                <img src="https://dummyimage.com/60x60/000/fff" alt="img">
+                                <img id="profileImage" width="60" height="60" class="rounded-circle"
+                                     style="object-fit: cover"
+                                    <%--                                                 src="https://dummyimage.com/100x100/000/fff" alt="profileImage">--%>
+                                     src="${review.getUser_image()}"
+                                     alt="${review.getUsername()} photo">
                             </div>
                             <div class="col-10">
                                 <p class="mb-0">

@@ -36,6 +36,7 @@ public class ReviewDAO {
                 review.setRating(rs.getInt("rating"));
                 review.setComment(rs.getString("comment"));
                 review.setUsername(getFullNameFromUserId(rs.getInt("user_id")));
+                review.setUser_image(getImageFromUserId(rs.getInt("user_id")));
                 result.add(review);
             }
         } catch (Exception e) {
@@ -61,6 +62,7 @@ public class ReviewDAO {
                 review.setRating(rs.getInt("rating"));
                 review.setComment(rs.getString("comment"));
                 review.setUsername(getFullNameFromUserId(rs.getInt("user_id")));
+                review.setUser_image(getImageFromUserId(rs.getInt("user_id")));
                 result.add(review);
             }
         } catch (Exception e) {
@@ -90,6 +92,26 @@ public class ReviewDAO {
         return result;
     }
 
+    public String getImageFromUserId(int id){
+        PreparedStatement psDumb = null;
+        ResultSet rsDumb = null;
+        String result = "Error";
+        String query = "Select * from public.user where id = ?";
+
+        try {
+            psDumb = conn.prepareStatement(query);
+            psDumb.setInt(1, id);
+            rsDumb = psDumb.executeQuery();
+
+            if (rsDumb.next()) {
+                result = rsDumb.getString("user_image");
+            }
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        return result;
+    }
     public boolean findBought(int userId, int bookId) {
         String query = "select public.order.user_id, order_detail.book_id, public.order.order_status " +
                 "from public.order " +

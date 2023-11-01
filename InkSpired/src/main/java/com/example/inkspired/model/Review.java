@@ -11,6 +11,7 @@ public class Review implements Serializable {
     private int rating;
     private String comment;
     private String username;
+    private String user_image;
     public Review() {
 
     }
@@ -78,6 +79,14 @@ public class Review implements Serializable {
         this.username = username;
     }
 
+    public String getUser_image() {
+        return user_image;
+    }
+
+    public void setUser_image(String user_image) {
+        this.user_image = user_image;
+    }
+
     @Override
     public String toString() {
         return "Review{" +
@@ -86,8 +95,9 @@ public class Review implements Serializable {
                 ", user_id=" + user_id +
                 ", ordered_book_id=" + ordered_book_id +
                 ", rating=" + rating +
-                ", comment='" + comment +
-                ", username='" + username + '\'' +
+                ", comment=" + comment +
+                ", username=" + username +
+                ", user_image=" + user_image+
                 '}';
     }
 }
