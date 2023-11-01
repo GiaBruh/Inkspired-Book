@@ -473,7 +473,7 @@ public class AdminController extends HttpServlet {
 
                 // Call methods to update the book in the database
                 BookDAO bookDAO = new BookDAO();
-                if  (bookDAO.doesBookExist(book.getBook_id())) {
+                if  (bookDAO.doesBookExist(book.getTitle())) {
 
                     HttpSession session = request.getSession();
                     session.setAttribute("errorMessage", "This book is already existed");
@@ -554,6 +554,13 @@ public class AdminController extends HttpServlet {
                 author.setAuthor_description(request.getParameter("author_description"));
 
                 AuthorDAO authorDAO = new AuthorDAO();
+                //check by author name
+                if (authorDAO.doesAuthorExist(author.getAuthor_fullname())) {
+
+                    HttpSession session = request.getSession();
+                    session.setAttribute("errorMessage", "This author is already existed");
+                    response.sendRedirect(request.getContextPath() + "/admin/add-author");
+                } else
                 {
 
                     authorDAO.add(author);

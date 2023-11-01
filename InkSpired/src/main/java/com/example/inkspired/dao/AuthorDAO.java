@@ -224,19 +224,21 @@ public class AuthorDAO implements DAO<Author> {
         return authors;
     }
 
-    public static void main(String[] args) {
-        AuthorDAO db = new AuthorDAO(); // Replace with your database class
-        List<Author> authors = db.getBooksByAuthor();
 
-        for (Author author : authors) {
-            System.out.println("Author ID: " + author.getAuthor_id());
-            System.out.println("Author Full Name: " + author.getAuthor_fullname());
-            System.out.println("Author Status: " + author.getAuthor_status());
-            System.out.println("Author Image: " + author.getAuthor_image());
-            System.out.println("Number of Books: " + author.getNumber_of_books());
-            System.out.println("-----------------------------");
+
+
+    public boolean doesAuthorExist(String authorFullname) {
+        String query = "SELECT * FROM public.author WHERE author_fullname = ?";
+        try{
+            ps = conn.prepareStatement(query);
+            ps.setString(1, authorFullname);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        }catch (Exception e){
+            Logger.getLogger(AuthorDAO.class.getName()).log(Level.SEVERE, null, e);
         }
+        return false;
     }
-
-
 }

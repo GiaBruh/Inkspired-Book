@@ -393,7 +393,7 @@ public class BookDAO implements DAO<Book> {
         ps.setBoolean(9, book.isAvailable());
         ps.executeUpdate();
     }
-    public boolean doesBookExist(int book_id) {
+    public boolean doesBookExist1(int book_id) {
         String query = "SELECT 1 FROM book WHERE book_id = ?";
         try {
             ps = conn.prepareStatement(query);
@@ -403,6 +403,21 @@ public class BookDAO implements DAO<Book> {
                 return true;
             }
         } catch (Exception e) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return false;
+    }
+
+    public boolean doesBookExist(String book_title){
+        String query = "SELECT 1 FROM book WHERE title = ?";
+        try{
+            ps = conn.prepareStatement(query);
+            ps.setString(1, book_title);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        }catch (Exception e){
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return false;
