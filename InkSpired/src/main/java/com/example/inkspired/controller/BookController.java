@@ -4,6 +4,8 @@ import com.example.inkspired.dao.BookDAO;
 import com.example.inkspired.model.Author;
 import com.example.inkspired.model.Book;
 import com.example.inkspired.model.Publisher;
+import com.example.inkspired.dao.ReviewDAO;
+import com.example.inkspired.model.Review;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -48,6 +50,7 @@ public class BookController extends HttpServlet {
         try {
             int bookid = Integer.parseInt(request.getParameter("bookid"));
             BookDAO bDao = new BookDAO();
+            ReviewDAO rDao = new ReviewDAO();
             Optional<Book> book = bDao.get(bookid);
             List<Author> authors = bDao.getBookAuthors(bookid);
             Publisher publisher = bDao.getPublisher(book.get().getPublisher_id());
@@ -66,6 +69,29 @@ public class BookController extends HttpServlet {
                 } else {
                     session.setAttribute("ISINCART", false);
                 }
+                boolean isBought = rDao.findBought(Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue()), bookid);
+                if (isBought) {
+                    session.setAttribute("isbought", true);
+                    Review userReview = rDao.findUserReview(Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue()), bookid);
+                    if (userReview != null) {
+                        session.setAttribute("isCom", true);
+                        session.setAttribute("userReview", userReview);
+                    } else {
+                        session.setAttribute("isCom", false);
+                    }
+                } else {
+                    session.setAttribute("isbought", false);
+                }
+                if (((Cookie)session.getAttribute("userCookie")) != null) {
+                    List<Review> reviews = rDao.getBookReview_User(bookid, Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue()));
+                    request.setAttribute("reviews", reviews);
+                } else {
+                    List<Review> reviews = rDao.getBookReview(bookid);
+                    request.setAttribute("reviews", reviews);
+                }
+                if (path.startsWith("/InkSpired/book")) {
+                    request.getRequestDispatcher("/book.jsp").forward(request, response);
+                }
             }
             if (path.startsWith("/InkSpired/book")) {
                 request.getRequestDispatcher("/book.jsp").forward(request, response);
@@ -73,6 +99,7 @@ public class BookController extends HttpServlet {
         } catch (NoSuchElementException e) {
             response.sendRedirect(getServletContext().getContextPath() + "/404NotFound");
         }
+
     }
 
     /**
