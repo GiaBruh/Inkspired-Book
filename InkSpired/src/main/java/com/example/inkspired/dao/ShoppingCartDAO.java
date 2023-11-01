@@ -103,13 +103,34 @@ public class ShoppingCartDAO implements DAO<ShoppingCart> {
         }
     }
 
+    private int getUserID(String username) {
+        int result = 0;
+        String query = "SELECT id FROM public.\"user\" WHERE username = ?";
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, username);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                result = rs.getInt("id");
+            }
+        } catch (Exception e) {
+            Logger.getLogger(ShoppingCartDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        return result;
+    }
+
     /**
      * Create new shopping cart when new account is registered
      */
-    public void cartRegister() {
-        String query = "INSERT INTO public.shopping_cart (quantity) VALUES (0)";
+    public void cartRegister(String username) {
+        int id = getUserID(username);
+        String query = "INSERT INTO public.shopping_cart VALUES (?, 0)";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
 
             ps.executeUpdate();
         } catch (Exception e) {

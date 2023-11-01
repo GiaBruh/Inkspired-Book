@@ -28,6 +28,7 @@ public class CheckoutController extends HttpServlet {
     private static final String HOME = "/";
     private static final String CHECKOUT = "/checkout";
     protected static Hashtable<Integer, Integer> booksOrder = null;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      *
@@ -61,80 +62,85 @@ public class CheckoutController extends HttpServlet {
 
         if (path.endsWith("/InkSpired/checkout")) {
 
-            List<OrderDetail> od = new ArrayList<>();
-            BookDAO bDao = new BookDAO();
-            booksOrder.forEach((key, quantity) -> {
-                String title = bDao.get(key).get().getTitle();
-                String book_image = bDao.get(key).get().getBook_image();
-                long price = bDao.get(key).get().getPrice();
-                od.add(new OrderDetail(key, title, book_image, price, 0, quantity));
-            });
+            try {
+                List<OrderDetail> od = new ArrayList<>();
+                BookDAO bDao = new BookDAO();
+                booksOrder.forEach((key, quantity) -> {
+                    String title = bDao.get(key).get().getTitle();
+                    String book_image = bDao.get(key).get().getBook_image();
+                    long price = bDao.get(key).get().getPrice();
+                    od.add(new OrderDetail(key, title, book_image, price, 0, quantity));
+                });
 
-            int subtotal = 0;
+                int subtotal = 0;
 
-            for (OrderDetail b : od) {
-                int quantity = b.getQuantity();
-                while(quantity != 0) {
-                    subtotal += b.getPrice();
+                for (OrderDetail b : od) {
+                    int quantity = b.getQuantity();
+                    while (quantity != 0) {
+                        subtotal += b.getPrice();
 
-                    --quantity;
+                        --quantity;
+                    }
                 }
+
+                session.setAttribute("SUBTOTAL", subtotal);
+
+                // Discount system
+                int totalDiscount = 0;
+                if (subtotal >= 600000) {
+                    totalDiscount = 30;
+                } else if (subtotal >= 400000) {
+                    totalDiscount = 20;
+                } else if (subtotal >= 300000) {
+                    totalDiscount = 10;
+                }
+
+                session.setAttribute("TOTALDISCOUNT", totalDiscount);
+
+                session.setAttribute("BOOKSORDERLIST", od);
+
+                request.getRequestDispatcher("./checkout.jsp").forward(request, response);
+            } catch (NullPointerException npe) {
+                response.sendRedirect(getServletContext().getContextPath() + HOME);
             }
-
-            session.setAttribute("SUBTOTAL", subtotal);
-
-            // Discount system
-            int totalDiscount = 0;
-            if (subtotal >= 600000) {
-              totalDiscount = 30;
-            } else if (subtotal >= 400000) {
-                totalDiscount = 20;
-            } else if (subtotal >= 300000) {
-                totalDiscount = 10;
-            }
-
-            session.setAttribute("TOTALDISCOUNT", totalDiscount);
-
-            session.setAttribute("BOOKSORDERLIST", od);
-
-            request.getRequestDispatcher("./checkout.jsp").forward(request, response);
         } else {
-            BookDAO bDao = new BookDAO();
-            String operator = request.getParameter("operator");
-            int bookid = Integer.parseInt(request.getParameter("bookid"));
-            boolean isChecked = Boolean.parseBoolean(request.getParameter("isChecked"));
-            Book book = bDao.get(bookid).get();
+            try {
+                BookDAO bDao = new BookDAO();
+                String operator = request.getParameter("operator");
+                int bookid = Integer.parseInt(request.getParameter("bookid"));
+                boolean isChecked = Boolean.parseBoolean(request.getParameter("isChecked"));
+                Book book = bDao.get(bookid).get();
 
-            if (isChecked) {
-                if (operator.equals("-")) {
-                    for (int i = 0; i < booksChecked.size(); i++) {
-                        if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
-                            booksChecked.remove(i);
-                            break;
+                if (isChecked) {
+                    if (operator.equals("-")) {
+                        for (int i = 0; i < booksChecked.size(); i++) {
+                            if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
+                                booksChecked.remove(i);
+                                break;
+                            }
                         }
-                    }
 
-                    boolean isFound = false;
-                    for (int i = 0; i < booksChecked.size(); i++) {
-                        if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
-                            isFound = true;
+                        boolean isFound = false;
+                        for (int i = 0; i < booksChecked.size(); i++) {
+                            if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
+                                isFound = true;
+                            }
                         }
-                    }
 
-                    if (!isFound) {
+                        if (!isFound) {
+                            booksChecked.add(book);
+                        }
+                    } else {
                         booksChecked.add(book);
                     }
                 } else {
-                    booksChecked.add(book);
-                }
-            } else {
-                for (int i = 0; i < booksChecked.size(); i++) {
-                    if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
-                        booksChecked.remove(i);
-                        --i;
+                    for (int i = 0; i < booksChecked.size(); i++) {
+                        if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
+                            booksChecked.remove(i);
+                            --i;
+                        }
                     }
                 }
-            }
 
 // Uncomment to test in console
 //        for (Book b: booksChecked) {
@@ -142,12 +148,15 @@ public class CheckoutController extends HttpServlet {
 //        }
 //        System.out.println("------");
 
-            int subtotal = 0;
-            for (Book b : booksChecked) {
-                subtotal += b.getPrice();
-            }
+                int subtotal = 0;
+                for (Book b : booksChecked) {
+                    subtotal += b.getPrice();
+                }
 
-            response.getWriter().write(subtotal + "");
+                response.getWriter().write(subtotal + "");
+            } catch (NumberFormatException nfe) {
+                response.sendRedirect(getServletContext().getContextPath() + HOME);
+            }
         }
     }
 
@@ -187,10 +196,10 @@ public class CheckoutController extends HttpServlet {
             ShoppingCartDAO scDao = new ShoppingCartDAO();
             BookDAO bDao = new BookDAO();
 
-            int userid = Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue());
+            int userid = Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue());
             Date date = new java.sql.Date(System.currentTimeMillis());
             String address = request.getParameter("address");
-            int total = (int)Float.parseFloat(session.getAttribute("total").toString());
+            int total = (int) Float.parseFloat(session.getAttribute("total").toString());
             int status = 0;
 
             try {

@@ -8,9 +8,12 @@ import com.oracle.wls.shaded.org.apache.regexp.RE;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import org.postgresql.util.PSQLException;
+import org.postgresql.util.ServerErrorMessage;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.sql.Date;
 
 @WebServlet(name = "RegisterController", value = "/register")
@@ -67,6 +70,7 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
         request.setCharacterEncoding("UTF-8");
 
         if (request.getParameter("btnRegister") != null && request.getParameter("btnRegister").equals("Register")) {
@@ -88,11 +92,17 @@ public class RegisterController extends HttpServlet {
             UserDAO uDao = new UserDAO();
             ShoppingCartDAO scDao = new ShoppingCartDAO();
 
-            if (uDao.register(user)) {
-                scDao.cartRegister();
+            try {
+                if (uDao.register(user)) {
+                    scDao.cartRegister(username);
 
-                response.sendRedirect(getServletContext().getContextPath() + LOGIN);
-            } else {
+                    session.setAttribute("EMAILEXISTED", false);
+                    response.sendRedirect(getServletContext().getContextPath() + LOGIN);
+                } else {
+                    throw new PSQLException(new ServerErrorMessage(""));
+                }
+            } catch (PSQLException psqle) {
+                session.setAttribute("EMAILEXISTED", true);
                 response.sendRedirect(getServletContext().getContextPath() + REGISTER);
             }
         }
