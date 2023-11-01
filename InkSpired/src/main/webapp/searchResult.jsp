@@ -12,7 +12,7 @@
 </head>
 <%@include file="interface.jsp" %>
 <body>
-<%@include file="header-yes.jsp" %>
+<%@include file="header-no.jsp" %>
 <!-- Header-->
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
@@ -26,7 +26,7 @@
 <section class="py-5 bg-white">
     <div class="container-fluid px-5 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5">
-            <div class="col-md-4">
+            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-4 pb-sm-5">
                 <div class="card">
                     <div class="card-header bg-white text-center align-items-center">
                         <h4 class="fw-bold">
@@ -34,37 +34,40 @@
                             Filter</h4>
                     </div>
                     <div class="card-body row">
-                        <div class="px-5">
+                        <div class="px-5 text-center">
                             <h5 class="fw-bold"> Filter By Category:</h5>
+                            <h1>${sessionScope.category_id}</h1>
+                            <h1>${sessionScope.categoryName}</h1>
                         </div>
-                        <div class="text-center">
+                        <div class="">
                             <table class="table table-borderless">
                                 <thead>
-                                <tr>
-                                    <th>Select</th>
-                                    <th>Category</th>
-                                </tr>
                                 </thead>
                                 <tbody>
                                 <c:forEach items="${sessionScope.categoryList}" var="category">
                                     <tr>
-                                        <td>
-                                            <div class="form-check d-flex justify-content-center">
-                                                <input class="form-check-input" type="checkbox" value="category1"
-                                                       id="checkbox1">
-                                                <label class="form-check-label" for="checkbox1"></label>
+                                        <td class="">
+                                            <div class="form-check d-flex justify-content-start">
+                                                <input class="form-check-input" type="checkbox" value="${category.category_name}"
+                                                       id="${category.category_name}" style="display: none"
+                                                       onclick="changeLabelColor(this)"
+                                                    ${category.category_name == sessionScope.categoryName ? 'checked' : ''}>
+                                                <label class="form-check-label fs-4" for="${category.category_name}"
+                                                       style="${category.category_name == sessionScope.categoryName ? 'color: green; font-weight: bold;' : ''}">${category.category_name}</label>
                                             </div>
                                         </td>
-                                        <td>${category.category_name}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
                             </table>
+                            <div class="justify-content-center text-center pb-3">
+                                <input type="button" class="btn btn-outline-dark" onclick="filterCategories()" value="Filter?"/>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-xxl-9 col-xl-9 col-lg-8 col-md-8 col-sm-8">
                 <c:choose>
                     <c:when test="${sessionScope.searchResultByCategory == null}">
                         <c:choose>
@@ -305,7 +308,21 @@
 <a href="#" class="btn btn-light back-to-top"><i class="fa fa-angle-double-up"></i></a>
 <!-- Footer-->
 <%@include file="footer.jsp" %>
-<script src="js/checkbox.js">
+<script>
+    function changeLabelColor(checkbox) {
+        var label = checkbox.nextElementSibling; // Get the label element next to the checkbox
+        if (checkbox.checked) {
+            label.style.color = 'green'; // Change label text color when the checkbox is checked
+            label.style.fontWeight = 'bold';
+        } else {
+            label.style.color = ''; // Reset label text color when the checkbox is unchecked
+            label.style.fontWeight = '';
+        }
+        console.log(checkbox.value + ' is ' + (checkbox.checked ? 'checked' : 'unchecked')); // Log the value to the console with its current state
+    }
 </script>
+<script src="js/filter-by-categories.js"></script>
+
+
 </body>
 </html>

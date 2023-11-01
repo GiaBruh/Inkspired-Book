@@ -125,23 +125,67 @@ public class CategoryDAO implements DAO<Category> {
         return result;
     }
 
-    public  List<Book> searchByCategories(List<Integer> categoryIds) {
-        List<Book> result = new ArrayList<>();
+//    public  List<Book> searchByCategories(List<Integer> categoryIds) {
+//        List<Book> result = new ArrayList<>();
+//
+//        if(categoryIds.isEmpty()) {
+//            return result;
+//        }
+//
+//        String questionMarks = String.join(",", Collections.nCopies(categoryIds.size(), "?"));
+//
+//        String query = "SELECT b.* " +
+//                "FROM public.book b " +
+//                "JOIN public.category_book cb ON b.book_id = cb.book_id " +
+//                "WHERE cb.category_id IN (" + questionMarks + ")";
+//
+//        try {
+//            ps = conn.prepareStatement(query);
+//
+//            for (int i = 0; i < categoryIds.size(); i++) {
+//                ps.setInt(i + 1, categoryIds.get(i));
+//            }
+//
+//            rs = ps.executeQuery();
+//            while (rs.next()) {
+//                Book book = new Book();
+//                book.setBook_id(rs.getInt("book_id"));
+//                book.setTitle(rs.getString("title"));
+//                book.setPrice(rs.getInt("price"));
+//                book.setBook_image(rs.getString("book_image"));
+//                book.setIs_available(rs.getBoolean("is_available"));
+//                result.add(book);
+//            }
+//        } catch (Exception e) {
+//            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, e);
+//        }
+//
+//        return result;
+//    }
 
-        if(categoryIds.isEmpty()) {
-            return result;
+    public List<Book> searchByCategories(List<Integer> categoryIds) {
+        List<Book> result = new ArrayList<>();
+        if (categoryIds == null || categoryIds.isEmpty()) {
+            return result; // Return an empty list if no categories are provided
         }
 
-        String questionMarks = String.join(",", Collections.nCopies(categoryIds.size(), "?"));
-
-        String query = "SELECT b.* " +
-                "FROM public.book b " +
+        // Create a parameterized query with dynamic number of category IDs
+        StringBuilder query = new StringBuilder("SELECT b.* FROM public.book b " +
                 "JOIN public.category_book cb ON b.book_id = cb.book_id " +
-                "WHERE cb.category_id IN (" + questionMarks + ")";
+                "WHERE cb.category_id IN (");
+
+        for (int i = 0; i < categoryIds.size(); i++) {
+            query.append("?");
+            if (i < categoryIds.size() - 1) {
+                query.append(", ");
+            }
+        }
+        query.append(")");
 
         try {
-            ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query.toString());
 
+            // Set the category IDs as parameters
             for (int i = 0; i < categoryIds.size(); i++) {
                 ps.setInt(i + 1, categoryIds.get(i));
             }
@@ -159,9 +203,33 @@ public class CategoryDAO implements DAO<Category> {
         } catch (Exception e) {
             Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, e);
         }
-
         return result;
     }
+
+
+
+
+    // return category name by category id
+    public String getCategoryName(int category_id) {
+        String result = null;
+        String query = "SELECT * FROM public.category where category_id = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, category_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Category category = new Category();
+//                category.setCategory_id(rs.getInt("category_id"));
+                category.setCategory_name(rs.getString("category_name"));
+                result = category.getCategory_name();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
+
 
     public static void main(String[] args) {
         CategoryDAO dao = new CategoryDAO();

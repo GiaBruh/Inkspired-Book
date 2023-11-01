@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@WebServlet(name = "SearchController", value = "/search")
-public class SearchController extends HttpServlet {
+@WebServlet(name = "SearchExtendController", value = "/search/extend")
+public class SearchExtendController extends HttpServlet {
 
     private static final String HOMEPAGE = "/";
 

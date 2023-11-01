@@ -51,7 +51,7 @@
                         <h5>${book.getTitle()}</h5>
 <%--                        <p>${book.getPrice()}&#x20AB</p>--%>
                     </div>
-                    <img src="https://dummyimage.com/600x400/000/fff" class="d-block m-auto" alt="...">
+                    <img src="${book.getBook_image()}" class="d-block m-auto" style="max-width: 50%; max-height: 50%;" alt="https://dummyimage.com/600x400/000/fff">
                 </div>
                 </c:forEach>
             </div>
