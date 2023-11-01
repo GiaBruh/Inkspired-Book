@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -32,70 +34,49 @@
                         <th>Book Image</th>
                         <th>Book name</th>
                         <th>Comment</th>
-                        <th>Commenter</th>
+                        <th>Rating</th>
                         <th>Date</th>
+                        <th>Del</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="align-middle">
+                    <c:forEach var="review" items="${requestScope.reviews}">
                     <tr>
                         <td>
-                            <img class="img-fluid" style="max-width: 30%;"
-                                 src="https://dummyimage.com/350x400/dee2e6/6c757d.jpg" alt="..."/>
+                            <img src="${review.getBook_image()}" alt="${review.getBook_image()}"
+                                 style="height: 170px;">
                         </td>
-                        <td>I don't read books</td>
-                        <td>Destroyer</td>
-                        <td>DDD</td>
-                        <td>2023/10/31</td>
+                        <td>
+                            <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${review.getOrdered_book_id()}">${review.getBook_name()}</a>
+                        </td>
+                        <td>${review.getComment()}</td>
+                        <td>
+                            <div class="d-flex text-warning">
+                                <c:forEach begin="1" end="${review.getRating()}">
+                                    <div class="bi-star-fill"></div>
+                                </c:forEach>
+                                <c:forEach begin="${review.getRating()}" end="4">
+                                    <div class="bi-star"></div>
+                                </c:forEach>
+                            </div>
+                        </td>
+                        <td>${review.getReview_date()}</td>
+                        <td>
+                            <form method="POST" action="<%= request.getServletContext().getContextPath()%>/review">
+                                <button onclick="return confirm('Confirm removing this review?')"
+                                        class="btn-close btn-close-dark"
+                                        aria-label="Close"
+                                        name="btnDeleteReview"
+                                        id = "review_${review.getReview_id()}"
+                                        value="${review.getReview_id()}"
+                                ><input type="number" value="${sessionScope.BOOKINFO.get().getBook_id()}"
+                                        name="ordered_book_id" hidden/>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <img class="img-fluid" style="max-width: 30%;"
-                                 src="https://dummyimage.com/350x400/dee2e6/6c757d.jpg" alt="..."/>
-                        </td>
-                        <td>I don't read books</td>
-                        <td>Destroyer</td>
-                        <td>DDD</td>
-                        <td>2023/10/31</td>
-                    <tr>
-                        <td>
-                            <img class="img-fluid" style="max-width: 30%;"
-                                 src="https://dummyimage.com/350x400/dee2e6/6c757d.jpg" alt="..."/>
-                        </td>
-                        <td>I don't read books</td>
-                        <td>Destroyer</td>
-                        <td>DDD</td>
-                        <td>2023/10/31</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img class="img-fluid" style="max-width: 30%;"
-                                 src="https://dummyimage.com/350x400/dee2e6/6c757d.jpg" alt="..."/>
-                        </td>
-                        <td>I don't read books</td>
-                        <td>Destroyer</td>
-                        <td>DDD</td>
-                        <td>2023/10/31</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img class="img-fluid" style="max-width: 30%;"
-                                 src="https://dummyimage.com/350x400/dee2e6/6c757d.jpg" alt="..."/>
-                        </td>
-                        <td>I don't read books</td>
-                        <td>Destroyer</td>
-                        <td>DDD</td>
-                        <td>2023/10/31</td>
-                    </tr>
+                    </c:forEach>
                     </tbody>
-                    <tfoot>
-                    <tr>
-                        <th>Book Image</th>
-                        <th>Book name</th>
-                        <th>Comment</th>
-                        <th>Commenter</th>
-                        <th>Date</th>
-                    </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>
