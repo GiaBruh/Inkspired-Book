@@ -9,6 +9,14 @@
 <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
 <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
 <script>
+    $(document).ready(function() {
+        $(".alert").click(function() {
+            $(this).fadeOut();
+        });
+    });
+
+</script>
+<script>
     var loadFile = function(event) {
         var output = document.getElementById('output');
         var filenameP = document.getElementById('filename');
@@ -19,6 +27,9 @@
         }
     };
 </script>
+
+
+
 
 <script>
     $(document).ready( function () {
@@ -67,15 +78,26 @@
 </script>
 
 <script>
-    function editBook() {
-        document.getElementById('bookInfoForm').style.display = 'none'; // hide book info form
-        document.getElementById('updateForm').style.display = 'block'; // show update form
-    }
+    var updateForm = document.getElementById('updateForm');
+    var bookInfoForm = document.getElementById('bookInfoForm');
+    var publisherInfoForm = document.getElementById('publisherInfoForm');
+    var authorInfoForm = document.getElementById('authorInfoForm');
+    var categoryInfoForm = document.getElementById('categoryInfoForm');
 
     function cancelEdit() {
-        document.getElementById('updateForm').style.display = 'none'; // hide update form
-        document.getElementById('bookInfoForm').style.display = 'block'; // show book info form
+        updateForm.style.display = 'none'; // hide update form
+        bookInfoForm.style.display = 'block'; // show book info form
+        bookInfoForm.scrollIntoView({behavior: 'smooth'}); // Scroll to the top of the form
+
     }
+    function editBook() {
+        // Show the form
+        updateForm.style.display = 'block';
+        bookInfoForm.style.display = 'none';
+        // Scroll to the top of the form
+        updateForm.scrollIntoView({behavior: 'smooth'});
+    }
+    //need to edit the rest of form
     function editPublisher() {
         document.getElementById('publisherInfoForm').style.display = 'none'; // hide book info form
         document.getElementById('updateForm').style.display = 'block'; // show update form
@@ -104,29 +126,15 @@
 
 
 </script>
-<script>
-    $("#yourForm").submit(function(e) {
-        var bookId = $("input[name='book_id']").val();
-        $.ajax({
-            url: "/checkBookId", // replace with your URL
-            type: "post",
-            data: {book_id: bookId},
-            success: function(response) {
-                if(response == "exists") {
-                    alert("Book ID already exists.");
-                    e.preventDefault();
-                }
-            }
-        });
-    });
 
-</script>
+
 <script>
     var numberOfBooks = ${fn:length(books)};
     if (numberOfBooks > 0) {
         document.getElementById("deleteButton").disabled = true;
     }
 </script>
+
 
 <!-- *************
 ************ Vendor Js Files *************
