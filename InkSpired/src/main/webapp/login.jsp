@@ -217,7 +217,7 @@
 <html lang="en" >
 <head>
     <meta charset="UTF-8">
-    <title>CodePen - Animated Login and Sign up</title>
+    <title>Login and Register</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300, 400, 500" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <link rel="stylesheet" href="css/login.css">
 
@@ -235,7 +235,7 @@
             <div class="user_options-unregistered">
                 <h2 class="user_unregistered-title">Don't have an account?</h2>
                 <p class="user_unregistered-text">Banjo tote bag bicycle rights, High Life sartorial cray craft beer whatever street art fap.</p>
-                <button class="user_unregistered-signup" id="signup-button">Sign up</button>
+                <button class="user_unregistered-signup" id="signup-button">Register</button>
             </div>
 
             <div class="user_options-registered">
@@ -248,23 +248,24 @@
         <div class="user_options-forms" id="user_options-forms">
             <div class="user_forms-login">
                 <h2 class="forms_title">Login</h2>
-                <form class="forms_form">
+                <form class="forms_form" method="POST"
+                      action="<%= request.getServletContext().getContextPath()%>/login">
                     <fieldset class="forms_fieldset">
                         <div class="forms_field">
-                            <input type="email" placeholder="Email" class="forms_field-input" required autofocus />
+                            <input placeholder="Username" class="forms_field-input" name="username" required autofocus />
                         </div>
                         <div class="forms_field">
-                            <input type="password" placeholder="Password" class="forms_field-input" required />
+                            <input type="password" placeholder="Password" class="forms_field-input" name="password" required />
                         </div>
                     </fieldset>
                     <div class="forms_buttons">
                         <button type="button" class="forms_buttons-forgot">Forgot password?</button>
-                        <input type="submit" value="Log In" class="forms_buttons-action">
+                        <input type="submit" name="btnSubmit" value="Submit" class="forms_buttons-action">
                     </div>
                 </form>
             </div>
             <div class="user_forms-signup">
-                <h2 class="forms_title">Sign Up</h2>
+                <h2 class="forms_title">Register</h2>
                 <form class="forms_form">
                     <fieldset class="forms_fieldset">
                         <div class="forms_field">
@@ -278,7 +279,7 @@
                         </div>
                     </fieldset>
                     <div class="forms_buttons">
-                        <input type="submit" value="Sign up" class="forms_buttons-action">
+                        <input type="submit" value="Register" class="forms_buttons-action">
                     </div>
                 </form>
             </div>
