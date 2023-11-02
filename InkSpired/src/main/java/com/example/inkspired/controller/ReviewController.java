@@ -12,8 +12,6 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
-import java.util.List;
-import java.util.Optional;
 
 @WebServlet(name = "BookController", value = "/book")
 public class ReviewController extends HttpServlet {
@@ -79,7 +77,7 @@ public class ReviewController extends HttpServlet {
             ReviewDAO rDao = new ReviewDAO();
             String Book = "/book?bookid=";
             Book += request.getParameter("ordered_book_id");
-            if (rDao.upComment(review)) {
+            if (rDao.createReview(review)) {
                 response.sendRedirect(getServletContext().getContextPath() + Book);
             } else {
                 response.sendRedirect(getServletContext().getContextPath() + Home);
@@ -91,7 +89,7 @@ public class ReviewController extends HttpServlet {
             ReviewDAO rDao = new ReviewDAO();
             String Book = "/book?bookid=";
             Book += request.getParameter("ordered_book_id");
-            if (rDao.downComment(review_id)) {
+            if (rDao.deleteReview(review_id)) {
                 response.sendRedirect(getServletContext().getContextPath() + Book);
             } else {
                 response.sendRedirect(getServletContext().getContextPath() + Home);

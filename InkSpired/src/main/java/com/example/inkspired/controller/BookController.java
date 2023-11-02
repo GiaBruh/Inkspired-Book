@@ -70,10 +70,10 @@ public class BookController extends HttpServlet {
                 } else {
                     session.setAttribute("ISINCART", false);
                 }
-                boolean isBought = rDao.findBought(Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue()), bookid);
+                boolean isBought = rDao.isBought(Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue()), bookid);
                 if (isBought) {
                     session.setAttribute("isbought", true);
-                    Review userReview = rDao.findUserReview(Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue()), bookid);
+                    Review userReview = rDao.getUserReview(Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue()), bookid);
                     if (userReview != null) {
                         session.setAttribute("isCom", true);
                         session.setAttribute("userReview", userReview);

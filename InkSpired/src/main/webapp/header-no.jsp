@@ -1,3 +1,6 @@
+<%@ page import="com.example.inkspired.dao.ShoppingCartDAO" %>
+<%@ page import="com.example.inkspired.model.ShoppingCart" %>
+<%@ page import="java.util.Optional" %>
 <!-- Topbar Start -->
 <div class="container-fluid">
     <div class="row bg-secondary py-2 px-xl-5">
@@ -34,7 +37,8 @@
         <div class="col-lg-3 d-none d-lg-block">
             <a href="<%= request.getServletContext().getContextPath()%>/" class="text-decoration-none">
                 <h1 class="m-0 display-5 font-weight-semi-bold"><span
-                        class="text-primary font-weight-bold border px-3 mr-1">Ink</span>Spired</h1>
+                        class="font-weight-bold border px-3 mr-0"
+                        style="color: rgb(0, 109, 255);">INK</span>Spired</h1>
             </a>
         </div>
         <div class="col-lg-6 col-6 text-left">
@@ -86,8 +90,9 @@
 <div class="container-fluid">
     <div class="row border-top px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
-            <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
-               data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
+            <a class="btn shadow-none d-flex align-items-center justify-content-between text-white w-100"
+               data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;
+                background-color: rgb(29, 160, 255);">
                 <h6 class="m-0">Categories</h6>
                 <i class="fa fa-angle-down text-dark"></i>
             </a>
@@ -112,7 +117,8 @@
             <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
                 <a href="" class="text-decoration-none d-block d-lg-none">
                     <h1 class="m-0 display-5 font-weight-semi-bold"><span
-                            class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+                            class="text-primary font-weight-bold border px-3 mr-0"
+                            style="color: rgb(0, 109, 255);">INK</span>Spired</h1>
                 </a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
@@ -133,35 +139,35 @@
                     <%--                    </div>--%>
                     <div class="navbar-nav ml-auto py-0">
                         <%--                        <a href="login.jsp" class="nav-item nav-link">Customer Login</a>--%>
-                            <c:choose>
+                        <c:choose>
 
-                                <c:when test="${sessionScope.userCookie == null}">
-                                    <form class="d-flex login-form" method="POST"
-                                          action="<%= request.getServletContext().getContextPath()%>/login">
-                                        <button class="btn nav-item nav-link" type="submit" name="btnLogin"
-                                                value="Login">
-                                            <i class="bi-person-fill"></i>
-                                            <span>Customer Login</span>
-                                        </button>
-                                    </form>
-<%--                                    <a href="" class="nav-item nav-link">Admin Login</a>--%>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="nav-item dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Account</a>
-                                        <div class="dropdown-menu dropdown-menu-right rounded-0 m-0">
-                                            <a href="<%= request.getServletContext().getContextPath()%>/user"
-                                               class="dropdown-item">Profile</a>
-                                            <a href="<%= request.getServletContext().getContextPath()%>/order"
-                                               class="dropdown-item">Order History</a>
-                                            <a href="" class="dropdown-item">Review History</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item"
-                                               href="<%= request.getServletContext().getContextPath()%>/logout">Logout</a>
-                                        </div>
+                            <c:when test="${sessionScope.userCookie == null}">
+                                <form class="d-flex login-form" method="POST"
+                                      action="<%= request.getServletContext().getContextPath()%>/login">
+                                    <button class="btn nav-item nav-link" type="submit" name="btnLogin"
+                                            value="Login">
+                                        <i class="bi-person-fill"></i>
+                                        <span>Customer Login</span>
+                                    </button>
+                                </form>
+                                <a href="" class="nav-item nav-link">Admin Login</a>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Account</a>
+                                    <div class="dropdown-menu dropdown-menu-right rounded-0 m-0">
+                                        <a href="<%= request.getServletContext().getContextPath()%>/user"
+                                           class="dropdown-item">Profile</a>
+                                        <a href="<%= request.getServletContext().getContextPath()%>/order"
+                                           class="dropdown-item">Order History</a>
+                                        <a href="" class="dropdown-item">Review History</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item"
+                                           href="<%= request.getServletContext().getContextPath()%>/logout">Logout</a>
                                     </div>
-                                </c:otherwise>
-                            </c:choose>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </nav>
