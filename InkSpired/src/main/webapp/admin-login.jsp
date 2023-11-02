@@ -65,10 +65,12 @@
                         <div class="mb-3">
                             <label class="form-label">Your Username</label>
                             <input type="text" class="form-control" name="username" placeholder="Enter your username" />
+                            <span id="errorusername" class="text-danger"></span>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Your Password</label>
                             <input type="password" class="form-control" name="password" placeholder="Enter password" />
+                            <span id="errorpassword" class="text-danger"></span>
                         </div>
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="form-check m-0">
@@ -76,10 +78,12 @@
                                    class="text-blue text-decoration-underline"
                                    data-bs-toggle="modal" data-bs-target="#emailVerification">Forgot password?</a>
                             </div>
-
                         </div>
-                        <div class="d-grid py-3 mt-4">
-                            <button type="submit" class="btn btn-lg btn-primary" name="loginSubmit" value="Submit">
+                        <div class="d-grid pt-2 pb-3 mt-4">
+                            <p class="text-center pb-2 text-danger" name="errorLogin">
+                                ${requestScope.errorMessage}
+                            </p>
+                            <button type="submit" class="btn btn-lg btn-primary" name="loginSubmit" value="Submit" disabled>
                                 Login
                             </button>
                         </div>
@@ -122,8 +126,8 @@
                 <div class="col-md-12 mb-4">
                     <div class="form-outline">
                         <div>
-                            <input type="email" id="emailAddress" class="form-control form-control-lg" placeholder="Your email goes here!" required />
-                            <div class="invalid-feedback">
+                            <input type="email" name="changePassEmail" id="emailAddress" class="form-control form-control-lg" placeholder="Your email goes here!" required />
+                            <div id="errorFeed" class="invalid-feedback">
                                 Invalid email, please enter a valid email address.
                             </div>
                             <div class="valid-feedback">
@@ -144,7 +148,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" id="sendVerificationCode" class="btn btn-outline-dark" onclick="sendVerificationCode()">Send verification code</button>
+                <button type="button" id="sendVerificationCode" class="btn btn-outline-dark" onclick="sendVerificationCode()" disabled>Send verification code</button>
                 <div class="btn-group" style="display: none" id="buttonGroup">
                     <button type="button" id="resendVerificationCode" class="btn btn-outline-dark" onclick="resendVerificationCode()" style="display: none">Resend code</button>
                     <button type="button" id="verifyVerificationCode" class="btn btn-outline-dark" onclick="verifyVerificationCode()" style="display: none">Verify code</button>
@@ -154,9 +158,9 @@
                 </form>
             </div>
         </div>
-
     </div>
 </div>
 </body>
 <script src="js/admin-password-forgot.js"></script>
+<script src="js/Validation/LoginValidation.js"></script>
 </html>
