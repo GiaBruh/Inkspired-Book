@@ -74,6 +74,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Category Name</label>
                                             <input class="form-control" type="text" id="title" name="category_name" required>
+                                            <span id="errorfullname" class="text-danger"></span>
                                         </div>
                                     </div>
 
@@ -85,7 +86,7 @@
                             <div class="card-footer">
                                 <div class="d-flex gap-2 justify-content-end">
                                     <button type="submit" class="btn btn-primary" name="addCategorySubmit" id="submitButton">Submit</button>
-                                    <button type="reset" class="btn btn-danger">Reset</button>
+                                    <button type="reset" class="btn btn-danger" name="addCategoryReset">Reset</button>
                                 </div>
                             </div>
                         </form>
@@ -118,5 +119,50 @@
 <%@include file="jsp-contribute/admin-script.jsp" %>
 
 </body>
+<script>
+    let fullname = '';
 
+    let validfullname = false;
+
+    $(document).ready(function () {
+        const fullnameregex = /[0-9!@#\$%\^\&*\)\(+=._-]+/;
+        $("input[name='category_name']").on({
+            'keyup change': function () {
+                fullname = $("input[name='category_name']").val();
+
+                if (fullname.length < 1 || fullname.length > 50) {
+                    validfullname = false;
+                    $("#errorfullname").html("The category name can only be from 1 to 50 characters.");
+                } else if (fullnameregex.test(fullname)) {
+                    validfullname = false;
+                    $("#errorfullname").html("The category name cannot contains special characters.");
+                } else {
+                    validfullname = true;
+                    $("#errorfullname").html("");
+                }
+                valid();
+            }
+        });
+
+        function valid() {
+            // console.log(validfullname, validImage);
+            if (
+                validfullname === true
+            ) {
+                $("button[name='addCategorySubmit']").removeAttr('disabled');
+
+            } else {
+                $("button[name='addCategorySubmit']").attr('disabled', '');
+            }
+        }
+
+        $("button[name='addCategoryReset']").on({
+            click: function () {
+                validfullname = false;
+                valid();
+                $("#errorfullname").html("");
+            }
+        });
+    });
+</script>
 </html>
