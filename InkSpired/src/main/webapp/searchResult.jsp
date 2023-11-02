@@ -524,13 +524,13 @@
                                             <div class="card-body border-left border-right text-center p-1 pt-4 pb-3">
                                                 <h6 class="text-truncate mb-3">${book.getTitle()}</h6>
                                                 <div class="d-flex justify-content-center">
-                                                    <h6>$123.00</h6>
+                                                    <h6>50000</h6>
                                                     <h6 class="text-muted ml-2">
-                                                        <del>$123.00</del>
+                                                        <del>100000</del>
                                                     </h6>
                                                 </div>
                                             </div>
-                                            <div class="card-footer d-flex justify-content-between bg-light border">
+                                            <div class="card-footer d-flex justify-content-center bg-light border">
                                                 <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}"
                                                    class="btn btn-sm text-dark p-1 justify-content-center d-flex font-weight-bold text-dark" style="font-size: large">View
                                                     Detail</a>
@@ -554,9 +554,9 @@
                                     <div class="card-body border-left border-right text-center p-1 pt-4 pb-3">
                                         <h6 class="text-truncate mb-3">${book.getTitle()}</h6>
                                         <div class="d-flex justify-content-center">
-                                            <h6>$123.00</h6>
+                                            <h6>50000</h6>
                                             <h6 class="text-muted ml-2">
-                                                <del>$123.00</del>
+                                                <del>100000</del>
                                             </h6>
                                         </div>
                                     </div>
