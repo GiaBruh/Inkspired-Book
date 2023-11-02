@@ -1,11 +1,13 @@
 let username = '';
 let password = '';
+let email = '';
 
 let validusername = false;
 let validpassword = false;
 
-const usernameregex = /[\s0-9!@#\$%\^\&*\)\(+=._-]+/;
+const usernameregex = /[\s!@#\$%\^\&*\)\(+=._-]+/;
 const passwordregex = /\s+/;
+const emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
 $(document).ready(function () {
     $("input[name='username']").on({
@@ -59,8 +61,11 @@ $(document).ready(function () {
     $("input[name='username'], input[name='password']").on("keyup", function() {
         if (validusername && validpassword) {
             $("input[name='btnSubmit']").removeAttr('disabled');
+            $("button[name='loginSubmit']").removeAttr('disabled');
+            $("p[name='errorLogin']").hide();
         } else {
             $("input[name='btnSubmit']").attr('disabled', '');
+            $("button[name='loginSubmit']").attr('disabled', '');
         }
     });
 
@@ -71,4 +76,20 @@ $(document).ready(function () {
             $("input[name='btnSubmit']").attr('disabled', '');
         }
     });
+
+    <!--FORGOT PASSWORD-->
+    $("input[name='changePassEmail']").on({
+        'keyup change': function () {
+            email = $("input[name='changePassEmail']").val();
+            if (!emailRegex.test(email)) {
+                $("#errorFeed").addClass("d-block");
+                $("button[id='sendVerificationCode']").attr('disabled', '');
+            } else {
+                $("#errorFeed").removeClass("d-block");
+                $("button[id='sendVerificationCode']").removeAttr('disabled');
+            }
+        }
+    });
+
+
 });
