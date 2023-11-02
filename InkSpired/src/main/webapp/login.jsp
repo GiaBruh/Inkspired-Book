@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--<!DOCTYPE html>--%>
 <%--<html>--%>
 <%--    <head>--%>
@@ -214,119 +215,141 @@
 <%--    <script src="js/Validation/LoginValidation.js"></script>--%>
 <%--</html>--%>
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-    <meta charset="UTF-8">
-    <title>Login and Register</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300, 400, 500" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-    <link rel="stylesheet" href="css/login.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login and Register</title>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300, 400, 500" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+        <link rel="stylesheet" href="css/login.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+              crossorigin="anonymous">
 
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!--
-  This was created based on the Dribble shot by Deepak Yadav that you can find at https://goo.gl/XRALsw
-  I'm @hk95 on GitHub. Feel free to message me anytime.
--->
+    </head>
+    <body>
+        <!-- partial:index.partial.html -->
+        <!--
+          This was created based on the Dribble shot by Deepak Yadav that you can find at https://goo.gl/XRALsw
+          I'm @hk95 on GitHub. Feel free to message me anytime.
+        -->
 
-<section class="user">
-    <div class="user_options-container">
-        <div class="user_options-text">
-            <div class="user_options-unregistered">
-                <h2 class="user_unregistered-title">Don't have an account?</h2>
-                <p class="user_unregistered-text">Banjo tote bag bicycle rights, High Life sartorial cray craft beer whatever street art fap.</p>
-                <button class="user_unregistered-signup" id="signup-button">Register</button>
-            </div>
-
-            <div class="user_options-registered">
-                <h2 class="user_registered-title">Have an account?</h2>
-                <p class="user_registered-text">Banjo tote bag bicycle rights, High Life sartorial cray craft beer whatever street art fap.</p>
-                <button class="user_registered-login" id="login-button">Login</button>
-            </div>
-        </div>
-
-        <div class="user_options-forms" id="user_options-forms">
-            <div class="user_forms-login">
-                <h2 class="forms_title">Login</h2>
-                <form class="forms_form" method="POST"
-                      action="<%= request.getServletContext().getContextPath()%>/login">
-                    <fieldset class="forms_fieldset">
-                        <div class="forms_field">
-                            <input placeholder="Username" class="forms_field-input" name="username" required autofocus />
-                        </div>
-                        <div class="forms_field">
-                            <input type="password" placeholder="Password" class="forms_field-input" name="password" required />
-                        </div>
-                    </fieldset>
-                    <div class="forms_buttons">
-                        <button type="button" class="forms_buttons-forgot">Forgot password?</button>
-                        <input type="submit" name="btnSubmit" value="Submit" class="forms_buttons-action">
+        <section class="user">
+            <div class="user_options-container">
+                <div class="user_options-text">
+                    <div class="user_options-unregistered">
+                        <h2 class="user_unregistered-title">Don't have an account?</h2>
+                        <p class="user_unregistered-text">Banjo tote bag bicycle rights, High Life sartorial cray craft
+                            beer whatever street art fap.</p>
+                        <button class="user_unregistered-signup" id="signup-button">Register</button>
                     </div>
-                </form>
-            </div>
-            <div class="user_forms-signup">
-                <h2 class="forms_title">Register</h2>
-                <form class="forms_form" method="POST"
-                      action="<%= request.getServletContext().getContextPath()%>/register">
-                    <div class="row col-lg-12">
-                        <fieldset class="forms_fieldset col-lg-6 col-md-12">
-                            <div class="forms_field">
-                                <input type="text" id="username" class="forms_field-input"
-                                       name="username" placeholder="Username" required/>
-                            </div>
-                            <div class="forms_field">
-                                <input type="password" id="password"
-                                       class="forms_field-input"
-                                       name="password" placeholder="Password" required/>
-                            </div>
-                            <div class="forms_field">
-                                <input type="text" id="fullname"
-                                       class="forms_field-input"
-                                       name="fullname" placeholder="Full Name" required/>
-                            </div>
-                            <div class="forms_field">
-                                <input type="date" class="forms_field-input"
-                                       id="birthdayDate"
-                                       name="birthdate" placeholder="Birthdate" required/>
-                            </div>
-                        </fieldset>
-                        <fieldset class="forms_fieldset col-lg-6 col-md-12">
-                            <div class="forms_field">
-                                <label class="forms_field-input">Gender</label>
-                                <div class="pt-4 text-center">
-                                    <label><input type="radio" name="gender" value="male"> Male</label>
-                                    <label><input type="radio" name="gender" value="female"> Female</label>
-                                    <label><input type="radio" name="gender" value="other"> Other</label>
+
+                    <div class="user_options-registered">
+                        <h2 class="user_registered-title">Have an account?</h2>
+                        <p class="user_registered-text">Banjo tote bag bicycle rights, High Life sartorial cray craft
+                            beer whatever street art fap.</p>
+                        <button class="user_registered-login" id="login-button">Login</button>
+                    </div>
+                </div>
+
+                <div class="user_options-forms" id="user_options-forms">
+                    <div class="user_forms-login">
+                        <h2 class="forms_title">Login</h2>
+                        <form class="forms_form" method="POST"
+                              action="<%= request.getServletContext().getContextPath()%>/login">
+                            <fieldset class="forms_fieldset">
+                                <div class="forms_field">
+                                    <input placeholder="Username" class="forms_field-input" name="username" required
+                                           autofocus/>
                                 </div>
+                                <div class="forms_field">
+                                    <input type="password" placeholder="Password" class="forms_field-input"
+                                           name="password" required/>
+                                </div>
+                            </fieldset>
+                            <div class="forms_buttons">
+                                <button type="button" class="forms_buttons-forgot">Forgot password?</button>
+                                <input type="submit" name="btnSubmit" value="Submit" class="forms_buttons-action">
                             </div>
-                            <div class="forms_field">
-                                <input type="text" id="emailAddress"
-                                       class="forms_field-input"
-                                       name="email"
-                                       placeholder="Email Address" required
-                                />
-                            </div>
-                            <div class="forms_field">
-                                <input type="tel" id="phoneNumber"
-                                       class="forms_field-input"
-                                       name="phone"
-                                       placeholder="Phone Number" required
-                                />
-                            </div>
-                        </fieldset>
+                        </form>
                     </div>
-                    <div class="forms_buttons justify-content-center pb-md-5">
-                        <input type="submit" value="Submit" name="btnSubmit" class="forms_buttons-action">
+                    <div class="user_forms-signup">
+                        <h2 class="forms_title">Register</h2>
+                        <form class="forms_form" method="POST"
+                              action="<%= request.getServletContext().getContextPath()%>/register">
+                            <div class="row col-lg-12">
+                                <fieldset class="forms_fieldset col-lg-6 col-md-12">
+                                    <div class="forms_field">
+                                        <input type="text" id="username" class="forms_field-input"
+                                               name="registerusername" placeholder="Username" required/>
+                                        <span id="errorusername" class="text-danger"></span>
+                                    </div>
+                                    <div class="forms_field">
+                                        <input type="password" id="password"
+                                               class="forms_field-input"
+                                               name="registerpassword" placeholder="Password" required/>
+                                        <span id="errorpassword" class="text-danger"></span>
+                                    </div>
+                                    <div class="forms_field">
+                                        <input type="text" id="fullname"
+                                               class="forms_field-input"
+                                               name="fullname" placeholder="Full Name" required/>
+                                        <span id="errorfullname" class="text-danger"></span>
+                                    </div>
+                                    <div class="forms_field">
+                                        <input type="date" class="forms_field-input"
+                                               id="birthdayDate"
+                                               name="birthdate" placeholder="Birthdate" required/>
+                                        <span id="errorbirthdate" class="text-danger"></span>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="forms_fieldset col-lg-6 col-md-12">
+                                    <div class="forms_field">
+                                        <label class="forms_field-input">Gender</label>
+                                        <div class="pt-4 text-center">
+                                            <label><input type="radio" name="genders" value="male" checked> Male</label>
+                                            <label><input type="radio" name="genders" value="female"> Female</label>
+                                            <label><input type="radio" name="genders" value="other"> Other</label>
+                                        </div>
+                                    </div>
+                                    <div class="forms_field">
+                                        <input type="text" id="emailAddress"
+                                               class="forms_field-input"
+                                               name="email"
+                                               placeholder="Email Address" required
+                                        />
+                                        <c:choose>
+                                            <c:when test="${sessionScope.EMAILEXISTED == null}">
+                                                <span id="erroremail" class="text-danger"></span>
+                                            </c:when>
+                                        </c:choose>
+                                    </div>
+                                    <div class="forms_field">
+                                        <input type="tel" id="phoneNumber"
+                                               class="forms_field-input"
+                                               name="phone"
+                                               placeholder="Phone Number" required
+                                        />
+                                        <span id="errorphone" class="text-danger"></span>
+                                    </div>
+                                </fieldset>
+                                <c:choose>
+                                    <c:when test="${sessionScope.EMAILEXISTED == true}">
+                                        <span id="erroremail" class="text-danger">Either username or email has already been registered</span>
+                                    </c:when>
+                                </c:choose>
+                            </div>
+                            <div class="forms_buttons justify-content-center pb-md-5">
+                                <input type="submit" value="Submit" name="btnsubmit" class="forms_buttons-action" disabled>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
-</section>
-<!-- partial -->
-<script  src="js/login.js"></script>
-
-</body>
+        </section>
+        <!-- partial -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="js/login.js"></script>
+        <script src="js/Validation/RegisterValidation.js"></script>
+    </body>
 </html>

@@ -78,8 +78,8 @@ public class RegisterController extends HttpServlet {
         }
 
         if (request.getParameter("btnsubmit") != null && request.getParameter("btnsubmit").equals("Submit")) {
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
+            String username = request.getParameter("registerusername");
+            String password = request.getParameter("registerpassword");
             String fullname = request.getParameter("fullname");
             Date birthdate = Date.valueOf(request.getParameter("birthdate"));
             String gender = request.getParameter("genders");
@@ -103,7 +103,7 @@ public class RegisterController extends HttpServlet {
                 }
             } catch (PSQLException psqle) {
                 session.setAttribute("EMAILEXISTED", true);
-                response.sendRedirect(getServletContext().getContextPath() + REGISTER);
+                response.sendRedirect(getServletContext().getContextPath() + LOGIN);
             }
         }
     }

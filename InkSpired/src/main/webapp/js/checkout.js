@@ -21,6 +21,7 @@ function addTocheckout(bookid) {
 
 function countQuantity(bookid, operator, quantity) {
     let a = parseInt($("#quantityval" + bookid).val());
+
     if (operator === '+') {
         if (a < quantity) {
             $("#quantityval" + bookid).val(a + 1);

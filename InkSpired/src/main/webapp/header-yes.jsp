@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.example.inkspired.dao.ShoppingCartDAO" %>
 <%@ page import="com.example.inkspired.model.ShoppingCart" %>
 <%@ page import="java.util.Optional" %>
@@ -230,22 +231,34 @@
             </form>
         </div>
         <div class="col-lg-3 col-6 text-right">
-                <button class="btn border"
-                        type="button"
-                        onclick="location.href
-                                = 'http://localhost:8080' +
-                                '<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}'; ">
-                    <i class="fas fa-shopping-cart text-primary"></i>
-                <span class="badge">
-                    <%
-                        ShoppingCartDAO scDao = new ShoppingCartDAO();
-                        int cartid = Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue());
-                        Optional<ShoppingCart> cart = scDao.get(cartid);
-                        String quantity = String.valueOf(cart.get().getQuantity());
-                        out.print(quantity);
-                    %>
-                </span>
-                </button>
+
+            <c:choose>
+
+                <c:when test="${sessionScope.userCookie == null}">
+                    <button class="btn border"
+                            type="button"
+                    >
+                        <i class="fas fa-shopping-cart text-primary"></i>
+                        <span class="badge">0</span>
+                    </button>
+                </c:when>
+                <c:otherwise>
+                    <button class="btn border"
+                            type="button"
+                            onclick="location.href
+                                    = 'http://localhost:8080' +
+                                    '<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}'; ">
+                        <i class="fas fa-shopping-cart text-primary"></i>
+                        <%
+                            ShoppingCartDAO scDao = new ShoppingCartDAO();
+                            int cartid = Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue());
+                            Optional<ShoppingCart> cart = scDao.get(cartid);
+                            String quantity = String.valueOf(cart.get().getQuantity());
+                            out.print("<span class=\"badge\">" + quantity + "</span>");
+                        %>
+                    </button>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>
@@ -288,38 +301,49 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
                         <h1>Welcome to InkSpired</h1>
-<%--                        <a href="index.html" class="nav-item nav-link active">Home</a>--%>
-<%--                        <a href="shop.html" class="nav-item nav-link">Shop</a>--%>
-<%--                        <a href="detail.html" class="nav-item nav-link">Shop Detail</a>--%>
-<%--                        <div class="nav-item dropdown">--%>
-<%--                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>--%>
-<%--                            <div class="dropdown-menu rounded-0 m-0">--%>
-<%--                                <a href="cart.html" class="dropdown-item">Shopping Cart</a>--%>
-<%--                                <a href="checkout.html" class="dropdown-item">Checkout</a>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                        <a href="contact.html" class="nav-item nav-link">Contact</a>--%>
+                        <%--                        <a href="index.html" class="nav-item nav-link active">Home</a>--%>
+                        <%--                        <a href="shop.html" class="nav-item nav-link">Shop</a>--%>
+                        <%--                        <a href="detail.html" class="nav-item nav-link">Shop Detail</a>--%>
+                        <%--                        <div class="nav-item dropdown">--%>
+                        <%--                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>--%>
+                        <%--                            <div class="dropdown-menu rounded-0 m-0">--%>
+                        <%--                                <a href="cart.html" class="dropdown-item">Shopping Cart</a>--%>
+                        <%--                                <a href="checkout.html" class="dropdown-item">Checkout</a>--%>
+                        <%--                            </div>--%>
+                        <%--                        </div>--%>
+                        <%--                        <a href="contact.html" class="nav-item nav-link">Contact</a>--%>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
                         <%--                        <a href="login.jsp" class="nav-item nav-link">Customer Login</a>--%>
-                        <form class="d-flex login-form" method="POST"
-                              action="<%= request.getServletContext().getContextPath()%>/login">
-                            <button class="btn nav-item nav-link" type="submit" name="btnLogin"
-                                    value="Login">
-                                <i class="bi-person-fill"></i>
-                                <span>Customer Login</span>
-                            </button>
-                        </form>
-                        <a href="" class="nav-item nav-link">Admin Login</a>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Information</a>
-                                <div class="dropdown-menu rounded-0 m-0">
-                                    <a href="" class="dropdown-item">Order History</a>
-                                    <a href="" class="dropdown-item">Review History</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="<%= request.getServletContext().getContextPath()%>/logout">Logout</a>
+                        <c:choose>
+
+                            <c:when test="${sessionScope.userCookie == null}">
+                                <form class="d-flex login-form" method="POST"
+                                      action="<%= request.getServletContext().getContextPath()%>/login">
+                                    <button class="btn nav-item nav-link" type="submit" name="btnLogin"
+                                            value="Login">
+                                        <i class="bi-person-fill"></i>
+                                        <span>Customer Login</span>
+                                    </button>
+                                </form>
+                                <a href="" class="nav-item nav-link">Admin Login</a>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Account</a>
+                                    <div class="dropdown-menu dropdown-menu-right rounded-0 m-0">
+                                        <a href="<%= request.getServletContext().getContextPath()%>/user"
+                                           class="dropdown-item">Profile</a>
+                                        <a href="<%= request.getServletContext().getContextPath()%>/order"
+                                           class="dropdown-item">Order History</a>
+                                        <a href="" class="dropdown-item">Review History</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item"
+                                           href="<%= request.getServletContext().getContextPath()%>/logout">Logout</a>
+                                    </div>
                                 </div>
-                            </div>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </nav>
