@@ -1,6 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.example.inkspired.dao.ShoppingCartDAO" %>
 <%@ page import="com.example.inkspired.model.ShoppingCart" %>
 <%@ page import="java.util.Optional" %>
+<%--change one line just to push to github--%>
 <%--<%@include file="interface.jsp" %>--%>
 <%--<nav class="navbar navbar-expand-lg navbar-light bg-light">--%>
 <%--    <div class="container px-4 px-lg-5">--%>
@@ -60,7 +62,7 @@
 <%--                        </li>--%>
 <%--                    </ul>--%>
 <%--                </div>--%>
-<%--                <form method="POST"--%>
+<%--                <form class="d-flex w-75" method="POST"--%>
 <%--                      action="<%= request.getServletContext().getContextPath()%>/search">--%>
 <%--                    <input type="text" id="searchBar" class="form-control border-black" name="keyword"--%>
 <%--                           placeholder="Search for products">--%>
@@ -213,7 +215,8 @@
     <div class="row align-items-center py-3 px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
             <a href="<%= request.getServletContext().getContextPath()%>/" class="text-decoration-none">
-                <h1 class="m-0 display-5 font-weight-semi-bold">InkSpired</h1>
+                <h1 class="m-0 display-5 font-weight-semi-bold"><span
+                        class="text-primary font-weight-bold border px-3 mr-1">Ink</span>Spired</h1>
             </a>
         </div>
         <div class="col-lg-6 col-6 text-left">
@@ -228,10 +231,34 @@
             </form>
         </div>
         <div class="col-lg-3 col-6 text-right">
-            <a href="cart.jsp" class="btn border">
-                <i class="fas fa-shopping-cart text-primary"></i>
-                <span class="badge">0</span>
-            </a>
+
+            <c:choose>
+
+                <c:when test="${sessionScope.userCookie == null}">
+                    <button class="btn border"
+                            type="button"
+                    >
+                        <i class="fas fa-shopping-cart text-primary"></i>
+                        <span class="badge">0</span>
+                    </button>
+                </c:when>
+                <c:otherwise>
+                    <button class="btn border"
+                            type="button"
+                            onclick="location.href
+                                    = 'http://localhost:8080' +
+                                    '<%= request.getServletContext().getContextPath()%>/cart?cartid=${sessionScope.userCookie.getValue()}'; ">
+                        <i class="fas fa-shopping-cart text-primary"></i>
+                        <%
+                            ShoppingCartDAO scDao = new ShoppingCartDAO();
+                            int cartid = Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue());
+                            Optional<ShoppingCart> cart = scDao.get(cartid);
+                            String quantity = String.valueOf(cart.get().getQuantity());
+                            out.print("<span class=\"badge\">" + quantity + "</span>");
+                        %>
+                    </button>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>
@@ -263,49 +290,70 @@
             </nav>
         </div>
         <div class="col-lg-9">
-                        <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
-            <%--                <a href="" class="text-decoration-none d-block d-lg-none">--%>
-            <%--                    <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>--%>
-            <%--                </a>--%>
-            <%--                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">--%>
-            <%--                    <span class="navbar-toggler-icon"></span>--%>
-            <%--                </button>--%>
-                            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-            <%--                    <div class="navbar-nav mr-auto py-0">--%>
-            <%--                        <a href="index.html" class="nav-item nav-link active">Home</a>--%>
-            <%--                        <a href="shop.html" class="nav-item nav-link">Shop</a>--%>
-            <%--                        <a href="detail.html" class="nav-item nav-link">Shop Detail</a>--%>
-            <%--                        <div class="nav-item dropdown">--%>
-            <%--                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>--%>
-            <%--                            <div class="dropdown-menu rounded-0 m-0">--%>
-            <%--                                <a href="cart.html" class="dropdown-item">Shopping Cart</a>--%>
-            <%--                                <a href="checkout.html" class="dropdown-item">Checkout</a>--%>
-            <%--                            </div>--%>
-            <%--                        </div>--%>
-            <%--                        <a href="contact.html" class="nav-item nav-link">Contact</a>--%>
-            <%--                    </div>--%>
-                                <div class="navbar-nav ml-auto py-0">
-<%--                                    <a href="login.jsp" class="nav-item nav-link">Customer Login</a>--%>
-                                    <form class="d-flex login-form" method="POST"
-                                          action="<%= request.getServletContext().getContextPath()%>/login">
-                                        <button class="btn nav-item nav-link" type="submit" name="btnLogin"
-                                                value="Login">
-                                            <i class="bi-person-fill"></i>
-                                            <span>Customer Login</span>
-                                        </button>
-                                    </form>
-                                    <a href="" class="nav-item nav-link">Admin Login</a>
+            <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                <a href="" class="text-decoration-none d-block d-lg-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold"><span
+                            class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+                </a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav mr-auto py-0">
+                        <h1>Welcome to InkSpired</h1>
+                        <%--                        <a href="index.html" class="nav-item nav-link active">Home</a>--%>
+                        <%--                        <a href="shop.html" class="nav-item nav-link">Shop</a>--%>
+                        <%--                        <a href="detail.html" class="nav-item nav-link">Shop Detail</a>--%>
+                        <%--                        <div class="nav-item dropdown">--%>
+                        <%--                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>--%>
+                        <%--                            <div class="dropdown-menu rounded-0 m-0">--%>
+                        <%--                                <a href="cart.html" class="dropdown-item">Shopping Cart</a>--%>
+                        <%--                                <a href="checkout.html" class="dropdown-item">Checkout</a>--%>
+                        <%--                            </div>--%>
+                        <%--                        </div>--%>
+                        <%--                        <a href="contact.html" class="nav-item nav-link">Contact</a>--%>
+                    </div>
+                    <div class="navbar-nav ml-auto py-0">
+                        <%--                        <a href="login.jsp" class="nav-item nav-link">Customer Login</a>--%>
+                        <c:choose>
+
+                            <c:when test="${sessionScope.userCookie == null}">
+                                <form class="d-flex login-form" method="POST"
+                                      action="<%= request.getServletContext().getContextPath()%>/login">
+                                    <button class="btn nav-item nav-link" type="submit" name="btnLogin"
+                                            value="Login">
+                                        <i class="bi-person-fill"></i>
+                                        <span>Customer Login</span>
+                                    </button>
+                                </form>
+                                <a href="" class="nav-item nav-link">Admin Login</a>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Account</a>
+                                    <div class="dropdown-menu dropdown-menu-right rounded-0 m-0">
+                                        <a href="<%= request.getServletContext().getContextPath()%>/user"
+                                           class="dropdown-item">Profile</a>
+                                        <a href="<%= request.getServletContext().getContextPath()%>/order"
+                                           class="dropdown-item">Order History</a>
+                                        <a href="" class="dropdown-item">Review History</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item"
+                                           href="<%= request.getServletContext().getContextPath()%>/logout">Logout</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </nav>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </div>
+            </nav>
             <div id="header-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active" style="height: 480px;">
+                    <div class="carousel-item active" style="height: 410px;">
                         <img class="img-fluid" src="assets/images/new-carousel-1.jpg" alt="Image">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                             <div class="p-3" style="max-width: 700px;">
-                                <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First
-                                    Order</h4>
+                                <h4 class="text-light text-uppercase font-weight-medium mb-3">Have a good time browsing our books</h4>
                                 <h3 class="display-4 text-white font-weight-semi-bold mb-4">Best Seller</h3>
                                 <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
                             </div>

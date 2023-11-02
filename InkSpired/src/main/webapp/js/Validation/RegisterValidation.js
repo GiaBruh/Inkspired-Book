@@ -14,16 +14,16 @@ let validgender = true;
 let validemail = false;
 let validphone = false;
 
-const usernameregex = /[\s0-9!@#\$%\^\&*\)\(+=._-]+/;
+const usernameregex = /[\s!@#\$%\^\&*\)\(+=._-]+/;
 const passwordregex = /\s+/;
 const fullnameregex = /[0-9!@#\$%\^\&*\)\(+=._-]+/;
-const emailregex = /^(([^<>()[\]\\.,;:\s@/"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const emailregex = /^(([^<>\(\)[\]\\.,;:\s@/"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const phoneregex = /^0[\d]+$/;
 
 $(document).ready(function() {
-    $("input[name='username']").on({
+    $("input[name='registerusername']").on({
         keyup: function() {
-            username = $("input[name='username']").val();
+            username = $("input[name='registerusername']").val();
 
             if (username.length < 1 || username.length > 100) {
                 validusername = false;
@@ -37,7 +37,7 @@ $(document).ready(function() {
             }
         },
         change: function() {
-            username = $("input[name='username']").val();
+            username = $("input[name='registerusername']").val();
 
             if (username.length < 1 || username.length > 100) {
                 validusername = false;
@@ -52,9 +52,9 @@ $(document).ready(function() {
         }
     });
 
-    $("input[name='password']").on({
+    $("input[name='registerpassword']").on({
         keyup: function() {
-            password = $("input[name='password']").val();
+            password = $("input[name='registerpassword']").val();
 
             if (passwordregex.test(password)) {
                 validpassword = false;
@@ -117,12 +117,12 @@ $(document).ready(function() {
         keyup: function() {
             email = $("input[name='email']").val();
 
-            if (!emailregex.test(email)) {
-                validemail = false;
-                $("#erroremail").html("Invalid email.");
-            } else if (email.length < 6 || email.length > 100) {
+            if (email.length < 6 || email.length > 100) {
                 validemail = false;
                 $("#erroremail").html("The email must be from 6 to 100 characters.");
+            } else if (!emailregex.test(email)) {
+                validemail = false;
+                $("#erroremail").html("Invalid email.");
             } else {
                 validemail = true;
                 $("#erroremail").html("");
@@ -175,7 +175,7 @@ $(document).ready(function() {
         }
     });
 
-    $("input[name='username'], input[name='password'], input[name='fullname'], input[name='birthdate'], input[name='email'], input[name='phone']").on("keyup", function() {
+    $("input[name='registerusername'], input[name='registerpassword'], input[name='fullname'], input[name='birthdate'], input[name='email'], input[name='phone']").on("keyup", function() {
         if (validusername && validpassword && validfullname && validbirthdate && validemail && validphone) {
             $("input[name='btnsubmit']").removeAttr('disabled');
         } else {
@@ -183,7 +183,7 @@ $(document).ready(function() {
         }
     });
 
-    $("input[name='username'], input[name='fullname'], input[name='birthdate'], input[name='email'], input[name='phone'], input[name='birthdate'], input[name='genders']").change(function() {
+    $("input[name='registerusername'], input[name='fullname'], input[name='birthdate'], input[name='email'], input[name='phone'], input[name='birthdate'], input[name='genders']").change(function() {
         if (validusername && validpassword && validfullname && validbirthdate && validemail && validphone) {
             $("input[name='btnsubmit']").removeAttr('disabled');
         } else {
