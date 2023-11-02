@@ -178,6 +178,16 @@
     <title>InkSpired</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <style>
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, .4) !important;
+        }
+    </style>
+
     <!-- Favicon -->
     <%--    <link href="img/favicon.ico" rel="icon">--%>
 
@@ -201,7 +211,7 @@
 <%@include file="header-no.jsp" %>
 
 <!-- Page Header Start -->
-<div class="container-fluid bg-secondary mb-5">
+<div class="container-fluid bg-secondary mb-0">
     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
         <h1 class="font-weight-semi-bold text-uppercase mb-3">ORDER HISTORY</h1>
         <div class="d-inline-flex">
@@ -215,41 +225,48 @@
 
 <section class="py-5 gradient-custom">
     <div class="container px-4 px-lg-5 my-5">
-        <div class="card">
-            <div class="card-body" style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3)">
-                <table id="example" class="table table-striped" style="width:100%">
+        <div class="card" style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3)">
+            <div class="card-body">
+                <table id="example" class="table table-responsive table-striped d-inline-block" style="width:100%">
                     <thead>
                     <tr>
-                        <th>Order ID</th>
-                        <th>Total Charge</th>
-                        <th>Order Date</th>
-                        <th>Purchaser</th>
-                        <th>Status</th>
-                        <th>Shipped To</th>
+                        <th class="align-middle">Order ID</th>
+                        <th class="align-middle">Total Charge</th>
+                        <th class="align-middle">Order Date</th>
+                        <th class="align-middle">Purchaser</th>
+                        <th class="align-middle">Status</th>
+                        <th class="align-middle">Shipped To</th>
+                        <th class="align-middle">Status Checking</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach var="order" items="${sessionScope.ORDERHISTORY}">
                         <tr>
-                            <td>
-                                    ${order.getOrder_id()}
-                                <a class="btn btn-block btn-outline-dark my-3 mx-2"
-                                   href="<%= request.getServletContext().getContextPath()%>/order?orderid=${order.getOrder_id()}">View
-                                    Detail</a>
+                            <td class="align-middle justify-content-center">
+                                <div class="col-md-12 d-flex">
+                                    <div class="col-md-1 pt-4">
+                                        <a>${order.getOrder_id()}</a>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <a class="btn btn-block btn-outline-dark my-3 mx-2"
+                                           href="<%= request.getServletContext().getContextPath()%>/order?orderid=${order.getOrder_id()}">View
+                                            Detail</a>
+                                    </div>
+                                </div>
                             </td>
-                            <td>
+                            <td class="align-middle justify-content-center">
                                 <div class="my-3"><fmt:formatNumber value="${order.getOrder_total()}"
                                                                     minFractionDigits="0"
                                                                     maxFractionDigits="0"/>&#x20AB
                                 </div>
                             </td>
-                            <td>
+                            <td class="align-middle justify-content-center">
                                 <div class="my-3">${order.getOrder_date()}</div>
                             </td>
-                            <td>
+                            <td class="align-middle justify-content-center">
                                 <div class="my-3">${order.getUsername()}</div>
                             </td>
-                            <td>
+                            <td class="align-middle justify-content-center">
                                 <c:choose>
                                     <c:when test="${order.getStatus() == 'Cancelled'}">
                                         <div class="my-3 text-danger">${order.getStatus()}</div>
@@ -261,32 +278,36 @@
                                         <div class="my-3">${order.getStatus()}</div>
                                     </c:otherwise>
                                 </c:choose>
-                                <c:choose>
-                                    <c:when test="${order.getStatus() == 'Pending'}">
-                                        <button type="submit"
-                                                onclick="setOrderId(${order.getOrder_id()}, 'btnconfirmcancel')"
-                                                data-bs-toggle="modal" data-bs-target="#cancelOrder"
-                                                class="btn btn-block btn-danger my-3 mx-2"
-                                                name="btncancel" value="${order.getOrder_id()}"
-                                        >
-                                            Cancel order
-                                        </button>
-                                    </c:when>
-
-                                    <c:when test="${order.getStatus() == 'Delivering'}">
-                                        <button type="submit"
-                                                onclick="setOrderId(${order.getOrder_id()}, 'btnconfirmreceived')"
-                                                data-bs-toggle="modal" data-bs-target="#confirmReceived"
-                                                class="btn btn-block btn-success my-3 mx-2"
-                                                name="btnreceived" value="${order.getOrder_id()}"
-                                        >
-                                            Confirm Received
-                                        </button>
-                                    </c:when>
-                                </c:choose>
                             </td>
-                            <td>
+                            <td class="align-middle justify-content-center">
                                 <div class="my-3">${order.getDelivery_address()}</div>
+                            </td>
+                            <td class="align-middle">
+                                <div class="pe-2">
+                                    <c:choose>
+                                        <c:when test="${order.getStatus() == 'Pending'}">
+                                            <button type="submit"
+                                                    onclick="setOrderId(${order.getOrder_id()}, 'btnconfirmcancel')"
+                                                    data-toggle="modal" data-target="#cancelOrder"
+                                                    class="btn btn-block btn-danger my-3 mx-2"
+                                                    name="btncancel" value="${order.getOrder_id()}"
+                                            >
+                                                Cancel order
+                                            </button>
+                                        </c:when>
+
+                                        <c:when test="${order.getStatus() == 'Delivering'}">
+                                            <button type="submit"
+                                                    onclick="setOrderId(${order.getOrder_id()}, 'btnconfirmreceived')"
+                                                    data-toggle="modal" data-target="#confirmReceived"
+                                                    class="btn btn-block btn-success my-3 mx-2"
+                                                    name="btnreceived" value="${order.getOrder_id()}"
+                                            >
+                                                Confirm Received
+                                            </button>
+                                        </c:when>
+                                    </c:choose>
+                                </div>
                             </td>
                         </tr>
                     </c:forEach>
@@ -349,10 +370,11 @@
     </div>
 </div>
 
+<%@include file="footer.jsp" %>
+
 <script>
     new DataTable('#example');
 </script>
-<%@include file="footer.jsp" %>
 <script src="js/order.js"></script>
 
 <!-- Back to Top -->
