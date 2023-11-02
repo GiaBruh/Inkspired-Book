@@ -38,13 +38,12 @@
             </a>
         </div>
         <div class="col-lg-6 col-6 text-left">
-            <form action="">
+            <form method="POST" action="<%= request.getServletContext().getContextPath()%>/search">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for products">
+                    <input type="text" class="form-control" placeholder="Search for products" name="keyword">
                     <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
-                                <i class="fa fa-search"></i>
-                            </span>
+                        <button class="btn border" name="btn-search"
+                                value="search-by-keyword"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </form>
