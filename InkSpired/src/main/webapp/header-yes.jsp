@@ -221,7 +221,7 @@
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for products" name="keyword">
                     <div class="input-group-append">
-                        <button class="input-group-text bg-transparent text-primary" name="btn-search"
+                        <button class="btn border" name="btn-search"
                                 value="search-by-keyword"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
@@ -263,14 +263,14 @@
             </nav>
         </div>
         <div class="col-lg-9">
-            <%--            <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">--%>
+                        <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
             <%--                <a href="" class="text-decoration-none d-block d-lg-none">--%>
             <%--                    <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>--%>
             <%--                </a>--%>
             <%--                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">--%>
             <%--                    <span class="navbar-toggler-icon"></span>--%>
             <%--                </button>--%>
-            <%--                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">--%>
+                            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
             <%--                    <div class="navbar-nav mr-auto py-0">--%>
             <%--                        <a href="index.html" class="nav-item nav-link active">Home</a>--%>
             <%--                        <a href="shop.html" class="nav-item nav-link">Shop</a>--%>
@@ -284,20 +284,20 @@
             <%--                        </div>--%>
             <%--                        <a href="contact.html" class="nav-item nav-link">Contact</a>--%>
             <%--                    </div>--%>
-            <%--                    <div class="navbar-nav ml-auto py-0">--%>
-            <%--&lt;%&ndash;                        <a href="login.jsp" class="nav-item nav-link">Customer Login</a>&ndash;%&gt;--%>
-            <%--                        <form class="d-flex login-form" method="POST"--%>
-            <%--                              action="<%= request.getServletContext().getContextPath()%>/login">--%>
-            <%--                            <button class="btn nav-item nav-link" type="submit" name="btnLogin"--%>
-            <%--                                    value="Login">--%>
-            <%--                                <i class="bi-person-fill"></i>--%>
-            <%--                                <span>Customer Login</span>--%>
-            <%--                            </button>--%>
-            <%--                        </form>--%>
-            <%--                        <a href="" class="nav-item nav-link">Admin Login</a>--%>
-            <%--                    </div>--%>
-            <%--                </div>--%>
-            <%--            </nav>--%>
+                                <div class="navbar-nav ml-auto py-0">
+<%--                                    <a href="login.jsp" class="nav-item nav-link">Customer Login</a>--%>
+                                    <form class="d-flex login-form" method="POST"
+                                          action="<%= request.getServletContext().getContextPath()%>/login">
+                                        <button class="btn nav-item nav-link" type="submit" name="btnLogin"
+                                                value="Login">
+                                            <i class="bi-person-fill"></i>
+                                            <span>Customer Login</span>
+                                        </button>
+                                    </form>
+                                    <a href="" class="nav-item nav-link">Admin Login</a>
+                                </div>
+                            </div>
+                        </nav>
             <div id="header-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active" style="height: 480px;">

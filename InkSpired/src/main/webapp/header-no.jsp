@@ -41,7 +41,7 @@
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for products" name="keyword">
                     <div class="input-group-append">
-                        <button class="input-group-text bg-transparent text-primary" name="btn-search"
+                        <button class="btn border" name="btn-search"
                                 value="search-by-keyword"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
 <%--                <i class="fas fa-heart text-primary"></i>--%>
 <%--                <span class="badge">0</span>--%>
 <%--            </a>--%>
-            <a href="" class="btn border">
+            <a href="cart.jsp" class="btn border">
                 <i class="fas fa-shopping-cart text-primary"></i>
                 <span class="badge">0</span>
             </a>

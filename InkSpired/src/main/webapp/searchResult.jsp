@@ -514,7 +514,7 @@
                             <c:otherwise>
                                 <c:forEach var="book" items="${sessionScope.searchResultByKeyword}" varStatus="loop">
                                     <div class="col-lg-3 col-md-4 col-md-12 pb-3 justify-content-center d-flex">
-                                        <div class="card product-item border-0 mb-4" style="border: solid black 1px">
+                                        <div class="card product-item border-0 mb-4">
                                             <div class="">
                                                 <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                                                     <img class="img-fluid w-100" src="${book.getBook_image()}"
@@ -530,9 +530,9 @@
                                                     </h6>
                                                 </div>
                                             </div>
-                                            <div class="card-footer d-flex justify-content-between bg-light border-dark">
+                                            <div class="card-footer d-flex justify-content-between bg-light border">
                                                 <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}"
-                                                   class="btn btn-sm text-dark p-1 d-flex justify-content-center">View
+                                                   class="btn btn-sm text-dark p-1 justify-content-center d-flex font-weight-bold text-dark" style="font-size: large">View
                                                     Detail</a>
                                             </div>
                                         </div>
@@ -544,7 +544,7 @@
                     <c:otherwise>
                         <c:forEach var="book" items="${sessionScope.searchResultByCategory}" varStatus="loop">
                             <div class="col-lg-3 col-md-4 col-md-12 pb-3 justify-content-center d-flex">
-                                <div class="card product-item border-0 mb-4" style="border: solid black 1px">
+                                <div class="card product-item border-0 mb-4">
                                     <div class="">
                                         <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                                             <img class="img-fluid w-100" src="${book.getBook_image()}"
@@ -560,9 +560,9 @@
                                             </h6>
                                         </div>
                                     </div>
-                                    <div class="card-footer d-flex justify-content-between bg-light border-dark">
+                                    <div class="card-footer d-flex justify-content-between bg-light border">
                                         <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}"
-                                           class="btn btn-sm text-dark p-1 d-flex justify-content-center">View Detail</a>
+                                           class="btn btn-sm text-dark p-1 justify-content-center d-flex font-weight-bold text-dark" style="font-size: large">View Detail</a>
                                     </div>
                                 </div>
                             </div>
