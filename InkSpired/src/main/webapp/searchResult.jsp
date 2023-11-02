@@ -3,6 +3,8 @@
 <%@ page import="java.util.Optional" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%--<!DOCTYPE html>--%>
 <%--<html>--%>
 <%--<head>--%>
@@ -524,10 +526,8 @@
                                             <div class="card-body border-left border-right text-center p-1 pt-4 pb-3">
                                                 <h6 class="text-truncate mb-3">${book.getTitle()}</h6>
                                                 <div class="d-flex justify-content-center">
-                                                    <h6>50000</h6>
-                                                    <h6 class="text-muted ml-2">
-                                                        <del>100000</del>
-                                                    </h6>
+                                                    <h6><fmt:formatNumber value="${book.getPrice()}" minFractionDigits="0"
+                                                                          maxFractionDigits="0"/>&#x20AB</h6>
                                                 </div>
                                             </div>
                                             <div class="card-footer d-flex justify-content-center bg-light border">
@@ -554,15 +554,14 @@
                                     <div class="card-body border-left border-right text-center p-1 pt-4 pb-3">
                                         <h6 class="text-truncate mb-3">${book.getTitle()}</h6>
                                         <div class="d-flex justify-content-center">
-                                            <h6>50000</h6>
-                                            <h6 class="text-muted ml-2">
-                                                <del>100000</del>
-                                            </h6>
+                                            <h6><fmt:formatNumber value="${book.getPrice()}" minFractionDigits="0"
+                                                                  maxFractionDigits="0"/>&#x20AB</h6>
                                         </div>
                                     </div>
-                                    <div class="card-footer d-flex justify-content-between bg-light border">
+                                    <div class="card-footer d-flex justify-content-center bg-light border">
                                         <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}"
-                                           class="btn btn-sm text-dark p-1 justify-content-center d-flex font-weight-bold text-dark" style="font-size: large">View Detail</a>
+                                           class="btn btn-sm text-dark p-0 font-weight-bold text-dark"><i class="fas fa-eye text-primary mr-1"></i>View
+                                            Detail</a>
                                     </div>
                                 </div>
                             </div>
