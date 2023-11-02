@@ -211,7 +211,7 @@
 <%--                                  placeholder="Describe your experience (optional)" hidden></textarea>--%>
 <%--                                        </div>--%>
 <%--                                        <div class="d-flex justify-content-center">--%>
-<%--                                            <button class="btn btn-outline-dark btn-lg" id="btnComment" type="submit" name="btnComment"--%>
+<%--                                            <button class="btn btn-outline-dark btn-lg" type="submit" id="btnComment" name="btnComment"--%>
 <%--                                                    value="com" hidden>Review--%>
 <%--                                            </button>--%>
 <%--                                        </div>--%>
@@ -272,46 +272,6 @@
 <%--                </div>--%>
 <%--            </div>--%>
 <%--        </section>--%>
-<%--        <script>--%>
-<%--            function uwu() {--%>
-<%--                document.getElementById("r1").classList.remove("bi-star");--%>
-<%--                document.getElementById("r2").classList.remove("bi-star");--%>
-<%--                document.getElementById("r3").classList.remove("bi-star");--%>
-<%--                document.getElementById("r4").classList.remove("bi-star");--%>
-<%--                document.getElementById("r5").classList.remove("bi-star");--%>
-<%--            }--%>
-
-<%--            function Testing(id) {--%>
-<%--                uwu();--%>
-<%--                for (let i = id + 1; i < 6; i++) {--%>
-<%--                    var rid = "r" + i;--%>
-<%--                    document.getElementById(rid).classList.add("bi-star");--%>
-<%--                }--%>
-<%--            }--%>
-
-<%--            function UnTesting() {--%>
-<%--                uwu();--%>
-<%--                var rate = parseInt(document.getElementById("rating").value) + 1;--%>
-<%--                for (let i = rate; i < 6; i++) {--%>
-<%--                    var rid = "r" + i;--%>
-<%--                    document.getElementById(rid).classList.add("bi-star");--%>
-<%--                }--%>
-<%--            }--%>
-
-<%--            function AnTesting(id) {--%>
-<%--                uwu();--%>
-<%--                document.getElementById("rating").value = id;--%>
-<%--                document.getElementById("comment").removeAttribute("hidden");--%>
-<%--                document.getElementById("btnComment").removeAttribute("hidden");--%>
-<%--                for (let i = id + 1; i < 6; i++) {--%>
-<%--                    var rid = "r" + i;--%>
-<%--                    document.getElementById(rid).classList.add("bi-star");--%>
-<%--                }--%>
-<%--            }--%>
-
-<%--            const d = new Date();--%>
-<%--            document.getElementById("review_date").value = d.toISOString().slice(0, 10);--%>
-<%--        </script>--%>
 <%--        <!-- Back to Top -->--%>
 <%--        <a href="#" class="btn btn-light back-to-top"><i class="fa fa-angle-double-up"></i></a>--%>
 <%--        <!-- Footer-->--%>
@@ -472,6 +432,7 @@
             </div>
         </div>
         <div class="col-lg-1 col-md-12"></div>
+        <!----------------------------------------------------------------------------------------------------------->
     </div>
     <div class="row px-xl-5 mt-5 pt-5">
         <div class="col">
@@ -479,52 +440,89 @@
                 <div class="col-md-6">
                     <h4 class="mb-4">1 review for "Colorful Stylish Shirt"</h4>
                     <div class="media mb-4">
-                        <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                        <c:forEach var="review" items="${requestScope.reviews}">
+                        <img src="${review.getUser_image()}" alt="${review.getUsername()} photo" class="img-fluid mr-3 mt-1 rounded-circle" style="width: 45px;">
                         <div class="media-body">
-                            <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
+                            <h6>${review.getUsername()} <small> - <i>${review.getReview_date()}</i></small></h6>
                             <div class="text-primary mb-2">
+                                <c:forEach begin="1" end="${review.getRating()}">
                                 <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
+                                </c:forEach>
+                                <c:forEach begin="${review.getRating()}" end="4">
                                 <i class="far fa-star"></i>
+                                </c:forEach>
                             </div>
-                            <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no
-                                at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
+                            <p>${review.getComment()}</p>
                         </div>
+                        </c:forEach>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <h4 class="mb-4">Leave a review</h4>
-                    <small>Your email address will not be published. Required fields are marked *</small>
-                    <div class="d-flex my-3">
-                        <p class="mb-0 mr-2">Your Rating * :</p>
-                        <div class="text-primary">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
+                <c:choose>
+                    <c:when test="${sessionScope.userCookie == null}">
+                        <div class="col-md-6 text-center">
+                            You'll need to log in to make a review
+                            <br/>
                         </div>
-                    </div>
-                    <form>
-                        <div class="form-group">
-                            <label for="message">Your Review *</label>
-                            <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
+                    </c:when>
+                    <c:when test="${!sessionScope.isbought}">
+                        <div class="col-md-6 text-center">
+                            You'll need to buy this book to make a review
+                            <br/>
                         </div>
-                        <div class="form-group">
-                            <label for="name">Your Name *</label>
-                            <input type="text" class="form-control" id="name">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Your Email *</label>
-                            <input type="email" class="form-control" id="email">
-                        </div>
-                        <div class="form-group mb-0">
-                            <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
-                        </div>
-                    </form>
-                </div>
+                    </c:when>
+                    <c:otherwise>
+                        <c:choose>
+                            <c:when test="${sessionScope.isCom}">
+                                <div class=" col-md-6 text-center">
+                                    You've made a review already
+                                    <br/>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="col-md-6">
+                                    <h4 class="mb-4">Leave a review</h4>
+                                    <small>Your email address will not be published. Required fields are marked
+                                        *</small>
+                                    <div class="d-flex my-3" onmouseleave="UnTesting()">
+                                        <p class="mb-0 mr-2">Your Rating * :</p>
+                                        <div class="text-primary">
+                                            <i class="far fa-star" id="r1" onmouseover="Testing(1)"
+                                               onclick="AnTesting(1)"></i>
+                                            <i class="far fa-star" id="r2" onmouseover="Testing(2)"
+                                               onclick="AnTesting(2)"></i>
+                                            <i class="far fa-star" id="r3" onmouseover="Testing(3)"
+                                               onclick="AnTesting(3)"></i>
+                                            <i class="far fa-star" id="r4" onmouseover="Testing(4)"
+                                               onclick="AnTesting(4)"></i>
+                                            <i class="far fa-star" id="r5" onmouseover="Testing(5)"
+                                               onclick="AnTesting(5)"></i>
+                                        </div>
+                                    </div>
+                                    <form method="POST" action="<%= request.getServletContext().getContextPath()%>/review">
+                                        <input type="number" value="${sessionScope.BOOKINFO.get().getBook_id()}"
+                                               id="ordered_book_id" name="ordered_book_id" hidden/>
+                                        <input type="number" id="rating" name="rating" min="1" max="5" value="0"
+                                               hidden/>
+                                        <input type="number" value="${sessionScope.userCookie.getValue()}" id="user_id"
+                                               name="user_id"
+                                               hidden/>
+                                        <input type="text" id="review_date" name="review_date" hidden/>
+                                        <div class="form-group">
+                                            <label for="comment">Your Review *</label>
+                                            <textarea id="comment" name="comment" cols="30" rows="5"
+                                                      class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group mb-0">
+                                            <button type="submit" class="btn btn-primary px-3" id="btnComment" name="btnComment" value="com">Leave Your Review</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:otherwise>
+                </c:choose>
+                <!-------------------------------------------->
+
             </div>
         </div>
     </div>
@@ -668,6 +666,9 @@
 
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
+
+<!-- Review JS -->
+<script src="js/review.js"></script>
 </body>
 
 </html>
