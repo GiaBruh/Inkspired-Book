@@ -114,9 +114,8 @@ public class UserController extends HttpServlet {
             if (!fileName.equals("")) {
                 user_image = "./uploadphotos/userphotos/user" + user_id + "/" + fileName;
             }
-
-            System.out.println(realPath + "/" + fileName);
-            part.write(realPath + "/" + fileName);
+                System.out.println(realPath + "/" + fileName);
+//                part.write(realPath + "/" + fileName); Idk feel unnecessary
         } catch (IllegalStateException ise) {
             System.out.println("Upload failed");
             session.setAttribute("FILESIZEEXCEEDED", true);
