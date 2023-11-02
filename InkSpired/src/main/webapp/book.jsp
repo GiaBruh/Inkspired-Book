@@ -483,19 +483,19 @@
                                     <h4 class="mb-4">Leave a review</h4>
                                     <small>Your email address will not be published. Required fields are marked
                                         *</small>
-                                    <div class="d-flex my-3" onmouseleave="UnTesting()">
+                                    <div class="d-flex my-3" onmouseleave="rating_Stable()">
                                         <p class="mb-0 mr-2">Your Rating * :</p>
                                         <div class="text-primary">
-                                            <i class="far fa-star" id="r1" onmouseover="Testing(1)"
-                                               onclick="AnTesting(1)"></i>
-                                            <i class="far fa-star" id="r2" onmouseover="Testing(2)"
-                                               onclick="AnTesting(2)"></i>
-                                            <i class="far fa-star" id="r3" onmouseover="Testing(3)"
-                                               onclick="AnTesting(3)"></i>
-                                            <i class="far fa-star" id="r4" onmouseover="Testing(4)"
-                                               onclick="AnTesting(4)"></i>
-                                            <i class="far fa-star" id="r5" onmouseover="Testing(5)"
-                                               onclick="AnTesting(5)"></i>
+                                            <i class="far fa-star" id="r1" onmouseover="rating_Point(1)"
+                                               onclick="rating_Click(1)"></i>
+                                            <i class="far fa-star" id="r2" onmouseover="rating_Point(2)"
+                                               onclick="rating_Click(2)"></i>
+                                            <i class="far fa-star" id="r3" onmouseover="rating_Point(3)"
+                                               onclick="rating_Click(3)"></i>
+                                            <i class="far fa-star" id="r4" onmouseover="rating_Point(4)"
+                                               onclick="rating_Click(4)"></i>
+                                            <i class="far fa-star" id="r5" onmouseover="rating_Point(5)"
+                                               onclick="rating_Click(5)"></i>
                                         </div>
                                     </div>
                                     <form method="POST" action="<%= request.getServletContext().getContextPath()%>/review">
