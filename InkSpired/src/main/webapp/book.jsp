@@ -4,6 +4,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.util.Collections" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Date,java.text.SimpleDateFormat,java.text.ParseException" %>
+<%@page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -154,6 +158,160 @@
                 </div>
             </div>
         </section>
+        <section class="py-5 gradient-custom">
+            <div class="container py-4 h-100" style="background: white;">
+                <h3 class="ms-3">Reviews</h3>
+                <hr>
+                <div>
+                    <c:choose>
+                        <c:when test="${sessionScope.userCookie == null}">
+                            <div class="text-center">
+                                You'll need to log in to make a review
+                                <br/>
+                            </div>
+                        </c:when>
+                        <c:when test="${!sessionScope.isbought}">
+                            <div class="text-center">
+                                You'll need to buy this book to make a review
+                                <br/>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <c:choose>
+                                <c:when test="${sessionScope.isCom}">
+                                    <div class="text-center">
+                                        You've made a review already
+                                        <br/>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <h4 class="text-center">Rate this book</h4>
+                                    <h6 class="text-center" style="opacity: 50%">Tell others what you think</h6>
+                                    <form method="POST" action="<%= request.getServletContext().getContextPath()%>/review">
+                                        <input type="number" value="${sessionScope.BOOKINFO.get().getBook_id()}"
+                                               id="ordered_book_id" name="ordered_book_id" hidden/>
+                                        <input type="number" id="rating" name="rating" min="1" max="5" value="5" hidden/>
+                                        <input type="number" value="${sessionScope.userCookie.getValue()}" id="user_id" name="user_id"
+                                               hidden/>
+                                        <input type="text" id="review_date" name="review_date" hidden/>
+                                        <div class="d-flex justify-content-center text-warning mb-2">
+                                            <h2 class="bi-star-fill" id="r1" onmouseover="Testing(1)" onmouseleave="UnTesting()"
+                                                onclick="AnTesting(1)"></h2>
+                                            <h2 class="bi-star-fill" id="r2" onmouseover="Testing(2)" onmouseleave="UnTesting()"
+                                                onclick="AnTesting(2)"></h2>
+                                            <h2 class="bi-star-fill" id="r3" onmouseover="Testing(3)" onmouseleave="UnTesting()"
+                                                onclick="AnTesting(3)"></h2>
+                                            <h2 class="bi-star-fill" id="r4" onmouseover="Testing(4)" onmouseleave="UnTesting()"
+                                                onclick="AnTesting(4)"></h2>
+                                            <h2 class="bi-star-fill" id="r5" onmouseover="Testing(5)" onmouseleave="UnTesting()"
+                                                onclick="AnTesting(5)"></h2>
+                                        </div>
+                                        <div class="d-flex justify-content-center pb-3">
+                        <textarea class="center" id="comment" name="comment" rows="4" cols="50" maxlength="200"
+                                  placeholder="Describe your experience (optional)" hidden></textarea>
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <button class="btn btn-outline-dark btn-lg" id="btnComment" type="submit" name="btnComment"
+                                                    value="com" hidden>Review
+                                            </button>
+                                        </div>
+                                    </form>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+                <hr>
+                <div>
+                    <c:forEach var="review" items="${requestScope.reviews}">
+                        <div class="row">
+                            <div class="col-1">
+                                <img id="profileImage" width="60" height="60" class="rounded-circle"
+                                     style="object-fit: cover"
+                                    <%--                                                 src="https://dummyimage.com/100x100/000/fff" alt="profileImage">--%>
+                                     src="${review.getUser_image()}"
+                                     alt="${review.getUsername()} photo">
+                            </div>
+                            <div class="col-10">
+                                <p class="mb-0">
+                                        ${review.getUsername()}
+                                </p>
+                                <div class="d-flex text-warning">
+                                    <c:forEach begin="1" end="${review.getRating()}">
+                                        <div class="bi-star-fill"></div>
+                                    </c:forEach>
+                                    <c:forEach begin="${review.getRating()}" end="4">
+                                        <div class="bi-star"></div>
+                                    </c:forEach>
+                                </div>
+                                <p class="mb-4" style="opacity: 50%;">${review.getReview_date()}</p>
+                                <p>
+                                        ${review.getComment()}
+                                </p>
+                                <hr>
+                            </div>
+                            <div class="col-1">
+                                <c:choose>
+                                    <c:when test="${sessionScope.userCookie.getValue() == review.getUser_id()}">
+                                        <form method="POST" action="<%= request.getServletContext().getContextPath()%>/review">
+                                            <button onclick="return confirm('Confirm removing this review?')"
+                                                    class="btn-close btn-close-dark"
+                                                    aria-label="Close"
+                                                    name="btnDeleteReview"
+                                                    id = "review_${review.getReview_id()}"
+                                                    value="${review.getReview_id()}"
+                                            ><input type="number" value="${sessionScope.BOOKINFO.get().getBook_id()}"
+                                                    name="ordered_book_id" hidden/>
+                                            </button>
+                                        </form>
+                                    </c:when>
+                                </c:choose>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+            </div>
+        </section>
+        <script>
+            function uwu() {
+                document.getElementById("r1").classList.remove("bi-star");
+                document.getElementById("r2").classList.remove("bi-star");
+                document.getElementById("r3").classList.remove("bi-star");
+                document.getElementById("r4").classList.remove("bi-star");
+                document.getElementById("r5").classList.remove("bi-star");
+            }
+
+            function Testing(id) {
+                uwu();
+                for (let i = id + 1; i < 6; i++) {
+                    var rid = "r" + i;
+                    document.getElementById(rid).classList.add("bi-star");
+                }
+            }
+
+            function UnTesting() {
+                uwu();
+                var rate = parseInt(document.getElementById("rating").value) + 1;
+                for (let i = rate; i < 6; i++) {
+                    var rid = "r" + i;
+                    document.getElementById(rid).classList.add("bi-star");
+                }
+            }
+
+            function AnTesting(id) {
+                uwu();
+                document.getElementById("rating").value = id;
+                document.getElementById("comment").removeAttribute("hidden");
+                document.getElementById("btnComment").removeAttribute("hidden");
+                for (let i = id + 1; i < 6; i++) {
+                    var rid = "r" + i;
+                    document.getElementById(rid).classList.add("bi-star");
+                }
+            }
+
+            const d = new Date();
+            document.getElementById("review_date").value = d.toISOString().slice(0, 10);
+        </script>
         <!-- Back to Top -->
         <a href="#" class="btn btn-light back-to-top"><i class="fa fa-angle-double-up"></i></a>
         <!-- Footer-->

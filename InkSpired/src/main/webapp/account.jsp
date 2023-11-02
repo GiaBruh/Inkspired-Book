@@ -13,7 +13,6 @@
     </head>
     <%@include file="interface.jsp" %>
     <body>
-
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="<%= request.getServletContext().getContextPath()%>/">Inkspired Books</a>
@@ -56,7 +55,7 @@
                             <li><a class="item-dropdown"
                                    href="<%= request.getServletContext().getContextPath()%>/order">Order History</a>
                             </li>
-                            <li><a class="item-dropdown" href="#">Review History</a></li>
+                            <li><a class="item-dropdown" href="<%= request.getServletContext().getContextPath()%>/review">Review History</a></li>
                             <li>
                                 <div class="dropdown-divider"></div>
                             </li>

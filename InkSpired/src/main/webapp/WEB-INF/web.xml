@@ -42,10 +42,16 @@
     <servlet>
         <servlet-name>AuthorController</servlet-name>
         <servlet-class>com.example.inkspired.controller.AuthorController</servlet-class>
-    </servlet><servlet>
-    <servlet-name>CheckoutController</servlet-name>
-    <servlet-class>com.example.inkspired.controller.CheckoutController</servlet-class>
-</servlet>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutController</servlet-name>
+        <servlet-class>com.example.inkspired.controller.CheckoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReviewController</servlet-name>
+        <servlet-class>com.example.inkspired.controller.ReviewController</servlet-class>
+    </servlet>
+
 
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
@@ -109,6 +115,10 @@
         <url-pattern>/checkout/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ReviewController</servlet-name>
+        <url-pattern>/review/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>/css/*</url-pattern>
     </servlet-mapping>
@@ -147,12 +157,12 @@
         <error-code>404</error-code>
         <location>/404NotFound</location>
     </error-page>
-<!--    <filter>-->
-<!--        <filter-name>URLFilter</filter-name>-->
-<!--        <filter-class>com.example.inkspired.filter.URLFilter</filter-class>-->
-<!--    </filter>-->
-<!--    <filter-mapping>-->
-<!--        <filter-name>URLFilter</filter-name>-->
-<!--        <url-pattern>/*</url-pattern>-->
-<!--    </filter-mapping>-->
+    <!--    <filter>-->
+    <!--        <filter-name>URLFilter</filter-name>-->
+    <!--        <filter-class>com.example.inkspired.filter.URLFilter</filter-class>-->
+    <!--    </filter>-->
+    <!--    <filter-mapping>-->
+    <!--        <filter-name>URLFilter</filter-name>-->
+    <!--        <url-pattern>/*</url-pattern>-->
+    <!--    </filter-mapping>-->
 </web-app>
