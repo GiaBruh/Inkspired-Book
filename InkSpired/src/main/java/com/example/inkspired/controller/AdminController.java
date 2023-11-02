@@ -69,7 +69,7 @@ public class AdminController extends HttpServlet {
 
                 response.sendRedirect(request.getContextPath() + "/admin/dashboard");
 
-            } else if (pathInfo.equals("/dashboard")) {
+            } else if (pathInfo.endsWith("/dashboard")) {
                 request.getRequestDispatcher("/admin-dashboard.jsp").forward(request, response);
 
             } else if (pathInfo.equals("/table-order")) {
@@ -268,7 +268,6 @@ public class AdminController extends HttpServlet {
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
-
                     response.sendRedirect(request.getContextPath() + "/admin/table-book");
                 }
 
@@ -305,7 +304,7 @@ public class AdminController extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/admin/table-category");
                 }
 
-            } else if (pathInfo.equals("/add-book")) {
+            } else if (pathInfo.endsWith("/add-book")) {
                 {
                     AuthorDAO authorDAO = new AuthorDAO();
                     List<Author> authors = authorDAO.getAll();
@@ -364,7 +363,7 @@ public class AdminController extends HttpServlet {
         if (request.getParameter("loginSubmit") != null && request.getParameter("loginSubmit").equals("Submit")) {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
-
+            request.removeAttribute("errorMessage");
 
             // Assuming you have a method in AdminDAO to check credentials
             AdminDAO adminDAO = new AdminDAO();

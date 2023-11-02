@@ -78,19 +78,22 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Book Title</label>
                                                 <input class="form-control" type="text" id="title" name="title" required>
+                                                <span id="errorTitle" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-sm-4 col-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Date Publish</label>
-                                                <fmt:formatDate var="formattedDate" value="${book.publication_date}" pattern="yyyy-MM-dd" />
-                                                <input class="form-control" type="date" id="date" name="date" required>
+                                                <fmt:formatDate var="formattedDate" value="${book.publication_date}" pattern="yyyy-MM-dd"/>
+                                                <input class="form-control" type="date" id="date" name="date" required max="2023-10-30">
+                                                <span id="errorDate" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-sm-4 col-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Quantity</label>
                                                 <input class="form-control" type="number" id="quantity" name="quantity" min="0" required>
+                                                <span id="errorQuantity" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-sm-4 col-12">
@@ -101,6 +104,7 @@
                                                     <input class="form-control" type="number" id="price" name="price" value="${book.price}" min="0" required>
                                                     <span class="input-group-text">VND</span>
                                                 </div>
+                                                <span id="errorPrice" class="text-danger"></span>
                                             </div>
                                         </div>
 
@@ -128,6 +132,7 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Image</label>
                                                 <input class="form-control" type="file" id="upload" name="upload" onchange="loadFile(event)" required>
+                                                <span id="errorImage" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-sm-4 col-12">
@@ -153,7 +158,7 @@
                                                 <label class="form-label" >Is Available?</label>
                                                 <div class="mt-2">
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input"  type="radio"  name="available" value="true">
+                                                        <input class="form-check-input"  type="radio"  name="available" value="true" checked>
                                                         <label class="form-check-label" >Yes</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
@@ -167,6 +172,7 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Description</label>
                                                 <textarea type="text" class="form-control" id="description" name="description" placeholder="Please add some description" rows="5" required><c:out value="${book.book_description}"/></textarea>
+                                                <span id="errorDescription" class="text-danger"></span>
                                             </div>
                                         </div>
 
@@ -195,6 +201,7 @@
                                                     </label><br>
                                                     <% } %>
                                                 </div>
+                                                <span id="errorAuthor" class="text-danger"></span>
                                             </div>
 
 
@@ -215,7 +222,7 @@
                                                     </label><br>
                                                     <% } %>
                                                 </div>
-
+                                                <span id="errorCategory" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -241,8 +248,8 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="d-flex gap-2 justify-content-end">
-                                        <button type="submit" class="btn btn-primary" name="addBookSubmit" id="submitButton">Submit</button>
-                                        <button type="reset" class="btn btn-danger">Reset</button>
+                                        <button type="submit" class="btn btn-primary" name="addBookSubmit" id="submitButton" disabled>Submit</button>
+                                        <button type="reset" name="addBookReset" class="btn btn-danger">Reset</button>
                                     </div>
                                 </div>
                             </form>
@@ -269,11 +276,191 @@
 </div>
 <!-- Page wrapper end -->
 
+<script>
+    let title = '';
+    let date = '';
+    let quantity = '';
+    let price = '';
+    let image = '';
+    let description = '';
+    let author = 0;
+    let category = 0;
+
+    let validTitle = false;
+    let validDate = false;
+    let validQuantity = false;
+    let validPrice = false;
+    let validImage = false;
+    let validDescription = false;
+    let validAuthor = false;
+    let validCategory = false;
+
+    $(document).ready(function () {
+        <!--DATE CONSTRAINT-->
+        $(function(){
+            var dtToday = new Date();
+
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+
+            if(month < 10)
+                month = '0' + month.toString();
+            if(day < 10)
+                day = '0' + day.toString();
+
+            var maxDate = year + '-' + month + '-' + day;
+            $("input[name='date']").attr('max', maxDate);
+        });
+        $("input[name='title']").on({
+            'keyup change': function () {
+                title = $("input[name='title']").val();
+                if (title.length < 1 || title.length > 100) {
+                    validTitle = false;
+                    $("#errorTitle").html("Book title can only be from 1 to 100 characters.");
+                } else {
+                    validTitle = true;
+                    $("#errorTitle").html("");
+                }
+                valid();
+            }
+        });
+        $("input[name='date']").on( {
+            'keyup change': function () {
+                date = $("input[name='date']").val();
+                if (!date){
+                    validDate = false;
+                    $("#errorDate").html("Publish date cannot be left empty.");
+                } else {
+                    validDate = true;
+                    $("#errorDate").html("");
+                }
+                valid();
+            }
+        })
+        $("input[name='quantity']").on( {
+            'keyup change': function () {
+                quantity = $("input[name='quantity']").val();
+                if (!quantity){
+                    validQuantity= false;
+                    $("#errorQuantity").html("Quantity cannot be left empty.");
+                } else {
+                    validQuantity = true;
+                    $("#errorQuantity").html("");
+                }
+                valid();
+            }
+        });
+        $("input[name='price']").on( {
+            'keyup change': function () {
+                price = $("input[name='price']").val();
+                if (!price){
+                    validPrice= false;
+                    $("#errorPrice").html("Quantity cannot be left empty.");
+                } else {
+                    validPrice = true;
+                    $("#errorPrice").html("");
+                }
+                valid();
+            }
+        });
+        $("input[name='upload']").on( {
+            'keyup change': function () {
+                image = $("input[name='upload']").val();
+                if (!image){
+                    validImage= false;
+                    $("#errorImage").html("Image cannot be left empty.");
+                } else {
+                    validImage = true;
+                    $("#errorImage").html("");
+                }
+                valid();
+            }
+        });
+        $("textarea[name='description']").on( {
+            'keyup change': function () {
+                description = $("textarea[name='description']").val();
+                if (!description){
+                    validDescription = false;
+                    $("#errorDescription").html("Description cannot be left empty.");
+                } else {
+                    validDescription = true;
+                    $("#errorDescription").html("");
+                }
+                valid();
+            }
+        });
+        $("input[name='authorIds']").on( {
+            change: function() {
+                author = $("input[name='authorIds']:checked").length
+                if (!(author > 0)){
+                    validAuthor = false;
+                    $("#errorAuthor").html("At least one author needed to be selected");
+                } else {
+                    validAuthor = true;
+                    $("#errorAuthor").html("");
+                }
+                valid();
+            }
+        });
+        $("input[name='categoryIds']").on( {
+            change: function() {
+                category = $("input[name='categoryIds']:checked").length
+                if (!(category > 0)){
+                    validCategory = false;
+                    $("#errorCategory").html("At least one category needed to be selected");
+                } else {
+                    validCategory = true;
+                    $("#errorCategory").html("");
+                }
+                valid();
+            }
+        });
+        function valid() {
+            console.log(validTitle, validDate, validQuantity, validPrice, validImage, validDescription, validAuthor, validCategory);
+            if(
+                validTitle === true &&
+                validDate === true &&
+                validQuantity === true &&
+                validPrice === true &&
+                validImage === true &&
+                validDescription === true &&
+                validAuthor === true &&
+                validCategory === true
+            ) {
+                $("button[name='addBookSubmit']").removeAttr('disabled');
+
+            } else {
+                $("button[name='addBookSubmit']").attr('disabled', '');
+            }
+        }
+        $("button[name='addBookReset']").on( {
+            click: function (){
+                validTitle = false;
+                validDate = false;
+                validQuantity = false;
+                validPrice = false;
+                validImage = false;
+                validDescription = false;
+                validAuthor = false;
+                validCategory = false;
+                valid();
+                $("#errorTitle").html("");
+                $("#errorDate").html("");
+                $("#errorQuantity").html("");
+                $("#errorImage").html("");
+                $("#errorPrice").html("");
+                $("#errorDescription").html("");
+                $("#errorAuthor").html("");
+                $("#errorCategory").html("");
+            }
+        });
+    });
+</script>
 <!-- *************
     ************ JavaScript Files *************
 ************* -->
 <%@include file="jsp-contribute/admin-script.jsp" %>
 
 </body>
-
 </html>
