@@ -278,7 +278,7 @@
         <div class="row d-flex align-items-center pt-3 pb-3 justify-content-center align-items-center h-100">
             <div class="col-12 col-lg-11 col-xl-9">
                 <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
-                    <div class="card-body p-4 p-md-5">
+                    <div class="card-body p-4 p-md-5" style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3)">
                         <h3 class="mb-4 pb-1 pb-md-0 mb-md-5">Account information</h3>
                         <form method="POST" action="<%=request.getServletContext().getContextPath()%>/user"
                               enctype="multipart/form-data">
@@ -395,16 +395,16 @@
 
                             <div class="row d-flex">
                                 <div class="col-md-2 col-sm-6 mt-4 pt-2 pe-0 me-md-0">
-                                    <input class="submit btn btn-outline-dark btn-lg" type="submit"
+                                    <input class="submit btn btn-primary btn-outline-dark btn-lg" type="submit"
                                            value="Submit" disabled/>
                                 </div>
                                 <div class="col-md-2 col-sm-6 mt-4 pt-2 px-0">
-                                    <button type="button" class="edit btn btn-outline-dark btn-lg"
+                                    <button type="button" class="edit btn btn-primary btn-outline-dark btn-lg"
                                             onclick="toggleEditing()">Edit
                                     </button>
                                 </div>
                                 <div class="col-md-2 col-sm-6 mt-4 pt-2 px-0">
-                                    <button type="reset" class="cancel btn btn-outline-dark btn-lg"
+                                    <button type="reset" class="cancel btn btn-primary btn-outline-dark btn-lg"
                                             id="cancel"
                                             onclick="cancelEditing()"
                                             style="display: none"

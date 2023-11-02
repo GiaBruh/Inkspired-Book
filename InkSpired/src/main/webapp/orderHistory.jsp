@@ -216,7 +216,7 @@
 <section class="py-5 gradient-custom">
     <div class="container px-4 px-lg-5 my-5">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3)">
                 <table id="example" class="table table-striped" style="width:100%">
                     <thead>
                     <tr>
@@ -349,11 +349,10 @@
     </div>
 </div>
 
-<%@include file="footer.jsp" %>
-
 <script>
     new DataTable('#example');
 </script>
+<%@include file="footer.jsp" %>
 <script src="js/order.js"></script>
 
 <!-- Back to Top -->

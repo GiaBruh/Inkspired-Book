@@ -223,7 +223,7 @@
 
             <c:otherwise>
                 <div class="col-lg-8 table-responsive mb-5">
-                    <table class="table table-bordered text-center mb-0">
+                    <table class="table table-bordered text-center mb-0" style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3)">
                         <thead class="bg-secondary text-dark">
                         <tr>
                             <th colspan="2">Products</th>
@@ -315,7 +315,7 @@
         </c:choose>
         <div class="col-lg-4">
             <form class="mb-5" action="<%= request.getServletContext().getContextPath()%>/checkout"
-                  method="POST">
+                  method="POST" style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3)">
                 <div class="card border-secondary mb-5">
                     <div class="card-header bg-white border-0">
                         <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
