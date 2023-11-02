@@ -5,9 +5,12 @@
 <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
     <div class="row px-xl-5 pt-5">
         <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
-            <a href="<%= request.getServletContext().getContextPath()%>/" class="text-decoration-none">
-                <h1 class="mb-4 display-5 font-weight-semi-bold">InkSpired</h1>
-            </a>
+            <div class="col-lg-3 d-none d-lg-block">
+                <a href="<%= request.getServletContext().getContextPath()%>/" class="text-decoration-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold"><span
+                            class="font-weight-bold border px-3 mr-0" style="color: rgb(0, 109, 255);">INK</span>Spired</h1>
+                </a>
+            </div>
             <p>Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit erat lorem et magna ipsum dolore amet erat.</p>
             <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
             <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
