@@ -1,13 +1,7 @@
 package com.example.inkspired.controller;
 
-import com.example.inkspired.dao.BookDAO;
-import com.example.inkspired.dao.ShoppingCartDAO;
-import com.example.inkspired.dao.UserDAO;
-import com.example.inkspired.model.Book;
 import com.example.inkspired.dao.ReviewDAO;
 import com.example.inkspired.model.Review;
-import com.example.inkspired.model.ShoppingCart;
-import com.example.inkspired.model.User;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -15,8 +9,6 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
-import java.util.List;
-import java.util.Optional;
 
 @WebServlet(name = "BookController", value = "/book")
 public class ReviewController extends HttpServlet {
@@ -72,7 +64,7 @@ public class ReviewController extends HttpServlet {
             ReviewDAO rDao = new ReviewDAO();
             String Book = "/book?bookid=";
             Book += request.getParameter("ordered_book_id");
-            if (rDao.upComment(review)) {
+            if (rDao.createReview(review)) {
                 response.sendRedirect(getServletContext().getContextPath() + Book);
             } else {
                 response.sendRedirect(getServletContext().getContextPath() + Home);
@@ -84,7 +76,7 @@ public class ReviewController extends HttpServlet {
             ReviewDAO rDao = new ReviewDAO();
             String Book = "/book?bookid=";
             Book += request.getParameter("ordered_book_id");
-            if (rDao.downComment(review_id)) {
+            if (rDao.deleteReview(review_id)) {
                 response.sendRedirect(getServletContext().getContextPath() + Book);
             } else {
                 response.sendRedirect(getServletContext().getContextPath() + Home);

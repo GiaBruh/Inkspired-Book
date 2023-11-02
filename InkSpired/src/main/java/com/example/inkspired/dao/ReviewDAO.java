@@ -112,7 +112,7 @@ public class ReviewDAO {
 
         return result;
     }
-    public boolean findBought(int userId, int bookId) {
+    public boolean isBought(int userId, int bookId) {
         String query = "select public.order.user_id, order_detail.book_id, public.order.order_status " +
                 "from public.order " +
                 "join order_detail " +
@@ -130,7 +130,7 @@ public class ReviewDAO {
         return false;
     }
 
-    public Review findUserReview(int userId, int bookId) {
+    public Review getUserReview(int userId, int bookId) {
         String query = "select * from review where user_id = ? and ordered_book_id = ?";
         Review review = new Review();
         try {
@@ -154,7 +154,7 @@ public class ReviewDAO {
         return null;
     }
 
-    public boolean upComment(Review review) {
+    public boolean createReview(Review review) {
         String query = "Insert into public.review (review_date, user_id, ordered_book_id, rating, comment) " +
                 "values (?,?,?,?,?)";
         try {
@@ -172,7 +172,7 @@ public class ReviewDAO {
     }
 
     //Delete
-    public boolean downComment(int id) {
+    public boolean deleteReview(int id) {
         String query = "Delete from public.review where review_id = ?";
         try {
             ps = conn.prepareStatement(query);
