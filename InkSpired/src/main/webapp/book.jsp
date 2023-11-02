@@ -506,19 +506,18 @@
                             <c:when test="${!sessionScope.ISINCART}">
                                 <form method="POST"
                                       action="<%= request.getServletContext().getContextPath()%>/cart">
-                                    <button class="btn btn-outline-dark flex-shrink-0" type="submit"
+                                    <button class="btn btn-primary px-3" type="submit"
                                             name="btnaddtocart"
                                             value="${sessionScope.BOOKINFO.get().getBook_id()}"
                                     >
-                                        <i class="bi-cart-fill me-1"></i>
-                                        Add to cart
+                                        <i class="fa fa-shopping-cart mr-1"></i> Add To Cart
                                     </button>
                                 </form>
                             </c:when>
 
                             <c:otherwise>
                                 <form action="<%= request.getServletContext().getContextPath()%>/cart">
-                                    <button class="btn btn-outline-dark flex-shrink-0" type="submit"
+                                    <button class="btn btn-primary px-3" type="submit"
                                             name="cartid"
                                             value="${sessionScope.userCookie.getValue()}"
                                     >
@@ -554,23 +553,23 @@
     </div>
     <div class="row px-xl-5 mt-5 pt-5">
         <div class="col">
-            <div class="nav nav-tabs justify-content-center border-secondary mb-4">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Description</a>
-                <%--                <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Information</a>--%>
-                <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
-            </div>
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="tab-pane-1">
-                    <h4 class="mb-5" style="font-size: xx-large">Product Description</h4>
-                    <p style="font-size: large">Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea.
-                        Consetetur vero aliquyam invidunt
-                        duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur
-                        invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet
-                        rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam
-                        consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam,
-                        ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr
-                        sanctus eirmod takimata dolor ea invidunt.</p>
-                </div>
+<%--            <div class="nav nav-tabs justify-content-center border-secondary mb-4">--%>
+<%--                <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Description</a>--%>
+<%--                <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Information</a>--%>
+<%--                <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>--%>
+<%--            </div>--%>
+<%--            <div class="tab-content">--%>
+<%--                <div class="tab-pane fade show active" id="tab-pane-1">--%>
+                <%--                    <h4 class="mb-5" style="font-size: xx-large">Product Description</h4>--%>
+                <%--                    <p style="font-size: large">Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea.--%>
+                <%--                        Consetetur vero aliquyam invidunt--%>
+                <%--                        duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur--%>
+                <%--                        invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet--%>
+                <%--                        rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam--%>
+                <%--                        consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam,--%>
+                <%--                        ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr--%>
+                <%--                        sanctus eirmod takimata dolor ea invidunt.</p>--%>
+                <%--                </div>--%>
                 <%--                <div class="tab-pane fade" id="tab-pane-2">--%>
                 <%--                    <h4 class="mb-3">Additional Information</h4>--%>
                 <%--                    <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>--%>
@@ -609,7 +608,7 @@
                 <%--                        </div>--%>
                 <%--                    </div>--%>
                 <%--                </div>--%>
-                <div class="tab-pane fade" id="tab-pane-3">
+<%--                <div class="tab-pane fade" id="tab-pane-3">--%>
                     <div class="row">
                         <div class="col-md-6">
                             <h4 class="mb-4">1 review for "Colorful Stylish Shirt"</h4>
@@ -661,8 +660,8 @@
                             </form>
                         </div>
                     </div>
-                </div>
-            </div>
+<%--                </div>--%>
+    <%--            </div>--%>
         </div>
     </div>
 </div>
