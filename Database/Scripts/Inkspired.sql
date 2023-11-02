@@ -163,12 +163,12 @@ ALTER TABLE IF EXISTS public.review
 ;
 
 
-ALTER TABLE IF EXISTS public.review
-    ADD FOREIGN KEY (ordered_book_id)
-        REFERENCES public.order_detail (order_detail_id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-;
+-- ALTER TABLE IF EXISTS public.review
+--     ADD FOREIGN KEY (ordered_book_id)
+--         REFERENCES public.order_detail (order_detail_id) MATCH SIMPLE
+--         ON UPDATE CASCADE
+--         ON DELETE CASCADE
+-- ;
 
 ALTER TABLE IF EXISTS public."order"
     ADD CONSTRAINT user_id FOREIGN KEY (user_id)
