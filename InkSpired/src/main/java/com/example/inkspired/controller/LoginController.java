@@ -76,6 +76,15 @@ public class LoginController extends HttpServlet {
             try {
                 boolean isLogin = dao.login(user);
                 if (isLogin) {
+//                    Cookie[] cookies = request.getCookies();
+//                    for(Cookie cookie : cookies) {
+//                        if(cookie.getName().equals("adminId")) {
+//                            cookie.setValue("");
+//                            cookie.setMaxAge(0);
+//                            response.addCookie(cookie);
+//                            break;
+//                        }
+//                    }
                     int userid = dao.getUserIdFromUsername(user);
                     Cookie cookie = new Cookie("userWithAccount", "" + userid);
 

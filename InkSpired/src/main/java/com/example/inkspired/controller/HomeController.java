@@ -46,6 +46,17 @@ public class HomeController extends HttpServlet {
         Cookie[] cookies = request.getCookies();
         try {
             for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("adminId")) {
+                    response.sendRedirect(getServletContext().getContextPath() + "/admin/dashboard");
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        }
+
+        try {
+            for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("userWithAccount")) {
                     HttpSession session = request.getSession();
                     session.setAttribute("userCookie", cookie);
@@ -54,6 +65,8 @@ public class HomeController extends HttpServlet {
         } catch (Exception e) {
             System.out.println("No");
         }
+
+
 
         // List Books Available
         BookDAO bDao = new BookDAO();

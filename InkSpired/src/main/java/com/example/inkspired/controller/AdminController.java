@@ -28,20 +28,30 @@ public class AdminController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        Cookie[] cookies = request.getCookies();
+        for(Cookie cookie : cookies) {
+            if(cookie.getName().equals("userWithAccount")) {
+                response.sendRedirect(getServletContext().getContextPath() + "/");
+                return;
+            }
+        }
+
         String path = request.getRequestURI();
 
         if (path.endsWith(ADMIN)) {
             request.getRequestDispatcher("/admin-login.jsp").forward(request, response);
         }
 
-        Cookie[] cookies = request.getCookies();
+
+//        Cookie[] cookies = request.getCookies();
         request.setCharacterEncoding("UTF-8");
 
         boolean isLoggedIn = false;
         String pathInfo = request.getPathInfo();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("sessionId") && cookie.getValue().equals("uniqueSessionId")) {
+                if (cookie.getName().equals("adminId") && cookie.getValue().equals("uniqueSessionId")) {
                     isLoggedIn = true;
                     break;
                 }
@@ -64,10 +74,6 @@ public class AdminController extends HttpServlet {
 
             } else if (pathInfo.equals("/table-order")) {
                 {
-
-
-
-
                     request.getRequestDispatcher("/admin-table-order.jsp").forward(request, response);
                 }
 
@@ -327,14 +333,14 @@ public class AdminController extends HttpServlet {
 
             } else if (pathInfo.equals("/logout")) {
                 // Delete the session cookie
-                Cookie sessionCookie = new Cookie("sessionId", "");
+                Cookie sessionCookie = new Cookie("adminId", "");
                 sessionCookie.setPath(request.getContextPath());
                 sessionCookie.setMaxAge(0); // Delete the cookie
                 response.addCookie(sessionCookie);
 
                 // Redirect to the login page
-                response.sendRedirect(request.getContextPath() + "/admin/login");
-
+//                response.sendRedirect(request.getContextPath() + "/admin/login");
+                response.sendRedirect(request.getContextPath() + "/");
             } else {
                 response.sendRedirect(request.getContextPath() + "/admin/dashboard");
             }
@@ -366,7 +372,7 @@ public class AdminController extends HttpServlet {
 
             if (validCredentials != null) {
                 // Create a session cookie
-                Cookie sessionCookie = new Cookie("sessionId", "uniqueSessionId");
+                Cookie sessionCookie = new Cookie("adminId", "uniqueSessionId");
                 sessionCookie.setPath(request.getContextPath());
                 //set 1 days for cookie
                 int cookieMaxAge = 60 * 60 * 24;

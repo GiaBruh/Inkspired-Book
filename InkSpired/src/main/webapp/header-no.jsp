@@ -144,7 +144,7 @@
                                             <span>Customer Login</span>
                                         </button>
                                     </form>
-                                    <a href="" class="nav-item nav-link">Admin Login</a>
+<%--                                    <a href="" class="nav-item nav-link">Admin Login</a>--%>
                                 </c:when>
                                 <c:otherwise>
                                     <div class="nav-item dropdown">
