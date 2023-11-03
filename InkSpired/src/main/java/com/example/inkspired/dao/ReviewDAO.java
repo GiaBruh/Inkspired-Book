@@ -183,4 +183,62 @@ public class ReviewDAO {
         }
         return false;
     }
+    public List<Review> onlyUser(int id){
+        ArrayList<Review> result = new ArrayList<>();
+        String query = "select * from review where user_id = ? order by review_date desc";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Review review = new Review();
+                review.setBook_image(bookImage(rs.getInt("ordered_book_id")));
+                review.setBook_name(bookName(rs.getInt("ordered_book_id")));
+                review.setReview_id(rs.getInt("review_id"));
+                review.setReview_date(rs.getDate("review_date"));
+                review.setOrdered_book_id(rs.getInt("ordered_book_id"));
+                review.setRating(rs.getInt("rating"));
+                review.setComment(rs.getString("comment"));
+                result.add(review);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(ReviewDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return result;
+    }
+
+    public String bookImage(int id){
+        PreparedStatement psDumb = null;
+        ResultSet rsDumb = null;
+        String result = "Error";
+        String query = "Select * from book where book_id = ?";
+        try {
+            psDumb = conn.prepareStatement(query);
+            psDumb.setInt(1, id);
+            rsDumb = psDumb.executeQuery();
+            if (rsDumb.next()) {
+                result = rsDumb.getString("book_image");
+            }
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return result;
+    }
+    public String bookName(int id){
+        PreparedStatement psDumb = null;
+        ResultSet rsDumb = null;
+        String result = "Error";
+        String query = "Select * from book where book_id = ?";
+        try {
+            psDumb = conn.prepareStatement(query);
+            psDumb.setInt(1, id);
+            rsDumb = psDumb.executeQuery();
+            if (rsDumb.next()) {
+                result = rsDumb.getString("title");
+            }
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return result;
+    }
 }

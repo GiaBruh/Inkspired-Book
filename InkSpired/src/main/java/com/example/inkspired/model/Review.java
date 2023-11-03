@@ -12,6 +12,8 @@ public class Review implements Serializable {
     private String comment;
     private String username;
     private String user_image;
+    private String book_image;
+    private String book_name;
     public Review() {
 
     }
@@ -86,7 +88,20 @@ public class Review implements Serializable {
     public void setUser_image(String user_image) {
         this.user_image = user_image;
     }
+    public String getBook_image() {
+        return book_image;
+    }
 
+    public void setBook_image(String book_image) {
+        this.book_image = book_image;
+    }
+    public String getBook_name() {
+        return book_name;
+    }
+
+    public void setBook_name(String book_name) {
+        this.book_name = book_name;
+    }
     @Override
     public String toString() {
         return "Review{" +

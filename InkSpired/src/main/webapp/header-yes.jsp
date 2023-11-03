@@ -338,7 +338,7 @@
                                            class="dropdown-item">Profile</a>
                                         <a href="<%= request.getServletContext().getContextPath()%>/order"
                                            class="dropdown-item">Order History</a>
-                                        <a href="" class="dropdown-item">Review History</a>
+                                        <a href="<%= request.getServletContext().getContextPath()%>/review" class="dropdown-item">Review History</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item"
                                            href="<%= request.getServletContext().getContextPath()%>/logout">Logout</a>

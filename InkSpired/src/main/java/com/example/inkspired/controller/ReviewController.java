@@ -1,6 +1,6 @@
 package com.example.inkspired.controller;
-
 import com.example.inkspired.dao.ReviewDAO;
+
 import com.example.inkspired.model.Review;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.List;
 
 @WebServlet(name = "BookController", value = "/book")
 public class ReviewController extends HttpServlet {
@@ -41,6 +42,16 @@ public class ReviewController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getRequestURI();
+        HttpSession session = request.getSession();
+        ReviewDAO rDAO = new ReviewDAO();
+        if (((Cookie) session.getAttribute("userCookie")) != null) {
+            List<Review> userReviews = rDAO.onlyUser(Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue()));
+            request.setAttribute("reviews", userReviews);
+            request.getRequestDispatcher("/reviewHistory.jsp").forward(request, response);
+        }
+        else {
+            response.sendRedirect(getServletContext().getContextPath() + "/404NotFound");
+        }
     }
 
     /**
