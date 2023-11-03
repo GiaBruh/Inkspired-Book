@@ -1,52 +1,39 @@
-let username = '';
-let password = '';
+let usernameRegister = '';
+let passwordRegister = '';
 let fullname = '';
 let birthdate = new Date();
 let gender = '';
 let email = '';
 let phone = '';
 
-let validusername = false;
-let validpassword = false;
+let validusernameRegister = false;
+let validpasswordRegister = false;
 let validfullname = false;
 let validbirthdate = false;
 let validgender = true;
 let validemail = false;
 let validphone = false;
 
-const usernameregex = /[\s!@#\$%\^\&*\)\(+=._-]+/;
-const passwordregex = /\s+/;
+const usernameregexRegister = /[\s!@#\$%\^\&*\)\(+=._-]+/;
+const passwordregexRegister = /\s+/;
 const fullnameregex = /[0-9!@#\$%\^\&*\)\(+=._-]+/;
 const emailregex = /^(([^<>\(\)[\]\\.,;:\s@/"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const phoneregex = /^0[\d]+$/;
 
 $(document).ready(function() {
     $("input[name='registerusername']").on({
-        keyup: function() {
-            username = $("input[name='registerusername']").val();
-
-            if (username.length < 1 || username.length > 100) {
-                validusername = false;
+        'keyup change': function() {
+                console.log(usernameRegister);
+            usernameRegister = $("input[name='registerusername']").val();
+            console.log(usernameRegister);
+            if (usernameRegister.length < 1 || usernameRegister.length > 100) {
+                validusernameRegister = false;
                 $("#errorusername").html("The username can only be from 1 to 100 characters.");
-            } else if (usernameregex.test(username)) {
-                validusername = false;
+            } else if (usernameregexRegister.test(usernameRegister)) {
+                validusernameRegister = false;
                 $("#errorusername").html("The username cannot contains special characters.");
             } else {
-                validusername = true;
-                $("#errorusername").html("");
-            }
-        },
-        change: function() {
-            username = $("input[name='registerusername']").val();
-
-            if (username.length < 1 || username.length > 100) {
-                validusername = false;
-                $("#errorusername").html("The username can only be from 1 to 100 characters.");
-            } else if (usernameregex.test(username)) {
-                validusername = false;
-                $("#errorusername").html("The username cannot contains special characters.");
-            } else {
-                validusername = true;
+                validusernameRegister = true;
                 $("#errorusername").html("");
             }
         }
@@ -54,16 +41,16 @@ $(document).ready(function() {
 
     $("input[name='registerpassword']").on({
         keyup: function() {
-            password = $("input[name='registerpassword']").val();
+            passwordRegister = $("input[name='registerpassword']").val();
 
-            if (passwordregex.test(password)) {
-                validpassword = false;
+            if (passwordregexRegister.test(passwordRegister)) {
+                validpasswordRegister = false;
                 $("#errorpassword").html("The password cannot contains space characters.");
-            } else if (password.length < 3) {
-                validpassword = false;
+            } else if (passwordRegister.length < 3) {
+                validpasswordRegister = false;
                 $("#errorpassword").html("The password must be greater than 3 characters.");
             } else {
-                validpassword = true;
+                validpasswordRegister = true;
                 $("#errorpassword").html("");
             }
         }
@@ -176,18 +163,37 @@ $(document).ready(function() {
     });
 
     $("input[name='registerusername'], input[name='registerpassword'], input[name='fullname'], input[name='birthdate'], input[name='email'], input[name='phone']").on("keyup", function() {
-        if (validusername && validpassword && validfullname && validbirthdate && validemail && validphone) {
-            $("input[name='btnsubmit']").removeAttr('disabled');
+        console.log(validusernameRegister);
+        if (validusernameRegister && validpasswordRegister && validfullname && validbirthdate && validemail && validphone) {
+            $("input[name='btnsubmitRegister']").removeAttr('disabled');
         } else {
-            $("input[name='btnsubmit']").attr('disabled', '');
+            $("input[name='btnsubmitRegister']").attr('disabled', '');
         }
     });
 
     $("input[name='registerusername'], input[name='fullname'], input[name='birthdate'], input[name='email'], input[name='phone'], input[name='birthdate'], input[name='genders']").change(function() {
-        if (validusername && validpassword && validfullname && validbirthdate && validemail && validphone) {
-            $("input[name='btnsubmit']").removeAttr('disabled');
+        console.log((validusernameRegister));
+        if (validusernameRegister && validpasswordRegister && validfullname && validbirthdate && validemail && validphone) {
+            $("input[name='btnsubmitRegister']").removeAttr('disabled');
         } else {
-            $("input[name='btnsubmit']").attr('disabled', '');
+            $("input[name='btnsubmitRegister']").attr('disabled', '');
+        }
+    });
+    $("input[name='btnsubmitRegister']").hover(function (){
+        if(usernameRegister === ''){
+            $("#errorusername").html("Please type in your username");
+        }
+        if(fullname === ''){
+            $("#errorfullname").html("Please type in your password");
+        }
+        if(!validbirthdate){
+            $("#errorbirthdate").html("Please type in your birthdate");
+        }
+        if(email === ''){
+            $("#erroremail").html("Please type in your email");
+        }
+        if(phone === ''){
+            $("#errorphone").html("Please type in your phone");
         }
     });
 });
