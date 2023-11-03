@@ -174,7 +174,7 @@
 
 <div class="container-fluid pt-5">
     <div class="text-center mb-4">
-        <h2 class="section-title px-5"><span class="px-2">In Stock</span></h2>
+        <h2 class="section-title px-5"><span class="px-2">Currently In Stock</span></h2>
     </div>
     <div class="row px-xl-5 pb-3">
         <div class="col-lg-2 col-md-12"></div>
@@ -224,10 +224,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 <script src="lib/easing/easing.min.js"></script>
 <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-<!-- Contact Javascript File -->
-<script src="mail/jqBootstrapValidation.min.js"></script>
-<script src="mail/contact.js"></script>
 
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
