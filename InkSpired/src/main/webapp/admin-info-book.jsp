@@ -68,34 +68,44 @@
                                 <h5 class="card-title">Book Info</h5>
                             </div>
                             <div class="p-5">
-                                <div class="row flex-lg-row-reverse align-items-center">
-                                    <div class="col-10 col-sm-8 col-lg-6">
+                                <div class="row flex-lg-row-reverse ">
+                                    <div class="col-10 col-sm-8 col-lg-4">
                                         <div class="mt-4">
                                             <img src="<%= request.getContextPath() %>/${book.book_image}" class="d-block mx-lg-auto img-fluid "
                                                  alt="${book.book_image}" width="300px" />
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <p class="fs-4">Total Quantity: ${book.quantity}</p>
+                                        <p class="fs-4">Total Quantity sold: ${book.quantity_sold}</p>
+                                        <p class="fs-4">Quantity remain: ${book.quantity - book.quantity_sold}</p>
+                                        <p class="fs-4">Original Price:
+                                            <fmt:formatNumber  value="${book.original_price}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB
+                                        </p>
+
+                                        <p class="fs-4">Price:
+                                            <fmt:formatNumber  value="${book.getPrice()}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB
+                                        </p>
+                                        <p class="fs-4">Date adding: ${book.adding_date}</p>
+                                    </div>
+                                    <div class="col-lg-4">
                                         <p class="fs-4">Book ID: ${book.book_id}</p>
                                         <p class="fs-4">Book Title: ${book.title}</p>
-
                                         <p class="fs-4">Date Publish: ${book.publication_date}</p>
-                                        <p class="fs-4">Quantity: ${book.quantity}</p>
-                                        <p class="fs-4">Price:
-                                        <fmt:formatNumber  value="${book.getPrice()}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB
-                                        </p>
                                         <p class="fs-4">Publisher: ${book.publisher_name}</p>
                                         <p class="fs-4">Author: ${book.author_fullname}</p>
                                         <p class="fs-4">Category: ${book.category_name}</p>
                                         <p class="fs-4"
                                              style="color: ${book.isAvailable() ? "green" : "red"}"
-                                        >Is Available: ${book.isAvailable() ? "Yes" : "No"}</p>
+                                        >Is Selling: ${book.isAvailable() ? "Yes" : "No"}</p>
                                         <p class="fs-4">Description:</p>
                                         <p class="mb-4">
                                             ${book.book_description}
                                         </p>
 
+
                                     </div>
+
                                 </div>
                             </div>
 
@@ -139,31 +149,9 @@
                                     </div>
                                     <div class="col-lg-3 col-sm-4 col-12">
                                         <div class="mb-3">
-                                            <label class="form-label">Quantity</label>
-                                            <input class="form-control" type="number" id="quantity" name="quantity" value="${book.quantity}" >
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <!-- Row end -->
-
-                                <!-- Row start -->
-                                <div class="row">
-                                    <div class="col-lg-3 col-sm-4 col-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Price</label>
-                                            <div class="input-group">
-
-                                                <input class="form-control" type="number" id="price" name="price" value="${book.price}"  >
-                                            <span class="input-group-text">&#x20AB</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-4 col-12">
-                                        <div class="mb-3">
                                             <label class="form-label">Publisher</label>
                                             <select class="form-select" name="publisherId" id="publisherSelect">
-<%--                                                <option value="">Select a Publisher</option>--%>
+                                                    <%--                                                <option value="">Select a Publisher</option>--%>
                                                 <c:forEach var="publisher" items="${publishers}">
                                                     <option value="${publisher.publisher_id}"
                                                         ${publisher.publisher_id == book.publisher_id ? "selected" : ""}>
@@ -179,8 +167,18 @@
                                             <input class="form-control" type="file" id="upload" name="upload" onchange="loadFile(event)"  >
                                         </div>
                                     </div>
+                                    <div class="col-lg-3 col-sm-4 col-12">
+                                        <label class="form-label">Image Preview</label>
+                                        <div class="mb-3">
+                                            <button class="form-control btn btn-outline-primary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Review
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <img id="output" src="<%= request.getContextPath() %>/${book.book_image}" style="max-width: 100%; height: auto;" />
+                                            </div>
 
-
+                                        </div>
+                                    </div>
                                     <div class="col-lg-3 col-sm-4 col-12">
                                         <div class="mb-3">
                                             <label class="form-label" >Is Available?</label>
@@ -196,24 +194,74 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                </div>
+                                <!-- Row end -->
+
+                                <!-- Row start -->
+                                <div class="row">
+
+
+
+
+
                                     <div class="col-sm-6 col-12">
                                         <div class="mb-3">
                                             <label class="form-label">Description</label>
                                             <textarea type="text" class="form-control" id="description" name="description" placeholder="Please add some description" rows="5" ><c:out value="${book.book_description}"/></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-sm-4 col-12">
-                                        <label class="form-label">Image Preview</label>
-                                        <div class="mb-3">
-                                            <button class="form-control btn btn-outline-primary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Review
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <img id="output" src="<%= request.getContextPath() %>/${book.book_image}" style="max-width: 100%; height: auto;" />
-                                            </div>
 
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xxl-12">
+                                        <div class="bg-light bg-opacity-50 p-3 mb-3 fw-bold">
+                                            Storage Information
                                         </div>
                                     </div>
+
+                                    <div class="col-lg-3 col-sm-4 col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Quantity</label>
+                                            <input class="form-control" type="number" id="quantity" name="quantity" value="${book.quantity}" >
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-sm-4 col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Original Price</label>
+                                            <div class="input-group">
+
+                                                <input class="form-control" type="number" id="original_price" name="original_price" value="${book.original_price}" >
+                                                <span class="input-group-text">&#x20AB</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-3 col-sm-4 col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Price</label>
+                                            <div class="input-group">
+
+                                                <input class="form-control" type="number" id="price" name="price" value="${book.price}"  >
+                                                <span class="input-group-text">&#x20AB</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="col-lg-3 col-sm-4 col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Date Add Book</label>
+                                            <input class="form-control" type="date" id="adding_date" name="adding_date" value="${book.adding_date}" >
+                                        </div>
+                                    </div>
+
 
                                 </div>
                                 <!-- Row end -->

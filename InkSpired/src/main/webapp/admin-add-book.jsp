@@ -89,20 +89,26 @@
                                         </div>
                                         <div class="col-lg-3 col-sm-4 col-12">
                                             <div class="mb-3">
-                                                <label class="form-label">Quantity</label>
-                                                <input class="form-control" type="number" id="quantity" name="quantity"  >
+                                                <label class="form-label">Image</label>
+                                                <input class="form-control" type="file" id="upload" name="upload" onchange="loadFile(event)" >
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-sm-4 col-12">
-                                            <div class="mb-3">
-                                                <label class="form-label">Price</label>
-                                                <div class="input-group">
-
-                                                    <input class="form-control" type="number" id="price" name="price" value="${book.price}"  >
-                                                    <span class="input-group-text">VND</span>
+                                            <div class="dropdown">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Image Preview</label>
+                                                    <button class="form-control btn btn-outline-primary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Review
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <img id="output" src="${book.book_image}" style="width: 200px; height: auto;" />
+                                                    </div>
                                                 </div>
                                             </div>
+
                                         </div>
+
+
 
                                     </div>
                                     <!-- Row end -->
@@ -124,33 +130,14 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3 col-sm-4 col-12">
-                                            <div class="mb-3">
-                                                <label class="form-label">Image</label>
-                                                <input class="form-control" type="file" id="upload" name="upload" onchange="loadFile(event)" >
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-sm-4 col-12">
-                                            <div class="dropdown">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Image Preview</label>
-                                                <button class="form-control btn btn-outline-primary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Review
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <img id="output" src="${book.book_image}" style="width: 200px; height: auto;" />
-                                                </div>
-                                                </div>
-                                            </div>
 
-                                        </div>
 
 
 
 
                                         <div class="col-lg-3 col-sm-4 col-12">
                                             <div class="mb-3">
-                                                <label class="form-label" >Is Available?</label>
+                                                <label class="form-label" >Is Selling?</label>
                                                 <div class="mt-2">
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input"  type="radio"  name="available" value="true">
@@ -172,6 +159,52 @@
 
 
                                     </div>
+
+                                        <div class="row">
+                                            <div class="col-xxl-12">
+                                                <div class="bg-light bg-opacity-50 p-3 mb-3 fw-bold">
+                                                    Storage Information
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-lg-3 col-sm-4 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Quantity</label>
+                                                    <input class="form-control" type="number" id="quantity" name="quantity"  >
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-3 col-sm-4 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Original Price</label>
+                                                    <div class="input-group">
+
+                                                        <input class="form-control" type="number" id="storage_original_price" name="storage_original_price"  >
+                                                        <span class="input-group-text">&#x20AB</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-3 col-sm-4 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Price ready to sell</label>
+                                                    <div class="input-group">
+
+                                                        <input class="form-control" type="number" id="price" name="price">
+                                                        <span class="input-group-text">&#x20AB</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-4 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Date Add Book</label>
+                                                    <input class="form-control" type="date" id="adding_date" name="adding_date" >
+                                                </div>
+                                            </div>
+
+
+                                        </div>
                                     <!-- Row end -->
                                     <div class="row">
                                         <div class="col-xxl-12">

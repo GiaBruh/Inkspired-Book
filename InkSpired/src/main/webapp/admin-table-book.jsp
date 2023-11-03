@@ -67,12 +67,14 @@
                                             <th>Book ID</th>
                                             <th>Title</th>
                                             <th>Publication Date</th>
-                                            <th>Quantity</th>
+                                            <th>Total quantity </th>
+                                            <th>Total quantity is sold</th>
+                                            <th>Remain quantity</th>
+                                            <th>Original price</th>
                                             <th>Price</th>
                                             <th>Publisher</th>
-
                                             <th>Image</th>
-                                            <th>Availability</th>
+                                            <th>Is Selling?</th>
                                             <th>Authors</th>
                                             <th>Categories</th>
                                         </tr>
@@ -84,6 +86,9 @@
                                             <td><a href="<%= request.getContextPath() %>/admin/book-info?book_id=${book.book_id}" class="book-title">${book.title}</a></td>
                                             <td>${book.publication_date}</td>
                                             <td>${book.quantity}</td>
+                                            <td>${book.quantity_sold}</td>
+                                            <td>${book.quantity - book.quantity_sold}</td>
+                                            <td><fmt:formatNumber  value="${book.getOriginal_price()}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB</td>
                                             <td><fmt:formatNumber  value="${book.getPrice()}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB</td>
                                             <td>${book.publisher_name}</td>
                                             <td><img src="<%= request.getContextPath() %>/${book.book_image}" alt="${book.title}" width="100px"></td>
