@@ -450,17 +450,41 @@
                                         </div>
                                     </div>
                                 </c:forEach>
+                                <c:forEach var="book" items="${requestScope.BOOKLIST}">
+                                    <div class="col-lg-3 col-md-4 col-md-12 pb-3 justify-content-center d-flex">
+                                        <div class="card product-item border-0 mb-4" style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3)">
+                                            <div class="">
+                                                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                                    <img class="w-100" style="object-fit: contain; height: 500px" src="${book.getBook_image()}"
+                                                         alt="${book.getTitle()}"/>
+                                                </div>
+                                            </div>
+                                            <div class="card-body border-left border-right text-center p-1 pt-4 pb-3">
+                                                <h6 class="text-truncate mb-3">${book.getTitle()}</h6>
+                                                <div class="d-flex justify-content-center">
+                                                    <h6><fmt:formatNumber value="${book.getPrice()}" minFractionDigits="0"
+                                                                          maxFractionDigits="0"/>&#x20AB</h6>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer d-flex justify-content-center bg-light border">
+                                                <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}"
+                                                   class="btn btn-sm text-dark p-0 font-weight-bold text-dark"><i class="fas fa-eye text-primary mr-1"></i>View
+                                                    Detail</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
                             </c:otherwise>
                         </c:choose>
                     </c:when>
                     <c:otherwise>
                         <c:forEach var="book" items="${sessionScope.searchResultByCategory}" varStatus="loop">
-                            <div class="col-lg-3 col-md-4 col-md-12 pb-3 justify-content-center d-flex">
+                            <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-12 pb-3 justify-content-center d-flex">
                                 <div class="card product-item border-0 mb-4"
                                      style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3)">
                                     <div class="">
                                         <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                            <img class="img-fluid w-100" src="${book.getBook_image()}"
+                                            <img class="w-100" style="object-fit: contain; height: 500px"  src="${book.getBook_image()}"
                                                  alt="${book.getTitle()}"/>
                                         </div>
                                     </div>
