@@ -226,6 +226,7 @@ public class OrderDAO implements DAO<Order> {
                 order.setOrder_id(rs.getInt("order_id"));
                 order.setOrder_date(rs.getDate("order_date"));
                 orders.add(order);
+                updateBookAvailability(rs.getInt("book_id"));
             }
         } catch (Exception e) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -233,7 +234,17 @@ public class OrderDAO implements DAO<Order> {
         return orders;
 
     }
-
+    public void updateBookAvailability(int book_id) {
+        String query = "UPDATE book SET is_available = false WHERE book_id = ? AND quantity = (SELECT COALESCE(SUM(CASE WHEN o.order_status NOT IN (0, 5, 6) THEN od.quantity ELSE 0 END), 0) FROM order_detail AS od JOIN \"order\" AS o ON od.order_id = o.order_id WHERE od.book_id = ?)";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, book_id);
+            ps.setInt(2, book_id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
     public Order getByOrder(int orderId){
         String query = "SELECT o.order_id, o.user_id, o.order_date, o.delivery_address, o.order_total,o.order_status, os.status AS order_status_name, u.full_name\n" +
                 "FROM \"order\" AS o\n" +
