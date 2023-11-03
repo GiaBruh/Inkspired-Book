@@ -371,13 +371,14 @@
                     <c:when test="${sessionScope.searchResultByCategory == null}">
                         <c:choose>
                             <c:when test="${sessionScope.searchResultByKeyword.isEmpty()}">
-                                <h1 class="d-flex justify-content-center">There is no result for
-                                    "${sessionScope.keyword}"</h1>
+                                <h4 class="ustify-content-center d-flex align-middle">Sorry, there is no result for
+                                    "${sessionScope.keyword}". You can try again (OwO)</h4>
                             </c:when>
                             <c:otherwise>
                                 <c:forEach var="book" items="${sessionScope.searchResultByKeyword}" varStatus="loop">
                                     <div class="col-lg-3 col-md-4 col-md-12 pb-3 justify-content-center d-flex">
-                                        <div class="card product-item border-0 mb-4" style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3)">
+                                        <div class="card product-item border-0 mb-4"
+                                             style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3)">
                                             <div class="">
                                                 <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                                                     <img class="img-fluid w-100" src="${book.getBook_image()}"
@@ -387,13 +388,14 @@
                                             <div class="card-body border-left border-right text-center p-1 pt-4 pb-3">
                                                 <h6 class="text-truncate mb-3">${book.getTitle()}</h6>
                                                 <div class="d-flex justify-content-center">
-                                                    <h6><fmt:formatNumber value="${book.getPrice()}" minFractionDigits="0"
+                                                    <h6><fmt:formatNumber value="${book.getPrice()}"
+                                                                          minFractionDigits="0"
                                                                           maxFractionDigits="0"/>&#x20AB</h6>
                                                 </div>
                                             </div>
                                             <div class="card-footer d-flex justify-content-center bg-light border">
                                                 <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}"
-                                                   class="btn btn-sm text-dark p-1 justify-content-center d-flex font-weight-bold text-dark" style="font-size: large">View
+                                                   class="btn btn-sm text-dark p-0 font-weight-bold text-dark"><i class="fas fa-eye text-primary mr-1"></i>View
                                                     Detail</a>
                                             </div>
                                         </div>
@@ -405,7 +407,8 @@
                     <c:otherwise>
                         <c:forEach var="book" items="${sessionScope.searchResultByCategory}" varStatus="loop">
                             <div class="col-lg-3 col-md-4 col-md-12 pb-3 justify-content-center d-flex">
-                                <div class="card product-item border-0 mb-4" style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3)">
+                                <div class="card product-item border-0 mb-4"
+                                     style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3)">
                                     <div class="">
                                         <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                                             <img class="img-fluid w-100" src="${book.getBook_image()}"
@@ -437,15 +440,12 @@
 </div>
 <!-- Shop End -->
 
-
 <!-- Footer Start -->
 <%@include file="footer.jsp" %>
 <!-- Footer End -->
 
-
 <!-- Back to Top -->
 <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
 
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
