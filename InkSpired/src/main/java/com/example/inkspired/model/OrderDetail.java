@@ -7,9 +7,20 @@ public class OrderDetail extends Book implements Serializable {
     private int book_id;
     private int order_id;
     private int quantity;
+    private long price;
 
     public OrderDetail() {
         super();
+    }
+
+    @Override
+    public void setPrice(long price) {
+        this.price = price;
+    }
+
+    @Override
+    public long getPrice() {
+        return price;
     }
 
     public OrderDetail(int order_detail_id, int book_id, int order_id, int quantity) {
@@ -19,10 +30,11 @@ public class OrderDetail extends Book implements Serializable {
         this.quantity = quantity;
     }
 
-    public OrderDetail(int book_id, int order_id, int quantity) {
+    public OrderDetail(int book_id, int order_id, int quantity, long price) {
         this.book_id = book_id;
         this.order_id = order_id;
         this.quantity = quantity;
+        this.price = price;
     }
 
     public OrderDetail(int book_id, String title, String book_image, long price, int order_id, int quantity) {
@@ -30,6 +42,7 @@ public class OrderDetail extends Book implements Serializable {
         this.book_id = book_id;
         this.order_id = order_id;
         this.quantity = quantity;
+        this.price = price;
     }
 
 

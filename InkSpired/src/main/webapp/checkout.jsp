@@ -316,25 +316,11 @@
                         <h5 class="font-weight-bold">Total</h5>
                         <h5 class="font-weight-bold">
                             <c:set var="total"
-                                   value="${(sessionScope.SUBTOTAL + 10000) * (100 -sessionScope.TOTALDISCOUNT) / 100}"
+                                   value="${sessionScope.SUBTOTAL + 10000}"
                                    scope="session"/>
-                            <c:choose>
-                                <c:when test="${sessionScope.TOTALDISCOUNT != 0}">
-                                    <span style="color: white; background-color: #f2093b; border-radius: 5px; padding: 3px;">-${sessionScope.TOTALDISCOUNT}%</span>
-                                    <s><span class="price"><fmt:formatNumber
-                                            value="${sessionScope.SUBTOTAL + 10000}"
-                                            minFractionDigits="0" maxFractionDigits="0"/></span>&#x20AB</s>
-                                    <br/>
-                                    <span class="price float-end"><fmt:formatNumber value="${total}"
-                                                                                    minFractionDigits="0"
-                                                                                    maxFractionDigits="0"/>&#x20AB</span>
-                                </c:when>
-                                <c:otherwise>
-                                                    <span class="price"><fmt:formatNumber
-                                                            value="${total}"
-                                                            minFractionDigits="0" maxFractionDigits="0"/></span>&#x20AB
-                                </c:otherwise>
-                            </c:choose>
+                            <span class="price"><fmt:formatNumber
+                                value="${total}"
+                                minFractionDigits="0" maxFractionDigits="0"/></span>&#x20AB
                         </h5>
                     </div>
                     <form method="POST"
@@ -370,7 +356,7 @@
     <c:when test="${sessionScope.CONFIRMORDER == true}">
         <!-- Modal -->
         <div class="modal fade" id="confirmmodal" tabindex="-1" aria-labelledby="exampleModalLabel"
-             aria-hidden="true" data-bs-backdrop='static'>
+             aria-hidden="true" data-backdrop='static'>
             <div class="modal-dialog modal-dialog-centered">
                 <!-- Modal content-->
                 <div class="modal-content">
