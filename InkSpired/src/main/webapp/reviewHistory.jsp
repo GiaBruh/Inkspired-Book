@@ -44,11 +44,11 @@
 <!-- Page Header Start -->
 <div class="container-fluid bg-secondary mb-0">
     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-        <h1 class="font-weight-semi-bold text-uppercase mb-3">ORDER HISTORY</h1>
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">REVIEW HISTORY</h1>
         <div class="d-inline-flex">
             <p class="m-0"><a href="<%= request.getServletContext().getContextPath()%>/">Home</a></p>
             <p class="m-0 px-2">-</p>
-            <p class="m-0">Order History</p>
+            <p class="m-0">Review History</p>
         </div>
     </div>
 </div>
@@ -72,26 +72,26 @@
                     <tbody class="align-middle">
                     <c:forEach var="review" items="${requestScope.reviews}">
                         <tr>
-                            <td>
+                            <td class="align-middle">
                                 <img src="${review.getBook_image()}" alt="${review.getBook_image()}"
                                      style="height: 170px;">
                             </td>
-                            <td>
+                            <td class="align-middle">
                                 <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${review.getOrdered_book_id()}">${review.getBook_name()}</a>
                             </td>
-                            <td>${review.getComment()}</td>
-                            <td>
-                                <div class="d-flex text-warning">
+                            <td class="align-middle">${review.getComment()}</td>
+                            <td class="align-middle">
+                                <div class="d-flex text-primary">
                                     <c:forEach begin="1" end="${review.getRating()}">
-                                        <div class="bi-star-fill"></div>
+                                        <i class="fas fa-star"></i>
                                     </c:forEach>
                                     <c:forEach begin="${review.getRating()}" end="4">
-                                        <div class="bi-star"></div>
+                                        <i class="far fa-star"></i>
                                     </c:forEach>
                                 </div>
                             </td>
-                            <td>${review.getReview_date()}</td>
-                            <td>
+                            <td class="align-middle">${review.getReview_date()}</td>
+                            <td class="align-middle">
                                 <form method="POST" action="<%= request.getServletContext().getContextPath()%>/review">
                                     <button
                                             onclick="return confirm('Confirm removing this review?')"

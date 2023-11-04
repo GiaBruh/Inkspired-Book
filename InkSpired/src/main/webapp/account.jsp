@@ -285,11 +285,8 @@
                             <div class="row d-flex align-items-center pt-3 pb-3 d-flex align-items-center pb-2"
                                  id="infoItem_Picture">
                                 <div class="mb-0 title col-md-3 h6 h6">Profile picture</div>
-                                <div class="mb-0 col-md-6 px-0 text-muted" id="info_image">
+                                <div class="mb-0 col-md-7 px-0 text-muted" id="info_image">
                                     A profile picture helps personalise your account
-                                </div>
-                                <div class="col-md-1">
-                                    &nbsp;
                                 </div>
                                 <input type="file" id="img" name="upload" hidden disabled>
                                 <label for="img" class="col-md-2 h100">
@@ -301,6 +298,8 @@
                                     <input name="image" value="${sessionScope.userInfo.getUser_image()}"
                                            hidden/>
                                 </label>
+                            </div>
+                            <div class="ps-2 pb-3">
                                 <c:choose>
                                     <c:when test="${sessionScope.FILESIZEEXCEEDED == true}">
                                         <span id="errorimage" class="text-danger">The photo uploaded must be less than 5MB.</span>

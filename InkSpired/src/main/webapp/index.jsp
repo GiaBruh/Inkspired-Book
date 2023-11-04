@@ -182,10 +182,11 @@
             <div class="row pb-3">
                 <c:forEach var="book" items="${requestScope.BOOKLIST}">
                     <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-12 pb-3 justify-content-center d-flex">
-                        <div class="card product-item border-0 mb-4" style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3)">
+                        <div class="card product-item border-0 mb-4" style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3); width: 400px; height: 625px;">
                             <div class="">
-                                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                    <img class="w-100" style="object-fit: contain; height: 500px" src="${book.getBook_image()}"
+                                <div style="height: 450px;" class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                    <img class="w-100 " style="
+                                    object-fit: contain; height: 450px" src="${book.getBook_image()}"
                                          alt="${book.getTitle()}"/>
                                 </div>
                             </div>

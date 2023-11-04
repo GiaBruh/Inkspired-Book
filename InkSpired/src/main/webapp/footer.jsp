@@ -13,8 +13,11 @@
                 </a>
             </div>
         </div>
-        <div class="col-lg-8 col-md-12 mb-5 pr-3 pr-xl-5">
-            <p>This project was created by Group 3</p>
+        <div class="pt-3 col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+            <p class="text-center">This project was created by Group 3</p>
+        </div>
+        <div class="col-lg-4 col-md-12">
+            &nbsp;
         </div>
     </div>
     <%--    <div class="row border-top border-light mx-xl-5 py-4">--%>
