@@ -85,9 +85,9 @@
                   <div class="col-lg-3 col-sm-4 col-12">
                     <div class="dropdown">
                       <div class="mb-3">
-                        <label class="form-label">Image Preview</label>
+                        <label class="form-label">Image Review</label>
                         <button class="form-control btn btn-outline-primary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                          Image Dropdown
+                          Review
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                           <img id="output" src="${book.book_image}" style="width: 200px; height: auto;" />

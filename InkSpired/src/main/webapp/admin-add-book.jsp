@@ -254,13 +254,17 @@
 
                                     </div>
 
+                                    <div id="alert" class="alert border" style="display: none;"></div>
+
 
 
                                 </div>
                                 <div class="card-footer">
                                     <div class="d-flex gap-2 justify-content-end">
-                                        <button class="btn btn-primary">Add Book</button>
                                         <button type="reset" class="btn btn-danger">Reset</button>
+                                        <button type="button" class="btn btn-outline-secondary" id="pasteButton">Paste</button>
+                                        <button class="btn btn-primary">Add Book</button>
+
                                     </div>
                                 </div>
                                 <div class="modal fade" id="exampleModalCenter2" tabindex="-1"

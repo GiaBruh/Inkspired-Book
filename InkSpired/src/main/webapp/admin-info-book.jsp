@@ -168,20 +168,20 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-4 col-12">
-                                        <label class="form-label">Image Preview</label>
+                                        <label class="form-label">Image Review</label>
                                         <div class="mb-3">
                                             <button class="form-control btn btn-outline-primary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                                 Review
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <img id="output" src="<%= request.getContextPath() %>/${book.book_image}" style="max-width: 100%; height: auto;" />
+                                                <img id="output" src="<%= request.getContextPath() %>/${book.book_image}" style="max-width: 280px; height: auto;" />
                                             </div>
 
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-4 col-12">
                                         <div class="mb-3">
-                                            <label class="form-label" >Is Available?</label>
+                                            <label class="form-label" >Is Selling?</label>
                                             <div class="mt-2">
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input"  type="radio"  name="available" value="true" <%= book.isAvailable() ? "checked" : "" %>>
@@ -326,11 +326,13 @@
                                 </div>
 
 
+                                <div id="alert" class="alert border border-success alert-dismissible fade show text-success" style="display: none;"></div>
 
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex gap-2 justify-content-end">
                                     <a class="btn btn-outline-info" onclick="cancelEdit()">Cancel</a>
+                                    <button type="button" class="btn btn-secondary" id="copyButton">Copy Info</button>
                                     <button class="btn btn-primary">
                                         Update
                                     </button>
@@ -365,6 +367,7 @@
                             </form>
                             </c:if>
                         </div>
+
                     </div>
                 </div>
                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

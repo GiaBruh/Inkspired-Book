@@ -66,7 +66,7 @@
                                         <tr>
                                             <th>Book ID</th>
                                             <th>Title</th>
-                                            <th>Publication Date</th>
+                                            <th>Adding Date</th>
                                             <th>Total quantity </th>
                                             <th>Total quantity is sold</th>
                                             <th>Remain quantity</th>
@@ -84,7 +84,7 @@
                                         <tr>
                                             <td>${book.book_id}</td>
                                             <td><a href="<%= request.getContextPath() %>/admin/book-info?book_id=${book.book_id}" class="book-title">${book.title}</a></td>
-                                            <td>${book.publication_date}</td>
+                                            <td>${book.adding_date}</td>
                                             <td>${book.quantity}</td>
                                             <td>${book.quantity_sold}</td>
                                             <td>${book.quantity - book.quantity_sold}</td>
