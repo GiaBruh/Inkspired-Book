@@ -16,13 +16,13 @@ $(document).ready(function () {
 
             if (username.length < 1 || username.length > 100) {
                 validusername = false;
-                $("#errorusername").html("The username can only be from 1 to 100 characters.");
+                $("#errorusernameLogin").html("The username can only be from 1 to 100 characters.");
             } else if (usernameregex.test(username)) {
                 validusername = false;
-                $("#errorusername").html("The username cannot contains special characters.");
+                $("#errorusernameLogin").html("The username cannot contains special characters.");
             } else {
                 validusername = true;
-                $("#errorusername").html("");
+                $("#errorusernameLogin").html("");
             }
         },
         change: function () {
@@ -30,13 +30,13 @@ $(document).ready(function () {
 
             if (username.length < 1 || username.length > 100) {
                 validusername = false;
-                $("#errorusername").html("The username can only be from 1 to 100 characters.");
+                $("#errorusernameLogin").html("The username can only be from 1 to 100 characters.");
             } else if (usernameregex.test(username)) {
                 validusername = false;
-                $("#errorusername").html("The username cannot contains special characters.");
+                $("#errorusernameLogin").html("The username cannot contains special characters.");
             } else {
                 validusername = true;
-                $("#errorusername").html("");
+                $("#errorusernameLogin").html("");
             }
         }
     });
@@ -47,13 +47,13 @@ $(document).ready(function () {
 
             if (passwordregex.test(password)) {
                 validpassword = false;
-                $("#errorpassword").html("The password cannot contains space characters.");
+                $("#errorpasswordLogin").html("The password cannot contains space characters.");
             } else if (password.length < 3) {
                 validpassword = false;
-                $("#errorpassword").html("The password must be greater than 3 characters.");
+                $("#errorpasswordLogin").html("The password must be greater than 3 characters.");
             } else {
                 validpassword = true;
-                $("#errorpassword").html("");
+                $("#errorpasswordLogin").html("");
             }
         }
     });
@@ -76,20 +76,11 @@ $(document).ready(function () {
             $("input[name='btnSubmit']").attr('disabled', '');
         }
     });
-
-    <!--FORGOT PASSWORD-->
-    $("input[name='changePassEmail']").on({
-        'keyup change': function () {
-            email = $("input[name='changePassEmail']").val();
-            if (!emailRegex.test(email)) {
-                $("#errorFeed").addClass("d-block");
-                $("button[id='sendVerificationCode']").attr('disabled', '');
-            } else {
-                $("#errorFeed").removeClass("d-block");
-                $("button[id='sendVerificationCode']").removeAttr('disabled');
-            }
+    $("input[name='btnSubmit']").hover(function (){
+       if(username === ''){
+           $("#errorusernameLogin").html("Please type in your username");
+       } if(password === ''){
+            $("#errorpasswordLogin").html("Please type in your password");
         }
     });
-
-
 });

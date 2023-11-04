@@ -76,14 +76,15 @@ public class OrderDetailDAO implements DAO<OrderDetail> {
 
     @Override
     public void add(OrderDetail orderDetail) {
-        String query = "INSERT INTO public.order_detail (book_id, order_id, quantity)\n" +
-                "VALUES (?, ?, ?)";
+        String query = "INSERT INTO public.order_detail (book_id, order_id, quantity, price)\n" +
+                "VALUES (?, ?, ?, ?)";
 
         try {
             ps = conn.prepareStatement(query);
             ps.setInt(1, orderDetail.getBook_id());
             ps.setInt(2, orderDetail.getOrder_id());
             ps.setInt(3, orderDetail.getQuantity());
+            ps.setLong(4, orderDetail.getPrice());
             ps.executeUpdate();
         } catch (Exception e) {
             Logger.getLogger(OrderDetail.class.getName()).log(Level.SEVERE, null, e);
@@ -134,7 +135,7 @@ public class OrderDetailDAO implements DAO<OrderDetail> {
     }
     public List<OrderDetail> getOrderDetailByOrderId(int orderid) {
         ArrayList<OrderDetail> result = new ArrayList<>();
-        String query = "SELECT order_id, order_detail.book_id, title, book_image, price, order_detail.quantity FROM public.order_detail\n" +
+        String query = "SELECT order_id, order_detail.book_id, title, book_image, b.price, order_detail.quantity FROM public.order_detail\n" +
                 "JOIN public.book b on b.book_id = order_detail.book_id\n" +
                 "WHERE order_id = ?";
 

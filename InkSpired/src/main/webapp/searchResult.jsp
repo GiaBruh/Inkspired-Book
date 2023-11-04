@@ -335,6 +335,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -371,8 +372,55 @@
                     <c:when test="${sessionScope.searchResultByCategory == null}">
                         <c:choose>
                             <c:when test="${sessionScope.searchResultByKeyword.isEmpty()}">
-                                <h4 class="ustify-content-center d-flex align-middle">Sorry, there is no result for
-                                    "${sessionScope.keyword}". You can try again (OwO)</h4>
+                                <div id="main">
+                                    <div class="fof">
+                                        <h2>Sorry, there is no result for "${sessionScope.keyword}".</h2><br>
+                                        <h4>Please try again.</h4>
+                                    </div>
+                                </div>
+                                <style>
+                                    * {
+                                        transition: all 0.6s;
+                                    }
+
+                                    html {
+                                        height: 100%;
+                                    }
+
+                                    body {
+                                        font-family: 'Lato', sans-serif;
+                                        color: #888;
+                                        margin: 0;
+                                    }
+
+                                    #main {
+                                        display: table;
+                                        width: 100%;
+                                        height: 20px;
+                                        text-align: center;
+                                    }
+
+                                    .fof {
+                                        display: table-cell;
+                                        vertical-align: middle;
+                                    }
+
+                                    .fof h1 {
+                                        font-size: 100px;
+                                        display: inline-block;
+                                        padding-right: 12px;
+                                        animation: type .5s alternate infinite;
+                                    }
+
+                                    @keyframes type {
+                                        from {
+                                            box-shadow: inset -3px 0px 0px #888;
+                                        }
+                                        to {
+                                            box-shadow: inset -3px 0px 0px transparent;
+                                        }
+                                    }
+                                </style>
                             </c:when>
                             <c:otherwise>
                                 <c:forEach var="book" items="${sessionScope.searchResultByKeyword}" varStatus="loop">
@@ -395,7 +443,8 @@
                                             </div>
                                             <div class="card-footer d-flex justify-content-center bg-light border">
                                                 <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}"
-                                                   class="btn btn-sm text-dark p-0 font-weight-bold text-dark"><i class="fas fa-eye text-primary mr-1"></i>View
+                                                   class="btn btn-sm text-dark p-0 font-weight-bold text-dark"><i
+                                                        class="fas fa-eye text-primary mr-1"></i>View
                                                     Detail</a>
                                             </div>
                                         </div>
@@ -424,7 +473,8 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-center bg-light border">
                                         <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}"
-                                           class="btn btn-sm text-dark p-0 font-weight-bold text-dark"><i class="fas fa-eye text-primary mr-1"></i>View
+                                           class="btn btn-sm text-dark p-0 font-weight-bold text-dark"><i
+                                                class="fas fa-eye text-primary mr-1"></i>View
                                             Detail</a>
                                     </div>
                                 </div>
@@ -459,6 +509,7 @@
 
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
+
 </body>
 
 </html>

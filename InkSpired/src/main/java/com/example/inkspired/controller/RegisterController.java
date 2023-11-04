@@ -77,7 +77,7 @@ public class RegisterController extends HttpServlet {
             response.sendRedirect(getServletContext().getContextPath() + REGISTER);
         }
 
-        if (request.getParameter("btnsubmit") != null && request.getParameter("btnsubmit").equals("Submit")) {
+        if (request.getParameter("btnsubmitRegister") != null && request.getParameter("btnsubmitRegister").equals("Submit")) {
             String username = request.getParameter("registerusername");
             String password = request.getParameter("registerpassword");
             String fullname = request.getParameter("fullname");

@@ -85,6 +85,7 @@ public class BookController extends HttpServlet {
                 boolean isBought = rDao.isBought(Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue()), bookid);
                 if (isBought) {
                     session.setAttribute("isbought", true);
+                    session.setAttribute("isbought2", true);
                     Review userReview = rDao.getUserReview(Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue()), bookid);
                     if (userReview != null) {
                         session.setAttribute("isCom", true);
@@ -94,15 +95,28 @@ public class BookController extends HttpServlet {
                     }
                 } else {
                     session.setAttribute("isbought", false);
+                    session.setAttribute("isbought2", false);
                 }
             }
             if (((Cookie) session.getAttribute("userCookie")) != null) {
                 List<Review> reviews = rDao.getBookReview_User(bookid, Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue()));
                 request.setAttribute("reviews", reviews);
+                if (!reviews.isEmpty()) {
+                    request.setAttribute("reviews", reviews);
+                    request.setAttribute("noReviews", false);
+                } else {
+                    request.setAttribute("noReviews", true);
+                }
             } else {
                 List<Review> reviews = rDao.getBookReview(bookid);
-                request.setAttribute("reviews", reviews);
+                if (!reviews.isEmpty()) {
+                    request.setAttribute("reviews", reviews);
+                    request.setAttribute("noReviews", false);
+                } else {
+                    request.setAttribute("noReviews", true);
+                }
             }
+
             if (path.startsWith("/InkSpired/book")) {
                 request.getRequestDispatcher("/book.jsp").forward(request, response);
             }

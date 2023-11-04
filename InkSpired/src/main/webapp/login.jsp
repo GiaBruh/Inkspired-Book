@@ -261,10 +261,12 @@
                                 <div class="forms_field">
                                     <input placeholder="Username" class="forms_field-input" name="username" required
                                            autofocus/>
+                                    <span id="errorusernameLogin" class="text-danger"></span>
                                 </div>
                                 <div class="forms_field">
                                     <input type="password" placeholder="Password" class="forms_field-input"
                                            name="password" required/>
+                                    <span id="errorpasswordLogin" class="text-danger"></span>
                                 </div>
                             </fieldset>
                             <div class="forms_buttons">
@@ -282,7 +284,7 @@
                                     <div class="forms_field">
                                         <input type="text" id="username" class="forms_field-input"
                                                name="registerusername" placeholder="Username" required/>
-                                        <span id="errorusername" class="text-danger"></span>
+                                        <span id="errorusername" class="text-danger">This</span>
                                     </div>
                                     <div class="forms_field">
                                         <input type="password" id="password"
@@ -340,7 +342,7 @@
                                 </c:choose>
                             </div>
                             <div class="forms_buttons justify-content-center pb-md-5">
-                                <input type="submit" value="Submit" name="btnsubmit" class="forms_buttons-action" disabled>
+                                <input type="submit" value="Submit" name="btnsubmitRegister" class="forms_buttons-action" disabled>
                             </div>
                         </form>
                     </div>
@@ -350,6 +352,7 @@
         <!-- partial -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="js/login.js"></script>
+        <script src="js/Validation/LoginValidation.js"></script>
         <script src="js/Validation/RegisterValidation.js"></script>
     </body>
 </html>

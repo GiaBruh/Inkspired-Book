@@ -438,23 +438,50 @@
         <div class="col">
             <div class="row">
                 <div class="col-md-6">
-                    <h4 class="mb-4">1 review for "Colorful Stylish Shirt"</h4>
+                    <h4 class="mb-4">Check out what others think</h4>
                     <div class="media mb-4">
-                        <c:forEach var="review" items="${requestScope.reviews}">
-                        <img src="${review.getUser_image()}" alt="${review.getUsername()} photo" class="img-fluid mr-3 mt-1 rounded-circle" style="width: 45px;">
-                        <div class="media-body">
-                            <h6>${review.getUsername()} <small> - <i>${review.getReview_date()}</i></small></h6>
-                            <div class="text-primary mb-2">
-                                <c:forEach begin="1" end="${review.getRating()}">
-                                <i class="fas fa-star"></i>
+                        <c:choose>
+                            <c:when test="${requestScope.noReviews == true}">
+                                <h2>Seems like you're the first one here!</h2>
+                            </c:when>
+                            <c:otherwise>
+                                <c:forEach var="review" items="${requestScope.reviews}">
+                                    <img src="${review.getUser_image()}" alt="${review.getUsername()} photo"
+                                         class="img-fluid mr-3 mt-1 rounded-circle" style="width: 45px;">
+                                    <div class="media-body">
+                                        <h6>${review.getUsername()} <small> - <i>${review.getReview_date()}</i></small>
+                                        </h6>
+                                        <div class="text-primary mb-2">
+                                            <c:forEach begin="1" end="${review.getRating()}">
+                                                <i class="fas fa-star"></i>
+                                            </c:forEach>
+                                            <c:forEach begin="${review.getRating()}" end="4">
+                                                <i class="far fa-star"></i>
+                                            </c:forEach>
+                                        </div>
+                                        <p>${review.getComment()}</p>
+                                    </div>
+                                    <div>
+                                        <c:choose>
+                                            <c:when test="${sessionScope.userCookie.getValue() == review.getUser_id()}">
+                                                <form method="POST" action="<%= request.getServletContext().getContextPath()%>/review">
+                                                    <button
+                                                            onclick="return confirm('Confirm removing this review?')"
+                                                            class="btn btn-primary px-3"
+                                                            id = "review_${review.getReview_id()}"
+                                                            name="btnDeleteReview"
+                                                            value="${review.getReview_id()}">
+                                                        X
+                                                        <input type="number" value="${sessionScope.BOOKINFO.get().getBook_id()}"
+                                                        name="ordered_book_id" hidden/>
+                                                    </button>
+                                                </form>
+                                            </c:when>
+                                        </c:choose>
+                                    </div>
                                 </c:forEach>
-                                <c:forEach begin="${review.getRating()}" end="4">
-                                <i class="far fa-star"></i>
-                                </c:forEach>
-                            </div>
-                            <p>${review.getComment()}</p>
-                        </div>
-                        </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
                 <c:choose>
@@ -498,7 +525,8 @@
                                                onclick="rating_Click(5)"></i>
                                         </div>
                                     </div>
-                                    <form method="POST" action="<%= request.getServletContext().getContextPath()%>/review">
+                                    <form method="POST"
+                                          action="<%= request.getServletContext().getContextPath()%>/review">
                                         <input type="number" value="${sessionScope.BOOKINFO.get().getBook_id()}"
                                                id="ordered_book_id" name="ordered_book_id" hidden/>
                                         <input type="number" id="rating" name="rating" min="1" max="5" value="0"
@@ -513,7 +541,9 @@
                                                       class="form-control"></textarea>
                                         </div>
                                         <div class="form-group mb-0">
-                                            <button type="submit" class="btn btn-primary px-3" id="btnComment" name="btnComment" value="com">Leave Your Review</button>
+                                            <button type="submit" class="btn btn-primary px-3" id="btnComment"
+                                                    name="btnComment" value="com">Leave Your Review
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
@@ -528,122 +558,6 @@
     </div>
 </div>
 <!-- Shop Detail End -->
-
-
-<!-- Products Start -->
-<div class="container-fluid py-5">
-    <div class="text-center mb-4">
-        <h2 class="section-title px-5"><span class="px-2">You May Also Like</span></h2>
-    </div>
-    <div class="row px-xl-5">
-        <div class="col">
-            <div class="owl-carousel related-carousel">
-                <div class="card product-item border-0">
-                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/product-1.jpg" alt="">
-                    </div>
-                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                        <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                        <div class="d-flex justify-content-center">
-                            <h6>$123.00</h6>
-                            <h6 class="text-muted ml-2">
-                                <del>$123.00</del>
-                            </h6>
-                        </div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between bg-light border">
-                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View
-                            Detail</a>
-                        <a href="" class="btn btn-sm text-dark p-0"><i
-                                class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                    </div>
-                </div>
-                <div class="card product-item border-0">
-                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/product-2.jpg" alt="">
-                    </div>
-                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                        <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                        <div class="d-flex justify-content-center">
-                            <h6>$123.00</h6>
-                            <h6 class="text-muted ml-2">
-                                <del>$123.00</del>
-                            </h6>
-                        </div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between bg-light border">
-                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View
-                            Detail</a>
-                        <a href="" class="btn btn-sm text-dark p-0"><i
-                                class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                    </div>
-                </div>
-                <div class="card product-item border-0">
-                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/product-3.jpg" alt="">
-                    </div>
-                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                        <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                        <div class="d-flex justify-content-center">
-                            <h6>$123.00</h6>
-                            <h6 class="text-muted ml-2">
-                                <del>$123.00</del>
-                            </h6>
-                        </div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between bg-light border">
-                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View
-                            Detail</a>
-                        <a href="" class="btn btn-sm text-dark p-0"><i
-                                class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                    </div>
-                </div>
-                <div class="card product-item border-0">
-                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/product-4.jpg" alt="">
-                    </div>
-                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                        <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                        <div class="d-flex justify-content-center">
-                            <h6>$123.00</h6>
-                            <h6 class="text-muted ml-2">
-                                <del>$123.00</del>
-                            </h6>
-                        </div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between bg-light border">
-                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View
-                            Detail</a>
-                        <a href="" class="btn btn-sm text-dark p-0"><i
-                                class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                    </div>
-                </div>
-                <div class="card product-item border-0">
-                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/product-5.jpg" alt="">
-                    </div>
-                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                        <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                        <div class="d-flex justify-content-center">
-                            <h6>$123.00</h6>
-                            <h6 class="text-muted ml-2">
-                                <del>$123.00</del>
-                            </h6>
-                        </div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between bg-light border">
-                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View
-                            Detail</a>
-                        <a href="" class="btn btn-sm text-dark p-0"><i
-                                class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Products End -->
-
 
 <!-- Footer Start -->
 <%@include file="footer.jsp" %>
