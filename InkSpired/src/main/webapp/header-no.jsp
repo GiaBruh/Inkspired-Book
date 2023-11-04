@@ -74,7 +74,8 @@
                             ShoppingCartDAO scDao = new ShoppingCartDAO();
                             int cartid = Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue());
                             Optional<ShoppingCart> cart = scDao.get(cartid);
-                            String quantity = String.valueOf(cart.get().getQuantity());
+                            int quantity = cart.get().getQuantity();
+                            if (quantity < 0) quantity = 0;
                             out.print("<span class=\"badge\">" + quantity + "</span>");
                         %>
                     </button>
@@ -150,7 +151,7 @@
                                         <span>Customer Login</span>
                                     </button>
                                 </form>
-                                <a href="" class="nav-item nav-link">Admin Login</a>
+<%--                                <a href="" class="nav-item nav-link">Admin Login</a>--%>
                             </c:when>
                             <c:otherwise>
                                 <div class="nav-item dropdown">

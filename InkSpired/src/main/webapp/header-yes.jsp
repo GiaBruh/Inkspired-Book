@@ -253,7 +253,11 @@
                             ShoppingCartDAO scDao = new ShoppingCartDAO();
                             int cartid = Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue());
                             Optional<ShoppingCart> cart = scDao.get(cartid);
-                            String quantity = String.valueOf(cart.get().getQuantity());
+                            int quantity = cart.get().getQuantity();
+                            if (quantity < 0) {
+                                scDao.update(new ShoppingCart(cartid, 0));
+                                quantity = cart.get().getQuantity();
+                            }
                             out.print("<span class=\"badge\">" + quantity + "</span>");
                         %>
                     </button>
