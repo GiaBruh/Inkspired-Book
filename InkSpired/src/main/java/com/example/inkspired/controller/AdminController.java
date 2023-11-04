@@ -30,8 +30,8 @@ public class AdminController extends HttpServlet {
             throws ServletException, IOException {
 
         Cookie[] cookies = request.getCookies();
-        for(Cookie cookie : cookies) {
-            if(cookie.getName().equals("userWithAccount")) {
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("userWithAccount")) {
                 response.sendRedirect(getServletContext().getContextPath() + "/");
                 return;
             }
@@ -213,10 +213,10 @@ public class AdminController extends HttpServlet {
                     }
                 }
 
-            }else if (pathInfo.startsWith("/user-info")){
+            } else if (pathInfo.startsWith("/user-info")) {
                 {
                     String userIdString = request.getParameter("user_id");
-                    System.out.println("getID = "+ userIdString);
+                    System.out.println("getID = " + userIdString);
                     if (userIdString != null && !userIdString.isEmpty()) {
                         int userId = Integer.parseInt(userIdString);
 
@@ -241,7 +241,7 @@ public class AdminController extends HttpServlet {
                     if (orderIdString != null && !orderIdString.isEmpty()) {
                         int orderId = Integer.parseInt(orderIdString);
 
-                         orderDAO = new OrderDAO();
+                        orderDAO = new OrderDAO();
 
                         List<Order> order_status = orderDAO.getAllOrderStatus();
                         request.setAttribute("order_status", order_status);
@@ -330,6 +330,11 @@ public class AdminController extends HttpServlet {
             } else if (pathInfo.equals("/login")) {
                 request.getRequestDispatcher("/admin-login.jsp").forward(request, response);
 
+            } else if (pathInfo.equals("/profile")) {
+                AdminDAO adminDAO = new AdminDAO();
+                Admin admin = adminDAO.getAdminInfo();
+                request.setAttribute("ADMININFO", admin);
+                request.getRequestDispatcher("/admin-profile.jsp").forward(request, response);
             } else if (pathInfo.equals("/logout")) {
                 // Delete the session cookie
                 Cookie sessionCookie = new Cookie("adminId", "");
@@ -638,7 +643,7 @@ public class AdminController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/admin/table-category");
             }
 
-        }else if (request.getParameter("authorizeUserSubmit") != null) {
+        } else if (request.getParameter("authorizeUserSubmit") != null) {
             String action = request.getParameter("authorizeUserSubmit");
             int user_id = Integer.parseInt(request.getParameter("user_id"));
             UserDAO userDAO = new UserDAO();
@@ -652,7 +657,7 @@ public class AdminController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/admin/table-user");
 
 
-    }else if(request.getParameter("authorizeOrderSubmit") != null){
+        } else if (request.getParameter("authorizeOrderSubmit") != null) {
             {
                 OrderDAO orderDAO = new OrderDAO();
                 int order_id = Integer.parseInt(request.getParameter("order_id"));
