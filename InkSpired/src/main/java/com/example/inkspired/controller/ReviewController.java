@@ -12,11 +12,13 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.List;
 
 @WebServlet(name = "BookController", value = "/book")
 public class ReviewController extends HttpServlet {
 
     private static final String Home = "/";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      *
@@ -43,15 +45,25 @@ public class ReviewController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        try {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("adminId")) {
+                    response.sendRedirect(getServletContext().getContextPath() + "/admin/dashboard");
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        }
         String path = request.getRequestURI();
         HttpSession session = request.getSession();
         ReviewDAO rDAO = new ReviewDAO();
         if (((Cookie) session.getAttribute("userCookie")) != null) {
-            List<Review> userReviews = rDAO.onlyUser(Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue()));
+            List<Review> userReviews = rDAO.onlyUser(Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue()));
             request.setAttribute("reviews", userReviews);
             request.getRequestDispatcher("/reviewHistory.jsp").forward(request, response);
-        }
-        else {
+        } else {
             response.sendRedirect(getServletContext().getContextPath() + "/404NotFound");
         }
     }

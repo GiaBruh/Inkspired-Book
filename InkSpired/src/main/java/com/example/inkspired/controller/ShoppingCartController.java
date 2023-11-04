@@ -49,6 +49,19 @@ public class ShoppingCartController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Cookie[] cookies = request.getCookies();
+        try {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("adminId")) {
+                    response.sendRedirect(getServletContext().getContextPath() + "/admin/dashboard");
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        }
+
         String path = request.getRequestURI();
         booksChecked = new ArrayList<>();
 

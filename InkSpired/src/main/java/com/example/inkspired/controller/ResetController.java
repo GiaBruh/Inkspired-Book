@@ -22,8 +22,20 @@ import java.util.logging.Logger;
 @WebServlet(name = "ResetController", value = "/reset")
 public class ResetController extends HttpServlet {
     private static final String LOGIN = "/login";
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        try {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("adminId")) {
+                    response.sendRedirect(getServletContext().getContextPath() + "/admin/dashboard");
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        }
         request.getRequestDispatcher("/reset.jsp").forward(request, response);
     }
 
@@ -33,28 +45,26 @@ public class ResetController extends HttpServlet {
         String email = (String) session.getAttribute("email");
         String newPassword = request.getParameter("newPassword");
 
-            UserDAO userDAO = new UserDAO();
-            User user = new User();
-            user.setEmail_address(email);
-            try {
-                boolean emailExists = userDAO.checkExistingUserByEmail(email);
-                if (emailExists) {
-                    user.setPassword(newPassword);
-                    userDAO.updatePasswordByEmail(newPassword, email);
+        UserDAO userDAO = new UserDAO();
+        User user = new User();
+        user.setEmail_address(email);
+        try {
+            boolean emailExists = userDAO.checkExistingUserByEmail(email);
+            if (emailExists) {
+                user.setPassword(newPassword);
+                userDAO.updatePasswordByEmail(newPassword, email);
 
-                    // remove email from session
-                    session.removeAttribute("email");
-                    response.sendRedirect(request.getContextPath() + LOGIN);
-                } else {
-                    request.setAttribute("error", "Email does not exist.");
-                    request.getRequestDispatcher("/reset.jsp").forward(request, response);
-                }
-                return;
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+                // remove email from session
+                session.removeAttribute("email");
+                response.sendRedirect(request.getContextPath() + LOGIN);
+            } else {
+                request.setAttribute("error", "Email does not exist.");
+                request.getRequestDispatcher("/reset.jsp").forward(request, response);
             }
-
-
+            return;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
 
     }

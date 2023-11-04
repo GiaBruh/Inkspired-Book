@@ -46,10 +46,19 @@ public class AuthorController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // System.out.println(request.getSession().getAttribute("BOOKINFO"));
-        // Optional<Book> book = (Optional<Book>)
-        // request.getSession().getAttribute("BOOKINFO");
-        // System.out.println(book.get().getBook_id());
+
+        Cookie[] cookies = request.getCookies();
+        try {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("adminId")) {
+                    response.sendRedirect(getServletContext().getContextPath() + "/admin/dashboard");
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        }
+
         String path = request.getRequestURI();
         try {
             int authorid = Integer.parseInt(request.getParameter("authorid"));
@@ -68,7 +77,7 @@ public class AuthorController extends HttpServlet {
             if (path.startsWith("/InkSpired/author")) {
                 request.getRequestDispatcher("/author.jsp").forward(request, response);
             }
-        }catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             response.sendRedirect(getServletContext().getContextPath() + "/404NotFound");
         }
     }

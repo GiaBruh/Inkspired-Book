@@ -45,6 +45,18 @@ public class OrderController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        try {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("adminId")) {
+                    response.sendRedirect(getServletContext().getContextPath() + "/admin/dashboard");
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        }
+
         String path = request.getRequestURI();
         HttpSession session = request.getSession();
 
@@ -53,7 +65,7 @@ public class OrderController extends HttpServlet {
 
         if (path.endsWith("/InkSpired/order") && orderid == 0) {
 
-            int userid = Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue());
+            int userid = Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue());
             List<Order> orderHistory = oDao.getAllFromUserId(userid);
 
             session.setAttribute("ORDERHISTORY", orderHistory);

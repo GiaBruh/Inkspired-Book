@@ -45,6 +45,18 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        try {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("adminId")) {
+                    response.sendRedirect(getServletContext().getContextPath() + "/admin/dashboard");
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        }
+
         String path = request.getRequestURI();
 
         if (path.endsWith(LOGIN)) {
@@ -76,15 +88,13 @@ public class LoginController extends HttpServlet {
             try {
                 boolean isLogin = dao.login(user);
                 if (isLogin) {
-//                    Cookie[] cookies = request.getCookies();
-//                    for(Cookie cookie : cookies) {
-//                        if(cookie.getName().equals("adminId")) {
-//                            cookie.setValue("");
-//                            cookie.setMaxAge(0);
-//                            response.addCookie(cookie);
-//                            break;
-//                        }
-//                    }
+                    Cookie[] cookies = request.getCookies();
+                    for(Cookie cookie : cookies) {
+                        if(cookie.getName().equals("adminId")) {
+                            response.sendRedirect(getServletContext().getContextPath() + "/admin/dashboard");
+                           return;
+                        }
+                    }
                     int userid = dao.getUserIdFromUsername(user);
                     Cookie cookie = new Cookie("userWithAccount", "" + userid);
 
@@ -92,12 +102,12 @@ public class LoginController extends HttpServlet {
                     if (request.getParameter("remembermecheckbox") != null && request.getParameter("remembermecheckbox").equals("on")) {
                         cookie.setMaxAge(3 * 24 * 60 * 60);
                     }
-
                     HttpSession session = request.getSession();
                     session.setAttribute("userCookie", cookie);
                     response.addCookie(cookie);
                     response.sendRedirect(getServletContext().getContextPath() + HOMEPAGE);
-                } else {
+                }
+                else {
                     response.sendRedirect(getServletContext().getContextPath() + LOGIN);
                 }
             } catch (Exception e) {

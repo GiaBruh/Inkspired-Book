@@ -55,7 +55,7 @@ public class RegisterController extends HttpServlet {
         String path = request.getRequestURI();
 
         if (path.endsWith(REGISTER)) {
-            request.getRequestDispatcher("/register.jsp").forward(request, response);
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
     }
 

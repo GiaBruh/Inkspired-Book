@@ -28,6 +28,7 @@ public class AdminController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
 
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
@@ -45,7 +46,6 @@ public class AdminController extends HttpServlet {
 
 
 //        Cookie[] cookies = request.getCookies();
-        request.setCharacterEncoding("UTF-8");
 
         boolean isLoggedIn = false;
         String pathInfo = request.getPathInfo();
@@ -375,6 +375,13 @@ public class AdminController extends HttpServlet {
             Admin validCredentials = adminDAO.checkLogin(username, password);
 
             if (validCredentials != null) {
+                Cookie[] cookies = request.getCookies();
+                for(Cookie cookie : cookies) {
+                    if(cookie.getName().equals("userWithAccount")) {
+                        response.sendRedirect(getServletContext().getContextPath() + "/") ;
+                        return;
+                    }
+                }
                 // Create a session cookie
                 Cookie sessionCookie = new Cookie("adminId", "uniqueSessionId");
                 sessionCookie.setPath(request.getContextPath());

@@ -46,6 +46,18 @@ public class BookController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        try {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("adminId")) {
+                    response.sendRedirect(getServletContext().getContextPath() + "/admin/dashboard");
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        }
+
         String path = request.getRequestURI();
         try {
             int bookid = Integer.parseInt(request.getParameter("bookid"));
@@ -70,7 +82,7 @@ public class BookController extends HttpServlet {
                 } else {
                     session.setAttribute("ISINCART", false);
                 }
-                boolean isBought = rDao.isBought(Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue()), bookid);
+                boolean isBought = rDao.isBought(Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue()), bookid);
                 if (isBought) {
                     session.setAttribute("isbought", true);
                     Review userReview = rDao.getUserReview(Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue()), bookid);
@@ -84,8 +96,8 @@ public class BookController extends HttpServlet {
                     session.setAttribute("isbought", false);
                 }
             }
-            if (((Cookie)session.getAttribute("userCookie")) != null) {
-                List<Review> reviews = rDao.getBookReview_User(bookid, Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue()));
+            if (((Cookie) session.getAttribute("userCookie")) != null) {
+                List<Review> reviews = rDao.getBookReview_User(bookid, Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue()));
                 request.setAttribute("reviews", reviews);
             } else {
                 List<Review> reviews = rDao.getBookReview(bookid);
