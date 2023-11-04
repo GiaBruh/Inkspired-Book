@@ -11,6 +11,7 @@ import com.example.inkspired.model.ShoppingCart;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import jakarta.validation.constraints.Null;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -56,13 +57,16 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        try {
 
-        String path = request.getRequestURI();
-        HttpSession session = request.getSession();
+            String path = request.getRequestURI();
+            HttpSession session = request.getSession();
+            Cookie cookie = (Cookie) session.getAttribute("userCookie");
 
-        if (path.endsWith("/InkSpired/checkout")) {
+            if (path.endsWith("/InkSpired/checkout")) {
 
-            try {
+
+                String cookieValue = cookie.getValue();
                 List<OrderDetail> od = new ArrayList<>();
                 BookDAO bDao = new BookDAO();
                 booksOrder.forEach((key, quantity) -> {
@@ -100,47 +104,46 @@ public class CheckoutController extends HttpServlet {
                 session.setAttribute("BOOKSORDERLIST", od);
 
                 request.getRequestDispatcher("./checkout.jsp").forward(request, response);
-            } catch (NullPointerException npe) {
-                response.sendRedirect(getServletContext().getContextPath() + HOME);
-            }
-        } else {
-            try {
-                BookDAO bDao = new BookDAO();
-                String operator = request.getParameter("operator");
-                int bookid = Integer.parseInt(request.getParameter("bookid"));
-                boolean isChecked = Boolean.parseBoolean(request.getParameter("isChecked"));
-                Book book = bDao.get(bookid).get();
 
-                if (isChecked) {
-                    if (operator.equals("-")) {
-                        for (int i = 0; i < booksChecked.size(); i++) {
-                            if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
-                                booksChecked.remove(i);
-                                break;
+            } else {
+                try {
+                    BookDAO bDao = new BookDAO();
+                    String operator = request.getParameter("operator");
+                    int bookid = Integer.parseInt(request.getParameter("bookid"));
+                    boolean isChecked = Boolean.parseBoolean(request.getParameter("isChecked"));
+                    Book book = bDao.get(bookid).get();
+
+                    if (isChecked) {
+                        if (operator.equals("-")) {
+                            for (int i = 0; i < booksChecked.size(); i++) {
+                                if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
+                                    booksChecked.remove(i);
+                                    break;
+                                }
                             }
-                        }
 
-                        boolean isFound = false;
-                        for (int i = 0; i < booksChecked.size(); i++) {
-                            if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
-                                isFound = true;
+                            boolean isFound = false;
+                            for (int i = 0; i < booksChecked.size(); i++) {
+                                if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
+                                    isFound = true;
+                                }
                             }
-                        }
 
-                        if (!isFound) {
+                            if (!isFound) {
+                                booksChecked.add(book);
+                            }
+                        } else {
                             booksChecked.add(book);
                         }
                     } else {
-                        booksChecked.add(book);
-                    }
-                } else {
-                    for (int i = 0; i < booksChecked.size(); i++) {
-                        if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
-                            booksChecked.remove(i);
-                            --i;
+                        for (int i = 0; i < booksChecked.size(); i++) {
+                            if (book.getBook_id() == booksChecked.get(i).getBook_id()) {
+                                booksChecked.remove(i);
+                                --i;
+                            }
                         }
                     }
-                }
+
 
 // Uncomment to test in console
 //        for (Book b: booksChecked) {
@@ -148,17 +151,21 @@ public class CheckoutController extends HttpServlet {
 //        }
 //        System.out.println("------");
 
-                int subtotal = 0;
-                for (Book b : booksChecked) {
-                    subtotal += b.getPrice();
-                }
+                    int subtotal = 0;
+                    for (Book b : booksChecked) {
+                        subtotal += b.getPrice();
+                    }
 
-                response.getWriter().write(subtotal + "");
-            } catch (NumberFormatException nfe) {
-                response.sendRedirect(getServletContext().getContextPath() + HOME);
+                    response.getWriter().write(subtotal + "");
+                } catch (NumberFormatException nfe) {
+                    response.sendRedirect(getServletContext().getContextPath() + HOME);
+                }
             }
+        } catch (NullPointerException npe) {
+            response.sendRedirect(getServletContext().getContextPath() + HOME);
         }
     }
+
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -232,6 +239,7 @@ public class CheckoutController extends HttpServlet {
                             book.isAvailable()));
                 }
 
+
                 session.setAttribute("CONFIRMORDER", true);
                 response.sendRedirect(getServletContext().getContextPath() + CHECKOUT);
             } catch (Exception e) {
@@ -240,6 +248,11 @@ public class CheckoutController extends HttpServlet {
             }
 
 
+        }
+
+        if (request.getParameter("btnHome") != null && request.getParameter("btnHome").equals("backhome")) {
+            booksOrder = null;
+            response.sendRedirect(getServletContext().getContextPath() + HOME);
         }
     }
 }

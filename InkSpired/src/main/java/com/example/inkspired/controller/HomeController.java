@@ -60,13 +60,12 @@ public class HomeController extends HttpServlet {
                 if (cookie.getName().equals("userWithAccount")) {
                     HttpSession session = request.getSession();
                     session.setAttribute("userCookie", cookie);
+                    session.setAttribute("CONFIRMORDER", null);
                 }
             }
         } catch (Exception e) {
             System.out.println("No");
         }
-
-
 
         // List Books Available
         BookDAO bDao = new BookDAO();

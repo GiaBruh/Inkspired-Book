@@ -370,7 +370,7 @@
     <c:when test="${sessionScope.CONFIRMORDER == true}">
         <!-- Modal -->
         <div class="modal fade" id="confirmmodal" tabindex="-1" aria-labelledby="exampleModalLabel"
-             aria-hidden="true" data-bs-backdrop='static'>
+             aria-hidden="true" data-backdrop='static'>
             <div class="modal-dialog modal-dialog-centered">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -379,19 +379,23 @@
                         <h5>Please wait for the admin to confirm the order...</h5>
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <a href="<%= request.getServletContext().getContextPath()%>/"
-                           class="btn btn-lg btn-block btn-outline-dark font-weight-bold my-3 py-3">Back To Home
-                            Page</a>
+                        <form method="POST" action="<%= request.getServletContext().getContextPath()%>/checkout">
+                            <button class="btn btn-lg btn-block btn-outline-dark font-weight-bold my-3 py-3" type="submit" name="btnHome" value="backhome" >Back to Home Page</button>
+                        </form>
+
+<%--                        <a href="<%= request.getServletContext().getContextPath()%>/"--%>
+<%--                           class="btn btn-lg btn-block btn-outline-dark font-weight-bold my-3 py-3">Back To Home--%>
+<%--                            Page</a>--%>
                     </div>
                 </div>
             </div>
         </div>
-        <c:set var="CONFIRMORDER" scope="session" value="${null}"/>
+<%--        <c:set var="CONFIRMORDER" scope="session" value="${null}"/>--%>
     </c:when>
 
     <c:when test="${sessionScope.CONFIRMORDER == false}">
         <div class="modal fade" id="confirmmodal" tabindex="-1" aria-labelledby="exampleModalLabel"
-             aria-hidden="true" data-bs-backdrop='static'>
+             aria-hidden="true" data-backdrop='static'>
             <div class="modal-dialog modal-dialog-centered">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -400,9 +404,12 @@
                         <h5>Please consider creating another order or try again later...</h5>
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <a href="<%= request.getServletContext().getContextPath()%>/"
-                           class="btn btn-lg btn-block btn-outline-dark font-weight-bold my-3 py-3">Back To Home
-                            Page</a>
+<%--                        <a href="<%= request.getServletContext().getContextPath()%>/"--%>
+<%--                           class="btn btn-lg btn-block btn-outline-dark font-weight-bold my-3 py-3">Back To Home--%>
+<%--                            Page</a>--%>
+                        <form method="POST" action="<%= request.getServletContext().getContextPath()%>/">
+                            <button class="btn btn-lg btn-block btn-outline-dark font-weight-bold my-3 py-3" type="submit" name="btnHome" value="backhome" >Back to Home Page</button>
+                        </form>
                     </div>
                 </div>
             </div>

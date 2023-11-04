@@ -57,7 +57,7 @@ public class UserController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String path = request.getRequestURI();
+//        String path = request.getRequestURI();
         HttpSession session = request.getSession();
 
         UserDAO userDAO = new UserDAO();
@@ -113,9 +113,10 @@ public class UserController extends HttpServlet {
 
             if (!fileName.equals("")) {
                 user_image = "./uploadphotos/userphotos/user" + user_id + "/" + fileName;
-            }
                 System.out.println(realPath + "/" + fileName);
-//                part.write(realPath + "/" + fileName); Idk feel unnecessary
+                part.write(realPath + "/" + fileName);
+            }
+
         } catch (IllegalStateException ise) {
             System.out.println("Upload failed");
             session.setAttribute("FILESIZEEXCEEDED", true);
