@@ -85,7 +85,7 @@
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex gap-2 justify-content-end">
-                                    <button type="submit" class="btn btn-primary" name="addCategorySubmit" id="submitButton">Submit</button>
+                                    <button type="submit" class="btn btn-primary" name="addCategorySubmit" id="submitButton" disabled>Submit</button>
                                     <button type="reset" class="btn btn-danger" name="addCategoryReset">Reset</button>
                                 </div>
                             </div>
