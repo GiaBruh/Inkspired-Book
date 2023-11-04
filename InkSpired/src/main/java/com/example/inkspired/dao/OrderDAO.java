@@ -197,8 +197,8 @@ public class OrderDAO implements DAO<Order> {
                 "    u.id AS user_id,\n" +
                 "    u.full_name AS full_name,--or u.user-name\n" +
                 "    od.quantity,\n" +
-                "    b.price,\n" +
-                "    od.quantity * b.price AS total_price,\n" +
+                "    od.price, -- Add the 'price' column from 'order_detail'\n" +
+                "    od.quantity * od.price AS total_price, -- Update to use 'od.price'\n" +
                 "    od.order_id,\n" +
                 "    o.order_date\n" +
                 "FROM\n" +
@@ -280,6 +280,7 @@ public class OrderDAO implements DAO<Order> {
             System.out.println(order.getOrder_detail_id() + " " + order.getBook_id() + " " + order.getBook_title() + " " + order.getUser_id() + " " + order.getFull_name() + " " + order.getQuantity() + " " + order.getPrice() + " " + order.getTotal_price() + " " + order.getOrder_id() + " " + order.getOrder_date());
         }
     }
+
 
 
 }
