@@ -227,7 +227,7 @@
     <div class="container px-4 px-lg-5 my-5">
         <div class="card" style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3)">
             <div class="card-body">
-                <table id="example" class="table table-responsive table-striped d-inline-block" style="width:100%">
+                <table id="example" class="table table-borderless table-secondary table-responsive table-striped d-inline-block" style="width:100%">
                     <thead>
                     <tr>
                         <th class="align-middle">Order ID</th>
@@ -292,7 +292,7 @@
                                                     class="btn btn-block btn-danger my-3 mx-2"
                                                     name="btncancel" value="${order.getOrder_id()}"
                                             >
-                                                Cancel order
+                                                Cancel
                                             </button>
                                         </c:when>
 
@@ -303,7 +303,7 @@
                                                     class="btn btn-block btn-success my-3 mx-2"
                                                     name="btnreceived" value="${order.getOrder_id()}"
                                             >
-                                                Confirm Received
+                                                Received
                                             </button>
                                         </c:when>
                                     </c:choose>
@@ -324,19 +324,21 @@
     <div class="modal-dialog modal-dialog-centered">
         <!-- Modal content-->
         <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="text-success">Confirm Receive Order</h3>
+            </div>
             <div class="modal-body">
-                <h3 class="text-success">Confirm received this order?</h3>
                 <h5>Only confirm when you have carefully reviewed the order quality with the shipper</h5>
-                <h5>You cannot undo this action...</h5>
+                <h5>You cannot undo this action.</h5>
             </div>
             <div class="modal-footer d-flex justify-content-center">
                 <form method="POST"
                       action="<%= request.getServletContext().getContextPath()%>/order">
                     <button type=submit
-                            class="btn btn-block btn-success my-3 mx-2"
+                            class="btn btn-block btn-lg btn-success my-3 mx-2"
                             name="btnconfirmreceived" value="0"
                     >
-                        Confirm Received
+                        Received
                     </button>
                 </form>
             </div>
@@ -351,9 +353,11 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-body">
-                <h3 class="text-danger">Confirm cancel this order?</h3>
-                <h5>The cancel action will be requested to the Admin to confirm</h5>
-                <h5>You cannot undo this action...</h5>
+                <div class="modal-header">
+                    <h3 class="text-danger">Confirm Cancel Order</h3>
+                </div>
+                <h5>The cancel action will be requested to the system.</h5>
+                <h5>You cannot undo this action.</h5>
             </div>
             <div class="modal-footer d-flex justify-content-center">
                 <form method="POST"
@@ -362,7 +366,7 @@
                             class="btn btn-block btn-danger my-3 mx-2"
                             name="btnconfirmcancel" value="0"
                     >
-                        Confirm Cancel
+                        Cancel
                     </button>
                 </form>
             </div>

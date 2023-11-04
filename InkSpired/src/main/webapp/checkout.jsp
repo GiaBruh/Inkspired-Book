@@ -318,9 +318,25 @@
                             <c:set var="total"
                                    value="${sessionScope.SUBTOTAL + 10000}"
                                    scope="session"/>
-                            <span class="price"><fmt:formatNumber
-                                value="${total}"
-                                minFractionDigits="0" maxFractionDigits="0"/></span>&#x20AB
+                            <c:choose>
+                                <c:when test="${sessionScope.TOTALDISCOUNT != 0}">
+<%--                                    <span style="color: white; background-color: #f2093b; border-radius: 5px; padding: 3px;">-${sessionScope.TOTALDISCOUNT}%</span>--%>
+                                    <span class="badge bg-danger text-white rounded-pill">-${sessionScope.TOTALDISCOUNT}%</span>
+                                    <s><span class="price"><fmt:formatNumber
+                                            value="${sessionScope.SUBTOTAL + 10000}"
+                                            minFractionDigits="0" maxFractionDigits="0"/></span>&#x20AB</s>
+                                    <br/><hr/>
+                                    <span class="badge text-white rounded-pill">    </span>
+                                    <span class="price float-end"><fmt:formatNumber value="${total}"
+                                                                                    minFractionDigits="0"
+                                                                                    maxFractionDigits="0"/>&#x20AB</span>
+                                </c:when>
+                                <c:otherwise>
+                                                    <span class="price"><fmt:formatNumber
+                                                            value="${total}"
+                                                            minFractionDigits="0" maxFractionDigits="0"/></span>&#x20AB
+                                </c:otherwise>
+                            </c:choose>
                         </h5>
                     </div>
                     <form method="POST"
@@ -360,9 +376,13 @@
             <div class="modal-dialog modal-dialog-centered">
                 <!-- Modal content-->
                 <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title text-success">
+                            Placed Order Successfully
+                        </h3>
+                    </div>
                     <div class="modal-body">
-                        <h3 class="text-success">Order Success!!!</h3>
-                        <h5>Please wait for the admin to confirm the order...</h5>
+                        <h5>The system is processing your order.</h5>
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
                         <form method="POST" action="<%= request.getServletContext().getContextPath()%>/checkout">
