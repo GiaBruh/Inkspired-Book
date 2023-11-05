@@ -226,7 +226,11 @@
     <%@include file="interface.jsp"%>
 </head>
 <body>
-<%@include file="header-no.jsp" %>
+    <a href="<%= request.getServletContext().getContextPath()%>/" class="text-decoration-none">
+        <h1 class="m-0 display-5 font-weight-semi-bold"><span
+                class="font-weight-bold px-3 mr-0" style="color: rgb(0, 109, 255);">INK</span>Spired</h1>
+    </a>
+<%--<%@include file="header-no.jsp" %>--%>
 <!-- partial:index.partial.html -->
 <!--
   This was created based on the Dribble shot by Deepak Yadav that you can find at https://goo.gl/XRALsw
@@ -262,10 +266,14 @@
                         <div class="forms_field">
                             <input placeholder="Username" class="forms_field-input" name="username" required
                                    autofocus/>
+                            <span id="errorusernameLogin" class="text-danger"></span>
+
                         </div>
                         <div class="forms_field">
                             <input type="password" placeholder="Password" class="forms_field-input"
                                    name="password" required/>
+                            <span id="errorpasswordLogin" class="text-danger"></span>
+
                         </div>
                     </fieldset>
                     <div class="forms_buttons">
@@ -413,5 +421,6 @@
 <script src="js/login.js"></script>
 <script src="js/password-forgot.js"></script>
 <script src="js/Validation/RegisterValidation.js"></script>
+<script src="js/Validation/LoginValidation.js"></script>
 </body>
 </html>

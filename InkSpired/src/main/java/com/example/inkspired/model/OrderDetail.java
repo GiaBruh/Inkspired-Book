@@ -44,8 +44,11 @@ public class OrderDetail extends Book implements Serializable {
         this.quantity = quantity;
         this.price = price;
     }
-
-
+    public OrderDetail(int book_id, int order_id, int quantity) {
+        this.book_id = book_id;
+        this.order_id = order_id;
+        this.quantity = quantity;
+    }
 
     public int getOrder_detail_id() {
         return order_detail_id;
