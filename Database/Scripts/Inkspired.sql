@@ -28,17 +28,6 @@ CREATE TABLE IF NOT EXISTS public.admin
     full_name     character varying(100) NOT NULL
 );
 
--- CREATE TABLE IF NOT EXISTS public.address
--- (
---     address_id  serial                 NOT NULL,
---     street_name character varying(100) NOT NULL,
---     ward        character varying(50)  NOT NULL,
---     district    character varying(50)  NOT NULL,
---     city        character varying(50)  NOT NULL,
---     province    character varying(50)  NOT NULL,
---     postal_code character varying(50)  NOT NULL,
---     PRIMARY KEY (address_id)
--- );
 
 CREATE TABLE IF NOT EXISTS public.review
 (
@@ -147,13 +136,15 @@ CREATE TABLE IF NOT EXISTS public.publisher
     PRIMARY KEY (publisher_id)
 );
 
--- ALTER TABLE IF EXISTS public.user
---     ADD CONSTRAINT address_id FOREIGN KEY (address)
---         REFERENCES public."user" (address) MATCH SIMPLE
---         ON UPDATE CASCADE
---         ON DELETE CASCADE
--- ;
-
+CREATE TABLE IF NOT EXISTS public.storage
+(
+    storage_id serial NOT NULL,
+    book_id integer NOT NULL,
+    original_price bigint NOT NULL,
+    adding_date date NOT NULL ,
+    PRIMARY KEY (storage_id),
+    FOREIGN KEY (book_id) REFERENCES public.book (book_id)
+);
 
 ALTER TABLE IF EXISTS public.review
     ADD CONSTRAINT user_id FOREIGN KEY (user_id)
