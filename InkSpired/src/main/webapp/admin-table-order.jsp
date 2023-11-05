@@ -86,11 +86,29 @@
                                                 </td>
                                                 <td>${orders.order_date}</td>
                                                 <td>${orders.delivery_address}</td>
-                                                <td>${orders.order_total}</td>
+                                                <td><fmt:formatNumber  value="${orders.order_total}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB</td>
                                                 <td>${orders.order_date}</td>
 
 
-                                                <td>${orders.order_status_name}</td>
+
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when test="${orders.order_status_name == 'Delivered'}">
+                                                            <span class="badge badge-success">${orders.order_status_name}</span>
+                                                        </c:when>
+                                                        <c:when test="${orders.order_status_name == 'Confirmed'}">
+                                                            <span class="badge badge-primary">${orders.order_status_name}</span>
+                                                        </c:when>
+                                                        <c:when test="${orders.order_status_name == 'Cancelled'}">
+                                                            <span class="badge badge-failed">${orders.order_status_name}</span>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <span class="badge badge-default">${orders.order_status_name}</span>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+
+
 
                                             </tr>
                                         </c:forEach>
@@ -151,9 +169,9 @@
                                                 <td>${orderDetail.order_detail_id}</td>
                                                 <td>${orderDetail.order_id}</td>
                                                 <td>${orderDetail.book_title}</td>
-                                                <td>${orderDetail.price}</td>
+                                                <td><fmt:formatNumber  value="${orderDetail.price}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB</td>
                                                 <td>${orderDetail.quantity}</td>
-                                                <td>${orderDetail.total_price}</td>
+                                                <td><fmt:formatNumber  value="${orderDetail.total_price}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB</td>
                                                 <td>${orderDetail.full_name}</td>
                                                 <td>${orderDetail.order_date}</td>
                                             </tr>
@@ -184,7 +202,7 @@
 
             <!-- App footer start -->
             <div class="app-footer">
-                <span>© Bootstrap Gallery 2023</span>
+                <span>Copyright INKSPIRED BOOKS 2023, always reserved.</span>
             </div>
             <!-- App footer end -->
 

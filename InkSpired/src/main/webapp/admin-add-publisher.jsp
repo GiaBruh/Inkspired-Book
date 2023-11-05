@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>List of book</title>
+    <title>Add new publisher</title>
 
     <!-- Meta -->
     <meta name="author" content="Vinh" />
@@ -65,7 +65,7 @@
                                          role="alert">
                                         <b>Error!</b> ${sessionScope.errorMessage}
                                     </div>
-                                    <%--                                        <% session.removeAttribute("errorMessage"); %>--%>
+                                                                            <% session.removeAttribute("errorMessage"); %>
                                 </c:if>
                                 <!-- Row start -->
                                 <div class="row">
@@ -100,7 +100,7 @@
 
             <!-- App footer start -->
             <div class="app-footer">
-                <span>© Bootstrap Gallery 2023</span>
+                <span>Copyright INKSPIRED BOOKS 2023, always reserved.</span>
             </div>
             <!-- App footer end -->
 

@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>List of book</title>
+    <title>Author information</title>
 
     <!-- Meta -->
     <meta name="author" content="Vinh" />
@@ -68,7 +68,7 @@
                                             <tr>
                                                 <th>Book ID</th>
                                                 <th>Book Name</th>
-                                                <th>Is Available</th>
+<%--                                                <th>Is Available</th>--%>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -76,18 +76,20 @@
                                                 <tr>
                                                     <td>${book.book_id}</td>
                                                     <td><a href="<%= request.getContextPath() %>/admin/book-info?book_id=${book.book_id}">${book.title}</a></td>
-                                                    <td>${book.is_available}</td>
+<%--                                                    <td>${book.is_available}</td>--%>
                                                 </tr>
                                             </c:forEach>
                                             </tbody>
                                         </table>
+
 
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <p class="fs-4">Author ID: ${author.author_id}</p>
                                     <p class="fs-4">Author Name: ${author.author_fullname}</p>
-                                    <p class="fs-4">Author Image: <img src="<%= request.getContextPath() %>/${author.author_image}" alt="" width="200px"></p>
+                                    <p class="fs-4">Author Image: </p>
+                                    <img src="<%= request.getContextPath() %>/${author.author_image}" alt="" width="200px">
                                     <p class="fs-4"  style="color: ${author.author_status ? "green" : "red"}"
                                     >Author Status: ${author.author_status ? "Active" : "Inactive"}
 
@@ -97,7 +99,21 @@
                                     <p class="mb-4">
                                         ${author.author_description}
                                     </p>
+                                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+                                    <script>
+                                        var titles = {};
+                                        $("table tr").each(function() {
+                                            var bookTitle = $(this).find("td:eq(1)").text();
+                                            if (titles[bookTitle]) {
+                                                $(this).remove();
+                                            } else {
+                                                titles[bookTitle] = true;
+                                            }
+                                        });
+
+
+                                    </script>
 
                                 </div>
                             </div>
@@ -200,7 +216,7 @@
 
             <!-- App footer start -->
             <div class="app-footer">
-                <span>© Bootstrap Gallery 2023</span>
+                <span>Copyright INKSPIRED BOOKS 2023, always reserved.</span>
             </div>
             <!-- App footer end -->
 
