@@ -87,9 +87,6 @@ public class Review implements Serializable {
     public void setUser_image(String user_image) {
         this.user_image = user_image;
     }
-    public String getBook_image() {
-        return book_image;
-    }
 
     public String getBook_image() {
         return book_image;
