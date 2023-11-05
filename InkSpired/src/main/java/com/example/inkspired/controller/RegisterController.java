@@ -85,10 +85,6 @@ public class RegisterController extends HttpServlet {
         HttpSession session = request.getSession();
         request.setCharacterEncoding("UTF-8");
 
-        if (request.getParameter("btnRegister") != null && request.getParameter("btnRegister").equals("Register")) {
-            response.sendRedirect(getServletContext().getContextPath() + REGISTER);
-        }
-
         if (request.getParameter("btnsubmitRegister") != null && request.getParameter("btnsubmitRegister").equals("Submit")) {
             String username = request.getParameter("registerusername");
             String password = request.getParameter("registerpassword");
@@ -111,7 +107,7 @@ public class RegisterController extends HttpServlet {
                     session.setAttribute("EMAILEXISTED", false);
                     response.sendRedirect(getServletContext().getContextPath() + LOGIN);
                 } else {
-                    throw new PSQLException(new ServerErrorMessage(""));
+                    throw new PSQLException(new ServerErrorMessage("Failed to register"));
                 }
             } catch (PSQLException psqle) {
                 session.setAttribute("EMAILEXISTED", true);

@@ -83,6 +83,7 @@ public class LoginController extends HttpServlet {
         if (request.getParameter("btnSubmit") != null && request.getParameter("btnSubmit").equals("Submit")) {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
+
             User user = new User(username, password);
             UserDAO dao = new UserDAO();
             try {
@@ -105,9 +106,12 @@ public class LoginController extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("userCookie", cookie);
                     response.addCookie(cookie);
+                    session.removeAttribute("errorMessage");
                     response.sendRedirect(getServletContext().getContextPath() + HOMEPAGE);
                 }
                 else {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("errorMessage", "Invalid username or password");
                     response.sendRedirect(getServletContext().getContextPath() + LOGIN);
                 }
             } catch (Exception e) {

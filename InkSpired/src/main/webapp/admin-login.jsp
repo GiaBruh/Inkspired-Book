@@ -81,7 +81,7 @@
                         </div>
                         <div class="d-grid pt-2 pb-3 mt-4">
                             <p class="text-center pb-2 text-danger" name="errorLogin">
-                                ${requestScope.errorMessage}
+                                <span>${requestScope.errorMessage}</span>
                             </p>
                             <button type="submit" class="btn btn-lg btn-primary" name="loginSubmit" value="Submit" disabled>
                                 Login

@@ -235,7 +235,7 @@ public class CheckoutController extends HttpServlet {
                         throw new Exception();
                     }
 
-                    odDao.add(new OrderDetail(bookid, orderid, quantity));
+                    odDao.add(new OrderDetail(bookid, orderid, quantity, book.getPrice()));
                     // Delete from cart
                     scDao.deleteFromCart(userid, bookid);
                     scDao.update(new ShoppingCart(userid, scDao.get(userid).get().getQuantity() - 1));

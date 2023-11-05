@@ -285,6 +285,8 @@
                             </label>
                         <input type="submit" name="btnSubmit" value="Submit" class="forms_buttons-action">
                     </div>
+                    <br>
+                     <span class="text-danger">${sessionScope.errorMessage}</span>
                 </form>
             </div>
             <div class="user_forms-signup">
@@ -354,7 +356,7 @@
                         </c:choose>
                     </div>
                     <div class="forms_buttons justify-content-center pb-md-5">
-                        <input type="submit" value="Submit" name="btnsubmit" class="forms_buttons-action" disabled>
+                        <input type="submit" value="Submit" name="btnsubmitRegister" class="forms_buttons-action" disabled>
                     </div>
                 </form>
             </div>
