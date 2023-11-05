@@ -45,7 +45,7 @@ public class ReviewController extends HttpServlet {
         HttpSession session = request.getSession();
         ReviewDAO rDAO = new ReviewDAO();
         if (((Cookie) session.getAttribute("userCookie")) != null) {
-            List<Review> userReviews = rDAO.onlyUser(Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue()));
+            List<Review> userReviews = rDAO.getAllUserReviews(Integer.parseInt(((Cookie)session.getAttribute("userCookie")).getValue()));
             request.setAttribute("reviews", userReviews);
             request.getRequestDispatcher("/reviewHistory.jsp").forward(request, response);
         }
