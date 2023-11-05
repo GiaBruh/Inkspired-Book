@@ -178,6 +178,24 @@ public class CategoryDAO implements DAO<Category> {
         }
         return category;
     }
+    public Category selectCategoryByName(String category_name){
+        String query = "SELECT * FROM public.category where category_name = ?";
+        Category category = null;
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, category_name);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                category = new Category();
+                category.setCategory_id(rs.getInt("category_id"));
+                category.setCategory_name(rs.getString("category_name"));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return category;
+
+    }
 
     public void deleteCategoryByID(int categoryId) {
         String query = "DELETE FROM public.category where category_id = ?";

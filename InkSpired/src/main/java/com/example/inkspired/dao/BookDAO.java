@@ -158,7 +158,7 @@ public class BookDAO extends Storage implements DAO<Book>  {
 
     public int getBookIdByTitle(String title) {
         int bookId = -1; // Initialize with a value that indicates failure or not found
-        String query = "SELECT book_id FROM book WHERE title = ?";
+        String query = "SELECT book_id FROM book WHERE title = ? order by book_id desc limit 1";
         try{
             ps = conn.prepareStatement(query);
             ps.setString(1, title);
