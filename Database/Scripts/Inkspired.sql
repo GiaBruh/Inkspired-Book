@@ -69,6 +69,7 @@ CREATE TABLE IF NOT EXISTS public.order_detail
     book_id         integer NOT NULL,
     order_id        integer NOT NULL,
     quantity        integer NOT NULL,
+    price			bigint  NOT NULL,
     PRIMARY KEY (order_detail_id)
 );
 
