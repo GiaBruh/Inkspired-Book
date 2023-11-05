@@ -128,7 +128,7 @@
 
             <!-- App footer start -->
             <div class="app-footer">
-                <span>© Bootstrap Gallery 2023</span>
+                <span>Copyright INKSPIRED BOOKS 2023, always reserved.</span>
             </div>
             <!-- App footer end -->
 

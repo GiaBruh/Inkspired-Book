@@ -93,9 +93,9 @@
                                     <p class="fs-4">Gender: ${user.gender}</p>
                                     <p class="fs-4">Birthday: ${user.birthdate}</p>
                                     <p class="fs-4">Phone number: ${user.phone_number}</p>
-                                    <p class="fs-4">Image:
+                                    <p class="fs-4">Image:</p>
                                      <img src="<%= request.getContextPath() %>/${user.user_image}" style="width: 50px; height: auto;" />
-                                    </p>
+
                                     <p class="fs-4" style="color: ${user.user_status ? 'green' : 'red'}">
                                         Status: ${user.user_status ? 'Active' : 'Inactive'}
                                     </p>
@@ -132,7 +132,7 @@
 
             <!-- App footer start -->
             <div class="app-footer">
-                <span>© Bootstrap Gallery 2023</span>
+                <span>Copyright INKSPIRED BOOKS 2023, always reserved.</span>
             </div>
             <!-- App footer end -->
 

@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>List of book</title>
+    <title>Category information</title>
 
     <!-- Meta -->
     <meta name="author" content="Vinh" />
@@ -68,7 +68,7 @@
                                             <tr>
                                                 <th>Book ID</th>
                                                 <th>Book Name</th>
-                                                <th>Publication Date</th>
+
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -76,7 +76,7 @@
                                                 <tr>
                                                     <td>${book.book_id}</td>
                                                     <td><a href="<%= request.getContextPath() %>/admin/book-info?book_id=${book.book_id}">${book.title}</a></td>
-                                                    <td>${book.publication_date}</td>
+
                                                 </tr>
                                             </c:forEach>
                                             </tbody>
@@ -156,7 +156,7 @@
 
             <!-- App footer start -->
             <div class="app-footer">
-                <span>© Bootstrap Gallery 2023</span>
+                <span>Copyright INKSPIRED BOOKS 2023, always reserved.</span>
             </div>
             <!-- App footer end -->
 

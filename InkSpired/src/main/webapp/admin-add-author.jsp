@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>List of book</title>
+  <title>Add new author</title>
 
   <!-- Meta -->
   <meta name="author" content="Vinh" />

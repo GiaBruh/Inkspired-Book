@@ -84,9 +84,9 @@
                                                     <tr>
                                                         <td>${orderDetail.order_detail_id}</td>
                                                         <td>${orderDetail.book_title}</td>
-                                                        <td>${orderDetail.price}</td>
+                                                        <td><fmt:formatNumber  value="${orderDetail.price}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB</td>
                                                         <td>${orderDetail.quantity}</td>
-                                                        <td>${orderDetail.total_price}</td>
+                                                        <td><fmt:formatNumber  value="${orderDetail.total_price}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB</td>
 
                                                     </tr>
                                                 </c:if>
@@ -103,7 +103,10 @@
                                     <p class="fs-4">Date order: ${order.order_date}</p>
                                     <p class="fs-4">Address: ${order.delivery_address}</p>
                                     <p class="fs-4">Status: ${order.order_status_name}</p>
-                                    <p class="fs-3">Total: ${order.order_total}</p>
+                                    <p class="fs-3">Total:
+                                        <fmt:formatNumber  value="${order.order_total}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB
+
+                                    </p>
 
 
 
@@ -118,21 +121,24 @@
                                 <a class="btn btn-outline-primary" href="<%= request.getContextPath() %>/admin/table-order">Go Back</a>
 
 
-                                    <div class="mb-0">
-                                        <div class="input-group">
+                                <div class="mb-0">
+                                    <div class="input-group">
                                         <select class="form-select" name="order_status">
-                                        <c:forEach var="order_status" items="${requestScope.order_status}">
-                                            <option value="${order_status.getOrder_status()}"
-                                                ${order_status.getOrder_status() == order.order_status ? "selected" : ""}>
-                                                    ${order_status.getOrder_status_name()}
-                                            </option>
-                                        </c:forEach>
+                                            <c:forEach var="order_status" items="${requestScope.order_status}">
+                                                <c:if test="${!order_status.getOrder_status_name().equals('Pending') && !order_status.getOrder_status_name().equals('Cancel Pending') && !order_status.getOrder_status_name().equals('Delivered')}">
+                                                    <option value="${order_status.getOrder_status()}"
+                                                        ${order_status.getOrder_status() == order.order_status ? "selected" : ""}>
+                                                            ${order_status.getOrder_status_name()}
+                                                    </option>
+                                                </c:if>
+                                            </c:forEach>
                                         </select>
-                                            <input type="submit" class="input-group-text btn btn-success" name="authorizeOrderSubmit" value="Update Order Status" />
-
-                                        </div>
+                                        <input type="submit" class="input-group-text btn btn-success" name="authorizeOrderSubmit" value="Update Order Status"
+                                        ${order.order_status.equals('Delivered') ? "disabled" : ""} />
                                     </div>
-                                    <input type="hidden" name="order_id" value="${order.order_id}" />
+                                </div>
+
+                                <input type="hidden" name="order_id" value="${order.order_id}" />
 
 
                             </div>
@@ -148,7 +154,7 @@
 
             <!-- App footer start -->
             <div class="app-footer">
-                <span>© Bootstrap Gallery 2023</span>
+                <span>Copyright INKSPIRED BOOKS 2023, always reserved.</span>
             </div>
             <!-- App footer end -->
 
