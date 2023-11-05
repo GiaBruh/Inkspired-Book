@@ -95,7 +95,7 @@ public class SearchController extends HttpServlet {
                 session.setAttribute("searchResultByCategory", null);
             }
 
-            String keyword = request.getParameter("keyword").trim();
+            String keyword = request.getParameter("keyword").trim().replaceAll("\\s+"," ");
 
             if (keyword != null && !keyword.isEmpty()) {
                 BookDAO bookDAO = new BookDAO();
