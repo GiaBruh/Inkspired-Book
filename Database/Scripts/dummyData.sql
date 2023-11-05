@@ -34,7 +34,7 @@ VALUES (1, 2),
 
 -- Admin
 INSERT INTO public."admin" (username, password, email_address, full_name)
-VALUES ('admin', '0192023a7bbd73250516f069df18b500', 'admin@gmail.com', 'Nguyen Van Admin');
+VALUES ('admin', '0192023a7bbd73250516f069df18b500', 'inkspiredbook@gmail.com', 'Nguyen Van Admin');
 -- 0192023a7bbd73250516f069df18b500 = admin123
 
 -- Publisher
