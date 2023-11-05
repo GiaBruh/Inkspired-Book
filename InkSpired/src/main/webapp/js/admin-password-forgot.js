@@ -67,7 +67,7 @@ function verifyVerificationCode() {
     const redirectButton = document.getElementById("redirectButton");
     const redirectButtonGroup = document.getElementById("redirectButtonGroup");
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/InkSpired/admin/forgot?code=" + encodeURIComponent(verificationCode), true);
+    xhr.open("POST", "/InkSpired/forgot?code=" + encodeURIComponent(verificationCode), true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
