@@ -101,18 +101,6 @@ public class CheckoutController extends HttpServlet {
 
                 session.setAttribute("SUBTOTAL", subtotal);
 
-                // Discount system
-                int totalDiscount = 0;
-                if (subtotal >= 600000) {
-                    totalDiscount = 30;
-                } else if (subtotal >= 400000) {
-                    totalDiscount = 20;
-                } else if (subtotal >= 300000) {
-                    totalDiscount = 10;
-                }
-
-                session.setAttribute("TOTALDISCOUNT", totalDiscount);
-
                 session.setAttribute("BOOKSORDERLIST", od);
 
                 request.getRequestDispatcher("./checkout.jsp").forward(request, response);
@@ -235,7 +223,7 @@ public class CheckoutController extends HttpServlet {
                         throw new Exception();
                     }
 
-                    odDao.add(new OrderDetail(bookid, orderid, quantity));
+                    odDao.add(new OrderDetail(bookid, orderid, quantity, book.getPrice()));
                     // Delete from cart
                     scDao.deleteFromCart(userid, bookid);
                     scDao.update(new ShoppingCart(userid, scDao.get(userid).get().getQuantity() - 1));
