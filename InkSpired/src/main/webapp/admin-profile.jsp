@@ -58,7 +58,7 @@
                             <h5 class="card-title">Admin Information</h5>
                         </div>
 
-                        <form action="<%=request.getContextPath()%>/admin/update-admin" method="post">
+                        <form action="<%=request.getContextPath()%>/admin/update-admin?adminUsername=${adminUsername}&adminFullname=${adminFullname}" method="post">
                             <div class="card-body">
 <%--                                <c:if test="${not empty sessionScope.errorMessage}">--%>
 <%--                                    <div class="alert border border-danger alert-dismissible fade show text-danger" role="alert">--%>
@@ -72,15 +72,15 @@
                                     <div class="col-md-6 col-12">
                                         <div class="mb-3">
                                             <label class="form-label">User name</label>
-                                            <input class="form-control" type="text" id="username" name="category_name" value="${adminUsername}" required>
+                                            <input class="form-control" type="text" id="username" name="adminUsername" value="${adminUsername}" required>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Full name</label>
-                                            <input class="form-control" type="text" id="fullname" name="category_name" value="${adminFullname}" required>
+                                            <input class="form-control" type="text" id="fullname" name="adminFullname" value="${adminFullname}" required>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Admin gmail</label>
-                                            <input class="form-control" type="text" id="gmail" name="category_name" value="${adminEmail}" required>
+                                            <input class="form-control" type="text" id="gmail" name="adminEmail" value="${adminEmail}" required>
                                         </div>
                                     </div>
 
