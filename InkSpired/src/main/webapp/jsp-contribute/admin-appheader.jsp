@@ -133,7 +133,7 @@
                     <!-- username here -->
                     <%= adminFullname %>
                 </span>
-                <img src="${pageContext.request.contextPath}/assets/images/user.png" class="rounded-circle img-3x" alt="Bootstrap Gallery" />
+                <img src="${pageContext.request.contextPath}/assets/images/admin.png" class="rounded-circle img-3x" alt="Admin" />
             </a>
             <div class="dropdown-menu dropdown-menu-end shadow">
                 <a class="dropdown-item d-flex align-items-center" href="<%= request.getContextPath()%>/admin/profile"><i

@@ -44,14 +44,14 @@
                         <a href="<%= request.getContextPath() %>/admin/table-category">Category</a>
                     </li>
                     <li>
-                        <a href="<%= request.getContextPath() %>/admin/table-user">Customer</a>
+                        <a href="<%= request.getContextPath() %>/admin/table-user">User</a>
                     </li>
                 </ul>
             </li>
             <li class="treeview">
                 <a href="">
                     <i class="bi bi-pie-chart"></i>
-                    <span class="menu-text">Statics</span>
+                    <span class="menu-text">Show statistic of</span>
                 </a>
                 <ul class="treeview-menu">
                     <li>

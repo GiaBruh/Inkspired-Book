@@ -59,7 +59,7 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <h4 class="section-title fw-light">Order</h4>
+                                        <h4 class="section-title fw-light">List of Order</h4>
 
                                     </div>
                                     <table id="order-table" class="table table-bordered m-0">
@@ -71,6 +71,7 @@
                                             <th class="col-md-1">Order Date</th>
                                             <th class="col-md-5">Address</th>
                                             <th class="col-md-1">Order Total</th>
+                                            <th class="col-md-1">Order Date</th>
                                             <th class="col-md-1">Order Status</th>
                                         </tr>
                                         </thead>
@@ -86,6 +87,8 @@
                                                 <td>${orders.order_date}</td>
                                                 <td>${orders.delivery_address}</td>
                                                 <td>${orders.order_total}</td>
+                                                <td>${orders.order_date}</td>
+
 
                                                 <td>${orders.order_status_name}</td>
 
@@ -123,7 +126,7 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <h4 class="section-title fw-light">Order detail</h4>
+                                        <h4 class="section-title fw-light">List of Order detail</h4>
 
                                     </div>
 

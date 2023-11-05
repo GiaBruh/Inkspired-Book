@@ -20,6 +20,10 @@ public class Book implements Serializable {
     private int category_id;
     private int author_id;
 
+    private Date adding_date;
+
+    private int quantity_sold;
+private long original_price;
 
     public String getAuthor_fullname() {
         return author_fullname;
@@ -59,6 +63,14 @@ public class Book implements Serializable {
 
     public void setAuthor_id(int author_id) {
         this.author_id = author_id;
+    }
+
+    public long getOriginal_price() {
+        return original_price;
+    }
+
+    public void setOriginal_price(long original_price) {
+        this.original_price = original_price;
     }
 
     public Book() {
@@ -157,6 +169,22 @@ public class Book implements Serializable {
 
     public void setBook_image(String book_image) {
         this.book_image = book_image;
+    }
+
+    public int getQuantity_sold() {
+        return quantity_sold;
+    }
+
+    public void setQuantity_sold(int quantity_sold) {
+        this.quantity_sold = quantity_sold;
+    }
+
+    public Date getAdding_date() {
+        return adding_date;
+    }
+
+    public void setAdding_date(Date adding_date) {
+        this.adding_date = adding_date;
     }
 
     @Override

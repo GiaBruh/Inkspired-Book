@@ -88,7 +88,7 @@
                                             <td>${users.birthdate}</td>
                                             <td>${users.phone_number}</td>
                                             <td>
-                                                <img src="${users.username}" alt="" width="50px" height="50px">
+                                                <img src="<%= request.getContextPath() %>/${users.user_image}" alt="" width="50px" height="50px">
                                             </td>
                                             <td>
                                                 <span class="badge ${users.user_status ? 'badge-success' : 'badge-failed'}">

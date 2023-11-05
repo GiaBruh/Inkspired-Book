@@ -50,7 +50,7 @@
             <!-- App body starts -->
             <div class="app-body">
                 <!-- table name Order -->
-
+                <div class="row">
 
                     <div class="col-xxl-12">
                         <div class="card shadow mb-4">
@@ -64,17 +64,19 @@
                                     <table id="book-table" class="table table-bordered m-0">
                                         <thead>
                                         <tr>
-                                            <th scope="col" data-toggle="true">Book ID</th>
-                                            <th scope="col" data-toggle="true">Title</th>
-                                            <th scope="col" data-toggle="true">Publication Date</th>
-                                            <th scope="col" data-toggle="true">Quantity</th>
-                                            <th scope="col" data-toggle="true">Price</th>
-                                            <th scope="col" data-toggle="true">Publisher</th>
-                                            <th scope="col" data-toggle="true" class="d-none">Description</th>
-                                            <th scope="col" data-toggle="true">Image</th>
-                                            <th scope="col" data-toggle="true">Availability</th>
-                                            <th scope="col" data-toggle="true">Authors</th>
-                                            <th scope="col" data-toggle="true">Categories</th>
+                                            <th>Book ID</th>
+                                            <th>Title</th>
+                                            <th>Adding Date</th>
+                                            <th>Total quantity </th>
+                                            <th>Total quantity is sold</th>
+                                            <th>Remain quantity</th>
+                                            <th>Original price</th>
+                                            <th>Price</th>
+                                            <th>Publisher</th>
+                                            <th>Image</th>
+                                            <th>Is Selling?</th>
+                                            <th>Authors</th>
+                                            <th>Categories</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -82,11 +84,13 @@
                                         <tr>
                                             <td>${book.book_id}</td>
                                             <td><a href="<%= request.getContextPath() %>/admin/book-info?book_id=${book.book_id}" class="book-title">${book.title}</a></td>
-                                            <td>${book.publication_date}</td>
+                                            <td>${book.adding_date}</td>
                                             <td>${book.quantity}</td>
-                                            <td>${book.price} &#x20AB</td>
+                                            <td>${book.quantity_sold}</td>
+                                            <td>${book.quantity - book.quantity_sold}</td>
+                                            <td><fmt:formatNumber  value="${book.getOriginal_price()}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB</td>
+                                            <td><fmt:formatNumber  value="${book.getPrice()}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB</td>
                                             <td>${book.publisher_name}</td>
-                                            <td class="d-none">${book.book_description}</td>
                                             <td><img src="<%= request.getContextPath() %>/${book.book_image}" alt="${book.title}" width="100px"></td>
                                             <td>
                                                 <span class="badge ${book.is_available ? 'badge-success' : 'badge-failed'}">
@@ -117,7 +121,7 @@
 
                 </div>
                 <!-- Row end -->
-
+                </div>
 
             </div>
             <!-- App body ends -->

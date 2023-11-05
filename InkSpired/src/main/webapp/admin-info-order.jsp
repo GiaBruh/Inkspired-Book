@@ -115,7 +115,7 @@
                         <form action="<%= request.getContextPath() %>/admin/order-info" method="post">
                         <div class="card-footer">
                             <div class="d-flex gap-2 justify-content-end">
-                                <a class="btn btn-outline-primary" href="<%= request.getContextPath() %>/admin/table-author">Go Back</a>
+                                <a class="btn btn-outline-primary" href="<%= request.getContextPath() %>/admin/table-order">Go Back</a>
 
 
                                     <div class="mb-0">

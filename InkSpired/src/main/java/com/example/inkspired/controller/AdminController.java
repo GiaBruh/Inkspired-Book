@@ -4,12 +4,9 @@ import com.example.inkspired.dao.*;
 import com.example.inkspired.model.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 
@@ -17,7 +14,6 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10, // 10 MB
@@ -60,10 +56,18 @@ public class AdminController extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (isLoggedIn) {
             OrderDAO orderDAO = new OrderDAO();
+            StorageDAO storageDAO = new StorageDAO();
+
             List<Order> orders = orderDAO.getAllWithUser();
             request.setAttribute("orders", orders);
+
             List<Order> orderDetail = orderDAO.getAllOrderDetail();
             request.setAttribute("orderDetail", orderDetail);
+
+            List<Storage> storages = storageDAO.getAllStorage();
+            request.setAttribute("storages", storages);
+
+
 
             if (pathInfo.equals("/")) {
 
@@ -74,6 +78,7 @@ public class AdminController extends HttpServlet {
 
             } else if (pathInfo.equals("/table-order")) {
                 {
+
                     request.getRequestDispatcher("/admin-table-order.jsp").forward(request, response);
                 }
 
@@ -422,17 +427,21 @@ public class AdminController extends HttpServlet {
                 // Parse the request to get the new book details
                 int bookId = Integer.parseInt(request.getParameter("book_id"));
                 BookDAO bookDAO = new BookDAO();
+                Storage storage = new Storage();
                 Book book = bookDAO.selectBookByID(bookId); // Assuming you have a selectBookByID method to fetch the book by ID
 
                 book.setTitle(request.getParameter("title"));
                 book.setPublication_date(Date.valueOf(request.getParameter("date"))); // Assuming date is in yyyy-MM-dd format
-                book.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-                book.setPrice(Long.parseLong(request.getParameter("price")));
                 book.setPublisher_id(Integer.parseInt(request.getParameter("publisherId")));
                 book.setBook_description(request.getParameter("description"));
                 book.setBook_image(book_image);
                 book.setIs_available(Boolean.parseBoolean(request.getParameter("available")));
 
+
+                book.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+                storage.setOriginal_price(Long.parseLong(request.getParameter("original_price")));//get fot storage
+                book.setPrice(Long.parseLong(request.getParameter("price")));
+                storage.setAdding_date(Date.valueOf(request.getParameter("adding_date")));//get for storage
 
                 // Get arrays of new category and author ids
                 String[] authorIds = request.getParameterValues("authorIds");
@@ -444,6 +453,7 @@ public class AdminController extends HttpServlet {
                 // Call methods to update the book in the database
                 try {
                     bookDAO.updateBookByID(book);
+                    bookDAO.updateInStorage(bookId, storage);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -473,16 +483,29 @@ public class AdminController extends HttpServlet {
                 System.out.println(realPath + "/" + fileName);
                 part.write(realPath + "/" + fileName);
 
+
                 Book book = new Book();
+                Storage storage = new Storage();
                 book.setTitle(request.getParameter("title"));
                 book.setPublication_date(Date.valueOf(request.getParameter("date"))); // Assuming date is in yyyy-MM-dd format
-                book.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-                book.setPrice(Long.parseLong(request.getParameter("price")));
                 book.setPublisher_id(Integer.parseInt(request.getParameter("publisherId")));
                 book.setBook_description(request.getParameter("description"));
                 book.setBook_image(book_image);
                 book.setIs_available(Boolean.parseBoolean(request.getParameter("available")));
 
+                book.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+                storage.setOriginal_price(Long.parseLong(request.getParameter("storage_original_price")));
+                storage.setAdding_date(Date.valueOf(request.getParameter("adding_date")));
+                book.setPrice(Long.parseLong(request.getParameter("price")));
+
+
+
+                System.out.println("Storage" + storage.getQuantity());
+                System.out.println("Book" + book.getQuantity());
+                System.out.println("Price Storage" + storage.getOriginal_price());
+                System.out.println("Price Book" + book.getPrice());
+                System.out.println("Location" + storage.getLocation());
+                System.out.println("Date" + storage.getAdding_date());
                 // Get arrays of new category and author ids
                 String[] authorIds = request.getParameterValues("authorIds");
                 List<Integer> newAuthorIds = Arrays.stream(authorIds).map(Integer::parseInt).collect(Collectors.toList());
@@ -492,15 +515,17 @@ public class AdminController extends HttpServlet {
 
                 // Call methods to update the book in the database
                 BookDAO bookDAO = new BookDAO();
-                if (bookDAO.doesBookExist(book.getBook_id())) {
+                if  (bookDAO.doesBookExist(book.getTitle(),storage.getAdding_date())) {
 
                     HttpSession session = request.getSession();
-                    session.setAttribute("errorMessage", "This book is already existed");
+                    session.setAttribute("errorMessage", "This book with the same adding date already exists");
                     response.sendRedirect(request.getContextPath() + "/admin/add-book");
                 } else {
 
                     bookDAO.add(book);
                     int bookId = bookDAO.getBookIdByTitle(book.getTitle());
+                        book.setBook_id(bookId);
+                        bookDAO.addInStorage(book, storage);
 
                     try {
                         bookDAO.addBookAuthors(bookId, newAuthorIds);
@@ -573,6 +598,13 @@ public class AdminController extends HttpServlet {
                 author.setAuthor_description(request.getParameter("author_description"));
 
                 AuthorDAO authorDAO = new AuthorDAO();
+                //check by author name
+                if (authorDAO.doesAuthorExist(author.getAuthor_fullname())) {
+
+                    HttpSession session = request.getSession();
+                    session.setAttribute("errorMessage", "This author is already existed");
+                    response.sendRedirect(request.getContextPath() + "/admin/add-author");
+                } else
                 {
 
                     authorDAO.add(author);

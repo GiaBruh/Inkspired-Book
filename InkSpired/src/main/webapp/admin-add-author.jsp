@@ -152,14 +152,12 @@
             </div>
             <!-- App body ends -->
 
-            <!-- App footer start -->
-            <div class="app-footer">
-                <span>© Bootstrap Gallery 2023</span>
-            </div>
-            <!-- App footer end -->
 
-        </div>
-        <!-- App container ends -->
+      <!-- App footer start -->
+      <div class="app-footer">
+        <span>Copyright INKSPIRED BOOKS 2023, always reserved.</span>
+      </div>
+      <!-- App footer end -->
 
     </div>
     <!-- Main container end -->
