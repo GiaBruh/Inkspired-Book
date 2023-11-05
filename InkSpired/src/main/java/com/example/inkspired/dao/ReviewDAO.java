@@ -182,8 +182,7 @@ public class ReviewDAO {
         }
         return false;
     }
-
-    public List<Review> onlyUser(int id){
+    public List<Review> getAllUserReviews(int id){
         ArrayList<Review> result = new ArrayList<>();
         String query = "select * from review where user_id = ? order by review_date desc";
         try {
