@@ -71,6 +71,7 @@ public class BookController extends HttpServlet {
 
             HttpSession session = request.getSession();
             session.setAttribute("BOOKINFO", book);
+            request.setAttribute("TOTALSOLD", bDao.getTotalSold(bookid));
             request.setAttribute("AUTHORLIST", authors);
             request.setAttribute("PUBLISHERINFO", publisher);
             request.setAttribute("BOOKSBYPUBLISHER", booksByPublisher);

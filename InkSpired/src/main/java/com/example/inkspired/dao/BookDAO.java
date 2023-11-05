@@ -652,6 +652,29 @@ public class BookDAO extends Storage implements DAO<Book>  {
         return result;
     }
 
+    public int getTotalSold(int bookid) {
+        int result = 0;
+        String query = "SELECT b.book_id, SUM(od.quantity) as totalSold\n" +
+                "FROM \"order\"\n" +
+                "         JOIN public.order_detail od on \"order\".order_id = od.order_id\n" +
+                "         JOIN public.book b on b.book_id = od.book_id\n" +
+                "WHERE b.book_id = ?\n" +
+                "GROUP BY b.book_id, title";
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, bookid);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                result = rs.getInt("totalSold");
+            }
+        } catch (Exception e) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        return result;
+    }
+
     public static void main(String[] args) {
         BookDAO dao = new BookDAO();
         for (Author a : dao.getBookAuthors(1)) {
