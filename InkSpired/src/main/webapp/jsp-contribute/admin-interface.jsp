@@ -13,6 +13,10 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <style>
+    .badge-primary{
+        background-color: #007bff; /* Adjust the color as needed */
+        border: none; /* Remove the border */
+    }
     .badge-success {
         background-color: green; /* Adjust the color as needed */
         border: none; /* Remove the border */

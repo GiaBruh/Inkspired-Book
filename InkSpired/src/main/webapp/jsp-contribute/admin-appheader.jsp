@@ -1,6 +1,5 @@
 <%@ page import="com.example.inkspired.model.Order" %>
 <%
-    // Get the user's information from the session
     String adminUsername = (String) session.getAttribute("adminUsername");
     String adminFullname = (String) session.getAttribute("adminFullname");
     String adminEmail = (String) session.getAttribute("adminEmail");
@@ -136,7 +135,7 @@
                 <img src="${pageContext.request.contextPath}/assets/images/admin.png" class="rounded-circle img-3x" alt="Admin" />
             </a>
             <div class="dropdown-menu dropdown-menu-end shadow">
-<%--                <a class="dropdown-item d-flex align-items-center" href="profile.html"><i--%>
+<%--                <a class="dropdown-item d-flex align-items-center" href="<%= request.getContextPath() %>/admin/admin-profile"><i--%>
 <%--                        class="bi bi-person fs-4 me-2"></i>Profile</a>--%>
 <%--                <a class="dropdown-item d-flex align-items-center" href="settings.html"><i--%>
 <%--                        class="bi bi-gear fs-4 me-2"></i>Account Settings</a>--%>
