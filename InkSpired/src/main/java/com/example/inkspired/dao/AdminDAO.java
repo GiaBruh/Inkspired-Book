@@ -45,22 +45,20 @@ public class AdminDAO {
         return admin;
     }
 
-    public Admin getAdmin(String username) {
-        String sql = "SELECT * FROM admin WHERE username = ?";
-        Admin admin = null;
+    public Admin getAdminInfo() {
+        Admin admin = new Admin();
+        String query = "SELECT * FROM ADMIN";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, username);
-            ResultSet rs = ps.executeQuery();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
             if (rs.next()) {
                 admin = new Admin();
                 admin.setUsername(rs.getString("username"));
-                admin.setPassword(rs.getString("password"));
                 admin.setEmailAddress(rs.getString("email_address"));
                 admin.setFullName(rs.getString("full_name"));
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (Exception e) {
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return admin;
     }
@@ -90,16 +88,4 @@ public class AdminDAO {
     }
 
 
-    public void updateAdmin(Admin admin) {
-        String sql = "UPDATE admin SET  full_name = ? WHERE username = ?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-
-            ps.setString(1, admin.getFullName());
-            ps.setString(2, admin.getUsername());
-            ps.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
 }

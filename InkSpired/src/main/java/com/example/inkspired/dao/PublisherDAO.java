@@ -90,23 +90,7 @@ public class PublisherDAO {
             }
         return null;
         }
-    public Publisher selectPublisherbyName(String publisher_name) {
-        String query = "SELECT * FROM public.publisher WHERE publisher_name=?";
-        try {
-            ps = conn.prepareStatement(query);
-            ps.setString(1, publisher_name);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                Publisher publisher = new Publisher();
-                publisher.setPublisher_id(rs.getInt("publisher_id"));
-                publisher.setPublisher_name(rs.getString("publisher_name"));
-                return publisher;
-            }
-        } catch (Exception e) {
-            Logger.getLogger(e.toString());
-        }
-        return null;
-    }
+
 
 
     }

@@ -16,25 +16,6 @@
     });
 
 </script>
-
-<script>
-    $(document).ready(function() {
-        // Handle the click event on the remove button
-        $("#removeButton").click(function() {
-            // Get the selected value from the dropdown
-            var selectedValue = $("#orderStatusSelect").val();
-
-            // Define an array of values to be removed
-            var valuesToRemove = ["Pending", "Cancel Pending", "Delivered"];
-
-            // Check if the selected value is in the valuesToRemove array
-            if (valuesToRemove.includes(selectedValue)) {
-                // Remove the selected option from the dropdown
-                $("#orderStatusSelect option:selected").remove();
-            }
-        });
-    });
-</script>
 <script>
     $('#copyButton').click(function() {
         var bookData = {
