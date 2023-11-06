@@ -53,8 +53,10 @@ public class AdminController extends HttpServlet {
                 }
             }
         }
-        HttpSession session = request.getSession(false);
+
         if (isLoggedIn) {
+
+
             OrderDAO orderDAO = new OrderDAO();
             StorageDAO storageDAO = new StorageDAO();
 
@@ -73,7 +75,10 @@ public class AdminController extends HttpServlet {
 
                 response.sendRedirect(request.getContextPath() + "/admin/dashboard");
 
-            } else if (pathInfo.endsWith("/dashboard")) {
+            } else if (pathInfo.equals("/admin-profile")) {
+
+                request.getRequestDispatcher("/admin-profile.jsp").forward(request, response);
+            }else if (pathInfo.equals("/dashboard")) {
                 request.getRequestDispatcher("/admin-dashboard.jsp").forward(request, response);
 
             } else if (pathInfo.equals("/table-order")) {
@@ -544,10 +549,10 @@ public class AdminController extends HttpServlet {
 //                publisher.setPublisher_id(Integer.parseInt(request.getParameter("publisher_id")));
                 publisher.setPublisher_name(request.getParameter("publisher_name"));
                 PublisherDAO publisherDAO = new PublisherDAO();
-                if (publisherDAO.selectPublisherbyID(publisher.getPublisher_id()) != null) {
+                if (publisherDAO.selectPublisherbyName(publisher.getPublisher_name()) != null) {
 
                     HttpSession session = request.getSession();
-                    session.setAttribute("errorMessage", "This publisher ID is already existed");
+                    session.setAttribute("errorMessage", "This publisher is already existed");
                     response.sendRedirect(request.getContextPath() + "/admin/add-publisher");
                 } else {
 
@@ -651,10 +656,10 @@ public class AdminController extends HttpServlet {
                 category.setCategory_name(request.getParameter("category_name"));
 
                 CategoryDAO categoryDAO = new CategoryDAO();
-                if (categoryDAO.selectCategoryByID(category.getCategory_id()) != null) {
+                if (categoryDAO.selectCategoryByName(category.getCategory_name()) != null) {
 
                     HttpSession session = request.getSession();
-                    session.setAttribute("errorMessage", "This category ID is already existed");
+                    session.setAttribute("errorMessage", "This category is already existed");
                     response.sendRedirect(request.getContextPath() + "/admin/add-category");
                 } else {
 

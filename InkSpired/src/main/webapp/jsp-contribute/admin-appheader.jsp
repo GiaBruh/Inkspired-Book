@@ -1,6 +1,5 @@
 <%@ page import="com.example.inkspired.model.Order" %>
 <%
-    // Get the user's information from the session
     String adminUsername = (String) session.getAttribute("adminUsername");
     String adminFullname = (String) session.getAttribute("adminFullname");
     String adminEmail = (String) session.getAttribute("adminEmail");

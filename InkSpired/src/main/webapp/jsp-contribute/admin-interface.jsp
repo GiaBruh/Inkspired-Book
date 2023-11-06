@@ -35,6 +35,10 @@
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/faviconx/1.0.1/faviconx-min.js"></script>
 <style>
+    .badge-primary{
+        background-color: #007bff; /* Adjust the color as needed */
+        border: none; /* Remove the border */
+    }
     .badge-success {
         background-color: green; /* Adjust the color as needed */
         border: none; /* Remove the border */
