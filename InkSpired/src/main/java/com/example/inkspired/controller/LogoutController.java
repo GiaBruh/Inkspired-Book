@@ -48,16 +48,20 @@ public class LogoutController extends HttpServlet {
         } catch (Exception e) {
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
-        HttpSession session = request.getSession();
 
-        Cookie logoutCookie = (Cookie)session.getAttribute("userCookie");
-        logoutCookie.setMaxAge(0);
-        response.addCookie(logoutCookie);
+        try {
+            HttpSession session = request.getSession();
 
-        session.setAttribute("userCookie", null);
-        response.sendRedirect(getServletContext().getContextPath() + "/");
+            Cookie logoutCookie = (Cookie) session.getAttribute("userCookie");
+            logoutCookie.setMaxAge(0);
+            response.addCookie(logoutCookie);
+
+            session.setAttribute("userCookie", null);
+            response.sendRedirect(getServletContext().getContextPath() + "/");
+        } catch (NullPointerException e) {
+            response.sendRedirect(getServletContext().getContextPath() + "/");
+        }
     }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *

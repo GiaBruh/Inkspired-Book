@@ -36,6 +36,13 @@ public class ResetController extends HttpServlet {
         } catch (Exception e) {
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
+//        String path = request.getRequestURI();
+//        if(path.endsWith("/InkSpired/reset")) {
+//            response.sendRedirect(getServletContext().getContextPath() + "/");
+//            return;
+//        }
+
+
         request.getRequestDispatcher("/reset.jsp").forward(request, response);
     }
 

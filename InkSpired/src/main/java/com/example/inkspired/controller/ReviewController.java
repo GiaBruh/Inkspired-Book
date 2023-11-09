@@ -65,7 +65,7 @@ public class ReviewController extends HttpServlet {
             request.setAttribute("reviews", userReviews);
             request.getRequestDispatcher("/reviewHistory.jsp").forward(request, response);
         } else {
-            response.sendRedirect(getServletContext().getContextPath() + "/404NotFound");
+            response.sendRedirect(getServletContext().getContextPath() + "/");
         }
     }
 

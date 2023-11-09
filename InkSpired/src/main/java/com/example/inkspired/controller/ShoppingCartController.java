@@ -62,19 +62,28 @@ public class ShoppingCartController extends HttpServlet {
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
 
+
         String path = request.getRequestURI();
         booksChecked = new ArrayList<>();
+        try {
+            int cartid = Integer.parseInt(request.getParameter("cartid"));
 
-        int cartid = Integer.parseInt(request.getParameter("cartid"));
+            ShoppingCartDAO scDao = new ShoppingCartDAO();
+            List<Book> books = scDao.getBookFromCartId(cartid);
 
-        ShoppingCartDAO scDao = new ShoppingCartDAO();
-        List<Book> books = scDao.getBookFromCartId(cartid);
+            HttpSession session = request.getSession();
+            if((Cookie) session.getAttribute("userCookie") == null) {
+                response.sendRedirect(getServletContext().getContextPath() + "/");
+                return;
+            }
 
-        HttpSession session = request.getSession();
-        session.setAttribute("CARTINFO", books);
+            session.setAttribute("CARTINFO", books);
 
-        if (path.startsWith("/InkSpired/cart")) {
-            request.getRequestDispatcher("/cart.jsp").forward(request, response);
+            if (path.startsWith("/InkSpired/cart")) {
+                request.getRequestDispatcher("/cart.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            response.sendRedirect(getServletContext().getContextPath() + "/");
         }
     }
 

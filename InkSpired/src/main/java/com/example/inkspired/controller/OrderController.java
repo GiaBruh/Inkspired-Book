@@ -59,25 +59,28 @@ public class OrderController extends HttpServlet {
 
         String path = request.getRequestURI();
         HttpSession session = request.getSession();
+        try {
+            OrderDAO oDao = new OrderDAO();
+            int orderid = Integer.parseInt((request.getParameter("orderid") == null) ? "0" : request.getParameter("orderid"));
 
-        OrderDAO oDao = new OrderDAO();
-        int orderid = Integer.parseInt((request.getParameter("orderid") == null) ? "0" : request.getParameter("orderid"));
+            if (path.endsWith("/InkSpired/order") && orderid == 0) {
 
-        if (path.endsWith("/InkSpired/order") && orderid == 0) {
+                int userid = Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue());
+                List<Order> orderHistory = oDao.getAllFromUserId(userid);
 
-            int userid = Integer.parseInt(((Cookie) session.getAttribute("userCookie")).getValue());
-            List<Order> orderHistory = oDao.getAllFromUserId(userid);
+                session.setAttribute("ORDERHISTORY", orderHistory);
 
-            session.setAttribute("ORDERHISTORY", orderHistory);
+                request.getRequestDispatcher("/orderHistory.jsp").forward(request, response);
+            } else if (path.endsWith("/InkSpired/order") && orderid != 0) {
+                OrderDetailDAO odDao = new OrderDetailDAO();
+                List<OrderDetail> orderDetails = odDao.getOrderDetailByOrderId(orderid);
 
-            request.getRequestDispatcher("/orderHistory.jsp").forward(request, response);
-        } else if (path.endsWith("/InkSpired/order") && orderid != 0) {
-            OrderDetailDAO odDao = new OrderDetailDAO();
-            List<OrderDetail> orderDetails = odDao.getOrderDetailByOrderId(orderid);
+                session.setAttribute("ORDERDETAIL", orderDetails);
 
-            session.setAttribute("ORDERDETAIL", orderDetails);
-
-            request.getRequestDispatcher("/orderDetail.jsp").forward(request, response);
+                request.getRequestDispatcher("/orderDetail.jsp").forward(request, response);
+            }
+        } catch (NullPointerException e) {
+            response.sendRedirect(getServletContext().getContextPath() + "/");
         }
     }
 
@@ -97,14 +100,11 @@ public class OrderController extends HttpServlet {
         if (request.getParameter("btnconfirmcancel") != null) {
             int orderid = Integer.parseInt(request.getParameter("btnconfirmcancel"));
             oDao.cancelOrder(orderid);
-
             response.sendRedirect(getServletContext().getContextPath() + ORDER);
         }
-
         if (request.getParameter("btnconfirmreceived") != null) {
             int orderid = Integer.parseInt(request.getParameter("btnconfirmreceived"));
             oDao.confirmOrderReceived(orderid);
-
             response.sendRedirect(getServletContext().getContextPath() + ORDER);
         }
     }
