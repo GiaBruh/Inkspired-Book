@@ -283,7 +283,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>EShopper - Bootstrap Shop Template</title>
+    <title>Book Info</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <!-- Favicon -->
@@ -569,12 +569,36 @@
             <div class="col-lg-8 col-md-12">
                 <div class="row pb-3 d-flex justify-content-center">
                     <c:forEach var="book" items="${requestScope.BOOKSBYPUBLISHER}">
-                        <div class="col-lg-3 col-md-4 col-md-12 pb-3 justify-content-center d-flex">
-                            <div class="card product-item border-0 mb-4"
-                                 style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3)">
+<%--                        <div class="col-lg-3 col-md-4 col-md-12 pb-3 justify-content-center d-flex">--%>
+<%--                            <div class="card product-item border-0 mb-4"--%>
+<%--                                 style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3)">--%>
+<%--                                <div class="">--%>
+<%--                                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">--%>
+<%--                                        <img class="img-fluid w-100" src="${book.getBook_image()}"--%>
+<%--                                             alt="${book.getTitle()}"/>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                                <div class="card-body border-left border-right text-center p-1 pt-4 pb-3">--%>
+<%--                                    <h6 class="text-truncate mb-3">${book.getTitle()}</h6>--%>
+<%--                                    <div class="d-flex justify-content-center">--%>
+<%--                                        <h6><fmt:formatNumber value="${book.getPrice()}" minFractionDigits="0"--%>
+<%--                                                              maxFractionDigits="0"/>&#x20AB</h6>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                                <div class="card-footer d-flex justify-content-center bg-light border">--%>
+<%--                                    <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}"--%>
+<%--                                       class="btn btn-sm text-dark p-0 font-weight-bold text-dark"><i--%>
+<%--                                            class="fas fa-eye text-primary mr-1"></i>View--%>
+<%--                                        Detail</a>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+                        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-12 pb-3 justify-content-center d-flex">
+                            <div class="card product-item border-0 mb-4" style="box-shadow: 5px 5px 10px 2px rgba(40, 97, 255, 0.3); width: 400px; height: 625px;">
                                 <div class="">
-                                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                        <img class="img-fluid w-100" src="${book.getBook_image()}"
+                                    <div style="height: 450px;" class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                        <img class="w-100 " style="
+                                    object-fit: contain; height: 450px" src="${book.getBook_image()}"
                                              alt="${book.getTitle()}"/>
                                     </div>
                                 </div>
@@ -587,8 +611,7 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-center bg-light border">
                                     <a href="<%= request.getServletContext().getContextPath()%>/book?bookid=${book.getBook_id()}"
-                                       class="btn btn-sm text-dark p-0 font-weight-bold text-dark"><i
-                                            class="fas fa-eye text-primary mr-1"></i>View
+                                       class="btn btn-sm text-dark p-0 font-weight-bold text-dark"><i class="fas fa-eye text-primary mr-1"></i>View
                                         Detail</a>
                                 </div>
                             </div>
