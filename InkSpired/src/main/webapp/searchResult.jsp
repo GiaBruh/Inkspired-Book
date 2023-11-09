@@ -11,7 +11,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>EShopper - Bootstrap Shop Template</title>
+        <title>Search Result</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
         <!-- Favicon -->

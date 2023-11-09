@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>InkSpired</title>
+    <title>Review History</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
