@@ -394,7 +394,8 @@
                         <%--                        </button>--%>
                         <c:choose>
                             <c:when test="${sessionScope.userCookie == null}">
-                                <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1" type="button"
+                                <button class="btn btn-primary px-3"
+                                        onclick="alert('You need to login to use this function')"><i class="fa fa-shopping-cart mr-1" type="button"
                                                                         name="btnaddtocart"
                                                                         value="${sessionScope.BOOKINFO.get().getBook_id()}"></i>
                                     <i class="bi-cart-fill me-1"></i>

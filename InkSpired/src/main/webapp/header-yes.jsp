@@ -237,6 +237,7 @@
                 <c:when test="${sessionScope.userCookie == null}">
                     <button class="btn border"
                             type="button"
+                            onclick="alert('You need to login to use this function')"
                     >
                         <i class="fas fa-shopping-cart"></i>
                         <span class="badge">0</span>
