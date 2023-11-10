@@ -125,7 +125,7 @@
     let validfullname = false;
 
     $(document).ready(function () {
-        const fullnameregex = /[0-9!@#\$%\^\&*\)\(+=._-]+/;
+        const fullnameregex = /[!@#\$%\^\&*\)\(+=._-]+/;
         $("input[name='publisher_name']").on({
             'keyup change': function () {
                 fullname = $("input[name='publisher_name']").val();

@@ -1,4 +1,4 @@
-<<<<<<< Updated upstream
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,7 +59,7 @@
                             <h5 class="card-title">Admin Information</h5>
                         </div>
 
-                        <form action="<%=request.getContextPath()%>/admin/update-admin" method="post">
+                        <form action="<%=request.getServletContext().getContextPath()%>/admin" method="POST">
                             <div class="card-body">
 <%--                                <c:if test="${not empty sessionScope.errorMessage}">--%>
 <%--                                    <div class="alert border border-danger alert-dismissible fade show text-danger" role="alert">--%>
@@ -73,29 +73,29 @@
                                     <div class="col-md-6 col-12">
                                         <div class="mb-3">
                                             <label class="form-label">User name</label>
-                                            <input class="form-control" type="text" id="username" name="category_name" value="${adminUsername}" required>
+                                            <input class="form-control" type="text" id="username" name="username" value="${adminUsername}" required>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Full name</label>
-                                            <input class="form-control" type="text" id="fullname" name="category_name" value="${adminFullname}" required>
+                                            <input class="form-control" type="text" id="fullname" name="fullname" value="${adminFullname}" required>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Admin gmail</label>
-                                            <input class="form-control" type="text" id="gmail" name="category_name" value="${adminEmail}" required>
+                                            <input class="form-control" type="text" id="gmail" name="email" value="${adminEmail}" required>
                                         </div>
                                     </div>
 
                                 </div>
                                 <!-- Row end -->
                             </div>
-                            <div class="card-footer">
-                                <div class="d-flex gap-2 justify-content-end">
-                                    <a type="submit" class="btn btn-secondary" name="cancelSubmit" id="reset">Cancel</a>
-                                    <a type="submit" class="btn btn-primary" id="editButton">Edit</a>
-                                    <button type="submit" class="btn btn-primary" name="updateAdminSubmit" id="submitButton">Submit</button>
+<%--                            <div class="card-footer">--%>
+<%--                                <div class="d-flex gap-2 justify-content-end">--%>
+<%--                                    <a type="submit" class="btn btn-secondary" name="cancelSubmit" id="reset">Cancel</a>--%>
+<%--                                    <a type="submit" class="btn btn-primary" id="editButton">Edit</a>--%>
+<%--                                    <button type="submit" class="btn btn-primary" name="updateAdminSubmit" id="submitButton">Submit</button>--%>
 
-                                </div>
-                            </div>
+<%--                                </div>--%>
+<%--                            </div>--%>
                         </form>
                     </div>
 
@@ -170,7 +170,6 @@
 
 </body>
 
-=======
 <%--
   Created by IntelliJ IDEA.
   User: giabuu

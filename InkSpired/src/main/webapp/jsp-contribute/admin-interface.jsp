@@ -51,6 +51,10 @@
         min-width: 250px; /* Adjust this value to your needs */
         padding-left: 10px ;
     }
+    .badge-primary {
+        background-color: blue; /* Adjust the color as needed */
+        border: none; /* Remove the border */
+    }
 
      .hidden-column {
          display: none;

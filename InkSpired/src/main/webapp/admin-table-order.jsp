@@ -68,7 +68,7 @@
                                             <th class="col-md-1">Order ID</th>
 <%--                                            <th class="col-md-1 user-id-col">User ID</th>--%>
                                             <th class="col-md-2">Full Name</th>
-                                            <th class="col-md-1">Order Date</th>
+
                                             <th class="col-md-5">Address</th>
                                             <th class="col-md-1">Order Total</th>
                                             <th class="col-md-1">Order Date</th>
@@ -84,7 +84,7 @@
                                                 <td>
                                                     <a href="<%= request.getContextPath() %>/admin/order-info?order_id=${orders.order_id}">${orders.full_name}</a>
                                                 </td>
-                                                <td>${orders.order_date}</td>
+
                                                 <td>${orders.delivery_address}</td>
                                                 <td><fmt:formatNumber  value="${orders.order_total}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB</td>
                                                 <td>${orders.order_date}</td>

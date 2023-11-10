@@ -134,7 +134,7 @@
                                             </c:forEach>
                                         </select>
                                         <input type="submit" class="input-group-text btn btn-success" name="authorizeOrderSubmit" value="Update Order Status"
-                                        ${order.order_status.equals('Delivered') ? "disabled" : ""} />
+                                        ${order.order_status_name.equals('Delivered') || order.order_status_name.equals('Cancelled') ? "disabled" : ""} onclick="return confirm('Are you sure you want to update the order status?');" />
                                     </div>
                                 </div>
 

@@ -232,7 +232,7 @@ public class CheckoutController extends HttpServlet {
                             book.getTitle(),
                             book.getBook_image(),
                             book.getPublication_date(),
-                            book.getQuantity() - quantity,
+                            book.getQuantity(),
                             book.getPrice(),
                             book.getBook_description(),
                             book.getPublisher_id(),

@@ -85,9 +85,9 @@
                                             <td>${book.book_id}</td>
                                             <td><a href="<%= request.getContextPath() %>/admin/book-info?book_id=${book.book_id}" class="book-title">${book.title}</a></td>
                                             <td>${book.adding_date}</td>
-                                            <td>${book.quantity}</td>
+                                            <td>${book.quantity + book.quantity_sold}</td>
                                             <td>${book.quantity_sold}</td>
-                                            <td>${book.quantity - book.quantity_sold}</td>
+                                            <td>${book.quantity}</td>
                                             <td><fmt:formatNumber  value="${book.getOriginal_price()}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB</td>
                                             <td><fmt:formatNumber  value="${book.getPrice()}" minFractionDigits="0" maxFractionDigits="0"/>&#x20AB</td>
                                             <td>${book.publisher_name}</td>

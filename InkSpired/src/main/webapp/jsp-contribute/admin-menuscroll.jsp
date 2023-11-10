@@ -48,24 +48,24 @@
                     </li>
                 </ul>
             </li>
-            <li class="treeview">
-                <a href="">
-                    <i class="bi bi-pie-chart"></i>
-                    <span class="menu-text">Show statistic of</span>
-                </a>
-                <ul class="treeview-menu">
-                    <li>
-                        <a href="accordions.html">Number of books</a>
-                    </li>
-                    <li>
-                        <a href="alerts.html">Sale, expenses, income</a>
-                    </li>
-                    <li>
-                        <a href="buttons.html">Number of user signed</a>
-                    </li>
+<%--            <li class="treeview">--%>
+<%--                <a href="">--%>
+<%--                    <i class="bi bi-pie-chart"></i>--%>
+<%--                    <span class="menu-text">Show statistic of</span>--%>
+<%--                </a>--%>
+<%--                <ul class="treeview-menu">--%>
+<%--                    <li>--%>
+<%--                        <a href="accordions.html">Number of books</a>--%>
+<%--                    </li>--%>
+<%--                    <li>--%>
+<%--                        <a href="alerts.html">Sale, expenses, income</a>--%>
+<%--                    </li>--%>
+<%--                    <li>--%>
+<%--                        <a href="buttons.html">Number of user signed</a>--%>
+<%--                    </li>--%>
 
-                </ul>
-            </li>
+<%--                </ul>--%>
+<%--            </li>--%>
             <li class="treeview">
                 <a href="">
                     <i class="bi bi-plus-circle"></i>

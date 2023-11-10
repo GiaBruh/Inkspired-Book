@@ -34,7 +34,7 @@ public class BookDAO extends Storage implements DAO<Book>  {
     @Override
     public List<Book> getAll() {
         ArrayList<Book> result = new ArrayList<>();
-        String query = "SELECT * FROM book where is_available = true";
+        String query = "SELECT * FROM book";
 
         try {
             ps = conn.prepareStatement(query);
@@ -105,12 +105,24 @@ public class BookDAO extends Storage implements DAO<Book>  {
     }
 
     public void addInStorage(Book book, Storage storage) {
-        String query = " INSERT INTO public.storage (book_id,original_price,adding_date) VALUES (?, ?, ?)";
+        String getMaxIdQuery = "SELECT MAX(storage_id) FROM public.storage";
+        String insertQuery = "INSERT INTO public.storage (storage_id, book_id, original_price, adding_date) VALUES (?, ?, ?, ?)";
+
         try {
-            ps = conn.prepareStatement(query);
-            ps.setInt(1, book.getBook_id());
-            ps.setLong(2, storage.getOriginal_price());
-            ps.setDate(3,storage.getAdding_date());
+            // Get the maximum storage_id from the storage table
+            ps = conn.prepareStatement(getMaxIdQuery);
+            ResultSet rs = ps.executeQuery();
+            int maxId = 0;
+            if (rs.next()) {
+                maxId = rs.getInt(1);
+            }
+
+            // Insert the new row with storage_id set to maxId + 1
+            ps = conn.prepareStatement(insertQuery);
+            ps.setInt(1, maxId + 1);
+            ps.setInt(2, book.getBook_id());
+            ps.setLong(3, storage.getOriginal_price());
+            ps.setDate(4, storage.getAdding_date());
 
             ps.executeUpdate();
         } catch (Exception e) {
@@ -287,30 +299,35 @@ public class BookDAO extends Storage implements DAO<Book>  {
         return result;
     }
 
-      public List<Book> getAllBooks() {
-
-
-         query = "SELECT " +
-          "b.book_id, b.title, b.publication_date,COALESCE(SUM(CASE WHEN o.order_status NOT IN (0, 5, 6) THEN od.quantity ELSE 0 END), 0) as quantity_sold, b.quantity, b.price, s.original_price,s.adding_date, " +
-                  "p.publisher_name, b.book_description, b.book_image, b.is_available, " +
-                  "string_agg(DISTINCT a.author_fullname, ', ') AS author_names, " +
-                  "string_agg(DISTINCT c.category_name, ', ') AS category_names " +
-                  "FROM book AS b " +
-                  "JOIN author_book AS ab ON b.book_id = ab.book_id " +
-                  "JOIN author AS a ON ab.author_id = a.author_id " +
-                  "JOIN category_book AS cb ON b.book_id = cb.book_id " +
-                  "JOIN category AS c ON cb.category_id = c.category_id " +
-                  "JOIN publisher AS p ON b.publisher_id = p.publisher_id " +
-                  "JOIN storage AS s ON b.book_id = s.book_id " +
-                  "LEFT JOIN order_detail AS od ON b.book_id = od.book_id "+
-                  "LEFT JOIN \"order\" AS o ON od.order_id = o.order_id "+
-                  "GROUP BY b.book_id, b.title, b.publication_date, b.quantity, b.price, s.original_price,s.adding_date, p.publisher_name, b.book_description, b.book_image, b.is_available";
+    public List<Book> getAllBooks() {
+        query = "WITH sold_books AS (" +
+                "SELECT " +
+                "od.book_id, " +
+                "COALESCE(SUM(CASE WHEN o.order_status NOT IN (0, 5, 6) THEN od.quantity ELSE 0 END), 0) as quantity_sold " +
+                "FROM " +
+                "order_detail AS od " +
+                "LEFT JOIN \"order\" AS o ON od.order_id = o.order_id " +
+                "GROUP BY od.book_id" +
+                ") " +
+                "SELECT " +
+                "b.book_id, b.title, b.publication_date, sb.quantity_sold, b.quantity, b.price, s.original_price,s.adding_date, " +
+                "p.publisher_name, b.book_description, b.book_image, b.is_available, " +
+                "string_agg(DISTINCT a.author_fullname, ', ') AS author_names, " +
+                "string_agg(DISTINCT c.category_name, ', ') AS category_names " +
+                "FROM book AS b " +
+                "JOIN author_book AS ab ON b.book_id = ab.book_id " +
+                "JOIN author AS a ON ab.author_id = a.author_id " +
+                "JOIN category_book AS cb ON b.book_id = cb.book_id " +
+                "JOIN category AS c ON cb.category_id = c.category_id " +
+                "JOIN publisher AS p ON b.publisher_id = p.publisher_id " +
+                "JOIN storage AS s ON b.book_id = s.book_id " +
+                "LEFT JOIN sold_books AS sb ON b.book_id = sb.book_id " +
+                "GROUP BY b.book_id, b.title, b.publication_date, sb.quantity_sold, b.quantity, b.price, s.original_price,s.adding_date, p.publisher_name, b.book_description, b.book_image, b.is_available";
         try {
-             ps = conn.prepareStatement(query);
-             rs = ps.executeQuery();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Book book = new Book();
-
 
                 book.setBook_id(rs.getInt("book_id"));
                 book.setTitle(rs.getString("title"));
@@ -326,7 +343,6 @@ public class BookDAO extends Storage implements DAO<Book>  {
                 book.setIs_available(rs.getBoolean("is_available"));
                 book.setAuthor_fullname(rs.getString("author_names"));
                 book.setCategory_name(rs.getString("category_names"));
-
                 books.add(book);
             }
         } catch (Exception e) {
@@ -394,7 +410,7 @@ public class BookDAO extends Storage implements DAO<Book>  {
             ps.setLong(4, book.getPrice());
             ps.setInt(5, book.getPublisher_id());
             ps.setString(6, book.getBook_description());
-            ps.setString(7,"/" + book.getBook_image());
+            ps.setString(7, book.getBook_image());
             ps.setBoolean(8, book.isAvailable());
             ps.setInt(9, book.getBook_id());
             ps.executeUpdate();
@@ -658,7 +674,7 @@ public class BookDAO extends Storage implements DAO<Book>  {
                 "FROM \"order\"\n" +
                 "         JOIN public.order_detail od on \"order\".order_id = od.order_id\n" +
                 "         JOIN public.book b on b.book_id = od.book_id\n" +
-                "WHERE b.book_id = ?\n" +
+                "WHERE b.book_id = ? AND \"order\".order_status='1' \n" +
                 "GROUP BY b.book_id, title";
 
         try {
@@ -673,6 +689,19 @@ public class BookDAO extends Storage implements DAO<Book>  {
         }
 
         return result;
+    }
+
+    public void updateQuantityByBookID(int bookid, int bookquantity, int quantity) {
+        String query = "UPDATE public.book SET quantity = ? WHERE book_id = ?";
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, bookquantity - quantity);
+            ps.setInt(2, bookid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     public static void main(String[] args) {

@@ -377,13 +377,13 @@
                     <p class="mb-4 pb-3"
                        style="font-size: large">${sessionScope.BOOKINFO.get().getBook_description()}</p>
                     <div class="d-flex align-items-center mb-4 pt-2">
-                        <div class="input-group quantity mr-3" style="width: 130px;">
+                        <div class="input-group quantity mr-5" style="width: 130px;">
 <%--                            <div class="input-group-btn">--%>
 <%--                                <button class="btn btn-primary btn-minus">--%>
 <%--                                    <i class="fa fa-minus"></i>--%>
 <%--                                </button>--%>
 <%--                            </div>--%>
-                            <input type="text" class="form-control bg-secondary text-center" value="Books sold: ${requestScope.TOTALSOLD}" readonly>
+                            <input type="text" style="min-width: 150px;" class="form-control bg-secondary text-center" value="Books sold: ${requestScope.TOTALSOLD}" readonly>
 <%--                            <div class="input-group-btn">--%>
 <%--                                <button class="btn btn-primary btn-plus">--%>
 <%--                                    <i class="fa fa-plus"></i>--%>
@@ -393,6 +393,10 @@
                         <%--                        <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart--%>
                         <%--                        </button>--%>
                         <c:choose>
+                            <c:when test="${sessionScope.BOOKINFO.get().getQuantity() eq 0}">
+                                <span class="text-danger">OUT OF STOCK</span>
+                            </c:when>
+
                             <c:when test="${sessionScope.userCookie == null}">
                                 <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1" type="button"
                                                                         name="btnaddtocart"

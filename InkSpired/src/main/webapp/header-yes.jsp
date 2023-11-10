@@ -362,7 +362,6 @@
                                 <h4 class="text-light text-uppercase font-weight-medium mb-3">Have a good time browsing
                                     our books</h4>
                                 <h3 class="display-4 text-white font-weight-semi-bold mb-4">Best Seller</h3>
-                                <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
                             </div>
                         </div>
                     </div>
@@ -373,7 +372,6 @@
                                 <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First
                                     Order</h4>
                                 <h3 class="display-4 text-white font-weight-semi-bold mb-4">Reasonable Price</h3>
-                                <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
                             </div>
                         </div>
                     </div>

@@ -68,7 +68,6 @@ public class AdminController extends HttpServlet {
             request.setAttribute("storages", storages);
 
 
-
             if (pathInfo.equals("/")) {
 
                 response.sendRedirect(request.getContextPath() + "/admin/dashboard");
@@ -381,9 +380,9 @@ public class AdminController extends HttpServlet {
 
             if (validCredentials != null) {
                 Cookie[] cookies = request.getCookies();
-                for(Cookie cookie : cookies) {
-                    if(cookie.getName().equals("userWithAccount")) {
-                        response.sendRedirect(getServletContext().getContextPath() + "/") ;
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("userWithAccount")) {
+                        response.sendRedirect(getServletContext().getContextPath() + "/");
                         return;
                     }
                 }
@@ -499,7 +498,6 @@ public class AdminController extends HttpServlet {
                 book.setPrice(Long.parseLong(request.getParameter("price")));
 
 
-
                 System.out.println("Storage" + storage.getQuantity());
                 System.out.println("Book" + book.getQuantity());
                 System.out.println("Price Storage" + storage.getOriginal_price());
@@ -515,7 +513,7 @@ public class AdminController extends HttpServlet {
 
                 // Call methods to update the book in the database
                 BookDAO bookDAO = new BookDAO();
-                if  (bookDAO.doesBookExist(book.getTitle(),storage.getAdding_date())) {
+                if (bookDAO.doesBookExist(book.getTitle(), storage.getAdding_date())) {
 
                     HttpSession session = request.getSession();
                     session.setAttribute("errorMessage", "This book with the same adding date already exists");
@@ -524,8 +522,8 @@ public class AdminController extends HttpServlet {
 
                     bookDAO.add(book);
                     int bookId = bookDAO.getBookIdByTitle(book.getTitle());
-                        book.setBook_id(bookId);
-                        bookDAO.addInStorage(book, storage);
+                    book.setBook_id(bookId);
+                    bookDAO.addInStorage(book, storage);
 
                     try {
                         bookDAO.addBookAuthors(bookId, newAuthorIds);
@@ -604,8 +602,7 @@ public class AdminController extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("errorMessage", "This author is already existed");
                     response.sendRedirect(request.getContextPath() + "/admin/add-author");
-                } else
-                {
+                } else {
 
                     authorDAO.add(author);
 
@@ -699,9 +696,17 @@ public class AdminController extends HttpServlet {
         } else if (request.getParameter("authorizeOrderSubmit") != null) {
             {
                 OrderDAO orderDAO = new OrderDAO();
+                OrderDetailDAO odDAO = new OrderDetailDAO();
+                BookDAO bDAO = new BookDAO();
                 int order_id = Integer.parseInt(request.getParameter("order_id"));
                 int order_status = Integer.parseInt(request.getParameter("order_status"));
                 orderDAO.updateOrderStatus(order_id, order_status);
+                List<OrderDetail> odList = odDAO.getOrderDetailByOrderId(order_id);
+                for (OrderDetail od : odList) {
+                    Book b = bDAO.get(od.getBook_id()).get();
+                    bDAO.updateQuantityByBookID(od.getBook_id(), b.getQuantity(), od.getQuantity());
+                }
+
                 response.sendRedirect(request.getContextPath() + "/admin/table-order");
             }
 
