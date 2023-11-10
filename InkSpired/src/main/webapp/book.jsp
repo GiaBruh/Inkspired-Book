@@ -446,7 +446,9 @@
                                 <h2>Seems like you're the first one here!</h2>
                             </c:when>
                             <c:otherwise>
+                                <div style="display: block;">
                                 <c:forEach var="review" items="${requestScope.reviews}">
+                                    <div class="media">
                                     <img src="${review.getUser_image()}" alt="${review.getUsername()} photo"
                                          class="img-fluid mr-3 mt-1 rounded-circle" style="width: 45px;">
                                     <div class="media-body">
@@ -480,7 +482,9 @@
                                             </c:when>
                                         </c:choose>
                                     </div>
+                                        </div>
                                 </c:forEach>
+                                </div>
                             </c:otherwise>
                         </c:choose>
                     </div>
