@@ -383,8 +383,8 @@
                 <div class="col-md-12 mb-4">
                     <div class="form-outline">
                         <div>
-                            <input type="email" id="emailAddress" class="form-control form-control-lg" placeholder="Your email goes here!" required />
-                            <div class="invalid-feedback">
+                            <input type="email" name="changePassEmail" id="emailAddress" class="form-control form-control-lg" placeholder="Your email goes here!" required />
+                            <div id="errorFeed" class="invalid-feedback">
                                 Invalid email, please enter a valid email address.
                             </div>
                             <div class="valid-feedback">
