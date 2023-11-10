@@ -1,13 +1,13 @@
 let username = '';
 let password = '';
-let email = '';
+let emailChangePassword = '';
 
 let validusername = false;
 let validpassword = false;
 
 const usernameregex = /[\s!@#\$%\^\&*\)\(+=._-]+/;
 const passwordregex = /\s+/;
-const emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+const emailRegexPass = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
 $(document).ready(function () {
     $("input[name='username']").on({
@@ -81,6 +81,20 @@ $(document).ready(function () {
            $("#errorusernameLogin").html("Please type in your username");
        } if(password === ''){
             $("#errorpasswordLogin").html("Please type in your password");
+        }
+    });
+
+    <!--FORGOT PASSWORD-->
+    $("input[name='changePassEmail']").on({
+        'keyup change': function () {
+            emailChangePassword = $("input[name='changePassEmail']").val();
+            if (!emailRegexPass.test(emailChangePassword)) {
+                $("#errorFeed").addClass("d-block");
+                $("button[id='sendVerificationCode']").attr('disabled', '');
+            } else {
+                $("#errorFeed").removeClass("d-block");
+                $("button[id='sendVerificationCode']").removeAttr('disabled');
+            }
         }
     });
 });

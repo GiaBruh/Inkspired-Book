@@ -382,11 +382,38 @@
                         <button type="button" class="btn-close btn-outline-light" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <div class="mb-4">
-                            <p>
-                                Please enter your email address and we will send you a verification code.
-                            </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="emailVerification" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header gradient-custom">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <a href="reset.jsp">
+                        Forgot password?
+                    </a>
+                </h5>
+                <button type="button" class="btn-close btn-outline-light" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-4">
+                    <p>
+                        Please enter your email address and we will send you a verification code.
+                    </p>
+                </div>
+                <div class="col-md-12 mb-4">
+                    <div class="form-outline">
+                        <div>
+                            <input type="email" id="emailAddress" class="form-control form-control-lg" placeholder="Your email goes here!" required />
+                            <div class="invalid-feedback">
+                                Invalid email, please enter a valid email address.
+                            </div>
+                            <div class="valid-feedback">
+                                Correct email, a verification code has been sent. Please check your email.
+                            </div>
                         </div>
                         <div class="col-md-12 mb-4">
                             <div class="form-outline">
@@ -413,26 +440,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" id="sendVerificationCode" class="btn btn-outline-dark"
-                                onclick="sendVerificationCode()">Send verification code
-                        </button>
-                        <div class="btn-group" style="display: none" id="buttonGroup">
-                            <button type="button" id="resendVerificationCode" class="btn btn-outline-dark"
-                                    onclick="resendVerificationCode()" style="display: none">Resend code
-                            </button>
-                            <button type="button" id="verifyVerificationCode" class="btn btn-outline-dark"
-                                    onclick="verifyVerificationCode()" style="display: none">Verify code
-                            </button>
-                        </div>
-                        <form action="<%= request.getServletContext().getContextPath() %>/reset"
-                              id="redirectButtonGroup" style="display: none">
-                            <button type="submit" id="redirectButton" class="btn btn-outline-dark"
-                                    style="display: none">Reset password
-                            </button>
-                        </form>
-                    </div>
+                   <div class="modal-footer justify-content-between">
+                <div class="alert alert-success text-center col-12" id="success" style="display:none;">
+                    <strong>Success!</strong> Verification code has been sent to your email.
+                </div>
+                <div class="alert alert-danger text-center col-12" id="fail" style="display:none;">
+                    <strong>Fail!</strong> Verification code has not been sent to your email.
+                </div>
+                <button type="button" disabled class="btn btn-outline-dark" id="timer">Time left:</button>
+                <button type="button" id="sendVerificationCode" class="btn btn-outline-dark" onclick="sendVerificationCode()">Send verification code</button>
+                <div class="btn-group" style="display: none" id="buttonGroup">
+                    <button type="button" id="resendVerificationCode" class="btn btn-outline-dark" onclick="resendVerificationCode()" style="display: none">Resend code</button>
+                    <button type="button" id="verifyVerificationCode" class="btn btn-outline-dark" onclick="verifyVerificationCode()" style="display: none">Verify code</button>
+                </div>
+                <form action="<%= request.getServletContext().getContextPath() %>/reset" id="redirectButtonGroup" style="display: none">
+                    <button type="submit" id="redirectButton" class="btn btn-outline-dark" style="display: none">Reset password</button>
+                </form>
+            </div>
                 </div>
 
             </div>
