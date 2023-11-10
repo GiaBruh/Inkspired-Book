@@ -5,7 +5,7 @@ let emailChangePassword = '';
 let validusername = false;
 let validpassword = false;
 
-const usernameregex = /[\s!@#\$%\^\&*\)\(+=._-]+/;
+const usernameregex = /[\s!@#\$%\^\&*\)\(+=.-]+/;
 const passwordregex = /\s+/;
 const emailRegexPass = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 

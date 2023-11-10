@@ -14,7 +14,7 @@ let validgender = true;
 let validemail = false;
 let validphone = false;
 
-const usernameregexRegister = /[\s!@#\$%\^\&*\)\(+=._-]+/;
+const usernameregexRegister = /[\s!@#\$%\^\&*\)\(+=.-]+/;
 const passwordregexRegister = /\s+/;
 const fullnameregex = /[0-9!@#\$%\^\&*\)\(+=._-]+/;
 const emailregex = /^(([^<>\(\)[\]\\.,;:\s@/"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
