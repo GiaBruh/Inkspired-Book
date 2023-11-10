@@ -404,7 +404,13 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <div class="alert alert-success text-center col-12" id="success" style="display:none;">
+                    <strong>Success!</strong> Verification code has been sent to your email.
+                </div>
+                <div class="alert alert-danger text-center col-12" id="fail" style="display:none;">
+                    <strong>Fail!</strong> Verification code has not been sent to your email.
+                </div>
+                <button type="button" disabled class="btn btn-outline-dark" id="timer">Time left:</button>
                 <button type="button" id="sendVerificationCode" class="btn btn-outline-dark" onclick="sendVerificationCode()">Send verification code</button>
                 <div class="btn-group" style="display: none" id="buttonGroup">
                     <button type="button" id="resendVerificationCode" class="btn btn-outline-dark" onclick="resendVerificationCode()" style="display: none">Resend code</button>

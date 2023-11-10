@@ -1,8 +1,11 @@
 let lastResendTime = 0;
 let resendTimeout = 30000;
 let status = null;
+let count = 0;
 
 function sendVerificationCode() {
+    count++;
+    console.log("Count: ", count);
     const emailAddress = document.getElementById("emailAddress").value;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/InkSpired/forgot?email=" + encodeURIComponent(emailAddress), true);
@@ -15,9 +18,33 @@ function sendVerificationCode() {
                 status = xhr.responseText;
                 console.log("Status: ", status);
                 if(status !== "Email does not exist."){
+                    document.getElementById("success").style.display = "block";
+                    let count = 0;
+                    // count to 3 then hide the success message
+                    const timer = setInterval(function () {
+                        if (count < 3) {
+                            count++;
+                            console.log("Count: ", count);
+                        } else {
+                            document.getElementById("success").style.display = "none";
+                            clearInterval(timer);
+                        }
+                    }, 1000);
                     console.log("Yes");
                     var annoy = openSubmit();
                 } else {
+                    document.getElementById("fail").style.display = "block";
+                    let count = 0;
+                    // count to 3 then hide the success message
+                    const timer = setInterval(function () {
+                        if (count < 3) {
+                            count++;
+                            console.log("Count: ", count);
+                        } else {
+                            document.getElementById("fail").style.display = "none";
+                            clearInterval(timer);
+                        }
+                    }, 1000);
                     console.log("No");
                 }
             } else {
@@ -89,18 +116,26 @@ function verifyVerificationCode() {
 function disableResendButton(timeout) {
     // Disable the resend button for the specified timeout duration
     const resendButton = document.getElementById("resendVerificationCode");
+    const sendButton = document.getElementById("sendVerificationCode");
     if (resendButton) {
+        sendButton.disabled = true;
         resendButton.disabled = true;
         setTimeout(function () {
             resendButton.disabled = false;
+            sendButton.disabled = false;
         }, timeout);
 
         // Print out the remaining time in the console
         const timer = setInterval(function () {
             if (timeout > 0) {
                 console.log("Remaining time:", timeout / 1000, "seconds");
+                // update the timer
+                // document.getElementById("timer").style.display = "block";
+                document.getElementById("timer").innerHTML = "Time left: " + String (timeout / 1000);
                 timeout -= 1000;
             } else {
+                // document.getElementById("timer").style.display = "none";
+                document.getElementById("timer").innerHTML = "Time left: ";
                 clearInterval(timer);
             }
         }, 1000);

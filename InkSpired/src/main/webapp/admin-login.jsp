@@ -147,7 +147,13 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <div class="alert alert-success text-center" id="success" style="display:none;">
+                    <strong>Success!</strong> Verification code has been sent to your email.
+                </div>
+                <div class="alert alert-danger text-center" id="fail" style="display:none;">
+                    <strong>Fail!</strong> Verification code has not been sent to your email.
+                </div>
+                <button type="button" disabled class="btn btn-outline-dark" id="timer">Time left:</button>
                 <button type="button" id="sendVerificationCode" class="btn btn-outline-dark" onclick="sendVerificationCode()" disabled>Send verification code</button>
                 <div class="btn-group" style="display: none" id="buttonGroup">
                     <button type="button" id="resendVerificationCode" class="btn btn-outline-dark" onclick="resendVerificationCode()" style="display: none">Resend code</button>
@@ -275,9 +281,33 @@ function sendVerificationCode() {
                 status = xhr.responseText;
                 console.log("Status: ", status);
                 if(status !== "Email does not exist."){
+                    document.getElementById("success").style.display = "block";
+                    let count = 0;
+                    // count to 3 then hide the success message
+                    const timer = setInterval(function () {
+                        if (count < 3) {
+                            count++;
+                            console.log("Count: ", count);
+                        } else {
+                            document.getElementById("success").style.display = "none";
+                            clearInterval(timer);
+                        }
+                    }, 1000);
                     console.log("Yes");
                     var annoy = openSubmit();
                 } else {
+                    document.getElementById("fail").style.display = "block";
+                    let count = 0;
+                    // count to 3 then hide the success message
+                    const timer = setInterval(function () {
+                        if (count < 3) {
+                            count++;
+                            console.log("Count: ", count);
+                        } else {
+                            document.getElementById("fail").style.display = "none";
+                            clearInterval(timer);
+                        }
+                    }, 1000);
                     console.log("No");
                 }
             } else {
@@ -349,18 +379,26 @@ function verifyVerificationCode() {
 function disableResendButton(timeout) {
     // Disable the resend button for the specified timeout duration
     const resendButton = document.getElementById("resendVerificationCode");
+    const sendButton = document.getElementById("sendVerificationCode");
     if (resendButton) {
+        sendButton.disabled = true;
         resendButton.disabled = true;
         setTimeout(function () {
             resendButton.disabled = false;
+            sendButton.disabled = false;
         }, timeout);
 
         // Print out the remaining time in the console
         const timer = setInterval(function () {
             if (timeout > 0) {
                 console.log("Remaining time:", timeout / 1000, "seconds");
+                // update the timer
+                // document.getElementById("timer").style.display = "block";
+                document.getElementById("timer").innerHTML = "Time left: " + String (timeout / 1000);
                 timeout -= 1000;
             } else {
+                // document.getElementById("timer").style.display = "none";
+                document.getElementById("timer").innerHTML = "Time left: ";
                 clearInterval(timer);
             }
         }, 1000);
